@@ -10,7 +10,7 @@ The sample comes pre-configured with a test account but in case you need to try 
 Test Account
 ------------
 
-   * Test Client ID and Client Secret can be found in the file Credentials.java under the samples package.
+   * Test Client ID and Client Secret can be found in the file sdk_config.properties file under src/main/resources/ folder.
    * The endpoint URL for token generation and API calls are fetched from sdk_config.properties file under src/main/resources/ folder.
    * AccessToken are generated once using GenerateAccessToken.java and used for the samples.
    
@@ -23,37 +23,47 @@ Build and run the samples
 Samples
 ========
 
-CreateCreditCardSample
+Save a credit card
 ----------------------
 
-CreateCreditCardSample shows you how to create a CreditCard by POSTing to the URI /v1/vault/credit-card. The response of the sample is a valid CreditCard object created by the API.
+Save a credit card shows you how to create a CreditCard by POSTing to the URI /v1/vault/credit-card.
 
-CreatePaymentSample
--------------------
+Payment with a credit card
+--------------------------
 
-CreatePaymentSample shows you how to create a Payment by POSTing a Payment object to the URI '/v1/payments/payment'. This sample typically shows you how to create a Payment using CreditCard as a payment method. The response of the sample is valid Payment ID retrieved from the call.
+Payment with a credit card shows you how to create a Payment by POSTing a Payment object to the URI '/v1/payments/payment'. This sample typically shows you how to create a Payment using CreditCard as a payment method.
 
-GetCreditCardSample
--------------------
+Payment with a PayPal Account
+-----------------------------
 
-GetCreditCardSample shows you how to retrieve a CreditCard from the service. The sample takes a valid CreditCard ID as an input and fetches the CreditCard resource associated with the ID.
+Payment with a PayPal Account shows you how to create a Payment by POSTing a Payment object to the URI '/v1/payments/payment'. The sample includes a redirection flow to complete the payment.
 
-GetPaymentHistorySample
+Payment with saved credit card
+------------------------------
+
+Payment with saved credit card shows you how to create a Payment by POSTing a Payment object to the URI '/v1/payments/payment'. This sample typically shows you how to create a Payment using saved CardID.
+
+Get credit card Details
 -----------------------
 
-GetPaymentHistorySample shows you how to retrieve a PaymentHistory using count parameter. There are various parameters that can be used to retrieve a PaymentHistory like count, startId, startIndex, payeeId. This samples shows you how to use the count parameter.
+Get credit card Details shows you how to retrieve a saved CreditCard from the service using a valid CardId.
 
-GetPaymentSample
+Get Payment History
+-------------------
+
+Get Payment History shows you how to retrieve a PaymentHistory using count parameter. There are various parameters that can be used to retrieve a PaymentHistory like count, startId, startIndex, payeeId. This samples shows you how to use the count parameter.
+
+Get Payment Details
+-------------------
+
+Get Payment Details shows you how to retrieve a Payment from the service. The sample uses a valid Payment ID as an input and fetches the Payment resource associated with the ID.
+
+Get Sale Details
 ----------------
 
-GetPaymentSample shows you how to retrieve a Payment from the service. The sample takes a valid Payment ID as an input and fetches the Payment resource associated with the ID.
+Get Sale Details shows you how to retrieve a Sale using a Sale ID.
 
-GetSaleSample
--------------
-
-GetSaleSample shows you how to retrieve a Sale from a Sale ID using the API. This sample is self contained in sense that it starts by creating a Payment with sale as the intent, retrieves the Sale ID associated with the Payment resource. The sample then fetches the Sale resource associated with the Sale ID.
-
-SaleRefundSample
+Refund a Payment
 ----------------
 
-SaleRefundSample shows you how to Refund on a Sale resource. The sample creates a Payment with sale as the intent, Sale ID from the response is used to create a Sale object. The sample then calls the Refund API on the Sale object.
+Refund a Payment shows you how to Refund on a Sale resource. The sample uses a Sale ID and a valid Refund object to call the Refund API on the Sale object.
