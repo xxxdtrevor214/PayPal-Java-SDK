@@ -35,7 +35,7 @@ To make an API call:
 		
 *	Copy the configuration file `sdk_config.properties` in `rest-api-sample/src/test/resources` folder to your application `src/main/resources`. And load it as a classloader resource,
 
-		InputStream is = CreatePaymentSample.class.getClassLoader().getResourceAsStream("sdk_config.properties");
+		InputStream is = PaymentWithCreditCardServlet.class.getResourceAsStream("/sdk_config.properties");
 		
 *	Or load config file from any custom location using absolute path with the below method calls as required,
 
@@ -54,14 +54,17 @@ To make an API call:
 
 			Payment.get(accessToken, paymentID);
 			
-	 * If it is non-static, invoke it using resource object as like
+	 * If it is non-static, invoke it using resource object as like below. The API call takes a APIContext object in the place of AccessToken, APIContext object encapsulates Access Token and Request ID (used for idempotency).
 
+			APIContext apiContext = new APIContext(accessToken);
+					     (OR)
+			APIContext apiContext = new APIContext(accessToken, requestId);
 			Payment payment = new Payment();
 			payment.setIntent("sale");
 			...
 			...
 			...
-			payment.create(accessToken);
+			payment.create(apiContext);
 
 		
 SDK Configuration:
