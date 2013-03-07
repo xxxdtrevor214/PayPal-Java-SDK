@@ -106,4 +106,14 @@
 			</reporting>
 		</profile>
 	</profiles>
+	<developers>
+		<developer>
+			<id>DL-PP-Platform-Java-SDK</id>
+			<name>DL-PP-Platform-Java-SDK</name>
+			<email>DL-PP-Platform-Java-SDK@ebay.com</email>
+			<url>http://www.paypal.com</url>
+			<organization>PayPal</organization>
+			<organizationUrl>http://www.paypal.com</organizationUrl>
+		</developer>
+	</developers>
 </project>
