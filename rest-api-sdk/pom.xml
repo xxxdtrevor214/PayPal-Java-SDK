@@ -79,6 +79,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	<licenses>
+		<license>
+			<name>PayPal SDK License</name>
+			<url>https://github.com/paypal/rest-api-sdk-java/blob/master/LICENSE.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<profiles>
 		<profile>
 			<id>coverage</id>
