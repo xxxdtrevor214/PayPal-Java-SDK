@@ -24,7 +24,7 @@ public abstract class PayPalResource {
 	/**
 	 * SDK ID used in User-Agent HTTP header
 	 */
-	public static final String SDK_ID = "ID";
+	public static final String SDK_ID = "rest-sdk-java";
 
 	/**
 	 * SDK Version used in User-Agent HTTP header

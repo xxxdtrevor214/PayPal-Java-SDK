@@ -32,12 +32,12 @@ public class RESTConfiguration {
 		StringBuilder javaVersion = new StringBuilder("lang=Java");
 		if (System.getProperty("java.version") != null
 				&& System.getProperty("java.version").length() > 0) {
-			javaVersion.append(";V=")
+			javaVersion.append(";v=")
 					.append(System.getProperty("java.version"));
 		}
 		if (System.getProperty("java.vm.name") != null
 				&& System.getProperty("java.vm.name").length() > 0) {
-			javaVersion.append(";b=");
+			javaVersion.append(";bit=");
 			if (System.getProperty("java.vm.name").contains("Client")) {
 				javaVersion.append("32");
 			} else {
@@ -50,10 +50,10 @@ public class RESTConfiguration {
 		StringBuilder osVersion = new StringBuilder();
 		if (System.getProperty("os.name") != null
 				&& System.getProperty("os.name").length() > 0) {
-			osVersion.append("OS=");
+			osVersion.append("os=");
 			osVersion.append(System.getProperty("os.name").replace(' ', '_'));
 		} else {
-			osVersion.append("OS=");
+			osVersion.append("os=");
 		}
 		if (System.getProperty("os.version") != null
 				&& System.getProperty("os.version").length() > 0) {
