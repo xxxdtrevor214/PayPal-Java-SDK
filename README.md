@@ -1,4 +1,4 @@
-## PayPal REST API Java SDK [![Build Status](https://travis-ci.org/prannamalai/rest-api-sdk-java.png?branch=master)](https://travis-ci.org/prannamalai/rest-api-sdk-java)
+## PayPal REST API Java SDK [![Build Status](https://travis-ci.org/paypal/rest-api-sdk-java.png?branch=master)](https://travis-ci.org/paypal/rest-api-sdk-java)
 This repository contains Java SDK and samples for REST API.
 
 Prerequisites:
