@@ -5,5 +5,5 @@ jdk:
   - openjdk6
 notifications:
   recipients:
-    - prannamalai.x.com@gmail.com
+    - DL-PP-Platform-Java-SDK@ebay.com
   on_success: change
