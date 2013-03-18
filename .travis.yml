@@ -6,4 +6,4 @@ jdk:
 notifications:
   recipients:
     - prannamalai.x.com@gmail.com
-  on_success: always
+  on_success: change
