@@ -359,7 +359,31 @@ public class CreditCard extends Resource {
 		Object[] parameters = new Object[] {  creditCardId };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(accessToken, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
+		APIContext apiContext = new APIContext(accessToken);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
+	}
+	
+	/**
+	 * Get call for CreditCard.
+	 * @param apiContext
+	 *			{@link APIContext} to be used for the call.
+	 * @param creditCardId
+	 * @HttpMethod GET
+	 * @URIpath v1/vault/credit-card/:creditCardId
+	 * @return CreditCard
+	 */
+	public static CreditCard get(APIContext apiContext, String creditCardId) throws PayPalRESTException {
+		if ((creditCardId == null) || (creditCardId.length() <= 0)) {
+			throw new IllegalArgumentException("creditCardId cannot be null or empty");
+		}
+		String pattern = "v1/vault/credit-card/{0}";
+		Object[] parameters = new Object[] {  creditCardId };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
+		}
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
 	}
 
 	/**

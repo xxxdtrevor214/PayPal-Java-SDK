@@ -9,11 +9,8 @@ import com.paypal.core.rest.JSONFormatter;
  * 
  */
 public class Payer extends Resource {
-	public enum PaymentMethod {
-		CREDIT_CARD,
-		PAYPAL
-	}
-	
+
+
 	/**
 	 * 
 	 */ 
@@ -48,12 +45,6 @@ public class Payer extends Resource {
 	 */
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
-	}
-	/**
-	 * Setter for paymentMethod;
-	 */
-	public void setPaymentMethod(PaymentMethod paymentMethod) {
-		this.paymentMethod = paymentMethod.toString().toLowerCase();
 	}
 	/**
 	 * Getter for payerInfo

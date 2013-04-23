@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.paypal.sdk</groupId>
 	<artifactId>rest-api-sdk</artifactId>
-	<version>0.5.2</version>
+	<version>0.6.0</version>
 	<packaging>jar</packaging>
 	<name>REST API SDK</name>
 	<description>PayPal SDK for integrating with the REST APIs</description>
@@ -29,11 +29,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
-		</dependency>
-		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.3.1</version>
@@ -41,7 +36,7 @@
 		<dependency>
 			<groupId>com.paypal.sdk</groupId>
 			<artifactId>paypal-core</artifactId>
-			<version>1.2</version>
+			<version>1.4</version>
 		</dependency>
 	</dependencies>
 	<build>

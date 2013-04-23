@@ -224,7 +224,31 @@ public class Sale extends Resource {
 		Object[] parameters = new Object[] {  saleId };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(accessToken, HttpMethod.GET, resourcePath, payLoad, Sale.class);
+		APIContext apiContext = new APIContext(accessToken);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Sale.class);
+	}
+	
+	/**
+	 * Get call for Sale.
+	 * @param apiContext
+	 *			{@link APIContext} to be used for the call.
+	 * @param saleId
+	 * @HttpMethod GET
+	 * @URIpath v1/payments/sale/:saleId
+	 * @return Sale
+	 */
+	public static Sale get(APIContext apiContext, String saleId) throws PayPalRESTException {
+		if ((saleId == null) || (saleId.length() <= 0)) {
+			throw new IllegalArgumentException("saleId cannot be null or empty");
+		}
+		String pattern = "v1/payments/sale/{0}";
+		Object[] parameters = new Object[] {  saleId };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
+		}
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Sale.class);
 	}
 
 	/**

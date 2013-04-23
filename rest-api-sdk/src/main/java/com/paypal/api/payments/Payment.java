@@ -21,9 +21,7 @@ import java.util.Map;
  * 
  */
 public class Payment extends Resource {
-	public enum Intent {
-		SALE
-	}
+
 
 	/**
 	 * 
@@ -193,14 +191,6 @@ public class Payment extends Resource {
 	public void setIntent(String intent) {
 		this.intent = intent;
 	}
-	
-	/**
-	 * Setter for intent;
-	 */
-	public void setIntent(Intent intent) {
-		this.intent = intent.toString().toLowerCase();
-	}
-	
 	/**
 	 * Getter for payer
 	 */
@@ -281,7 +271,39 @@ public class Payment extends Resource {
 		Object[] parameters = new Object[] { containerMap };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(accessToken, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+		APIContext apiContext = new APIContext(accessToken);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+	}
+	
+	/**
+	 * Get call for Payment.
+	 * @param apiContext
+	 *			{@link APIContext} to be used for the call.
+	 * @param containerMap
+	 *      Map containing the query strings with the 
+	 *      following values as keys:
+	 *      count,
+	 *      start_id,
+	 *      start_index,
+	 *      start_time,
+	 *      end_time,
+	 *      payee_id,
+	 *      sort_by,
+	 *      sort_order,
+	 *      All other keys in the map are ignored by the SDK
+	 * @HttpMethod GET
+	 * @URIpath v1/payments/payment?count=:count&start_id=:start_id&start_index=:start_index&start_time=:start_time&end_time=:end_time&payee_id=:payee_id&sort_by=:sort_by&sort_order=:sort_order
+	 * @return PaymentHistory
+	 */
+	public static PaymentHistory get(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
+		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
+		Object[] parameters = new Object[] { containerMap };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
+		}
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
 	}
 	
 
@@ -300,7 +322,29 @@ public class Payment extends Resource {
 		Object[] parameters = new Object[] { queryParameters };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(accessToken, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+		APIContext apiContext = new APIContext(accessToken);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+	}
+	
+	/**
+	 * Get call for Payment.
+	 * @param apiContext
+	 *			{@link APIContext} to be used for the call.
+	 * @param queryParameters
+	 *			Container for query strings
+	 * @HttpMethod GET
+	 * @URIpath v1/payments/payment?count=:count&start_id=:start_id&start_index=:start_index&start_time=:start_time&end_time=:end_time&payee_id=:payee_id&sort_by=:sort_by&sort_order=:sort_order
+	 * @return PaymentHistory
+	 */
+	public static PaymentHistory get(APIContext apiContext, QueryParameters queryParameters) throws PayPalRESTException {
+		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
+		Object[] parameters = new Object[] { queryParameters };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
+		}
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
 	}
 
 	/**
@@ -347,7 +391,31 @@ public class Payment extends Resource {
 		Object[] parameters = new Object[] {  paymentId };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(accessToken, HttpMethod.GET, resourcePath, payLoad, Payment.class);
+		APIContext apiContext = new APIContext(accessToken);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Payment.class);
+	}
+	
+	/**
+	 * Get call for Payment.
+	 * @param apiContext
+	 *			{@link APIContext} to be used for the call.
+	 * @param paymentId
+	 * @HttpMethod GET
+	 * @URIpath v1/payments/payment/:paymentId
+	 * @return Payment
+	 */
+	public static Payment get(APIContext apiContext, String paymentId) throws PayPalRESTException {
+		if ((paymentId == null) || (paymentId.length() <= 0)) {
+			throw new IllegalArgumentException("paymentId cannot be null or empty");
+		}
+		String pattern = "v1/payments/payment/{0}";
+		Object[] parameters = new Object[] {  paymentId };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
+		}
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Payment.class);
 	}
 
 	/**

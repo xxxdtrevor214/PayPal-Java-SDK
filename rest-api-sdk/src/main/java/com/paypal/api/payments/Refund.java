@@ -278,7 +278,31 @@ public class Refund extends Resource {
 		Object[] parameters = new Object[] {  refundId };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(accessToken, HttpMethod.GET, resourcePath, payLoad, Refund.class);
+		APIContext apiContext = new APIContext(accessToken);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Refund.class);
+	}
+	
+	/**
+	 * Get call for Refund.
+	 * @param apiContext
+	 *			{@link APIContext} to be used for the call.
+	 * @param refundId
+	 * @HttpMethod GET
+	 * @URIpath v1/payments/refund/:refundId
+	 * @return Refund
+	 */
+	public static Refund get(APIContext apiContext, String refundId) throws PayPalRESTException {
+		if ((refundId == null) || (refundId.length() <= 0)) {
+			throw new IllegalArgumentException("refundId cannot be null or empty");
+		}
+		String pattern = "v1/payments/refund/{0}";
+		Object[] parameters = new Object[] {  refundId };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
+		}
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Refund.class);
 	}
 
 	/**
