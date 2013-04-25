@@ -281,8 +281,21 @@ public class PaymentTestCase {
 		logger.info("Response = " + Payment.getLastResponse());
 		logger.info("Retrieved Payments count = " + paymentHistory.getCount());
 	}
-
+	
 	@Test(dependsOnMethods = { "testGetPaymentHistoryAPI" })
+	public void testGetPaymentHistoryQueryParamsAPI() throws PayPalRESTException {
+		logger.info("**** Get Payment History ****");
+		logger.info("Setting Access Token = " + TokenHolder.accessToken);
+		QueryParameters params = new QueryParameters();
+		params.setCount("10");
+		PaymentHistory paymentHistory = Payment.get(TokenHolder.accessToken,
+				params);
+		logger.info("Request = " + Payment.getLastRequest());
+		logger.info("Response = " + Payment.getLastResponse());
+		logger.info("Retrieved Payments count = " + paymentHistory.getCount());
+	}
+
+	@Test(dependsOnMethods = { "testGetPaymentHistoryQueryParamsAPI" })
 	public void testFailCreatePaymentAPI() {
 		logger.info("**** Failing Create Payment ****");
 		logger.info("Setting Access Token = " + TokenHolder.accessToken);
