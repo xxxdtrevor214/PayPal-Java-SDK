@@ -275,6 +275,9 @@ public class Sale extends Resource {
 	 * @return Refund
 	 */
 	public Refund refund(APIContext apiContext, Refund refund) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
 		if (refund == null) {
 			throw new IllegalArgumentException("refund cannot be null");
 		}

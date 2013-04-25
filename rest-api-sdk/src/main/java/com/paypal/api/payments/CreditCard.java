@@ -337,6 +337,9 @@ public class CreditCard extends Resource {
 	 * @return CreditCard
 	 */
 	public CreditCard create(APIContext apiContext) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
 		String resourcePath = "v1/vault/credit-card";
 		String payLoad = this.toJSON();	
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreditCard.class);
