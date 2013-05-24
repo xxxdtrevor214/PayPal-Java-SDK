@@ -32,9 +32,9 @@ public class CreditCardTestCase {
 
 	public static final String LASTNAME = "Shopper";
 
-	public static final String EXPMONTH = "11";
+	public static final int EXPMONTH = 11;
 
-	public static final String EXPYEAR = "2018";
+	public static final int EXPYEAR = 2018;
 
 	public static final String CVV2 = "874";
 
@@ -89,8 +89,8 @@ public class CreditCardTestCase {
 		creditCard.setPayerId(PAYERID);
 		creditCard.setState(STATE);
 		creditCard.setValidUntil(VALIDUNTIL);
-		List<Link> links = new ArrayList<Link>();
-		links.add(LinkTestCase.createLink());
+		List<Links> links = new ArrayList<Links>();
+		links.add(LinksTestCase.createLinks());
 		creditCard.setLinks(links);
 		return creditCard;
 	}

@@ -16,8 +16,8 @@ public class TransactionTestCase {
 
 	public static Transaction createTransaction() {
 		ItemList itemList = ItemListTestCase.createItemList();
-		List<SubTransaction> relResources = new ArrayList<SubTransaction>();
-		relResources.add(SubTransactionTestCase.createSubTransaction());
+		List<RelatedResources> relResources = new ArrayList<RelatedResources>();
+		relResources.add(RelatedResourcesTestCase.createRelatedResources());
 		Transaction transaction = new Transaction();
 		transaction.setAmount(AMOUNT);
 		transaction.setPayee(PAYEE);

@@ -1,6 +1,7 @@
 package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
+import com.paypal.api.payments.Amount;
 import java.util.Map;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
@@ -12,52 +13,39 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class RedirectUrls  {
+public class Transactions  {
 
 	/**
-	 * Url where the payer would be redirected to after approving the payment.
+	 * Amount being collected.
 	 */
-	private String returnUrl;
-	
-	/**
-	 * Url where the payer would be redirected to after canceling the payment.
-	 */
-	private String cancelUrl;
+	private Amount amount;
 	
 	/**
 	 * Default Constructor
 	 */
-	public RedirectUrls() {
+	public Transactions() {
 	}
 
+	/**
+	 * Parameterized Constructor
+	 */
+	public Transactions(Amount amount) {
+		this.amount = amount;
+	}
+	
 
 	/**
-	 * Setter for returnUrl
+	 * Setter for amount
 	 */
-	public void setReturnUrl(String returnUrl) {
-		this.returnUrl = returnUrl;
+	public void setAmount(Amount amount) {
+		this.amount = amount;
 	}
 	
 	/**
-	 * Getter for returnUrl
+	 * Getter for amount
 	 */
-	public String getReturnUrl() {
-		return this.returnUrl;
-	}
-
-
-	/**
-	 * Setter for cancelUrl
-	 */
-	public void setCancelUrl(String cancelUrl) {
-		this.cancelUrl = cancelUrl;
-	}
-	
-	/**
-	 * Getter for cancelUrl
-	 */
-	public String getCancelUrl() {
-		return this.cancelUrl;
+	public Amount getAmount() {
+		return this.amount;
 	}
 
 	/**

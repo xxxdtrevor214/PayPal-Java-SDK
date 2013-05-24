@@ -19,8 +19,8 @@ public class AuthorizationTestCase {
 	public static final String CREATEDTIME = "2013-01-17T18:12:02.347Z";
 
 	public static Authorization createAuthorization() {
-		List<Link> links = new ArrayList<Link>();
-		links.add(LinkTestCase.createLink());
+		List<Links> links = new ArrayList<Links>();
+		links.add(LinksTestCase.createLinks());
 		Authorization authorization = new Authorization();
 		authorization.setId(ID);
 		authorization.setParentPayment(PARENTPAYMENT);

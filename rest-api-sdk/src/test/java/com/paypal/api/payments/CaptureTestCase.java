@@ -23,10 +23,9 @@ public class CaptureTestCase {
 	public static final String CREATEDTIME = "2013-01-17T18:12:02.347Z";
 
 	public static Capture createCapture() {
-		List<Link> links = new ArrayList<Link>();
-		links.add(LinkTestCase.createLink());
+		List<Links> links = new ArrayList<Links>();
+		links.add(LinksTestCase.createLinks());
 		Capture capture = new Capture();
-		capture.setAuthorizationId(AUTHID);
 		capture.setDescription(DESCRIPTION);
 		capture.setId(ID);
 		capture.setParentPayment(PARENTPAYMENT);
@@ -41,7 +40,6 @@ public class CaptureTestCase {
 	public void testConstruction() {
 		Capture capture = createCapture();
 		Assert.assertEquals(capture.getId(), ID);
-		Assert.assertEquals(capture.getAuthorizationId(), AUTHID);
 		Assert.assertEquals(capture.getDescription(), DESCRIPTION);
 		Assert.assertEquals(capture.getParentPayment(), PARENTPAYMENT);
 		Assert.assertEquals(capture.getState(), STATE);

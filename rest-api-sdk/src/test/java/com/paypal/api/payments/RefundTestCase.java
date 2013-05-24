@@ -43,8 +43,8 @@ public class RefundTestCase {
 	}
 
 	public static Refund createRefund() {
-		List<Link> links = new ArrayList<Link>();
-		links.add(LinkTestCase.createLink());
+		List<Links> links = new ArrayList<Links>();
+		links.add(LinksTestCase.createLinks());
 		Refund refund = new Refund();
 		refund.setCaptureId(CAPTUREID);
 		refund.setDescription(DESCRIPTION);
