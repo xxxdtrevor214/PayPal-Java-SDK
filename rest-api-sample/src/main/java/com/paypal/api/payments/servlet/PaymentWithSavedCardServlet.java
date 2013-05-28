@@ -63,12 +63,12 @@ public class PaymentWithSavedCardServlet extends HttpServlet {
 		CreditCardToken creditCardToken = new CreditCardToken();
 		creditCardToken.setCreditCardId("CARD-5BT058015C739554AKE2GCEI");
 
-		// ###AmountDetails
+		// ###Details
 		// Let's you specify details of a payment amount.
-		AmountDetails amountDetails = new AmountDetails();
-		amountDetails.setShipping("1");
-		amountDetails.setSubtotal("5");
-		amountDetails.setTax("1");
+		Details details = new Details();
+		details.setShipping("1");
+		details.setSubtotal("5");
+		details.setTax("1");
 
 		// ###Amount
 		// Let's you specify a payment amount.
@@ -76,7 +76,7 @@ public class PaymentWithSavedCardServlet extends HttpServlet {
 		amount.setCurrency("USD");
 		// Total must be equal to the sum of shipping, tax and subtotal.
 		amount.setTotal("7");
-		amount.setDetails(amountDetails);
+		amount.setDetails(details);
 
 		// ###Transaction
 		// A transaction defines the contract of a

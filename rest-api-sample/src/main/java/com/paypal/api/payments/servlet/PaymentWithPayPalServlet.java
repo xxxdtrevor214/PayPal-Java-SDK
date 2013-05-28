@@ -6,16 +6,33 @@ package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.paypal.api.payments.*;
-import com.paypal.api.payments.util.*;
-import com.paypal.core.rest.*;
+import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Details;
+import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payer;
+import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.PaymentExecution;
+import com.paypal.api.payments.RedirectUrls;
+import com.paypal.api.payments.Transaction;
+import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.core.rest.APIContext;
+import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.core.rest.PayPalResource;
 
 /**
  * @author lvairamani
@@ -65,17 +82,17 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 			accessToken = GenerateAccessToken.getAccessToken();
 
 			// ### Api Context
-			// Pass in a `ApiContext` object to authenticate 
-			// the call and to send a unique request id 
+			// Pass in a `ApiContext` object to authenticate
+			// the call and to send a unique request id
 			// (that ensures idempotency). The SDK generates
-			// a request id if you do not pass one explicitly. 
+			// a request id if you do not pass one explicitly.
 			apiContext = new APIContext(accessToken);
-			// Use this variant if you want to pass in a request id  
-			// that is meaningful in your application, ideally 
+			// Use this variant if you want to pass in a request id
+			// that is meaningful in your application, ideally
 			// a order id.
-			/* 
-			 * String requestId = Long.toString(System.nanoTime();
-			 * APIContext apiContext = new APIContext(accessToken, requestId ));
+			/*
+			 * String requestId = Long.toString(System.nanoTime(); APIContext
+			 * apiContext = new APIContext(accessToken, requestId ));
 			 */
 		} catch (PayPalRESTException e) {
 			req.setAttribute("error", e.getMessage());
@@ -96,12 +113,12 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 			}
 		} else {
 
-			// ###AmountDetails
+			// ###Details
 			// Let's you specify details of a payment amount.
-			AmountDetails amountDetails = new AmountDetails();
-			amountDetails.setShipping("1");
-			amountDetails.setSubtotal("5");
-			amountDetails.setTax("1");
+			Details details = new Details();
+			details.setShipping("1");
+			details.setSubtotal("5");
+			details.setTax("1");
 
 			// ###Amount
 			// Let's you specify a payment amount.
@@ -109,7 +126,7 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 			amount.setCurrency("USD");
 			// Total must be equal to sum of shipping, tax and subtotal.
 			amount.setTotal("7");
-			amount.setDetails(amountDetails);
+			amount.setDetails(details);
 
 			// ###Transaction
 			// A transaction defines the contract of a
@@ -162,9 +179,9 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 						+ createdPayment.getId() + " and status = "
 						+ createdPayment.getState());
 				// ###Payment Approval Url
-				Iterator<Link> links = createdPayment.getLinks().iterator();
+				Iterator<Links> links = createdPayment.getLinks().iterator();
 				while (links.hasNext()) {
-					Link link = links.next();
+					Links link = links.next();
 					if (link.getRel().equalsIgnoreCase("approval_url")) {
 						req.setAttribute("redirectURL", link.getHref());
 					}

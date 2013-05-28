@@ -71,19 +71,19 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
 		creditCard.setCvv2("874");
-		creditCard.setExpireMonth("11");
-		creditCard.setExpireYear("2018");
+		creditCard.setExpireMonth(11);
+		creditCard.setExpireYear(2018);
 		creditCard.setFirstName("Joe");
 		creditCard.setLastName("Shopper");
 		creditCard.setNumber("4417119669820331");
 		creditCard.setType("visa");
 
-		// ###AmountDetails
+		// ###Details
 		// Let's you specify details of a payment amount.
-		AmountDetails amountDetails = new AmountDetails();
-		amountDetails.setShipping("1");
-		amountDetails.setSubtotal("5");
-		amountDetails.setTax("1");
+		Details details = new Details();
+		details.setShipping("1");
+		details.setSubtotal("5");
+		details.setTax("1");
 
 		// ###Amount
 		// Let's you specify a payment amount.
@@ -91,7 +91,7 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 		amount.setCurrency("USD");
 		// Total must be equal to sum of shipping, tax and subtotal.
 		amount.setTotal("7");
-		amount.setDetails(amountDetails);
+		amount.setDetails(details);
 
 		// ###Transaction
 		// A transaction defines the contract of a

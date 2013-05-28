@@ -63,8 +63,8 @@ public class CreateCreditCardServlet extends HttpServlet {
 		// A resource representing a credit card that can be
 		// used to fund a payment.
 		CreditCard creditCard = new CreditCard();
-		creditCard.setExpireMonth("11");
-		creditCard.setExpireYear("2018");
+		creditCard.setExpireMonth(11);
+		creditCard.setExpireYear(2018);
 		creditCard.setNumber("4417119669820331");
 		creditCard.setType("visa");
 

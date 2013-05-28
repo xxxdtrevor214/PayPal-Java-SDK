@@ -53,7 +53,7 @@ public class GetPaymentServlet extends HttpServlet {
 
 	}
 
-	// ##GetPaymentByPaymentId
+	// ##GetPayment
 	// Call the method with a valid Payment ID
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
