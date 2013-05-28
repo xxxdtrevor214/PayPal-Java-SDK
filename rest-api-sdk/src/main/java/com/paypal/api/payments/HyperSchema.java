@@ -56,8 +56,9 @@ public class HyperSchema  {
 	/**
 	 * Setter for links
 	 */
-	public void setLinks(List<Links> links) {
+	public HyperSchema setLinks(List<Links> links) {
 		this.links = links;
+		return this;
 	}
 	
 	/**
@@ -71,8 +72,9 @@ public class HyperSchema  {
 	/**
 	 * Setter for fragmentResolution
 	 */
-	public void setFragmentResolution(String fragmentResolution) {
+	public HyperSchema setFragmentResolution(String fragmentResolution) {
 		this.fragmentResolution = fragmentResolution;
+		return this;
 	}
 	
 	/**
@@ -86,8 +88,9 @@ public class HyperSchema  {
 	/**
 	 * Setter for readonly
 	 */
-	public void setReadonly(Boolean readonly) {
+	public HyperSchema setReadonly(Boolean readonly) {
 		this.readonly = readonly;
+		return this;
 	}
 	
 	/**
@@ -101,8 +104,9 @@ public class HyperSchema  {
 	/**
 	 * Setter for contentEncoding
 	 */
-	public void setContentEncoding(String contentEncoding) {
+	public HyperSchema setContentEncoding(String contentEncoding) {
 		this.contentEncoding = contentEncoding;
+		return this;
 	}
 	
 	/**
@@ -116,8 +120,9 @@ public class HyperSchema  {
 	/**
 	 * Setter for pathStart
 	 */
-	public void setPathStart(String pathStart) {
+	public HyperSchema setPathStart(String pathStart) {
 		this.pathStart = pathStart;
+		return this;
 	}
 	
 	/**
@@ -131,8 +136,9 @@ public class HyperSchema  {
 	/**
 	 * Setter for mediaType
 	 */
-	public void setMediaType(String mediaType) {
+	public HyperSchema setMediaType(String mediaType) {
 		this.mediaType = mediaType;
+		return this;
 	}
 	
 	/**

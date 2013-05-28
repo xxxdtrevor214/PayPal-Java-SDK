@@ -55,8 +55,9 @@ public class PayerInfo  {
 	/**
 	 * Setter for email
 	 */
-	public void setEmail(String email) {
+	public PayerInfo setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 	
 	/**
@@ -70,8 +71,9 @@ public class PayerInfo  {
 	/**
 	 * Setter for firstName
 	 */
-	public void setFirstName(String firstName) {
+	public PayerInfo setFirstName(String firstName) {
 		this.firstName = firstName;
+		return this;
 	}
 	
 	/**
@@ -85,8 +87,9 @@ public class PayerInfo  {
 	/**
 	 * Setter for lastName
 	 */
-	public void setLastName(String lastName) {
+	public PayerInfo setLastName(String lastName) {
 		this.lastName = lastName;
+		return this;
 	}
 	
 	/**
@@ -100,8 +103,9 @@ public class PayerInfo  {
 	/**
 	 * Setter for payerId
 	 */
-	public void setPayerId(String payerId) {
+	public PayerInfo setPayerId(String payerId) {
 		this.payerId = payerId;
+		return this;
 	}
 	
 	/**
@@ -115,8 +119,9 @@ public class PayerInfo  {
 	/**
 	 * Setter for phone
 	 */
-	public void setPhone(String phone) {
+	public PayerInfo setPhone(String phone) {
 		this.phone = phone;
+		return this;
 	}
 	
 	/**
@@ -130,8 +135,9 @@ public class PayerInfo  {
 	/**
 	 * Setter for shippingAddress
 	 */
-	public void setShippingAddress(Address shippingAddress) {
+	public PayerInfo setShippingAddress(Address shippingAddress) {
 		this.shippingAddress = shippingAddress;
+		return this;
 	}
 	
 	/**

@@ -53,11 +53,6 @@ public class Refund  {
 	private String parentPayment;
 	
 	/**
-	 * Description of what is being refunded for.
-	 */
-	private String description;
-	
-	/**
 	 * 
 	 */
 	private List<Links> links;
@@ -121,8 +116,9 @@ public class Refund  {
 	/**
 	 * Setter for id
 	 */
-	public void setId(String id) {
+	public Refund setId(String id) {
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -136,8 +132,9 @@ public class Refund  {
 	/**
 	 * Setter for createTime
 	 */
-	public void setCreateTime(String createTime) {
+	public Refund setCreateTime(String createTime) {
 		this.createTime = createTime;
+		return this;
 	}
 	
 	/**
@@ -151,8 +148,9 @@ public class Refund  {
 	/**
 	 * Setter for amount
 	 */
-	public void setAmount(Amount amount) {
+	public Refund setAmount(Amount amount) {
 		this.amount = amount;
+		return this;
 	}
 	
 	/**
@@ -166,8 +164,9 @@ public class Refund  {
 	/**
 	 * Setter for state
 	 */
-	public void setState(String state) {
+	public Refund setState(String state) {
 		this.state = state;
+		return this;
 	}
 	
 	/**
@@ -181,8 +180,9 @@ public class Refund  {
 	/**
 	 * Setter for saleId
 	 */
-	public void setSaleId(String saleId) {
+	public Refund setSaleId(String saleId) {
 		this.saleId = saleId;
+		return this;
 	}
 	
 	/**
@@ -196,8 +196,9 @@ public class Refund  {
 	/**
 	 * Setter for captureId
 	 */
-	public void setCaptureId(String captureId) {
+	public Refund setCaptureId(String captureId) {
 		this.captureId = captureId;
+		return this;
 	}
 	
 	/**
@@ -211,8 +212,9 @@ public class Refund  {
 	/**
 	 * Setter for parentPayment
 	 */
-	public void setParentPayment(String parentPayment) {
+	public Refund setParentPayment(String parentPayment) {
 		this.parentPayment = parentPayment;
+		return this;
 	}
 	
 	/**
@@ -224,25 +226,11 @@ public class Refund  {
 
 
 	/**
-	 * Setter for description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	/**
-	 * Getter for description
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
-
-	/**
 	 * Setter for links
 	 */
-	public void setLinks(List<Links> links) {
+	public Refund setLinks(List<Links> links) {
 		this.links = links;
+		return this;
 	}
 	
 	/**

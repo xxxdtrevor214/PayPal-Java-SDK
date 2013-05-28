@@ -37,8 +37,9 @@ public class ShippingAddress extends Address {
 	/**
 	 * Setter for recipientName
 	 */
-	public void setRecipientName(String recipientName) {
+	public ShippingAddress setRecipientName(String recipientName) {
 		this.recipientName = recipientName;
+		return this;
 	}
 	
 	/**

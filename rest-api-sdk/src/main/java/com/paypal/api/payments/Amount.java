@@ -48,8 +48,9 @@ public class Amount  {
 	/**
 	 * Setter for currency
 	 */
-	public void setCurrency(String currency) {
+	public Amount setCurrency(String currency) {
 		this.currency = currency;
+		return this;
 	}
 	
 	/**
@@ -63,8 +64,9 @@ public class Amount  {
 	/**
 	 * Setter for total
 	 */
-	public void setTotal(String total) {
+	public Amount setTotal(String total) {
 		this.total = total;
+		return this;
 	}
 	
 	/**
@@ -78,8 +80,9 @@ public class Amount  {
 	/**
 	 * Setter for details
 	 */
-	public void setDetails(Details details) {
+	public Amount setDetails(Details details) {
 		this.details = details;
+		return this;
 	}
 	
 	/**

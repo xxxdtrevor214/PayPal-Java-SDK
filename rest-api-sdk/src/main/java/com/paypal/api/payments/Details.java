@@ -44,8 +44,9 @@ public class Details  {
 	/**
 	 * Setter for shipping
 	 */
-	public void setShipping(String shipping) {
+	public Details setShipping(String shipping) {
 		this.shipping = shipping;
+		return this;
 	}
 	
 	/**
@@ -59,8 +60,9 @@ public class Details  {
 	/**
 	 * Setter for subtotal
 	 */
-	public void setSubtotal(String subtotal) {
+	public Details setSubtotal(String subtotal) {
 		this.subtotal = subtotal;
+		return this;
 	}
 	
 	/**
@@ -74,8 +76,9 @@ public class Details  {
 	/**
 	 * Setter for tax
 	 */
-	public void setTax(String tax) {
+	public Details setTax(String tax) {
 		this.tax = tax;
+		return this;
 	}
 	
 	/**
@@ -89,8 +92,9 @@ public class Details  {
 	/**
 	 * Setter for fee
 	 */
-	public void setFee(String fee) {
+	public Details setFee(String fee) {
 		this.fee = fee;
+		return this;
 	}
 	
 	/**

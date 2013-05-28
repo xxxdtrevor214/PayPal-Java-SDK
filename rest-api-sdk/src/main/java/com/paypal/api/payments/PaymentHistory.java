@@ -41,8 +41,9 @@ public class PaymentHistory  {
 	/**
 	 * Setter for payments
 	 */
-	public void setPayments(List<Payment> payments) {
+	public PaymentHistory setPayments(List<Payment> payments) {
 		this.payments = payments;
+		return this;
 	}
 	
 	/**
@@ -56,8 +57,9 @@ public class PaymentHistory  {
 	/**
 	 * Setter for count
 	 */
-	public void setCount(int count) {
+	public PaymentHistory setCount(int count) {
 		this.count = count;
+		return this;
 	}
 	
 	/**
@@ -71,8 +73,9 @@ public class PaymentHistory  {
 	/**
 	 * Setter for nextId
 	 */
-	public void setNextId(String nextId) {
+	public PaymentHistory setNextId(String nextId) {
 		this.nextId = nextId;
+		return this;
 	}
 	
 	/**

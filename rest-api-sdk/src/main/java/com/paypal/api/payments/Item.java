@@ -59,8 +59,9 @@ public class Item  {
 	/**
 	 * Setter for quantity
 	 */
-	public void setQuantity(String quantity) {
+	public Item setQuantity(String quantity) {
 		this.quantity = quantity;
+		return this;
 	}
 	
 	/**
@@ -74,8 +75,9 @@ public class Item  {
 	/**
 	 * Setter for name
 	 */
-	public void setName(String name) {
+	public Item setName(String name) {
 		this.name = name;
+		return this;
 	}
 	
 	/**
@@ -89,8 +91,9 @@ public class Item  {
 	/**
 	 * Setter for price
 	 */
-	public void setPrice(String price) {
+	public Item setPrice(String price) {
 		this.price = price;
+		return this;
 	}
 	
 	/**
@@ -104,8 +107,9 @@ public class Item  {
 	/**
 	 * Setter for currency
 	 */
-	public void setCurrency(String currency) {
+	public Item setCurrency(String currency) {
 		this.currency = currency;
+		return this;
 	}
 	
 	/**
@@ -119,8 +123,9 @@ public class Item  {
 	/**
 	 * Setter for sku
 	 */
-	public void setSku(String sku) {
+	public Item setSku(String sku) {
 		this.sku = sku;
+		return this;
 	}
 	
 	/**

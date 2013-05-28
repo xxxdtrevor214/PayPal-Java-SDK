@@ -151,8 +151,9 @@ public class CreditCard  {
 	/**
 	 * Setter for id
 	 */
-	public void setId(String id) {
+	public CreditCard setId(String id) {
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -166,8 +167,9 @@ public class CreditCard  {
 	/**
 	 * Setter for number
 	 */
-	public void setNumber(String number) {
+	public CreditCard setNumber(String number) {
 		this.number = number;
+		return this;
 	}
 	
 	/**
@@ -181,8 +183,9 @@ public class CreditCard  {
 	/**
 	 * Setter for type
 	 */
-	public void setType(String type) {
+	public CreditCard setType(String type) {
 		this.type = type;
+		return this;
 	}
 	
 	/**
@@ -196,8 +199,9 @@ public class CreditCard  {
 	/**
 	 * Setter for expireMonth
 	 */
-	public void setExpireMonth(int expireMonth) {
+	public CreditCard setExpireMonth(int expireMonth) {
 		this.expireMonth = expireMonth;
+		return this;
 	}
 	
 	/**
@@ -211,8 +215,9 @@ public class CreditCard  {
 	/**
 	 * Setter for expireYear
 	 */
-	public void setExpireYear(int expireYear) {
+	public CreditCard setExpireYear(int expireYear) {
 		this.expireYear = expireYear;
+		return this;
 	}
 	
 	/**
@@ -226,8 +231,9 @@ public class CreditCard  {
 	/**
 	 * Setter for cvv2
 	 */
-	public void setCvv2(String cvv2) {
+	public CreditCard setCvv2(String cvv2) {
 		this.cvv2 = cvv2;
+		return this;
 	}
 	
 	/**
@@ -241,8 +247,9 @@ public class CreditCard  {
 	/**
 	 * Setter for firstName
 	 */
-	public void setFirstName(String firstName) {
+	public CreditCard setFirstName(String firstName) {
 		this.firstName = firstName;
+		return this;
 	}
 	
 	/**
@@ -256,8 +263,9 @@ public class CreditCard  {
 	/**
 	 * Setter for lastName
 	 */
-	public void setLastName(String lastName) {
+	public CreditCard setLastName(String lastName) {
 		this.lastName = lastName;
+		return this;
 	}
 	
 	/**
@@ -271,8 +279,9 @@ public class CreditCard  {
 	/**
 	 * Setter for billingAddress
 	 */
-	public void setBillingAddress(Address billingAddress) {
+	public CreditCard setBillingAddress(Address billingAddress) {
 		this.billingAddress = billingAddress;
+		return this;
 	}
 	
 	/**
@@ -286,8 +295,9 @@ public class CreditCard  {
 	/**
 	 * Setter for payerId
 	 */
-	public void setPayerId(String payerId) {
+	public CreditCard setPayerId(String payerId) {
 		this.payerId = payerId;
+		return this;
 	}
 	
 	/**
@@ -301,8 +311,9 @@ public class CreditCard  {
 	/**
 	 * Setter for state
 	 */
-	public void setState(String state) {
+	public CreditCard setState(String state) {
 		this.state = state;
+		return this;
 	}
 	
 	/**
@@ -316,8 +327,9 @@ public class CreditCard  {
 	/**
 	 * Setter for validUntil
 	 */
-	public void setValidUntil(String validUntil) {
+	public CreditCard setValidUntil(String validUntil) {
 		this.validUntil = validUntil;
+		return this;
 	}
 	
 	/**
@@ -331,8 +343,9 @@ public class CreditCard  {
 	/**
 	 * Setter for links
 	 */
-	public void setLinks(List<Links> links) {
+	public CreditCard setLinks(List<Links> links) {
 		this.links = links;
+		return this;
 	}
 	
 	/**
@@ -391,7 +404,7 @@ public class CreditCard  {
 	
 
 	/**
-	 * Delete the Credit Card resource for the given identifier.
+	 * Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
 	 */
 	public void delete(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
@@ -400,7 +413,7 @@ public class CreditCard  {
 	}
 	
 	/**
-	 * Delete the Credit Card resource for the given identifier.
+	 * Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
@@ -416,58 +429,6 @@ public class CreditCard  {
 		String payLoad = "";
 		PayPalResource.configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 		return;
-	}
-	
-
-	/**
-	 * Update information in a previously saved card. Only the modified fields need to be passed in the request.
-	 */
-	public CreditCard update(String accessToken) throws PayPalRESTException {
-		APIContext apiContext = new APIContext(accessToken);
-		return update(apiContext);
-	}
-	
-	/**
-	 * Update information in a previously saved card. Only the modified fields need to be passed in the request.
-	 */
-	public CreditCard update(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (this.getId() == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-		Object[] parameters = new Object[] {this.getId()};
-		String pattern = "v1/vault/credit-card/{0}";
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, CreditCard.class);
-	}
-	
-
-	/**
-	 * Retrieves a list of Credit Card resources.
-	 */
-	public static CreditCardHistory list(String accessToken, Map<String, String> containerMap) throws PayPalRESTException {
-		APIContext apiContext = new APIContext(accessToken);
-		return list(apiContext, containerMap);
-	}
-	
-	/**
-	 * Retrieves a list of Credit Card resources.
-	 */
-	public static CreditCardHistory list(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (containerMap == null) {
-			throw new IllegalArgumentException("containerMap cannot be null");
-		}
-		Object[] parameters = new Object[] {containerMap};
-		String pattern = "v1/vault/credit-card?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payer_id={5}";
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCardHistory.class);
 	}
 	
 	/**

@@ -61,8 +61,9 @@ public class CreditCardToken  {
 	/**
 	 * Setter for creditCardId
 	 */
-	public void setCreditCardId(String creditCardId) {
+	public CreditCardToken setCreditCardId(String creditCardId) {
 		this.creditCardId = creditCardId;
+		return this;
 	}
 	
 	/**
@@ -76,8 +77,9 @@ public class CreditCardToken  {
 	/**
 	 * Setter for payerId
 	 */
-	public void setPayerId(String payerId) {
+	public CreditCardToken setPayerId(String payerId) {
 		this.payerId = payerId;
+		return this;
 	}
 	
 	/**
@@ -91,8 +93,9 @@ public class CreditCardToken  {
 	/**
 	 * Setter for last4
 	 */
-	public void setLast4(String last4) {
+	public CreditCardToken setLast4(String last4) {
 		this.last4 = last4;
+		return this;
 	}
 	
 	/**
@@ -106,8 +109,9 @@ public class CreditCardToken  {
 	/**
 	 * Setter for type
 	 */
-	public void setType(String type) {
+	public CreditCardToken setType(String type) {
 		this.type = type;
+		return this;
 	}
 	
 	/**
@@ -121,8 +125,9 @@ public class CreditCardToken  {
 	/**
 	 * Setter for expireMonth
 	 */
-	public void setExpireMonth(int expireMonth) {
+	public CreditCardToken setExpireMonth(int expireMonth) {
 		this.expireMonth = expireMonth;
+		return this;
 	}
 	
 	/**
@@ -136,8 +141,9 @@ public class CreditCardToken  {
 	/**
 	 * Setter for expireYear
 	 */
-	public void setExpireYear(int expireYear) {
+	public CreditCardToken setExpireYear(int expireYear) {
 		this.expireYear = expireYear;
+		return this;
 	}
 	
 	/**

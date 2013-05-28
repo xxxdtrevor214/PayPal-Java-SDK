@@ -43,8 +43,9 @@ public class PaymentExecution  {
 	/**
 	 * Setter for payerId
 	 */
-	public void setPayerId(String payerId) {
+	public PaymentExecution setPayerId(String payerId) {
 		this.payerId = payerId;
+		return this;
 	}
 	
 	/**
@@ -58,8 +59,9 @@ public class PaymentExecution  {
 	/**
 	 * Setter for transactions
 	 */
-	public void setTransactions(List<Transactions> transactions) {
+	public PaymentExecution setTransactions(List<Transactions> transactions) {
 		this.transactions = transactions;
+		return this;
 	}
 	
 	/**

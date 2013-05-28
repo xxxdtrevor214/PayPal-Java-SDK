@@ -37,8 +37,9 @@ public class ItemList  {
 	/**
 	 * Setter for items
 	 */
-	public void setItems(List<Item> items) {
+	public ItemList setItems(List<Item> items) {
 		this.items = items;
+		return this;
 	}
 	
 	/**
@@ -52,8 +53,9 @@ public class ItemList  {
 	/**
 	 * Setter for shippingAddress
 	 */
-	public void setShippingAddress(ShippingAddress shippingAddress) {
+	public ItemList setShippingAddress(ShippingAddress shippingAddress) {
 		this.shippingAddress = shippingAddress;
+		return this;
 	}
 	
 	/**

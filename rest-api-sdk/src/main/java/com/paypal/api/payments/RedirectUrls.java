@@ -34,8 +34,9 @@ public class RedirectUrls  {
 	/**
 	 * Setter for returnUrl
 	 */
-	public void setReturnUrl(String returnUrl) {
+	public RedirectUrls setReturnUrl(String returnUrl) {
 		this.returnUrl = returnUrl;
+		return this;
 	}
 	
 	/**
@@ -49,8 +50,9 @@ public class RedirectUrls  {
 	/**
 	 * Setter for cancelUrl
 	 */
-	public void setCancelUrl(String cancelUrl) {
+	public RedirectUrls setCancelUrl(String cancelUrl) {
 		this.cancelUrl = cancelUrl;
+		return this;
 	}
 	
 	/**

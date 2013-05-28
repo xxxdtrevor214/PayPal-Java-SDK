@@ -53,11 +53,6 @@ public class Capture  {
 	private String parentPayment;
 	
 	/**
-	 * Additional information to add when capturing the funds. Eg. shipment tracking number
-	 */
-	private String description;
-	
-	/**
 	 * 
 	 */
 	private List<Links> links;
@@ -121,8 +116,9 @@ public class Capture  {
 	/**
 	 * Setter for id
 	 */
-	public void setId(String id) {
+	public Capture setId(String id) {
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -136,8 +132,9 @@ public class Capture  {
 	/**
 	 * Setter for createTime
 	 */
-	public void setCreateTime(String createTime) {
+	public Capture setCreateTime(String createTime) {
 		this.createTime = createTime;
+		return this;
 	}
 	
 	/**
@@ -151,8 +148,9 @@ public class Capture  {
 	/**
 	 * Setter for updateTime
 	 */
-	public void setUpdateTime(String updateTime) {
+	public Capture setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+		return this;
 	}
 	
 	/**
@@ -166,8 +164,9 @@ public class Capture  {
 	/**
 	 * Setter for amount
 	 */
-	public void setAmount(Amount amount) {
+	public Capture setAmount(Amount amount) {
 		this.amount = amount;
+		return this;
 	}
 	
 	/**
@@ -181,8 +180,9 @@ public class Capture  {
 	/**
 	 * Setter for isFinalCapture
 	 */
-	public void setIsFinalCapture(Boolean isFinalCapture) {
+	public Capture setIsFinalCapture(Boolean isFinalCapture) {
 		this.isFinalCapture = isFinalCapture;
+		return this;
 	}
 	
 	/**
@@ -196,8 +196,9 @@ public class Capture  {
 	/**
 	 * Setter for state
 	 */
-	public void setState(String state) {
+	public Capture setState(String state) {
 		this.state = state;
+		return this;
 	}
 	
 	/**
@@ -211,8 +212,9 @@ public class Capture  {
 	/**
 	 * Setter for parentPayment
 	 */
-	public void setParentPayment(String parentPayment) {
+	public Capture setParentPayment(String parentPayment) {
 		this.parentPayment = parentPayment;
+		return this;
 	}
 	
 	/**
@@ -224,25 +226,11 @@ public class Capture  {
 
 
 	/**
-	 * Setter for description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	/**
-	 * Getter for description
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
-
-	/**
 	 * Setter for links
 	 */
-	public void setLinks(List<Links> links) {
+	public Capture setLinks(List<Links> links) {
 		this.links = links;
+		return this;
 	}
 	
 	/**

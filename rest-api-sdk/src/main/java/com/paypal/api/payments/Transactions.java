@@ -37,8 +37,9 @@ public class Transactions  {
 	/**
 	 * Setter for amount
 	 */
-	public void setAmount(Amount amount) {
+	public Transactions setAmount(Amount amount) {
 		this.amount = amount;
+		return this;
 	}
 	
 	/**

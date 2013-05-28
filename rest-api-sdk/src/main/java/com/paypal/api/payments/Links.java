@@ -63,8 +63,9 @@ public class Links  {
 	/**
 	 * Setter for href
 	 */
-	public void setHref(String href) {
+	public Links setHref(String href) {
 		this.href = href;
+		return this;
 	}
 	
 	/**
@@ -78,8 +79,9 @@ public class Links  {
 	/**
 	 * Setter for rel
 	 */
-	public void setRel(String rel) {
+	public Links setRel(String rel) {
 		this.rel = rel;
+		return this;
 	}
 	
 	/**
@@ -93,8 +95,9 @@ public class Links  {
 	/**
 	 * Setter for targetSchema
 	 */
-	public void setTargetSchema(HyperSchema targetSchema) {
+	public Links setTargetSchema(HyperSchema targetSchema) {
 		this.targetSchema = targetSchema;
+		return this;
 	}
 	
 	/**
@@ -108,8 +111,9 @@ public class Links  {
 	/**
 	 * Setter for method
 	 */
-	public void setMethod(String method) {
+	public Links setMethod(String method) {
 		this.method = method;
+		return this;
 	}
 	
 	/**
@@ -123,8 +127,9 @@ public class Links  {
 	/**
 	 * Setter for enctype
 	 */
-	public void setEnctype(String enctype) {
+	public Links setEnctype(String enctype) {
 		this.enctype = enctype;
+		return this;
 	}
 	
 	/**
@@ -138,8 +143,9 @@ public class Links  {
 	/**
 	 * Setter for schema
 	 */
-	public void setSchema(HyperSchema schema) {
+	public Links setSchema(HyperSchema schema) {
 		this.schema = schema;
+		return this;
 	}
 	
 	/**

@@ -66,8 +66,9 @@ public class Transaction  {
 	/**
 	 * Setter for amount
 	 */
-	public void setAmount(Amount amount) {
+	public Transaction setAmount(Amount amount) {
 		this.amount = amount;
+		return this;
 	}
 	
 	/**
@@ -81,8 +82,9 @@ public class Transaction  {
 	/**
 	 * Setter for payee
 	 */
-	public void setPayee(Payee payee) {
+	public Transaction setPayee(Payee payee) {
 		this.payee = payee;
+		return this;
 	}
 	
 	/**
@@ -96,8 +98,9 @@ public class Transaction  {
 	/**
 	 * Setter for description
 	 */
-	public void setDescription(String description) {
+	public Transaction setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 	
 	/**
@@ -111,8 +114,9 @@ public class Transaction  {
 	/**
 	 * Setter for itemList
 	 */
-	public void setItemList(ItemList itemList) {
+	public Transaction setItemList(ItemList itemList) {
 		this.itemList = itemList;
+		return this;
 	}
 	
 	/**
@@ -126,8 +130,9 @@ public class Transaction  {
 	/**
 	 * Setter for relatedResources
 	 */
-	public void setRelatedResources(List<RelatedResources> relatedResources) {
+	public Transaction setRelatedResources(List<RelatedResources> relatedResources) {
 		this.relatedResources = relatedResources;
+		return this;
 	}
 	
 	/**
@@ -141,8 +146,9 @@ public class Transaction  {
 	/**
 	 * Setter for transactions
 	 */
-	public void setTransactions(List<Transaction> transactions) {
+	public Transaction setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
+		return this;
 	}
 	
 	/**

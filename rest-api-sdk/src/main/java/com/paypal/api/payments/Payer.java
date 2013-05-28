@@ -49,8 +49,9 @@ public class Payer  {
 	/**
 	 * Setter for paymentMethod
 	 */
-	public void setPaymentMethod(String paymentMethod) {
+	public Payer setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
+		return this;
 	}
 	
 	/**
@@ -64,8 +65,9 @@ public class Payer  {
 	/**
 	 * Setter for fundingInstruments
 	 */
-	public void setFundingInstruments(List<FundingInstrument> fundingInstruments) {
+	public Payer setFundingInstruments(List<FundingInstrument> fundingInstruments) {
 		this.fundingInstruments = fundingInstruments;
+		return this;
 	}
 	
 	/**
@@ -79,8 +81,9 @@ public class Payer  {
 	/**
 	 * Setter for payerInfo
 	 */
-	public void setPayerInfo(PayerInfo payerInfo) {
+	public Payer setPayerInfo(PayerInfo payerInfo) {
 		this.payerInfo = payerInfo;
+		return this;
 	}
 	
 	/**

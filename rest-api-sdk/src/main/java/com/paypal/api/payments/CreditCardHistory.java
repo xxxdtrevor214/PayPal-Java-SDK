@@ -41,8 +41,9 @@ public class CreditCardHistory  {
 	/**
 	 * Setter for creditCards
 	 */
-	public void setCreditCards(List<CreditCard> creditCards) {
+	public CreditCardHistory setCreditCards(List<CreditCard> creditCards) {
 		this.creditCards = creditCards;
+		return this;
 	}
 	
 	/**
@@ -56,8 +57,9 @@ public class CreditCardHistory  {
 	/**
 	 * Setter for count
 	 */
-	public void setCount(int count) {
+	public CreditCardHistory setCount(int count) {
 		this.count = count;
+		return this;
 	}
 	
 	/**
@@ -71,8 +73,9 @@ public class CreditCardHistory  {
 	/**
 	 * Setter for nextId
 	 */
-	public void setNextId(String nextId) {
+	public CreditCardHistory setNextId(String nextId) {
 		this.nextId = nextId;
+		return this;
 	}
 	
 	/**

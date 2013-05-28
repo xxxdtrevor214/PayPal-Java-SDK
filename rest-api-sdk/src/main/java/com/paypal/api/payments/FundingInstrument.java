@@ -36,8 +36,9 @@ public class FundingInstrument  {
 	/**
 	 * Setter for creditCard
 	 */
-	public void setCreditCard(CreditCard creditCard) {
+	public FundingInstrument setCreditCard(CreditCard creditCard) {
 		this.creditCard = creditCard;
+		return this;
 	}
 	
 	/**
@@ -51,8 +52,9 @@ public class FundingInstrument  {
 	/**
 	 * Setter for creditCardToken
 	 */
-	public void setCreditCardToken(CreditCardToken creditCardToken) {
+	public FundingInstrument setCreditCardToken(CreditCardToken creditCardToken) {
 		this.creditCardToken = creditCardToken;
+		return this;
 	}
 	
 	/**

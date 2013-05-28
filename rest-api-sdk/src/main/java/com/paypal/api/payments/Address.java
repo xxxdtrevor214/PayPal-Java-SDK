@@ -50,11 +50,6 @@ public class Address  {
 	private String phone;
 	
 	/**
-	 * 
-	 */ 
-	private String type;
-	
-	/**
 	 * Default Constructor
 	 */
 	public Address() {
@@ -74,8 +69,9 @@ public class Address  {
 	/**
 	 * Setter for line1
 	 */
-	public void setLine1(String line1) {
+	public Address setLine1(String line1) {
 		this.line1 = line1;
+		return this;
 	}
 	
 	/**
@@ -87,24 +83,11 @@ public class Address  {
 
 
 	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	/**
 	 * Setter for line2
 	 */
-	public void setLine2(String line2) {
+	public Address setLine2(String line2) {
 		this.line2 = line2;
+		return this;
 	}
 	
 	/**
@@ -118,8 +101,9 @@ public class Address  {
 	/**
 	 * Setter for city
 	 */
-	public void setCity(String city) {
+	public Address setCity(String city) {
 		this.city = city;
+		return this;
 	}
 	
 	/**
@@ -133,8 +117,9 @@ public class Address  {
 	/**
 	 * Setter for countryCode
 	 */
-	public void setCountryCode(String countryCode) {
+	public Address setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+		return this;
 	}
 	
 	/**
@@ -148,8 +133,9 @@ public class Address  {
 	/**
 	 * Setter for postalCode
 	 */
-	public void setPostalCode(String postalCode) {
+	public Address setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
+		return this;
 	}
 	
 	/**
@@ -163,8 +149,9 @@ public class Address  {
 	/**
 	 * Setter for state
 	 */
-	public void setState(String state) {
+	public Address setState(String state) {
 		this.state = state;
+		return this;
 	}
 	
 	/**
@@ -178,8 +165,9 @@ public class Address  {
 	/**
 	 * Setter for phone
 	 */
-	public void setPhone(String phone) {
+	public Address setPhone(String phone) {
 		this.phone = phone;
+		return this;
 	}
 	
 	/**

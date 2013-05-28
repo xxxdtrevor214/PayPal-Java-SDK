@@ -116,8 +116,9 @@ public class Authorization  {
 	/**
 	 * Setter for id
 	 */
-	public void setId(String id) {
+	public Authorization setId(String id) {
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -131,8 +132,9 @@ public class Authorization  {
 	/**
 	 * Setter for createTime
 	 */
-	public void setCreateTime(String createTime) {
+	public Authorization setCreateTime(String createTime) {
 		this.createTime = createTime;
+		return this;
 	}
 	
 	/**
@@ -146,8 +148,9 @@ public class Authorization  {
 	/**
 	 * Setter for updateTime
 	 */
-	public void setUpdateTime(String updateTime) {
+	public Authorization setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+		return this;
 	}
 	
 	/**
@@ -161,8 +164,9 @@ public class Authorization  {
 	/**
 	 * Setter for amount
 	 */
-	public void setAmount(Amount amount) {
+	public Authorization setAmount(Amount amount) {
 		this.amount = amount;
+		return this;
 	}
 	
 	/**
@@ -176,8 +180,9 @@ public class Authorization  {
 	/**
 	 * Setter for state
 	 */
-	public void setState(String state) {
+	public Authorization setState(String state) {
 		this.state = state;
+		return this;
 	}
 	
 	/**
@@ -191,8 +196,9 @@ public class Authorization  {
 	/**
 	 * Setter for parentPayment
 	 */
-	public void setParentPayment(String parentPayment) {
+	public Authorization setParentPayment(String parentPayment) {
 		this.parentPayment = parentPayment;
+		return this;
 	}
 	
 	/**
@@ -206,8 +212,9 @@ public class Authorization  {
 	/**
 	 * Setter for validUntil
 	 */
-	public void setValidUntil(String validUntil) {
+	public Authorization setValidUntil(String validUntil) {
 		this.validUntil = validUntil;
+		return this;
 	}
 	
 	/**
@@ -221,8 +228,9 @@ public class Authorization  {
 	/**
 	 * Setter for links
 	 */
-	public void setLinks(List<Links> links) {
+	public Authorization setLinks(List<Links> links) {
 		this.links = links;
+		return this;
 	}
 	
 	/**
@@ -310,32 +318,6 @@ public class Authorization  {
 		String pattern = "v1/payments/authorization/{0}/void";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Authorization.class);
-	}
-	
-
-	/**
-	 * Reauthorizes an expired Authorization.
-	 */
-	public Authorization reauthorize(String accessToken) throws PayPalRESTException {
-		APIContext apiContext = new APIContext(accessToken);
-		return reauthorize(apiContext);
-	}
-	
-	/**
-	 * Reauthorizes an expired Authorization.
-	 */
-	public Authorization reauthorize(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (this.getId() == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-		Object[] parameters = new Object[] {this.getId()};
-		String pattern = "v1/payments/authorization/{0}/reauthorize";
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = this.toJSON();
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Authorization.class);
 	}
 	

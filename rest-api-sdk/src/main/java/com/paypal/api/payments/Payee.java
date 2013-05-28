@@ -48,8 +48,9 @@ public class Payee  {
 	/**
 	 * Setter for email
 	 */
-	public void setEmail(String email) {
+	public Payee setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 	
 	/**
@@ -63,8 +64,9 @@ public class Payee  {
 	/**
 	 * Setter for merchantId
 	 */
-	public void setMerchantId(String merchantId) {
+	public Payee setMerchantId(String merchantId) {
 		this.merchantId = merchantId;
+		return this;
 	}
 	
 	/**
@@ -78,8 +80,9 @@ public class Payee  {
 	/**
 	 * Setter for phone
 	 */
-	public void setPhone(String phone) {
+	public Payee setPhone(String phone) {
 		this.phone = phone;
+		return this;
 	}
 	
 	/**

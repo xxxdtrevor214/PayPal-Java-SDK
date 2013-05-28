@@ -30,6 +30,11 @@ public class Payment  {
 	private String createTime;
 	
 	/**
+	 * Time the resource was last updated.
+	 */
+	private String updateTime;
+	
+	/**
 	 * Intent of the payment - Sale or Authorization or Order.
 	 */
 	private String intent;
@@ -127,8 +132,9 @@ public class Payment  {
 	/**
 	 * Setter for id
 	 */
-	public void setId(String id) {
+	public Payment setId(String id) {
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -142,8 +148,9 @@ public class Payment  {
 	/**
 	 * Setter for createTime
 	 */
-	public void setCreateTime(String createTime) {
+	public Payment setCreateTime(String createTime) {
 		this.createTime = createTime;
+		return this;
 	}
 	
 	/**
@@ -155,10 +162,27 @@ public class Payment  {
 
 
 	/**
+	 * Setter for updateTime
+	 */
+	public Payment setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+		return this;
+	}
+	
+	/**
+	 * Getter for updateTime
+	 */
+	public String getUpdateTime() {
+		return this.updateTime;
+	}
+
+
+	/**
 	 * Setter for intent
 	 */
-	public void setIntent(String intent) {
+	public Payment setIntent(String intent) {
 		this.intent = intent;
+		return this;
 	}
 	
 	/**
@@ -172,8 +196,9 @@ public class Payment  {
 	/**
 	 * Setter for payer
 	 */
-	public void setPayer(Payer payer) {
+	public Payment setPayer(Payer payer) {
 		this.payer = payer;
+		return this;
 	}
 	
 	/**
@@ -187,8 +212,9 @@ public class Payment  {
 	/**
 	 * Setter for transactions
 	 */
-	public void setTransactions(List<Transaction> transactions) {
+	public Payment setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
+		return this;
 	}
 	
 	/**
@@ -202,8 +228,9 @@ public class Payment  {
 	/**
 	 * Setter for state
 	 */
-	public void setState(String state) {
+	public Payment setState(String state) {
 		this.state = state;
+		return this;
 	}
 	
 	/**
@@ -217,8 +244,9 @@ public class Payment  {
 	/**
 	 * Setter for redirectUrls
 	 */
-	public void setRedirectUrls(RedirectUrls redirectUrls) {
+	public Payment setRedirectUrls(RedirectUrls redirectUrls) {
 		this.redirectUrls = redirectUrls;
+		return this;
 	}
 	
 	/**
@@ -232,8 +260,9 @@ public class Payment  {
 	/**
 	 * Setter for links
 	 */
-	public void setLinks(List<Links> links) {
+	public Payment setLinks(List<Links> links) {
 		this.links = links;
+		return this;
 	}
 	
 	/**

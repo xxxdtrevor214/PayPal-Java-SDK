@@ -120,8 +120,9 @@ public class Sale  {
 	/**
 	 * Setter for id
 	 */
-	public void setId(String id) {
+	public Sale setId(String id) {
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -135,8 +136,9 @@ public class Sale  {
 	/**
 	 * Setter for createTime
 	 */
-	public void setCreateTime(String createTime) {
+	public Sale setCreateTime(String createTime) {
 		this.createTime = createTime;
+		return this;
 	}
 	
 	/**
@@ -150,8 +152,9 @@ public class Sale  {
 	/**
 	 * Setter for updateTime
 	 */
-	public void setUpdateTime(String updateTime) {
+	public Sale setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+		return this;
 	}
 	
 	/**
@@ -165,8 +168,9 @@ public class Sale  {
 	/**
 	 * Setter for amount
 	 */
-	public void setAmount(Amount amount) {
+	public Sale setAmount(Amount amount) {
 		this.amount = amount;
+		return this;
 	}
 	
 	/**
@@ -180,8 +184,9 @@ public class Sale  {
 	/**
 	 * Setter for state
 	 */
-	public void setState(String state) {
+	public Sale setState(String state) {
 		this.state = state;
+		return this;
 	}
 	
 	/**
@@ -195,8 +200,9 @@ public class Sale  {
 	/**
 	 * Setter for parentPayment
 	 */
-	public void setParentPayment(String parentPayment) {
+	public Sale setParentPayment(String parentPayment) {
 		this.parentPayment = parentPayment;
+		return this;
 	}
 	
 	/**
@@ -210,8 +216,9 @@ public class Sale  {
 	/**
 	 * Setter for links
 	 */
-	public void setLinks(List<Links> links) {
+	public Sale setLinks(List<Links> links) {
 		this.links = links;
+		return this;
 	}
 	
 	/**

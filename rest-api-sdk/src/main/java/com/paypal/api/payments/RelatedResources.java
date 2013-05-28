@@ -48,8 +48,9 @@ public class RelatedResources  {
 	/**
 	 * Setter for sale
 	 */
-	public void setSale(Sale sale) {
+	public RelatedResources setSale(Sale sale) {
 		this.sale = sale;
+		return this;
 	}
 	
 	/**
@@ -63,8 +64,9 @@ public class RelatedResources  {
 	/**
 	 * Setter for authorization
 	 */
-	public void setAuthorization(Authorization authorization) {
+	public RelatedResources setAuthorization(Authorization authorization) {
 		this.authorization = authorization;
+		return this;
 	}
 	
 	/**
@@ -78,8 +80,9 @@ public class RelatedResources  {
 	/**
 	 * Setter for capture
 	 */
-	public void setCapture(Capture capture) {
+	public RelatedResources setCapture(Capture capture) {
 		this.capture = capture;
+		return this;
 	}
 	
 	/**
@@ -93,8 +96,9 @@ public class RelatedResources  {
 	/**
 	 * Setter for refund
 	 */
-	public void setRefund(Refund refund) {
+	public RelatedResources setRefund(Refund refund) {
 		this.refund = refund;
+		return this;
 	}
 	
 	/**
