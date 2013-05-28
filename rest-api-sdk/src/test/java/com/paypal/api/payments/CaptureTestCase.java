@@ -93,6 +93,7 @@ public class CaptureTestCase {
 		amount.setCurrency("USD").setTotal("1");
 		refund.setAmount(amount);
 		Refund responseRefund = retrievedCapture.refund(TokenHolder.accessToken, refund);
+		Assert.assertEquals("completed", responseRefund.getState());
 		logger.info("Request = " + Capture.getLastRequest());
 		logger.info("Response = " + Capture.getLastResponse());
 		logger.info("Refund State: " + responseRefund.getState());

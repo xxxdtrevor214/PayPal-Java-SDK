@@ -75,6 +75,8 @@ public class AuthorizationTestCase {
 		logger.info("Retrieving Authorization using id = " + authorizationId);
 		authorization = Authorization.get(TokenHolder.accessToken,
 				authorizationId);
+		Assert.assertEquals(authorization.getId(), authPayment.getTransactions().get(0)
+				.getRelatedResources().get(0).getAuthorization().getId());
 		logger.info("Request = " + Authorization.getLastRequest());
 		logger.info("Response = " + Authorization.getLastResponse());
 		logger.info("Authorization State: " + authorization.getState());
@@ -90,6 +92,7 @@ public class AuthorizationTestCase {
 		capture.setIsFinalCapture(true);
 		Capture responsecapture = authorization.capture(
 				TokenHolder.accessToken, capture);
+		Assert.assertEquals(responsecapture.getState(), "completed");
 		logger.info("Request = " + Authorization.getLastRequest());
 		logger.info("Response = " + Authorization.getLastResponse());
 		logger.info("Returned Capture state: " + responsecapture.getState());
@@ -101,6 +104,7 @@ public class AuthorizationTestCase {
 		Authorization auth = getAuthorization();
 		Authorization responseAuthorization = auth
 				.doVoid(TokenHolder.accessToken);
+		Assert.assertEquals(responseAuthorization.getState(), "voided");
 		logger.info("Request = " + Authorization.getLastRequest());
 		logger.info("Response = " + Authorization.getLastResponse());
 		logger.info("Returned Authorization state: "

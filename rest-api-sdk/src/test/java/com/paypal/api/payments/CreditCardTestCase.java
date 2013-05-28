@@ -144,6 +144,18 @@ public class CreditCardTestCase {
 				+ retrievedCreditCard.getState());
 
 	}
+	
+	@Test(dependsOnMethods = { "getCreditCard" })
+	public void deleteCreditCard() throws PayPalRESTException {
+		logger.info("**** Delete CreditCard ****");
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+
+		CreditCard retrievedCreditCard = CreditCard.get(
+				TokenHolder.accessToken, createdCreditCardId);
+		retrievedCreditCard.delete(TokenHolder.accessToken);
+		logger.info("Request = " + CreditCard.getLastRequest());
+		logger.info("Response = " + CreditCard.getLastResponse());
+	}
 
 	@Test(dependsOnMethods = { "getCreditCard" })
 	public void getCreditCardForNull() {
