@@ -19,7 +19,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.paypal.core.ConfigManager;
-import com.paypal.core.rest.APIContext;
 import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.QueryParameters;
@@ -70,15 +69,9 @@ public class PaymentTestCase {
 		creditCard.setNumber("4417119669820331");
 		creditCard.setType("visa");
 
-		// AmountDetails amountDetails = new AmountDetails();
-		// amountDetails.setShipping("10");
-		// amountDetails.setSubtotal("75");
-		// amountDetails.setTax("15");
-
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		amount.setTotal("7");
-		// amount.setDetails(amountDetails);
 
 		Transaction transaction = new Transaction();
 		transaction.setAmount(amount);
@@ -116,15 +109,15 @@ public class PaymentTestCase {
 		creditCard.setNumber("4111111111111111");
 		creditCard.setType("visa");
 
-		Details amountDetails = new Details();
-		amountDetails.setShipping("10");
-		amountDetails.setSubtotal("75");
-		amountDetails.setTax("15");
+		Details details = new Details();
+		details.setShipping("10");
+		details.setSubtotal("75");
+		details.setTax("15");
 
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		amount.setTotal("100");
-		amount.setDetails(amountDetails);
+		amount.setDetails(details);
 
 		Payee payee = new Payee();
 		payee.setMerchantId("NMXBYHSEL4FEY");
@@ -163,15 +156,15 @@ public class PaymentTestCase {
 	}
 
 	public static Payment createPaymentForExecution() {
-		Details amountDetails = new Details();
-		amountDetails.setShipping("10");
-		amountDetails.setSubtotal("75");
-		amountDetails.setTax("15");
+		Details details = new Details();
+		details.setShipping("10");
+		details.setSubtotal("75");
+		details.setTax("15");
 
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		amount.setTotal("100");
-		amount.setDetails(amountDetails);
+		amount.setDetails(details);
 
 		RedirectUrls redirectUrls = new RedirectUrls();
 		redirectUrls.setCancelUrl("http://www.hawaii.com");
@@ -241,30 +234,99 @@ public class PaymentTestCase {
 				.get("id").getAsString();
 	}
 
-	
 	@Test(dependsOnMethods = { "testCreatePaymentAPI" })
-	public void testA() throws PayPalRESTException {
-		logger.info("**** Create CreditCard ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+	public void testGetPaymentAPI() throws PayPalRESTException {
+		logger.info("**** Get Payment ****");
+		logger.info("Setting Access Token = " + TokenHolder.accessToken);
+		payment = Payment.get(TokenHolder.accessToken, createdPaymentID);
+		logger.info("Request = " + Payment.getLastRequest());
+		logger.info("Response = " + Payment.getLastResponse());
+		logger.info("Retrieved Payment status = " + payment.getState());
+	}
 
-		CreditCard creditCard = new CreditCard();
-		creditCard.setExpireMonth(11);
-		creditCard.setExpireYear(2018);
-		creditCard.setNumber("4417119669820331");
-		creditCard.setType("visa");
-		CreditCard responseCreditCard = creditCard.create(TokenHolder.accessToken);
-		logger.info("Request = " + CreditCard.getLastRequest());
-		logger.info("Response = " + CreditCard.getLastResponse());
-		logger.info("Credit Card created with ID = " + responseCreditCard.getId());
-		Assert.assertEquals(true,
-				"ok".equalsIgnoreCase(responseCreditCard.getState()));
-		logger.info("Created Credit Card status = "
-				+ responseCreditCard.getState());
-		String createdCreditCardId = responseCreditCard.getId();
-		
-		System.out.println("CC: " + responseCreditCard);
-		
-		responseCreditCard.delete(TokenHolder.accessToken);
+	@Test(enabled = false, dependsOnMethods = { "testGetPaymentAPI" })
+	public void testExecutePayment() throws PayPalRESTException, IOException {
+		logger.info("**** Execute Payment ****");
+		Payment exPayment = createPaymentForExecution();
+		exPayment = exPayment.create(TokenHolder.accessToken);
+		logger.info("Create Payment Response: " + exPayment);
+		logger.info("Payer ID:");
+		InputStreamReader converter = new InputStreamReader(System.in);
+		BufferedReader in = new BufferedReader(converter);
+		String payerId = in.readLine();
+		PaymentExecution paymentExecution = new PaymentExecution();
+		paymentExecution.setPayerId(payerId);
+		exPayment = exPayment
+				.execute(TokenHolder.accessToken, paymentExecution);
+		logger.info("Request = " + Payment.getLastRequest());
+		logger.info("Response = " + Payment.getLastResponse());
+		logger.info("Retrieved Payment status = " + exPayment.getState());
+	}
+
+	@Test(dependsOnMethods = { "testGetPaymentAPI" })
+	public void testGetPaymentHistoryAPI() throws PayPalRESTException {
+		logger.info("**** Get Payment History ****");
+		logger.info("Setting Access Token = " + TokenHolder.accessToken);
+		Map<String, String> containerMap = new HashMap<String, String>();
+		containerMap.put("count", "10");
+		PaymentHistory paymentHistory = Payment.get(TokenHolder.accessToken,
+				containerMap);
+		logger.info("Request = " + Payment.getLastRequest());
+		logger.info("Response = " + Payment.getLastResponse());
+		logger.info("Retrieved Payments count = " + paymentHistory.getCount());
+	}
+	
+	@Test(dependsOnMethods = { "testGetPaymentHistoryAPI" })
+	public void testGetPaymentHistoryQueryParamsAPI() throws PayPalRESTException {
+		logger.info("**** Get Payment History ****");
+		logger.info("Setting Access Token = " + TokenHolder.accessToken);
+		QueryParameters params = new QueryParameters();
+		params.setCount("10");
+		PaymentHistory paymentHistory = Payment.get(TokenHolder.accessToken,
+				params);
+		logger.info("Request = " + Payment.getLastRequest());
+		logger.info("Response = " + Payment.getLastResponse());
+		logger.info("Retrieved Payments count = " + paymentHistory.getCount());
+	}
+
+	@Test(dependsOnMethods = { "testGetPaymentHistoryQueryParamsAPI" })
+	public void testFailCreatePaymentAPI() {
+		logger.info("**** Failing Create Payment ****");
+		logger.info("Setting Access Token = " + TokenHolder.accessToken);
+		Payment payment = new Payment();
+		try {
+			Payment createdPayment = payment.create(TokenHolder.accessToken);
+		} catch (PayPalRESTException e) {
+			Assert.assertEquals(e.getCause().getClass().getSimpleName(),
+					"HttpErrorException");
+		}
+	}
+
+	@Test(dependsOnMethods = { "testFailCreatePaymentAPI" })
+	public void testFailGetPaymentAPI() {
+		logger.info("**** Failing Get Payment ****");
+		logger.info("Setting Access Token = " + TokenHolder.accessToken);
+		try {
+			Payment createdPayment = Payment.get(TokenHolder.accessToken,
+					(String) null);
+		} catch (IllegalArgumentException e) {
+			Assert.assertTrue(e != null,
+					"Illegal Argument Exception not thrown for null arguments");
+		} catch (PayPalRESTException e) {
+			Assert.fail();
+		}
+	}
+
+	@Test
+	public void testTOJSON() {
+		Payment payment = createPayment();
+		Assert.assertEquals(payment.toJSON().length() == 0, false);
+	}
+
+	@Test
+	public void testTOString() {
+		Payment payment = createPayment();
+		Assert.assertEquals(payment.toString().length() == 0, false);
 	}
 
 }

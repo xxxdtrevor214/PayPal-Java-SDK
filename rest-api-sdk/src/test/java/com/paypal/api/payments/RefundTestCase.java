@@ -21,8 +21,6 @@ public class RefundTestCase {
 
 	public static final String CAPTUREID = "12345";
 
-	public static final String DESCRIPTION = "sample description";
-
 	public static final String ID = "12345";
 
 	public static final String PARENTPAYMENT = "12345";
@@ -47,7 +45,6 @@ public class RefundTestCase {
 		links.add(LinksTestCase.createLinks());
 		Refund refund = new Refund();
 		refund.setCaptureId(CAPTUREID);
-		refund.setDescription(DESCRIPTION);
 		refund.setId(ID);
 		refund.setParentPayment(PARENTPAYMENT);
 		refund.setSaleId(SALEID);
@@ -63,7 +60,6 @@ public class RefundTestCase {
 		Refund refund = createRefund();
 		Assert.assertEquals(refund.getId(), ID);
 		Assert.assertEquals(refund.getCaptureId(), CAPTUREID);
-		Assert.assertEquals(refund.getDescription(), DESCRIPTION);
 		Assert.assertEquals(refund.getParentPayment(), PARENTPAYMENT);
 		Assert.assertEquals(refund.getSaleId(), SALEID);
 		Assert.assertEquals(refund.getState(), STATE);

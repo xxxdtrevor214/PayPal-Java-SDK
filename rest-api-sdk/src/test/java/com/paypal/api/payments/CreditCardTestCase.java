@@ -58,19 +58,11 @@ public class CreditCardTestCase {
 
 	public static CreditCard createCreditCard() {
 		CreditCard creditCard = new CreditCard();
-		creditCard.setBillingAddress(BILLINGADDRESS);
-		creditCard.setExpireMonth(EXPMONTH);
-		creditCard.setExpireYear(EXPYEAR);
-		creditCard.setFirstName(FIRSTNAME);
-		creditCard.setLastName(LASTNAME);
-		creditCard.setNumber(NUMBER);
-		creditCard.setType(TYPE);
-		creditCard.setCvv2(CVV2);
-		creditCard.setBillingAddress(BILLINGADDRESS);
-		creditCard.setId(ID);
-		creditCard.setPayerId(PAYERID);
-		creditCard.setState(STATE);
-		creditCard.setValidUntil(VALIDUNTIL);
+		creditCard.setBillingAddress(BILLINGADDRESS).setExpireMonth(EXPMONTH)
+				.setExpireYear(EXPYEAR).setFirstName(FIRSTNAME)
+				.setLastName(LASTNAME).setNumber(NUMBER).setType(TYPE)
+				.setCvv2(CVV2).setBillingAddress(BILLINGADDRESS).setId(ID)
+				.setPayerId(PAYERID).setState(STATE).setValidUntil(VALIDUNTIL);
 		return creditCard;
 	}
 
@@ -140,7 +132,8 @@ public class CreditCardTestCase {
 		logger.info("**** Get CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 
-		CreditCard retrievedCreditCard = CreditCard.get(TokenHolder.accessToken, createdCreditCardId);
+		CreditCard retrievedCreditCard = CreditCard.get(
+				TokenHolder.accessToken, createdCreditCardId);
 		logger.info("Request = " + CreditCard.getLastRequest());
 		logger.info("Response = " + CreditCard.getLastResponse());
 		Assert.assertEquals(
@@ -167,7 +160,7 @@ public class CreditCardTestCase {
 			Assert.fail();
 		}
 	}
-	
+
 	@Test
 	public void testCreditCardUnknownFileConfiguration() {
 		try {
@@ -191,7 +184,7 @@ public class CreditCardTestCase {
 			Assert.fail("[sdk_config.properties] file is not available");
 		}
 	}
-	
+
 	@Test
 	public void testCreditCardPropertiesConfiguration() {
 		try {

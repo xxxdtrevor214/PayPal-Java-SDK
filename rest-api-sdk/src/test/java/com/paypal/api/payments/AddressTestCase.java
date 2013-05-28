@@ -5,8 +5,6 @@ import org.testng.annotations.Test;
 
 public class AddressTestCase {
 
-//	public static final String RECIPIENTSNAME = "TestUser";
-
 	public static final String CITY = "Niagara Falls";
 
 	public static final String COUNTRYCODE = "US";
@@ -21,11 +19,8 @@ public class AddressTestCase {
 
 	public static final String STATE = "NY";
 	
-	public static final String TYPE = "Business";
-
 	public static Address createAddress() {
 		Address billingAddress = new Address();
-//		billingAddress.setRecipientName(RECIPIENTSNAME);
 		billingAddress.setCity(CITY);
 		billingAddress.setCountryCode(COUNTRYCODE);
 		billingAddress.setLine1(LINE1);
@@ -33,14 +28,12 @@ public class AddressTestCase {
 		billingAddress.setPostalCode(POSTALCODE);
 		billingAddress.setPhone(PHONE);
 		billingAddress.setState(STATE);
-		billingAddress.setType(TYPE);
 		return billingAddress;
 	}
 
 	@Test
 	public void testConstruction() {
 		Address address = createAddress();
-//		Assert.assertEquals(address.getRecipientName(), RECIPIENTSNAME);
 		Assert.assertEquals(address.getCity(), CITY);
 		Assert.assertEquals(address.getCountryCode(), COUNTRYCODE);
 		Assert.assertEquals(address.getLine1(), LINE1);
@@ -48,7 +41,6 @@ public class AddressTestCase {
 		Assert.assertEquals(address.getPostalCode(), POSTALCODE);
 		Assert.assertEquals(address.getPhone(), PHONE);
 		Assert.assertEquals(address.getState(), STATE);
-		Assert.assertEquals(address.getType(), TYPE);
 	}
 	
 	@Test
