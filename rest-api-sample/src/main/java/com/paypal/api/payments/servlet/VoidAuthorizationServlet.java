@@ -102,6 +102,7 @@ public class VoidAuthorizationServlet extends HttpServlet {
 		} catch (PayPalRESTException e) {
 			req.setAttribute("error", e.getMessage());
 		}
+		req.setAttribute("request", Authorization.getLastRequest());
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 
