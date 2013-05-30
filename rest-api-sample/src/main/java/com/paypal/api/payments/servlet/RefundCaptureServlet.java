@@ -1,3 +1,8 @@
+// #RefundCapture Sample
+// This sample code demonstrate how you
+// can do a Refund on a Capture
+// resource
+// API used: /v1/payments/capture/{capture_id}/refund
 package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
@@ -56,9 +61,9 @@ public class RefundCaptureServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 	
-	// ##GetCapture
-	// Sample showing to Get a Capture using
-	// CaptureId
+	// ##RefundCapture
+	// Sample showing to how to do a Refund on
+	// a Capture
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -95,7 +100,6 @@ public class RefundCaptureServlet extends HttpServlet {
 			// Create a Capture object
 			// by doing a capture on
 			// Authorization object
-			// and retrieve the Id
 			Capture capture = getCapture(apiContext, authorization);
 			
 			/// ###Refund

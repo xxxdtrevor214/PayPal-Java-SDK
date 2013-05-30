@@ -1,3 +1,8 @@
+// #GetAuthorization Sample
+// This sample code demonstrate how you
+// can retrieve the details of a Authorization
+// resource
+// API used: /v1/payments/authorization/{id}
 package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
@@ -55,7 +60,7 @@ public class GetAuthorizationServlet extends HttpServlet {
 	}
 
 	// ##GetAuthorization
-	// Sample showing to do a Get Authorization
+	// Sample showing how to do a Get Authorization
 	// using Authorization Id
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

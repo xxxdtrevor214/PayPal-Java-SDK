@@ -6,16 +6,33 @@ API used: /v1/payments/payment</p></div></div><div class="code"><div class="wrap
 
 <span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
 
-<span class="kn">import</span> <span class="nn">javax.servlet.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.servlet.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.apache.log4j.Logger</span><span class="o">;</span>
 
-<span class="kn">import</span> <span class="nn">com.paypal.api.payments.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.paypal.api.payments.util.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.paypal.core.rest.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.Amount</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.Details</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.Links</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.Payer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.Payment</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.PaymentExecution</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.RedirectUrls</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.Transaction</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.api.payments.util.GenerateAccessToken</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.core.rest.APIContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.core.rest.PayPalRESTException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.paypal.core.rest.PayPalResource</span><span class="o">;</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * @author lvairamani</span>
@@ -60,14 +77,14 @@ ClientID and ClientSecret</p></div></div><div class="code"><div class="wrapper">
     <span class="k">try</span> <span class="o">{</span>
       <span class="n">accessToken</span> <span class="o">=</span> <span class="n">GenerateAccessToken</span><span class="o">.</span><span class="na">getAccessToken</span><span class="o">();</span></div></div></div><div class="segment"><a id="segment-4" name="segment-4" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-4" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="api-context">Api Context</h3>
 
-<p>Pass in a <code>ApiContext</code> object to authenticate 
-the call and to send a unique request id 
+<p>Pass in a <code>ApiContext</code> object to authenticate
+the call and to send a unique request id
 (that ensures idempotency). The SDK generates
-a request id if you do not pass one explicitly. </p></div></div><div class="code"><div class="wrapper">      <span class="n">apiContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">APIContext</span><span class="o">(</span><span class="n">accessToken</span><span class="o">);</span></div></div></div><div class="segment"><a id="segment-5" name="segment-5" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-5" class="pilcrow">¶</a></div><div class="wrapper"><p>Use this variant if you want to pass in a request id <br />
-that is meaningful in your application, ideally 
-a order id.</p></div></div><div class="code"><div class="wrapper">      <span class="cm">/* </span>
-<span class="cm">       * String requestId = Long.toString(System.nanoTime();</span>
-<span class="cm">       * APIContext apiContext = new APIContext(accessToken, requestId ));</span>
+a request id if you do not pass one explicitly.</p></div></div><div class="code"><div class="wrapper">      <span class="n">apiContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">APIContext</span><span class="o">(</span><span class="n">accessToken</span><span class="o">);</span></div></div></div><div class="segment"><a id="segment-5" name="segment-5" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-5" class="pilcrow">¶</a></div><div class="wrapper"><p>Use this variant if you want to pass in a request id
+that is meaningful in your application, ideally
+a order id.</p></div></div><div class="code"><div class="wrapper">      <span class="cm">/*</span>
+<span class="cm">       * String requestId = Long.toString(System.nanoTime(); APIContext</span>
+<span class="cm">       * apiContext = new APIContext(accessToken, requestId ));</span>
 <span class="cm">       */</span>
     <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">PayPalRESTException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
       <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&quot;error&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
@@ -86,16 +103,16 @@ a order id.</p></div></div><div class="code"><div class="wrapper">      <span cl
       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">PayPalRESTException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&quot;error&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
       <span class="o">}</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span></div></div></div><div class="segment"><a id="segment-6" name="segment-6" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-6" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="amountdetails">AmountDetails</h3>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span></div></div></div><div class="segment"><a id="segment-6" name="segment-6" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-6" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="details">Details</h3>
 
-<p>Let's you specify details of a payment amount.</p></div></div><div class="code"><div class="wrapper">      <span class="n">AmountDetails</span> <span class="n">amountDetails</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AmountDetails</span><span class="o">();</span>
-      <span class="n">amountDetails</span><span class="o">.</span><span class="na">setShipping</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">);</span>
-      <span class="n">amountDetails</span><span class="o">.</span><span class="na">setSubtotal</span><span class="o">(</span><span class="s">&quot;5&quot;</span><span class="o">);</span>
-      <span class="n">amountDetails</span><span class="o">.</span><span class="na">setTax</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">);</span></div></div></div><div class="segment"><a id="segment-7" name="segment-7" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-7" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="amount">Amount</h3>
+<p>Let's you specify details of a payment amount.</p></div></div><div class="code"><div class="wrapper">      <span class="n">Details</span> <span class="n">details</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Details</span><span class="o">();</span>
+      <span class="n">details</span><span class="o">.</span><span class="na">setShipping</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">);</span>
+      <span class="n">details</span><span class="o">.</span><span class="na">setSubtotal</span><span class="o">(</span><span class="s">&quot;5&quot;</span><span class="o">);</span>
+      <span class="n">details</span><span class="o">.</span><span class="na">setTax</span><span class="o">(</span><span class="s">&quot;1&quot;</span><span class="o">);</span></div></div></div><div class="segment"><a id="segment-7" name="segment-7" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-7" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="amount">Amount</h3>
 
 <p>Let's you specify a payment amount.</p></div></div><div class="code"><div class="wrapper">      <span class="n">Amount</span> <span class="n">amount</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Amount</span><span class="o">();</span>
       <span class="n">amount</span><span class="o">.</span><span class="na">setCurrency</span><span class="o">(</span><span class="s">&quot;USD&quot;</span><span class="o">);</span></div></div></div><div class="segment"><a id="segment-8" name="segment-8" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-8" class="pilcrow">¶</a></div><div class="wrapper"><p>Total must be equal to sum of shipping, tax and subtotal.</p></div></div><div class="code"><div class="wrapper">      <span class="n">amount</span><span class="o">.</span><span class="na">setTotal</span><span class="o">(</span><span class="s">&quot;7&quot;</span><span class="o">);</span>
-      <span class="n">amount</span><span class="o">.</span><span class="na">setDetails</span><span class="o">(</span><span class="n">amountDetails</span><span class="o">);</span></div></div></div><div class="segment"><a id="segment-9" name="segment-9" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-9" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="transaction">Transaction</h3>
+      <span class="n">amount</span><span class="o">.</span><span class="na">setDetails</span><span class="o">(</span><span class="n">details</span><span class="o">);</span></div></div></div><div class="segment"><a id="segment-9" name="segment-9" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-9" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="transaction">Transaction</h3>
 
 <p>A transaction defines the contract of a
 payment - what is the payment for and who
@@ -131,9 +148,9 @@ The return object contains the status;</p></div></div><div class="code"><div cla
         <span class="n">Payment</span> <span class="n">createdPayment</span> <span class="o">=</span> <span class="n">payment</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">apiContext</span><span class="o">);</span>
         <span class="n">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Created payment with id = &quot;</span>
             <span class="o">+</span> <span class="n">createdPayment</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; and status = &quot;</span>
-            <span class="o">+</span> <span class="n">createdPayment</span><span class="o">.</span><span class="na">getState</span><span class="o">());</span></div></div></div><div class="segment"><a id="segment-16" name="segment-16" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-16" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="payment-approval-url">Payment Approval Url</h3></div></div></div><div class="segment"><a id="segment-17" name="segment-17" class="section_anchor"></a><div class="code"><div class="wrapper">        <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Link</span><span class="o">&gt;</span> <span class="n">links</span> <span class="o">=</span> <span class="n">createdPayment</span><span class="o">.</span><span class="na">getLinks</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
+            <span class="o">+</span> <span class="n">createdPayment</span><span class="o">.</span><span class="na">getState</span><span class="o">());</span></div></div></div><div class="segment"><a id="segment-16" name="segment-16" class="section_anchor"></a><div class="comments"><div class="pilwrap"><a href="#segment-16" class="pilcrow">¶</a></div><div class="wrapper"><h3 id="payment-approval-url">Payment Approval Url</h3></div></div></div><div class="segment"><a id="segment-17" name="segment-17" class="section_anchor"></a><div class="code"><div class="wrapper">        <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Links</span><span class="o">&gt;</span> <span class="n">links</span> <span class="o">=</span> <span class="n">createdPayment</span><span class="o">.</span><span class="na">getLinks</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
         <span class="k">while</span> <span class="o">(</span><span class="n">links</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
-          <span class="n">Link</span> <span class="n">link</span> <span class="o">=</span> <span class="n">links</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+          <span class="n">Links</span> <span class="n">link</span> <span class="o">=</span> <span class="n">links</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
           <span class="k">if</span> <span class="o">(</span><span class="n">link</span><span class="o">.</span><span class="na">getRel</span><span class="o">().</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&quot;approval_url&quot;</span><span class="o">))</span> <span class="o">{</span>
             <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&quot;redirectURL&quot;</span><span class="o">,</span> <span class="n">link</span><span class="o">.</span><span class="na">getHref</span><span class="o">());</span>
           <span class="o">}</span>

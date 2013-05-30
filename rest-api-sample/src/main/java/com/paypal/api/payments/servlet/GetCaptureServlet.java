@@ -1,3 +1,8 @@
+// #GetCapture Sample
+// This sample code demonstrate how you
+// can retrieve the details of a Capture
+// resource
+// API used: /v1/payments/capture/{capture_id}
 package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
@@ -56,7 +61,7 @@ public class GetCaptureServlet extends HttpServlet {
 	}
 	
 	// ##GetCapture
-	// Sample showing to Get a Capture using
+	// Sample showing how to Get a Capture using
 	// CaptureId
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

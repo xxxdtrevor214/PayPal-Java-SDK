@@ -1,3 +1,7 @@
+// #AuthorizationCapture Sample
+// This sample code demonstrate how you 
+// do a Capture on an Authorization
+// API used: /v1/payments/authorization/{authorization_id}/capture
 package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
@@ -58,7 +62,7 @@ public class AuthorizationCaptureServlet extends HttpServlet {
 	}
 
 	// ##AuthorizationCapture
-	// Sample showing to do a Capture using Authorization
+	// Sample showing how to do a Capture using Authorization
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -98,6 +102,7 @@ public class AuthorizationCaptureServlet extends HttpServlet {
 			amount.setTotal("4.54");
 
 			// ###Capture
+			// A capture transaction
 			Capture capture = new Capture();
 			capture.setAmount(amount);
 			

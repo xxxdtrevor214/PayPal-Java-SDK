@@ -1,3 +1,8 @@
+// #VoidAuthorization Sample
+// This sample code demonstrate how you
+// can do a Void on a Authorization
+// resource
+// API used: /v1/payments/authorization/{authorization_id}/void
 package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
@@ -102,7 +107,6 @@ public class VoidAuthorizationServlet extends HttpServlet {
 		} catch (PayPalRESTException e) {
 			req.setAttribute("error", e.getMessage());
 		}
-		req.setAttribute("request", Authorization.getLastRequest());
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 
