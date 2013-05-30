@@ -1,73 +1,69 @@
 package com.paypal.api.payments;
+
+import com.paypal.core.rest.JSONFormatter;
 import com.paypal.api.payments.Payer;
-import java.util.List;
 import com.paypal.api.payments.Transaction;
+import java.util.List;
 import com.paypal.api.payments.RedirectUrls;
-import com.paypal.api.payments.Link;
-import com.paypal.api.payments.Resource;
+import com.paypal.api.payments.Links;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
 import com.paypal.core.rest.HttpMethod;
-import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.RESTUtil;
 import com.paypal.core.rest.QueryParameters;
-import com.paypal.core.rest.JSONFormatter;
 import com.paypal.core.rest.APIContext;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.Map;
 
-/**
- * 
- */
-public class Payment extends Resource {
-
+public class Payment  {
 
 	/**
-	 * 
-	 */ 
+	 * Identifier of the payment resource created.
+	 */
 	private String id;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Time the resource was created.
+	 */
 	private String createTime;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Time the resource was last updated.
+	 */
 	private String updateTime;
-
+	
 	/**
-	 * 
-	 */ 
-	private String state;
-
-	/**
-	 * 
-	 */ 
+	 * Intent of the payment - Sale or Authorization or Order.
+	 */
 	private String intent;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Source of the funds for this payment represented by a PayPal account or a direct credit card.
+	 */
 	private Payer payer;
-
+	
 	/**
-	 * 
-	 */ 
+	 * A payment can have more than one transaction, with each transaction establishing a contract between the payer and a payee
+	 */
 	private List<Transaction> transactions;
-
+	
 	/**
-	 * 
-	 */ 
+	 * state of the payment
+	 */
+	private String state;
+	
+	/**
+	 * Redirect urls required only when using payment_method as PayPal - the only settings supported are return and cancel urls.
+	 */
 	private RedirectUrls redirectUrls;
-
+	
 	/**
 	 * 
-	 */ 
-	private List<Link> links;
-
+	 */
+	private List<Links> links;
+	
 	/**
 	 * Returns the last request sent to the Service
 	 * 
@@ -85,7 +81,7 @@ public class Payment extends Resource {
 	public static String getLastResponse() {
 		return PayPalResource.getLastResponse();
 	}
-	
+
 	/**
 	 * Initialize using InputStream(of a Properties file)
 	 * 
@@ -117,137 +113,294 @@ public class Payment extends Resource {
 	public static void initConfig(Properties properties) {
 		PayPalResource.initConfig(properties);
 	}
+	/**
+	 * Default Constructor
+	 */
+	public Payment() {
+	}
+
+	/**
+	 * Parameterized Constructor
+	 */
+	public Payment(String intent, Payer payer, List<Transaction> transactions) {
+		this.intent = intent;
+		this.payer = payer;
+		this.transactions = transactions;
+	}
 	
 
 	/**
-	 * Constructor
+	 * Setter for id
 	 */
-	public Payment() {
-
-	}	
-
+	public Payment setId(String id) {
+		this.id = id;
+		return this;
+	}
+	
 	/**
 	 * Getter for id
 	 */
 	public String getId() {
-		return id;
+		return this.id;
+	}
+
+
+	/**
+	 * Setter for createTime
+	 */
+	public Payment setCreateTime(String createTime) {
+		this.createTime = createTime;
+		return this;
 	}
 	
-	/**
-	 * Setter for id;
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
 	/**
 	 * Getter for createTime
 	 */
 	public String getCreateTime() {
-		return createTime;
+		return this.createTime;
+	}
+
+
+	/**
+	 * Setter for updateTime
+	 */
+	public Payment setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+		return this;
 	}
 	
-	/**
-	 * Setter for createTime;
-	 */
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
 	/**
 	 * Getter for updateTime
 	 */
 	public String getUpdateTime() {
-		return updateTime;
+		return this.updateTime;
+	}
+
+
+	/**
+	 * Setter for intent
+	 */
+	public Payment setIntent(String intent) {
+		this.intent = intent;
+		return this;
 	}
 	
-	/**
-	 * Setter for updateTime;
-	 */
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-	}
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return state;
-	}
-	
-	/**
-	 * Setter for state;
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
 	/**
 	 * Getter for intent
 	 */
 	public String getIntent() {
-		return intent;
+		return this.intent;
+	}
+
+
+	/**
+	 * Setter for payer
+	 */
+	public Payment setPayer(Payer payer) {
+		this.payer = payer;
+		return this;
 	}
 	
-	/**
-	 * Setter for intent;
-	 */
-	public void setIntent(String intent) {
-		this.intent = intent;
-	}
 	/**
 	 * Getter for payer
 	 */
 	public Payer getPayer() {
-		return payer;
+		return this.payer;
+	}
+
+
+	/**
+	 * Setter for transactions
+	 */
+	public Payment setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+		return this;
 	}
 	
-	/**
-	 * Setter for payer;
-	 */
-	public void setPayer(Payer payer) {
-		this.payer = payer;
-	}
 	/**
 	 * Getter for transactions
 	 */
 	public List<Transaction> getTransactions() {
-		return transactions;
+		return this.transactions;
+	}
+
+
+	/**
+	 * Setter for state
+	 */
+	public Payment setState(String state) {
+		this.state = state;
+		return this;
 	}
 	
 	/**
-	 * Setter for transactions;
+	 * Getter for state
 	 */
-	public void setTransactions(List<Transaction> transactions) {
-		this.transactions = transactions;
+	public String getState() {
+		return this.state;
 	}
+
+
+	/**
+	 * Setter for redirectUrls
+	 */
+	public Payment setRedirectUrls(RedirectUrls redirectUrls) {
+		this.redirectUrls = redirectUrls;
+		return this;
+	}
+	
 	/**
 	 * Getter for redirectUrls
 	 */
 	public RedirectUrls getRedirectUrls() {
-		return redirectUrls;
+		return this.redirectUrls;
+	}
+
+
+	/**
+	 * Setter for links
+	 */
+	public Payment setLinks(List<Links> links) {
+		this.links = links;
+		return this;
 	}
 	
-	/**
-	 * Setter for redirectUrls;
-	 */
-	public void setRedirectUrls(RedirectUrls redirectUrls) {
-		this.redirectUrls = redirectUrls;
-	}
 	/**
 	 * Getter for links
 	 */
-	public List<Link> getLinks() {
-		return links;
+	public List<Links> getLinks() {
+		return this.links;
+	}
+
+
+	/**
+	 * Creates (and processes) a new Payment Resource.
+	 */
+	public Payment create(String accessToken) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		return create(apiContext);
 	}
 	
 	/**
-	 * Setter for links;
+	 * Creates (and processes) a new Payment Resource.
 	 */
-	public void setLinks(List<Link> links) {
-		this.links = links;
+	public Payment create(APIContext apiContext) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		String resourcePath = "v1/payments/payment";
+		String payLoad = this.toJSON();
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
 	}
-
-
+	
 
 	/**
+	 * Obtain the Payment resource for the given identifier.
+	 */
+	public static Payment get(String accessToken, String paymentId) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		return get(apiContext, paymentId);
+	}
+	
+	/**
+	 * Obtain the Payment resource for the given identifier.
+	 */
+	public static Payment get(APIContext apiContext, String paymentId) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		if (paymentId == null) {
+			throw new IllegalArgumentException("paymentId cannot be null");
+		}
+		Object[] parameters = new Object[] {paymentId};
+		String pattern = "v1/payments/payment/{0}";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Payment.class);
+	}
+	
+
+	/**
+	 * Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
+	 */
+	public Payment execute(String accessToken, PaymentExecution paymentExecution) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		return execute(apiContext, paymentExecution);
+	}
+	
+	/**
+	 * Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
+	 */
+	public Payment execute(APIContext apiContext, PaymentExecution paymentExecution) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		if (this.getId() == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+		if (paymentExecution == null) {
+			throw new IllegalArgumentException("paymentExecution cannot be null");
+		}
+		Object[] parameters = new Object[] {this.getId()};
+		String pattern = "v1/payments/payment/{0}/execute";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = paymentExecution.toJSON();
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
+	}
+	
+
+	/**
+	 * Retrieves a list of Payment resources.
+	 * @param containerMap
+	 *      Map containing the query strings with the 
+	 *      following values as keys:
+	 *      count,
+	 *      start_id,
+	 *      start_index,
+	 *      start_time,
+	 *      end_time,
+	 *      payee_id,
+	 *      sort_by,
+	 *      sort_order,
+	 *      All other keys in the map are ignored by the SDK
+	 */
+	public static PaymentHistory list(String accessToken, Map<String, String> containerMap) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		return list(apiContext, containerMap);
+	}
+	
+	/**
+	 * Retrieves a list of Payment resources.
+	 * @param containerMap
+	 *      Map containing the query strings with the 
+	 *      following values as keys:
+	 *      count,
+	 *      start_id,
+	 *      start_index,
+	 *      start_time,
+	 *      end_time,
+	 *      payee_id,
+	 *      sort_by,
+	 *      sort_order,
+	 *      All other keys in the map are ignored by the SDK
+	 */
+	public static PaymentHistory list(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		if (containerMap == null) {
+			throw new IllegalArgumentException("containerMap cannot be null");
+		}
+		Object[] parameters = new Object[] {containerMap};
+		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+	}
+	
+	/**
 	 * Get call for Payment.
+	 * @deprecated
 	 * @param accessToken
 	 *			AccessToken used for the API call
 	 * @param containerMap
@@ -267,16 +420,12 @@ public class Payment extends Resource {
 	 * @return PaymentHistory
 	 */
 	public static PaymentHistory get(String accessToken, Map<String, String> containerMap) throws PayPalRESTException {
-		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
-		Object[] parameters = new Object[] { containerMap };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		APIContext apiContext = new APIContext(accessToken);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+		return list(accessToken, containerMap);
 	}
 	
 	/**
 	 * Get call for Payment.
+	 * @deprecated
 	 * @param apiContext
 	 *			{@link APIContext} to be used for the call.
 	 * @param containerMap
@@ -296,22 +445,13 @@ public class Payment extends Resource {
 	 * @return PaymentHistory
 	 */
 	public static PaymentHistory get(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
-		Object[] parameters = new Object[] { containerMap };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
-		}
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+		return list(apiContext, containerMap);
 	}
 	
 
 	/**
 	 * Get call for Payment.
+	 * @deprecated
 	 * @param accessToken
 	 *			AccessToken used for the API call
 	 * @param queryParameters
@@ -321,16 +461,12 @@ public class Payment extends Resource {
 	 * @return PaymentHistory
 	 */
 	public static PaymentHistory get(String accessToken, QueryParameters queryParameters) throws PayPalRESTException {
-		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
-		Object[] parameters = new Object[] { queryParameters };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		APIContext apiContext = new APIContext(accessToken);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+		return list(accessToken, queryParameters);
 	}
 	
 	/**
 	 * Get call for Payment.
+	 * @deprecated
 	 * @param apiContext
 	 *			{@link APIContext} to be used for the call.
 	 * @param queryParameters
@@ -340,130 +476,36 @@ public class Payment extends Resource {
 	 * @return PaymentHistory
 	 */
 	public static PaymentHistory get(APIContext apiContext, QueryParameters queryParameters) throws PayPalRESTException {
+		return list(apiContext, queryParameters);
+	}
+	
+	/**
+	 * Retrieves a list of Payment resources.
+	 * @deprecated
+	 */
+	public static PaymentHistory list(String accessToken, QueryParameters queryParameters) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		return list(apiContext, queryParameters);
+	}
+	
+	/**
+	 * Retrieves a list of Payment resources.
+	 * @deprecated
+	 */
+	public static PaymentHistory list(APIContext apiContext, QueryParameters queryParameters) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		if (queryParameters == null) {
+			throw new IllegalArgumentException("queryParameters cannot be null");
+		}
+		Object[] parameters = new Object[] {queryParameters};
 		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
-		Object[] parameters = new Object[] { queryParameters };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
-		}
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
 	}
-
-	/**
-	 * Create call for Payment.
-	 * @param accessToken
-	 *			AccessToken used for the API call
-	 * @HttpMethod POST
-	 * @URIpath v1/payments/payment
-	 * @return Payment
-	 */
-	public Payment create(String accessToken) throws PayPalRESTException {
-		APIContext apiContext = new APIContext(accessToken);
-		return create(apiContext);
-	}
 	
-	/**
-	 * Create call for Payment.
-	 * @param apiContext
-	 *			APIContext used for the API call
-	 * @HttpMethod POST
-	 * @URIpath v1/payments/payment
-	 * @return Payment
-	 */
-	public Payment create(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		String resourcePath = "v1/payments/payment";
-		String payLoad = this.toJSON();	
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
-	}
-
-	/**
-	 * Get call for Payment.
-	 * @param accessToken
-	 *			AccessToken used for the API call
-	 * @param paymentId
-	 * @HttpMethod GET
-	 * @URIpath v1/payments/payment/:paymentId
-	 * @return Payment
-	 */
-	public static Payment get(String accessToken, String paymentId) throws PayPalRESTException {
-		if ((paymentId == null) || (paymentId.length() <= 0)) {
-			throw new IllegalArgumentException("paymentId cannot be null or empty");
-		}
-		String pattern = "v1/payments/payment/{0}";
-		Object[] parameters = new Object[] {  paymentId };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		APIContext apiContext = new APIContext(accessToken);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Payment.class);
-	}
-	
-	/**
-	 * Get call for Payment.
-	 * @param apiContext
-	 *			{@link APIContext} to be used for the call.
-	 * @param paymentId
-	 * @HttpMethod GET
-	 * @URIpath v1/payments/payment/:paymentId
-	 * @return Payment
-	 */
-	public static Payment get(APIContext apiContext, String paymentId) throws PayPalRESTException {
-		if ((paymentId == null) || (paymentId.length() <= 0)) {
-			throw new IllegalArgumentException("paymentId cannot be null or empty");
-		}
-		String pattern = "v1/payments/payment/{0}";
-		Object[] parameters = new Object[] {  paymentId };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
-		}
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Payment.class);
-	}
-
-	/**
-	 * Execute call for Payment.
-	 * @param accessToken
-	 *			AccessToken used for the API call
-	 * @param paymentExecution
-	 * @HttpMethod POST
-	 * @URIpath v1/payments/payment/:paymentId/execute
-	 * @return Payment
-	 */
-	public Payment execute(String accessToken, PaymentExecution paymentExecution) throws PayPalRESTException {
-		APIContext apiContext = new APIContext(accessToken);
-		return execute(apiContext, paymentExecution);
-	}
-	
-	/**
-	 * Execute call for Payment.
-	 * @param apiContext
-	 *			APIContext used for the API call
-	 * @param paymentExecution
-	 * @HttpMethod POST
-	 * @URIpath v1/payments/payment/:paymentId/execute
-	 * @return Payment
-	 */
-	public Payment execute(APIContext apiContext, PaymentExecution paymentExecution) throws PayPalRESTException {
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (paymentExecution == null) {
-			throw new IllegalArgumentException("paymentExecution cannot be null");
-		}
-		if (this.getId() == null) {
-			throw new IllegalArgumentException("Id cannot be null");
-		}
-		String pattern = "v1/payments/payment/{0}/execute";
-		Object[] parameters = new Object[] { this.getId() };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = paymentExecution.toJSON();	
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
-	}
-
 	/**
 	 * Returns a JSON string corresponding to object state
 	 * 
@@ -472,10 +514,9 @@ public class Payment extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }

@@ -1,167 +1,181 @@
 package com.paypal.api.payments;
-import com.paypal.api.payments.Resource;
+
 import com.paypal.core.rest.JSONFormatter;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.HttpMethod;
+import com.paypal.core.rest.RESTUtil;
+import com.paypal.core.rest.QueryParameters;
+import com.paypal.core.rest.APIContext;
+import java.io.File;
+import java.io.InputStream;
+import java.util.Properties;
 
-/**
- * 
- */
-public class Address extends Resource {
-
+public class Address  {
 
 	/**
-	 * 
-	 */ 
+	 * Line 1 of the Address (eg. number, street, etc).
+	 */
 	private String line1;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Optional line 2 of the Address (eg. suite, apt #, etc.).
+	 */
 	private String line2;
-
+	
 	/**
-	 * 
-	 */ 
+	 * City name.
+	 */
 	private String city;
-
+	
 	/**
-	 * 
-	 */ 
-	private String state;
-
-	/**
-	 * 
-	 */ 
-	private String postalCode;
-
-	/**
-	 * 
-	 */ 
+	 * 2 letter country code.
+	 */
 	private String countryCode;
-
+	
 	/**
-	 * 
-	 */ 
-	private String type;
-
+	 * Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code.
+	 */
+	private String postalCode;
+	
 	/**
-	 * 
-	 */ 
+	 * 2 letter code for US states, and the equivalent for other countries.
+	 */
+	private String state;
+	
+	/**
+	 * Phone number in E.123 format.
+	 */
 	private String phone;
-
+	
 	/**
-	 * Constructor
+	 * Default Constructor
 	 */
 	public Address() {
+	}
 
-	}	
+	/**
+	 * Parameterized Constructor
+	 */
+	public Address(String line1, String city, String countryCode, String state) {
+		this.line1 = line1;
+		this.city = city;
+		this.countryCode = countryCode;
+		this.state = state;
+	}
+	
 
+	/**
+	 * Setter for line1
+	 */
+	public Address setLine1(String line1) {
+		this.line1 = line1;
+		return this;
+	}
+	
 	/**
 	 * Getter for line1
 	 */
 	public String getLine1() {
-		return line1;
+		return this.line1;
+	}
+
+
+	/**
+	 * Setter for line2
+	 */
+	public Address setLine2(String line2) {
+		this.line2 = line2;
+		return this;
 	}
 	
-	/**
-	 * Setter for line1;
-	 */
-	public void setLine1(String line1) {
-		this.line1 = line1;
-	}
 	/**
 	 * Getter for line2
 	 */
 	public String getLine2() {
-		return line2;
+		return this.line2;
+	}
+
+
+	/**
+	 * Setter for city
+	 */
+	public Address setCity(String city) {
+		this.city = city;
+		return this;
 	}
 	
-	/**
-	 * Setter for line2;
-	 */
-	public void setLine2(String line2) {
-		this.line2 = line2;
-	}
 	/**
 	 * Getter for city
 	 */
 	public String getCity() {
-		return city;
+		return this.city;
+	}
+
+
+	/**
+	 * Setter for countryCode
+	 */
+	public Address setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+		return this;
 	}
 	
-	/**
-	 * Setter for city;
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return state;
-	}
-	
-	/**
-	 * Setter for state;
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
-	/**
-	 * Getter for postalCode
-	 */
-	public String getPostalCode() {
-		return postalCode;
-	}
-	
-	/**
-	 * Setter for postalCode;
-	 */
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
 	/**
 	 * Getter for countryCode
 	 */
 	public String getCountryCode() {
-		return countryCode;
+		return this.countryCode;
+	}
+
+
+	/**
+	 * Setter for postalCode
+	 */
+	public Address setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+		return this;
 	}
 	
 	/**
-	 * Setter for countryCode;
+	 * Getter for postalCode
 	 */
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
+	public String getPostalCode() {
+		return this.postalCode;
 	}
+
+
 	/**
-	 * Getter for type
+	 * Setter for state
 	 */
-	public String getType() {
-		return type;
+	public Address setState(String state) {
+		this.state = state;
+		return this;
 	}
 	
 	/**
-	 * Setter for type;
+	 * Getter for state
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public String getState() {
+		return this.state;
 	}
+
+
+	/**
+	 * Setter for phone
+	 */
+	public Address setPhone(String phone) {
+		this.phone = phone;
+		return this;
+	}
+	
 	/**
 	 * Getter for phone
 	 */
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
-	
-	/**
-	 * Setter for phone;
-	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-
-
 
 	/**
 	 * Returns a JSON string corresponding to object state
@@ -171,10 +185,9 @@ public class Address extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }

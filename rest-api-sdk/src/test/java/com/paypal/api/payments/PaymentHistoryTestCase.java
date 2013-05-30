@@ -26,7 +26,7 @@ public class PaymentHistoryTestCase {
 	public void testConstruction() {
 		PaymentHistory paymentHistory = PaymentHistoryTestCase
 				.createPaymentHistory();
-		Assert.assertEquals(paymentHistory.getCount(), COUNT);
+		Assert.assertEquals(paymentHistory.getCount(), COUNT.intValue());
 		Assert.assertEquals(paymentHistory.getNextId(), NEXTID);
 		Assert.assertEquals(paymentHistory.getPayments().size(), 1);
 	}

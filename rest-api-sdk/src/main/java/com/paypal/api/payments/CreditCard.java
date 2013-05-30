@@ -1,89 +1,87 @@
 package com.paypal.api.payments;
+
+import com.paypal.core.rest.JSONFormatter;
 import com.paypal.api.payments.Address;
+import com.paypal.api.payments.Links;
 import java.util.List;
-import com.paypal.api.payments.Link;
-import com.paypal.api.payments.Resource;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
 import com.paypal.core.rest.HttpMethod;
-import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.RESTUtil;
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.core.rest.QueryParameters;
 import com.paypal.core.rest.APIContext;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * 
- */
-public class CreditCard extends Resource {
-
+public class CreditCard  {
 
 	/**
-	 * 
-	 */ 
+	 * ID of the credit card being saved for later use.
+	 */
 	private String id;
-
+	
 	/**
-	 * 
-	 */ 
-	private String validUntil;
-
-	/**
-	 * 
-	 */ 
-	private String state;
-
-	/**
-	 * 
-	 */ 
-	private String payerId;
-
-	/**
-	 * 
-	 */ 
-	private String type;
-
-	/**
-	 * 
-	 */ 
+	 * Card number.
+	 */
 	private String number;
-
+	
 	/**
-	 * 
-	 */ 
-	private String expireMonth;
-
+	 * Type of the Card (eg. Visa, Mastercard, etc.).
+	 */
+	private String type;
+	
 	/**
-	 * 
-	 */ 
-	private String expireYear;
-
+	 * card expiry month with value 1 - 12.
+	 */
+	private int expireMonth;
+	
 	/**
-	 * 
-	 */ 
+	 * 4 digit card expiry year
+	 */
+	private int expireYear;
+	
+	/**
+	 * Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
+	 */
 	private String cvv2;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Card holder's first name.
+	 */
 	private String firstName;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Card holder's last name.
+	 */
 	private String lastName;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Billing Address associated with this card.
+	 */
 	private Address billingAddress;
-
+	
+	/**
+	 * A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
+	 */
+	private String payerId;
+	
+	/**
+	 * State of the funding instrument.
+	 */
+	private String state;
+	
+	/**
+	 * Date/Time until this resource can be used fund a payment.
+	 */
+	private String validUntil;
+	
 	/**
 	 * 
-	 */ 
-	private List<Link> links;
-
+	 */
+	private List<Links> links;
+	
 	/**
 	 * Returns the last request sent to the Service
 	 * 
@@ -101,7 +99,7 @@ public class CreditCard extends Resource {
 	public static String getLastResponse() {
 		return PayPalResource.getLastResponse();
 	}
-	
+
 	/**
 	 * Initialize using InputStream(of a Properties file)
 	 * 
@@ -133,195 +131,233 @@ public class CreditCard extends Resource {
 	public static void initConfig(Properties properties) {
 		PayPalResource.initConfig(properties);
 	}
+	/**
+	 * Default Constructor
+	 */
+	public CreditCard() {
+	}
+
+	/**
+	 * Parameterized Constructor
+	 */
+	public CreditCard(String number, String type, int expireMonth, int expireYear) {
+		this.number = number;
+		this.type = type;
+		this.expireMonth = expireMonth;
+		this.expireYear = expireYear;
+	}
 	
 
 	/**
-	 * Constructor
+	 * Setter for id
 	 */
-	public CreditCard() {
-
-	}	
-
+	public CreditCard setId(String id) {
+		this.id = id;
+		return this;
+	}
+	
 	/**
 	 * Getter for id
 	 */
 	public String getId() {
-		return id;
+		return this.id;
+	}
+
+
+	/**
+	 * Setter for number
+	 */
+	public CreditCard setNumber(String number) {
+		this.number = number;
+		return this;
 	}
 	
-	/**
-	 * Setter for id;
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-	/**
-	 * Getter for validUntil
-	 */
-	public String getValidUntil() {
-		return validUntil;
-	}
-	
-	/**
-	 * Setter for validUntil;
-	 */
-	public void setValidUntil(String validUntil) {
-		this.validUntil = validUntil;
-	}
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return state;
-	}
-	
-	/**
-	 * Setter for state;
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
-	/**
-	 * Getter for payerId
-	 */
-	public String getPayerId() {
-		return payerId;
-	}
-	
-	/**
-	 * Setter for payerId;
-	 */
-	public void setPayerId(String payerId) {
-		this.payerId = payerId;
-	}
-	/**
-	 * Getter for type
-	 */
-	public String getType() {
-		return type;
-	}
-	
-	/**
-	 * Setter for type;
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
 	/**
 	 * Getter for number
 	 */
 	public String getNumber() {
-		return number;
+		return this.number;
+	}
+
+
+	/**
+	 * Setter for type
+	 */
+	public CreditCard setType(String type) {
+		this.type = type;
+		return this;
 	}
 	
 	/**
-	 * Setter for number;
+	 * Getter for type
 	 */
-	public void setNumber(String number) {
-		this.number = number;
+	public String getType() {
+		return this.type;
 	}
+
+
+	/**
+	 * Setter for expireMonth
+	 */
+	public CreditCard setExpireMonth(int expireMonth) {
+		this.expireMonth = expireMonth;
+		return this;
+	}
+	
 	/**
 	 * Getter for expireMonth
 	 */
-	public String getExpireMonth() {
-		return expireMonth;
+	public int getExpireMonth() {
+		return this.expireMonth;
+	}
+
+
+	/**
+	 * Setter for expireYear
+	 */
+	public CreditCard setExpireYear(int expireYear) {
+		this.expireYear = expireYear;
+		return this;
 	}
 	
-	/**
-	 * Setter for expireMonth;
-	 */
-	public void setExpireMonth(String expireMonth) {
-		this.expireMonth = expireMonth;
-	}
 	/**
 	 * Getter for expireYear
 	 */
-	public String getExpireYear() {
-		return expireYear;
+	public int getExpireYear() {
+		return this.expireYear;
+	}
+
+
+	/**
+	 * Setter for cvv2
+	 */
+	public CreditCard setCvv2(String cvv2) {
+		this.cvv2 = cvv2;
+		return this;
 	}
 	
-	/**
-	 * Setter for expireYear;
-	 */
-	public void setExpireYear(String expireYear) {
-		this.expireYear = expireYear;
-	}
 	/**
 	 * Getter for cvv2
 	 */
 	public String getCvv2() {
-		return cvv2;
+		return this.cvv2;
+	}
+
+
+	/**
+	 * Setter for firstName
+	 */
+	public CreditCard setFirstName(String firstName) {
+		this.firstName = firstName;
+		return this;
 	}
 	
-	/**
-	 * Setter for cvv2;
-	 */
-	public void setCvv2(String cvv2) {
-		this.cvv2 = cvv2;
-	}
 	/**
 	 * Getter for firstName
 	 */
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
+	}
+
+
+	/**
+	 * Setter for lastName
+	 */
+	public CreditCard setLastName(String lastName) {
+		this.lastName = lastName;
+		return this;
 	}
 	
-	/**
-	 * Setter for firstName;
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 	/**
 	 * Getter for lastName
 	 */
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
+	}
+
+
+	/**
+	 * Setter for billingAddress
+	 */
+	public CreditCard setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+		return this;
 	}
 	
-	/**
-	 * Setter for lastName;
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 	/**
 	 * Getter for billingAddress
 	 */
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
+	}
+
+
+	/**
+	 * Setter for payerId
+	 */
+	public CreditCard setPayerId(String payerId) {
+		this.payerId = payerId;
+		return this;
 	}
 	
 	/**
-	 * Setter for billingAddress;
+	 * Getter for payerId
 	 */
-	public void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
+	public String getPayerId() {
+		return this.payerId;
 	}
+
+
+	/**
+	 * Setter for state
+	 */
+	public CreditCard setState(String state) {
+		this.state = state;
+		return this;
+	}
+	
+	/**
+	 * Getter for state
+	 */
+	public String getState() {
+		return this.state;
+	}
+
+
+	/**
+	 * Setter for validUntil
+	 */
+	public CreditCard setValidUntil(String validUntil) {
+		this.validUntil = validUntil;
+		return this;
+	}
+	
+	/**
+	 * Getter for validUntil
+	 */
+	public String getValidUntil() {
+		return this.validUntil;
+	}
+
+
+	/**
+	 * Setter for links
+	 */
+	public CreditCard setLinks(List<Links> links) {
+		this.links = links;
+		return this;
+	}
+	
 	/**
 	 * Getter for links
 	 */
-	public List<Link> getLinks() {
-		return links;
-	}
-	
-	/**
-	 * Setter for links;
-	 */
-	public void setLinks(List<Link> links) {
-		this.links = links;
+	public List<Links> getLinks() {
+		return this.links;
 	}
 
 
-
-
 	/**
-	 * Create call for CreditCard.
-	 * @param accessToken
-	 *			AccessToken used for the API call
-	 * @HttpMethod POST
-	 * @URIpath v1/vault/credit-card
-	 * @return CreditCard
+	 * Creates a new Credit Card Resource (aka Tokenize).
 	 */
 	public CreditCard create(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
@@ -329,66 +365,72 @@ public class CreditCard extends Resource {
 	}
 	
 	/**
-	 * Create call for CreditCard.
-	 * @param apiContext
-	 *			APIContext used for the API call
-	 * @HttpMethod POST
-	 * @URIpath v1/vault/credit-card
-	 * @return CreditCard
+	 * Creates a new Credit Card Resource (aka Tokenize).
 	 */
 	public CreditCard create(APIContext apiContext) throws PayPalRESTException {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
 		String resourcePath = "v1/vault/credit-card";
-		String payLoad = this.toJSON();	
+		String payLoad = this.toJSON();
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreditCard.class);
 	}
+	
 
 	/**
-	 * Get call for CreditCard.
-	 * @param accessToken
-	 *			AccessToken used for the API call
-	 * @param creditCardId
-	 * @HttpMethod GET
-	 * @URIpath v1/vault/credit-card/:creditCardId
-	 * @return CreditCard
+	 * Obtain the Credit Card resource for the given identifier.
 	 */
 	public static CreditCard get(String accessToken, String creditCardId) throws PayPalRESTException {
-		if ((creditCardId == null) || (creditCardId.length() <= 0)) {
-			throw new IllegalArgumentException("creditCardId cannot be null or empty");
-		}
-		String pattern = "v1/vault/credit-card/{0}";
-		Object[] parameters = new Object[] {  creditCardId };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
 		APIContext apiContext = new APIContext(accessToken);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
+		return get(apiContext, creditCardId);
 	}
 	
 	/**
-	 * Get call for CreditCard.
-	 * @param apiContext
-	 *			{@link APIContext} to be used for the call.
-	 * @param creditCardId
-	 * @HttpMethod GET
-	 * @URIpath v1/vault/credit-card/:creditCardId
-	 * @return CreditCard
+	 * Obtain the Credit Card resource for the given identifier.
 	 */
 	public static CreditCard get(APIContext apiContext, String creditCardId) throws PayPalRESTException {
-		if ((creditCardId == null) || (creditCardId.length() <= 0)) {
-			throw new IllegalArgumentException("creditCardId cannot be null or empty");
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
+		if (creditCardId == null) {
+			throw new IllegalArgumentException("creditCardId cannot be null");
+		}
+		Object[] parameters = new Object[] {creditCardId};
 		String pattern = "v1/vault/credit-card/{0}";
-		Object[] parameters = new Object[] {  creditCardId };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
-		}
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
 	}
+	
 
+	/**
+	 * Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
+	 */
+	public void delete(String accessToken) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		delete(apiContext);
+		return;
+	}
+	
+	/**
+	 * Delete the Credit Card resource for the given identifier. Returns 204 No Content when the card is deleted successfully.
+	 */
+	public void delete(APIContext apiContext) throws PayPalRESTException {
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		if (this.getId() == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+		apiContext.setMaskRequestId(true);
+		Object[] parameters = new Object[] {this.getId()};
+		String pattern = "v1/vault/credit-card/{0}";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		PayPalResource.configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		return;
+	}
+	
 	/**
 	 * Returns a JSON string corresponding to object state
 	 * 
@@ -397,10 +439,9 @@ public class CreditCard extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }

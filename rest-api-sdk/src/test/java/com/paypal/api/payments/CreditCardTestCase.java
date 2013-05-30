@@ -32,9 +32,9 @@ public class CreditCardTestCase {
 
 	public static final String LASTNAME = "Shopper";
 
-	public static final String EXPMONTH = "11";
+	public static final int EXPMONTH = 11;
 
-	public static final String EXPYEAR = "2018";
+	public static final int EXPYEAR = 2018;
 
 	public static final String CVV2 = "874";
 
@@ -58,19 +58,11 @@ public class CreditCardTestCase {
 
 	public static CreditCard createCreditCard() {
 		CreditCard creditCard = new CreditCard();
-		creditCard.setBillingAddress(BILLINGADDRESS);
-		creditCard.setExpireMonth(EXPMONTH);
-		creditCard.setExpireYear(EXPYEAR);
-		creditCard.setFirstName(FIRSTNAME);
-		creditCard.setLastName(LASTNAME);
-		creditCard.setNumber(NUMBER);
-		creditCard.setType(TYPE);
-		creditCard.setCvv2(CVV2);
-		creditCard.setBillingAddress(BILLINGADDRESS);
-		creditCard.setId(ID);
-		creditCard.setPayerId(PAYERID);
-		creditCard.setState(STATE);
-		creditCard.setValidUntil(VALIDUNTIL);
+		creditCard.setBillingAddress(BILLINGADDRESS).setExpireMonth(EXPMONTH)
+				.setExpireYear(EXPYEAR).setFirstName(FIRSTNAME)
+				.setLastName(LASTNAME).setNumber(NUMBER).setType(TYPE)
+				.setCvv2(CVV2).setBillingAddress(BILLINGADDRESS).setId(ID)
+				.setPayerId(PAYERID).setState(STATE).setValidUntil(VALIDUNTIL);
 		return creditCard;
 	}
 
@@ -89,8 +81,8 @@ public class CreditCardTestCase {
 		creditCard.setPayerId(PAYERID);
 		creditCard.setState(STATE);
 		creditCard.setValidUntil(VALIDUNTIL);
-		List<Link> links = new ArrayList<Link>();
-		links.add(LinkTestCase.createLink());
+		List<Links> links = new ArrayList<Links>();
+		links.add(LinksTestCase.createLinks());
 		creditCard.setLinks(links);
 		return creditCard;
 	}
@@ -140,7 +132,8 @@ public class CreditCardTestCase {
 		logger.info("**** Get CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 
-		CreditCard retrievedCreditCard = CreditCard.get(TokenHolder.accessToken, createdCreditCardId);
+		CreditCard retrievedCreditCard = CreditCard.get(
+				TokenHolder.accessToken, createdCreditCardId);
 		logger.info("Request = " + CreditCard.getLastRequest());
 		logger.info("Response = " + CreditCard.getLastResponse());
 		Assert.assertEquals(
@@ -150,6 +143,18 @@ public class CreditCardTestCase {
 		logger.info("Retrieved Credit Card status = "
 				+ retrievedCreditCard.getState());
 
+	}
+	
+	@Test(dependsOnMethods = { "getCreditCard" })
+	public void deleteCreditCard() throws PayPalRESTException {
+		logger.info("**** Delete CreditCard ****");
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+
+		CreditCard retrievedCreditCard = CreditCard.get(
+				TokenHolder.accessToken, createdCreditCardId);
+		retrievedCreditCard.delete(TokenHolder.accessToken);
+		logger.info("Request = " + CreditCard.getLastRequest());
+		logger.info("Response = " + CreditCard.getLastResponse());
 	}
 
 	@Test(dependsOnMethods = { "getCreditCard" })
@@ -167,7 +172,7 @@ public class CreditCardTestCase {
 			Assert.fail();
 		}
 	}
-	
+
 	@Test
 	public void testCreditCardUnknownFileConfiguration() {
 		try {
@@ -191,7 +196,7 @@ public class CreditCardTestCase {
 			Assert.fail("[sdk_config.properties] file is not available");
 		}
 	}
-	
+
 	@Test
 	public void testCreditCardPropertiesConfiguration() {
 		try {

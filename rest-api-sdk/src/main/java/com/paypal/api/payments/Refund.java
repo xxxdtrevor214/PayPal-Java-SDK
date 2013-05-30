@@ -1,74 +1,62 @@
 package com.paypal.api.payments;
+
+import com.paypal.core.rest.JSONFormatter;
 import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Links;
 import java.util.List;
-import com.paypal.api.payments.Link;
-import com.paypal.api.payments.Resource;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
 import com.paypal.core.rest.HttpMethod;
-import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.RESTUtil;
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.core.rest.QueryParameters;
 import com.paypal.core.rest.APIContext;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * 
- */
-public class Refund extends Resource {
-
+public class Refund  {
 
 	/**
-	 * 
-	 */ 
+	 * Identifier of the refund transaction.
+	 */
 	private String id;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Time the resource was created.
+	 */
 	private String createTime;
-
+	
 	/**
-	 * 
-	 */ 
-	private String updateTime;
-
-	/**
-	 * 
-	 */ 
-	private String state;
-
-	/**
-	 * 
-	 */ 
+	 * Details including both refunded amount (to Payer) and refunded fee (to Payee).If amount is not specified, it's assumed to be full refund.
+	 */
 	private Amount amount;
-
+	
 	/**
-	 * 
-	 */ 
+	 * State of the refund transaction.
+	 */
+	private String state;
+	
+	/**
+	 * ID of the Sale transaction being refunded. 
+	 */
 	private String saleId;
-
+	
 	/**
-	 * 
-	 */ 
+	 * ID of the Capture transaction being refunded. 
+	 */
 	private String captureId;
-
+	
 	/**
-	 * 
-	 */ 
+	 * ID of the Payment resource that this transaction is based on.
+	 */
 	private String parentPayment;
-
+	
 	/**
 	 * 
-	 */ 
-	private String description;
-
-	/**
-	 * 
-	 */ 
-	private List<Link> links;
-
+	 */
+	private List<Links> links;
+	
 	/**
 	 * Returns the last request sent to the Service
 	 * 
@@ -86,7 +74,7 @@ public class Refund extends Resource {
 	public static String getLastResponse() {
 		return PayPalResource.getLastResponse();
 	}
-	
+
 	/**
 	 * Initialize using InputStream(of a Properties file)
 	 * 
@@ -118,193 +106,166 @@ public class Refund extends Resource {
 	public static void initConfig(Properties properties) {
 		PayPalResource.initConfig(properties);
 	}
-	
-
 	/**
-	 * Constructor
+	 * Default Constructor
 	 */
 	public Refund() {
+	}
 
-	}	
 
+	/**
+	 * Setter for id
+	 */
+	public Refund setId(String id) {
+		this.id = id;
+		return this;
+	}
+	
 	/**
 	 * Getter for id
 	 */
 	public String getId() {
-		return id;
+		return this.id;
+	}
+
+
+	/**
+	 * Setter for createTime
+	 */
+	public Refund setCreateTime(String createTime) {
+		this.createTime = createTime;
+		return this;
 	}
 	
-	/**
-	 * Setter for id;
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
 	/**
 	 * Getter for createTime
 	 */
 	public String getCreateTime() {
-		return createTime;
+		return this.createTime;
+	}
+
+
+	/**
+	 * Setter for amount
+	 */
+	public Refund setAmount(Amount amount) {
+		this.amount = amount;
+		return this;
 	}
 	
-	/**
-	 * Setter for createTime;
-	 */
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-	/**
-	 * Getter for updateTime
-	 */
-	public String getUpdateTime() {
-		return updateTime;
-	}
-	
-	/**
-	 * Setter for updateTime;
-	 */
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-	}
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return state;
-	}
-	
-	/**
-	 * Setter for state;
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
 	/**
 	 * Getter for amount
 	 */
 	public Amount getAmount() {
-		return amount;
+		return this.amount;
+	}
+
+
+	/**
+	 * Setter for state
+	 */
+	public Refund setState(String state) {
+		this.state = state;
+		return this;
 	}
 	
 	/**
-	 * Setter for amount;
+	 * Getter for state
 	 */
-	public void setAmount(Amount amount) {
-		this.amount = amount;
+	public String getState() {
+		return this.state;
 	}
+
+
+	/**
+	 * Setter for saleId
+	 */
+	public Refund setSaleId(String saleId) {
+		this.saleId = saleId;
+		return this;
+	}
+	
 	/**
 	 * Getter for saleId
 	 */
 	public String getSaleId() {
-		return saleId;
+		return this.saleId;
+	}
+
+
+	/**
+	 * Setter for captureId
+	 */
+	public Refund setCaptureId(String captureId) {
+		this.captureId = captureId;
+		return this;
 	}
 	
-	/**
-	 * Setter for saleId;
-	 */
-	public void setSaleId(String saleId) {
-		this.saleId = saleId;
-	}
 	/**
 	 * Getter for captureId
 	 */
 	public String getCaptureId() {
-		return captureId;
+		return this.captureId;
+	}
+
+
+	/**
+	 * Setter for parentPayment
+	 */
+	public Refund setParentPayment(String parentPayment) {
+		this.parentPayment = parentPayment;
+		return this;
 	}
 	
-	/**
-	 * Setter for captureId;
-	 */
-	public void setCaptureId(String captureId) {
-		this.captureId = captureId;
-	}
 	/**
 	 * Getter for parentPayment
 	 */
 	public String getParentPayment() {
-		return parentPayment;
+		return this.parentPayment;
+	}
+
+
+	/**
+	 * Setter for links
+	 */
+	public Refund setLinks(List<Links> links) {
+		this.links = links;
+		return this;
 	}
 	
-	/**
-	 * Setter for parentPayment;
-	 */
-	public void setParentPayment(String parentPayment) {
-		this.parentPayment = parentPayment;
-	}
-	/**
-	 * Getter for description
-	 */
-	public String getDescription() {
-		return description;
-	}
-	
-	/**
-	 * Setter for description;
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	/**
 	 * Getter for links
 	 */
-	public List<Link> getLinks() {
-		return links;
-	}
-	
-	/**
-	 * Setter for links;
-	 */
-	public void setLinks(List<Link> links) {
-		this.links = links;
+	public List<Links> getLinks() {
+		return this.links;
 	}
 
 
-
-
 	/**
-	 * Get call for Refund.
-	 * @param accessToken
-	 *			AccessToken used for the API call
-	 * @param refundId
-	 * @HttpMethod GET
-	 * @URIpath v1/payments/refund/:refundId
-	 * @return Refund
+	 * Obtain the Refund transaction resource for the given identifier.
 	 */
 	public static Refund get(String accessToken, String refundId) throws PayPalRESTException {
-		if ((refundId == null) || (refundId.length() <= 0)) {
-			throw new IllegalArgumentException("refundId cannot be null or empty");
-		}
-		String pattern = "v1/payments/refund/{0}";
-		Object[] parameters = new Object[] {  refundId };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
 		APIContext apiContext = new APIContext(accessToken);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Refund.class);
+		return get(apiContext, refundId);
 	}
 	
 	/**
-	 * Get call for Refund.
-	 * @param apiContext
-	 *			{@link APIContext} to be used for the call.
-	 * @param refundId
-	 * @HttpMethod GET
-	 * @URIpath v1/payments/refund/:refundId
-	 * @return Refund
+	 * Obtain the Refund transaction resource for the given identifier.
 	 */
 	public static Refund get(APIContext apiContext, String refundId) throws PayPalRESTException {
-		if ((refundId == null) || (refundId.length() <= 0)) {
-			throw new IllegalArgumentException("refundId cannot be null or empty");
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
+		if (refundId == null) {
+			throw new IllegalArgumentException("refundId cannot be null");
+		}
+		Object[] parameters = new Object[] {refundId};
 		String pattern = "v1/payments/refund/{0}";
-		Object[] parameters = new Object[] {  refundId };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null in APIContext");
-		}
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Refund.class);
 	}
-
+	
 	/**
 	 * Returns a JSON string corresponding to object state
 	 * 
@@ -313,10 +274,9 @@ public class Refund extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }

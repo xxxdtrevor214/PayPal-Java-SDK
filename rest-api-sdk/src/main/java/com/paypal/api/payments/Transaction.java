@@ -1,118 +1,162 @@
 package com.paypal.api.payments;
+
+import com.paypal.core.rest.JSONFormatter;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Payee;
 import com.paypal.api.payments.ItemList;
+import com.paypal.api.payments.RelatedResources;
 import java.util.List;
-import com.paypal.api.payments.SubTransaction;
-import com.paypal.api.payments.Resource;
-import com.paypal.core.rest.JSONFormatter;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.HttpMethod;
+import com.paypal.core.rest.RESTUtil;
+import com.paypal.core.rest.QueryParameters;
+import com.paypal.core.rest.APIContext;
+import java.io.File;
+import java.io.InputStream;
+import java.util.Properties;
 
-/**
- * 
- */
-public class Transaction extends Resource {
-
+public class Transaction  {
 
 	/**
-	 * 
-	 */ 
+	 * Amount being collected.
+	 */
 	private Amount amount;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Recepient of the funds in this transaction.
+	 */
 	private Payee payee;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Description of what is being paid for.
+	 */
 	private String description;
-
+	
 	/**
-	 * 
-	 */ 
+	 * List of items being paid for.
+	 */
 	private ItemList itemList;
-
+	
 	/**
-	 * 
-	 */ 
-	private List<SubTransaction> relatedResources;
-
+	 * List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
+	 */
+	private List<RelatedResources> relatedResources;
+	
 	/**
-	 * Constructor
+	 * Additional transactions for complex payment (Parallel and Chained) scenarios.
+	 */
+	private List<Transaction> transactions;
+	
+	/**
+	 * Default Constructor
 	 */
 	public Transaction() {
+	}
 
-	}	
+	/**
+	 * Parameterized Constructor
+	 */
+	public Transaction(Amount amount) {
+		this.amount = amount;
+	}
+	
 
+	/**
+	 * Setter for amount
+	 */
+	public Transaction setAmount(Amount amount) {
+		this.amount = amount;
+		return this;
+	}
+	
 	/**
 	 * Getter for amount
 	 */
 	public Amount getAmount() {
-		return amount;
+		return this.amount;
+	}
+
+
+	/**
+	 * Setter for payee
+	 */
+	public Transaction setPayee(Payee payee) {
+		this.payee = payee;
+		return this;
 	}
 	
-	/**
-	 * Setter for amount;
-	 */
-	public void setAmount(Amount amount) {
-		this.amount = amount;
-	}
 	/**
 	 * Getter for payee
 	 */
 	public Payee getPayee() {
-		return payee;
+		return this.payee;
+	}
+
+
+	/**
+	 * Setter for description
+	 */
+	public Transaction setDescription(String description) {
+		this.description = description;
+		return this;
 	}
 	
-	/**
-	 * Setter for payee;
-	 */
-	public void setPayee(Payee payee) {
-		this.payee = payee;
-	}
 	/**
 	 * Getter for description
 	 */
 	public String getDescription() {
-		return description;
+		return this.description;
+	}
+
+
+	/**
+	 * Setter for itemList
+	 */
+	public Transaction setItemList(ItemList itemList) {
+		this.itemList = itemList;
+		return this;
 	}
 	
-	/**
-	 * Setter for description;
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	/**
 	 * Getter for itemList
 	 */
 	public ItemList getItemList() {
-		return itemList;
+		return this.itemList;
+	}
+
+
+	/**
+	 * Setter for relatedResources
+	 */
+	public Transaction setRelatedResources(List<RelatedResources> relatedResources) {
+		this.relatedResources = relatedResources;
+		return this;
 	}
 	
-	/**
-	 * Setter for itemList;
-	 */
-	public void setItemList(ItemList itemList) {
-		this.itemList = itemList;
-	}
 	/**
 	 * Getter for relatedResources
 	 */
-	public List<SubTransaction> getRelatedResources() {
-		return relatedResources;
+	public List<RelatedResources> getRelatedResources() {
+		return this.relatedResources;
+	}
+
+
+	/**
+	 * Setter for transactions
+	 */
+	public Transaction setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+		return this;
 	}
 	
 	/**
-	 * Setter for relatedResources;
+	 * Getter for transactions
 	 */
-	public void setRelatedResources(List<SubTransaction> relatedResources) {
-		this.relatedResources = relatedResources;
+	public List<Transaction> getTransactions() {
+		return this.transactions;
 	}
-
-
-
 
 	/**
 	 * Returns a JSON string corresponding to object state
@@ -122,10 +166,9 @@ public class Transaction extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }

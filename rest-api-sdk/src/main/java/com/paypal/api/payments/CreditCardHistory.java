@@ -1,7 +1,7 @@
 package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
-import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.CreditCard;
 import java.util.List;
 import java.util.Map;
 import com.paypal.core.rest.PayPalRESTException;
@@ -14,12 +14,12 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class PaymentHistory  {
+public class CreditCardHistory  {
 
 	/**
-	 * A list of Payment resources
+	 * A list of credit card resources
 	 */
-	private List<Payment> payments;
+	private List<CreditCard> creditCards;
 	
 	/**
 	 * Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
@@ -34,30 +34,30 @@ public class PaymentHistory  {
 	/**
 	 * Default Constructor
 	 */
-	public PaymentHistory() {
+	public CreditCardHistory() {
 	}
 
 
 	/**
-	 * Setter for payments
+	 * Setter for creditCards
 	 */
-	public PaymentHistory setPayments(List<Payment> payments) {
-		this.payments = payments;
+	public CreditCardHistory setCreditCards(List<CreditCard> creditCards) {
+		this.creditCards = creditCards;
 		return this;
 	}
 	
 	/**
-	 * Getter for payments
+	 * Getter for creditCards
 	 */
-	public List<Payment> getPayments() {
-		return this.payments;
+	public List<CreditCard> getCreditCards() {
+		return this.creditCards;
 	}
 
 
 	/**
 	 * Setter for count
 	 */
-	public PaymentHistory setCount(int count) {
+	public CreditCardHistory setCount(int count) {
 		this.count = count;
 		return this;
 	}
@@ -73,7 +73,7 @@ public class PaymentHistory  {
 	/**
 	 * Setter for nextId
 	 */
-	public PaymentHistory setNextId(String nextId) {
+	public CreditCardHistory setNextId(String nextId) {
 		this.nextId = nextId;
 		return this;
 	}

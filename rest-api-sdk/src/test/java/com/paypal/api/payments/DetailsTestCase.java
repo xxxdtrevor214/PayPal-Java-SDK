@@ -3,7 +3,7 @@ package com.paypal.api.payments;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class AmountDetailsTestCase {
+public class DetailsTestCase {
 
 	public static final String FEE = "100.00";
 
@@ -13,8 +13,8 @@ public class AmountDetailsTestCase {
 
 	public static final String TAX = "20.00";
 
-	public static AmountDetails createAmountDetails() {
-		AmountDetails amountDetails = new AmountDetails();
+	public static Details createDetails() {
+		Details amountDetails = new Details();
 		amountDetails.setFee(FEE);
 		amountDetails.setShipping(SHIPPING);
 		amountDetails.setSubtotal(SUBTOTAL);
@@ -24,7 +24,7 @@ public class AmountDetailsTestCase {
 
 	@Test
 	public void testConstruction() {
-		AmountDetails amountDetails = createAmountDetails();
+		Details amountDetails = createDetails();
 		Assert.assertEquals(amountDetails.getFee(), FEE);
 		Assert.assertEquals(amountDetails.getShipping(), SHIPPING);
 		Assert.assertEquals(amountDetails.getSubtotal(), SUBTOTAL);
@@ -33,13 +33,13 @@ public class AmountDetailsTestCase {
 	
 	@Test
 	public void testTOJSON() {
-		AmountDetails amountDetails = createAmountDetails();
+		Details amountDetails = createDetails();
 		Assert.assertEquals(amountDetails.toJSON().length() == 0, false);
 	}
 	
 	@Test
 	public void testTOString() {
-		AmountDetails amountDetails = createAmountDetails();
+		Details amountDetails = createDetails();
 		Assert.assertEquals(amountDetails.toString().length() == 0, false);
 	}
 

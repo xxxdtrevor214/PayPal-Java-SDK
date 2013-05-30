@@ -62,22 +62,16 @@ public class PaymentTestCase {
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
 		creditCard.setCvv2("874");
-		creditCard.setExpireMonth("11");
-		creditCard.setExpireYear("2018");
+		creditCard.setExpireMonth(11);
+		creditCard.setExpireYear(2018);
 		creditCard.setFirstName("Joe");
 		creditCard.setLastName("Shopper");
 		creditCard.setNumber("4417119669820331");
 		creditCard.setType("visa");
 
-		// AmountDetails amountDetails = new AmountDetails();
-		// amountDetails.setShipping("10");
-		// amountDetails.setSubtotal("75");
-		// amountDetails.setTax("15");
-
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		amount.setTotal("7");
-		// amount.setDetails(amountDetails);
 
 		Transaction transaction = new Transaction();
 		transaction.setAmount(amount);
@@ -108,22 +102,22 @@ public class PaymentTestCase {
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
 		creditCard.setCvv2("874");
-		creditCard.setExpireMonth("11");
-		creditCard.setExpireYear("2018");
+		creditCard.setExpireMonth(11);
+		creditCard.setExpireYear(2018);
 		creditCard.setFirstName("Joe");
 		creditCard.setLastName("Shopper");
 		creditCard.setNumber("4111111111111111");
 		creditCard.setType("visa");
 
-		AmountDetails amountDetails = new AmountDetails();
-		amountDetails.setShipping("10");
-		amountDetails.setSubtotal("75");
-		amountDetails.setTax("15");
+		Details details = new Details();
+		details.setShipping("10");
+		details.setSubtotal("75");
+		details.setTax("15");
 
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		amount.setTotal("100");
-		amount.setDetails(amountDetails);
+		amount.setDetails(details);
 
 		Payee payee = new Payee();
 		payee.setMerchantId("NMXBYHSEL4FEY");
@@ -145,8 +139,8 @@ public class PaymentTestCase {
 		payer.setFundingInstruments(fundingInstrumentList);
 		payer.setPaymentMethod("credit_card");
 
-		List<Link> links = new ArrayList<Link>();
-		links.add(LinkTestCase.createLink());
+		List<Links> links = new ArrayList<Links>();
+		links.add(LinksTestCase.createLinks());
 
 		RedirectUrls redirectUrls = RedirectUrlsTestCase.createRedirectUrls();
 
@@ -162,15 +156,15 @@ public class PaymentTestCase {
 	}
 
 	public static Payment createPaymentForExecution() {
-		AmountDetails amountDetails = new AmountDetails();
-		amountDetails.setShipping("10");
-		amountDetails.setSubtotal("75");
-		amountDetails.setTax("15");
+		Details details = new Details();
+		details.setShipping("10");
+		details.setSubtotal("75");
+		details.setTax("15");
 
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		amount.setTotal("100");
-		amount.setDetails(amountDetails);
+		amount.setDetails(details);
 
 		RedirectUrls redirectUrls = new RedirectUrls();
 		redirectUrls.setCancelUrl("http://www.hawaii.com");

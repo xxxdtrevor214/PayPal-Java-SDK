@@ -1,113 +1,139 @@
 package com.paypal.api.payments;
-import com.paypal.api.payments.Resource;
+
 import com.paypal.core.rest.JSONFormatter;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.HttpMethod;
+import com.paypal.core.rest.RESTUtil;
+import com.paypal.core.rest.QueryParameters;
+import com.paypal.core.rest.APIContext;
+import java.io.File;
+import java.io.InputStream;
+import java.util.Properties;
 
-/**
- * 
- */
-public class Item extends Resource {
-
-
-	/**
-	 * 
-	 */ 
-	private String name;
-
-	/**
-	 * 
-	 */ 
-	private String sku;
+public class Item  {
 
 	/**
-	 * 
-	 */ 
-	private String price;
-
-	/**
-	 * 
-	 */ 
-	private String currency;
-
-	/**
-	 * 
-	 */ 
+	 * Number of items.
+	 */
 	private String quantity;
-
+	
 	/**
-	 * Constructor
+	 * Name of the item.
+	 */
+	private String name;
+	
+	/**
+	 * Cost of the item.
+	 */
+	private String price;
+	
+	/**
+	 * 3-letter Currency Code
+	 */
+	private String currency;
+	
+	/**
+	 * Number or code to identify the item in your catalog/records.
+	 */
+	private String sku;
+	
+	/**
+	 * Default Constructor
 	 */
 	public Item() {
-
-	}	
-
-	/**
-	 * Getter for name
-	 */
-	public String getName() {
-		return name;
 	}
-	
+
 	/**
-	 * Setter for name;
+	 * Parameterized Constructor
 	 */
-	public void setName(String name) {
+	public Item(String quantity, String name, String price, String currency) {
+		this.quantity = quantity;
 		this.name = name;
-	}
-	/**
-	 * Getter for sku
-	 */
-	public String getSku() {
-		return sku;
-	}
-	
-	/**
-	 * Setter for sku;
-	 */
-	public void setSku(String sku) {
-		this.sku = sku;
-	}
-	/**
-	 * Getter for price
-	 */
-	public String getPrice() {
-		return price;
-	}
-	
-	/**
-	 * Setter for price;
-	 */
-	public void setPrice(String price) {
 		this.price = price;
-	}
-	/**
-	 * Getter for currency
-	 */
-	public String getCurrency() {
-		return currency;
-	}
-	
-	/**
-	 * Setter for currency;
-	 */
-	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
+	
+
+	/**
+	 * Setter for quantity
+	 */
+	public Item setQuantity(String quantity) {
+		this.quantity = quantity;
+		return this;
+	}
+	
 	/**
 	 * Getter for quantity
 	 */
 	public String getQuantity() {
-		return quantity;
+		return this.quantity;
+	}
+
+
+	/**
+	 * Setter for name
+	 */
+	public Item setName(String name) {
+		this.name = name;
+		return this;
 	}
 	
 	/**
-	 * Setter for quantity;
+	 * Getter for name
 	 */
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
+	public String getName() {
+		return this.name;
 	}
 
 
+	/**
+	 * Setter for price
+	 */
+	public Item setPrice(String price) {
+		this.price = price;
+		return this;
+	}
+	
+	/**
+	 * Getter for price
+	 */
+	public String getPrice() {
+		return this.price;
+	}
 
+
+	/**
+	 * Setter for currency
+	 */
+	public Item setCurrency(String currency) {
+		this.currency = currency;
+		return this;
+	}
+	
+	/**
+	 * Getter for currency
+	 */
+	public String getCurrency() {
+		return this.currency;
+	}
+
+
+	/**
+	 * Setter for sku
+	 */
+	public Item setSku(String sku) {
+		this.sku = sku;
+		return this;
+	}
+	
+	/**
+	 * Getter for sku
+	 */
+	public String getSku() {
+		return this.sku;
+	}
 
 	/**
 	 * Returns a JSON string corresponding to object state
@@ -117,10 +143,9 @@ public class Item extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }

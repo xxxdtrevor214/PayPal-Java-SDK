@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 public class PaymentExecutionTestCase {
 	
 	public static PaymentExecution createPaymentExecution(){
-		List<Amount> transactions = new ArrayList<Amount>();
-		transactions.add(AmountTestCase.createAmount("100.00"));
+		List<Transactions> transactions = new ArrayList<Transactions>();
+		transactions.add(TransactionsTestCase.createTransactions());
 		PaymentExecution pae=new PaymentExecution();
 		pae.setPayerId(PayerInfoTestCase.PAYERID);
 		pae.setTransactions(transactions);
@@ -21,8 +21,8 @@ public class PaymentExecutionTestCase {
 	public void testConstruction(){
 		PaymentExecution pae = createPaymentExecution();
 		Assert.assertEquals(pae.getPayerId(), PayerInfoTestCase.PAYERID);
-		Assert.assertEquals(pae.getTransactions().get(0).getTotal(),"100.00");
-		Assert.assertEquals(pae.getTransactions().get(0).getCurrency(),AmountTestCase.CURRENCY);
+		Assert.assertEquals(pae.getTransactions().get(0).getAmount().getTotal(),"100.00");
+		Assert.assertEquals(pae.getTransactions().get(0).getAmount().getCurrency(),AmountTestCase.CURRENCY);
 	}
 	
 	

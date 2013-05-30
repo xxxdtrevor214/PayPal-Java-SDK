@@ -7,8 +7,8 @@ public class AmountTestCase {
 
 	public static final String CURRENCY = "USD";
 
-	public static final AmountDetails AMOUNTDETAILS = AmountDetailsTestCase
-			.createAmountDetails();
+	public static final Details AMOUNTDETAILS = DetailsTestCase
+			.createDetails();
 
 	public static Amount createAmount(String total) {
 		Amount amount = new Amount();
@@ -24,7 +24,7 @@ public class AmountTestCase {
 		Assert.assertEquals(amount.getTotal(), "1000.00");
 		Assert.assertEquals(amount.getCurrency(), CURRENCY);
 		Assert.assertEquals(amount.getDetails().getFee(),
-				AmountDetailsTestCase.FEE);
+				DetailsTestCase.FEE);
 	}
 
 	@Test

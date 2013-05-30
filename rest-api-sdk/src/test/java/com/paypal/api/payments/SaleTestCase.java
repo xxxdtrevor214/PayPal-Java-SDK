@@ -39,8 +39,8 @@ public class SaleTestCase {
 	}
 
 	public static Sale createSale() {
-		List<Link> links = new ArrayList<Link>();
-		links.add(LinkTestCase.createLink());
+		List<Links> links = new ArrayList<Links>();
+		links.add(LinksTestCase.createLinks());
 		Sale sale = new Sale();
 		sale.setAmount(AMOUNT);
 		sale.setId(ID);
@@ -71,7 +71,7 @@ public class SaleTestCase {
 
 		Payment createdPayment = payment.create(TokenHolder.accessToken);
 		List<Transaction> transactions = createdPayment.getTransactions();
-		List<SubTransaction> subTransactions = transactions.get(0)
+		List<RelatedResources> subTransactions = transactions.get(0)
 				.getRelatedResources();
 		String id = subTransactions.get(0).getSale().getId();
 		this.SALE_ID = id;

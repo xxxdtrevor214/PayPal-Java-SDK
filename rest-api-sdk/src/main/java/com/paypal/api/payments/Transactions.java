@@ -1,8 +1,8 @@
 package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
+import com.paypal.api.payments.Amount;
 import java.util.Map;
-import com.paypal.api.payments.Address;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
 import com.paypal.core.rest.HttpMethod;
@@ -13,40 +13,40 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ShippingAddress extends Address {
+public class Transactions  {
 
 	/**
-	 * Name of the recipient at this address.
+	 * Amount being collected.
 	 */
-	private String recipientName;
+	private Amount amount;
 	
 	/**
 	 * Default Constructor
 	 */
-	public ShippingAddress() {
+	public Transactions() {
 	}
 
 	/**
 	 * Parameterized Constructor
 	 */
-	public ShippingAddress(String recipientName) {
-		this.recipientName = recipientName;
+	public Transactions(Amount amount) {
+		this.amount = amount;
 	}
 	
 
 	/**
-	 * Setter for recipientName
+	 * Setter for amount
 	 */
-	public ShippingAddress setRecipientName(String recipientName) {
-		this.recipientName = recipientName;
+	public Transactions setAmount(Amount amount) {
+		this.amount = amount;
 		return this;
 	}
 	
 	/**
-	 * Getter for recipientName
+	 * Getter for amount
 	 */
-	public String getRecipientName() {
-		return this.recipientName;
+	public Amount getAmount() {
+		return this.amount;
 	}
 
 	/**

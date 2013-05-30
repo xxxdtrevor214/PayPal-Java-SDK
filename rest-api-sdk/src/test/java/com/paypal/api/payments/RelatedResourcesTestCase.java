@@ -3,7 +3,7 @@ package com.paypal.api.payments;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SubTransactionTestCase {
+public class RelatedResourcesTestCase {
 
 	public static final Sale SALE = SaleTestCase.createSale();
 
@@ -14,8 +14,8 @@ public class SubTransactionTestCase {
 
 	public static final Capture CAPTURE = CaptureTestCase.createCapture();
 
-	public static SubTransaction createSubTransaction() {
-		SubTransaction subTransaction = new SubTransaction();
+	public static RelatedResources createRelatedResources() {
+		RelatedResources subTransaction = new RelatedResources();
 		subTransaction.setAuthorization(AUTHORIZATION);
 		subTransaction.setCapture(CAPTURE);
 		subTransaction.setRefund(REFUND);
@@ -25,7 +25,7 @@ public class SubTransactionTestCase {
 
 	@Test
 	public void testConstruction() {
-		SubTransaction subTransaction = createSubTransaction();
+		RelatedResources subTransaction = createRelatedResources();
 		Assert.assertEquals(subTransaction.getAuthorization().getId(),
 				AuthorizationTestCase.ID);
 		Assert.assertEquals(subTransaction.getSale().getId(), SaleTestCase.ID);
@@ -37,13 +37,13 @@ public class SubTransactionTestCase {
 
 	@Test
 	public void testTOJSON() {
-		SubTransaction subTransaction = createSubTransaction();
+		RelatedResources subTransaction = createRelatedResources();
 		Assert.assertEquals(subTransaction.toJSON().length() == 0, false);
 	}
 
 	@Test
 	public void testTOString() {
-		SubTransaction subTransaction = createSubTransaction();
+		RelatedResources subTransaction = createRelatedResources();
 		Assert.assertEquals(subTransaction.toString().length() == 0, false);
 	}
 

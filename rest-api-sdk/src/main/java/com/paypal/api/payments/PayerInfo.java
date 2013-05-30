@@ -1,132 +1,151 @@
 package com.paypal.api.payments;
-import com.paypal.api.payments.Address;
-import com.paypal.api.payments.Resource;
+
 import com.paypal.core.rest.JSONFormatter;
+import com.paypal.api.payments.Address;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.HttpMethod;
+import com.paypal.core.rest.RESTUtil;
+import com.paypal.core.rest.QueryParameters;
+import com.paypal.core.rest.APIContext;
+import java.io.File;
+import java.io.InputStream;
+import java.util.Properties;
 
-/**
- * 
- */
-public class PayerInfo extends Resource {
-
+public class PayerInfo  {
 
 	/**
-	 * 
-	 */ 
+	 * Email address representing the Payer.
+	 */
 	private String email;
-
+	
 	/**
-	 * 
-	 */ 
+	 * First Name of the Payer from their PayPal Account.
+	 */
 	private String firstName;
-
+	
 	/**
-	 * 
-	 */ 
+	 * Last Name of the Payer from their PayPal Account.
+	 */
 	private String lastName;
-
+	
 	/**
-	 * 
-	 */ 
+	 * PayPal assigned Payer ID.
+	 */
 	private String payerId;
-
+	
 	/**
-	 * 
-	 */ 
-	private Address shippingAddress;
-
-	/**
-	 * 
-	 */ 
+	 * Phone number representing the Payer.
+	 */
 	private String phone;
-
+	
 	/**
-	 * Constructor
+	 * Shipping address of the Payer from their PayPal Account.
+	 */
+	private Address shippingAddress;
+	
+	/**
+	 * Default Constructor
 	 */
 	public PayerInfo() {
+	}
 
-	}	
 
+	/**
+	 * Setter for email
+	 */
+	public PayerInfo setEmail(String email) {
+		this.email = email;
+		return this;
+	}
+	
 	/**
 	 * Getter for email
 	 */
 	public String getEmail() {
-		return email;
+		return this.email;
+	}
+
+
+	/**
+	 * Setter for firstName
+	 */
+	public PayerInfo setFirstName(String firstName) {
+		this.firstName = firstName;
+		return this;
 	}
 	
-	/**
-	 * Setter for email;
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	/**
 	 * Getter for firstName
 	 */
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
+	}
+
+
+	/**
+	 * Setter for lastName
+	 */
+	public PayerInfo setLastName(String lastName) {
+		this.lastName = lastName;
+		return this;
 	}
 	
-	/**
-	 * Setter for firstName;
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 	/**
 	 * Getter for lastName
 	 */
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
+	}
+
+
+	/**
+	 * Setter for payerId
+	 */
+	public PayerInfo setPayerId(String payerId) {
+		this.payerId = payerId;
+		return this;
 	}
 	
-	/**
-	 * Setter for lastName;
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 	/**
 	 * Getter for payerId
 	 */
 	public String getPayerId() {
-		return payerId;
+		return this.payerId;
+	}
+
+
+	/**
+	 * Setter for phone
+	 */
+	public PayerInfo setPhone(String phone) {
+		this.phone = phone;
+		return this;
 	}
 	
-	/**
-	 * Setter for payerId;
-	 */
-	public void setPayerId(String payerId) {
-		this.payerId = payerId;
-	}
-	/**
-	 * Getter for shippingAddress
-	 */
-	public Address getShippingAddress() {
-		return shippingAddress;
-	}
-	
-	/**
-	 * Setter for shippingAddress;
-	 */
-	public void setShippingAddress(Address shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
 	/**
 	 * Getter for phone
 	 */
 	public String getPhone() {
-		return phone;
+		return this.phone;
+	}
+
+
+	/**
+	 * Setter for shippingAddress
+	 */
+	public PayerInfo setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
+		return this;
 	}
 	
 	/**
-	 * Setter for phone;
+	 * Getter for shippingAddress
 	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public Address getShippingAddress() {
+		return this.shippingAddress;
 	}
-
-
-
 
 	/**
 	 * Returns a JSON string corresponding to object state
@@ -136,10 +155,9 @@ public class PayerInfo extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }

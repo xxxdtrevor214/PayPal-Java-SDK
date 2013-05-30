@@ -1,61 +1,75 @@
 package com.paypal.api.payments;
-import java.util.List;
-import com.paypal.api.payments.Amount;
-import com.paypal.api.payments.Resource;
+
 import com.paypal.core.rest.JSONFormatter;
+import com.paypal.api.payments.Transactions;
+import java.util.List;
+import java.util.Map;
+import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.HttpMethod;
+import com.paypal.core.rest.RESTUtil;
+import com.paypal.core.rest.QueryParameters;
+import com.paypal.core.rest.APIContext;
+import java.io.File;
+import java.io.InputStream;
+import java.util.Properties;
 
-/**
- * 
- */
-public class PaymentExecution extends Resource {
-
+public class PaymentExecution  {
 
 	/**
-	 * 
-	 */ 
+	 * PayPal assigned Payer ID returned in the approval return url.
+	 */
 	private String payerId;
-
+	
 	/**
-	 * 
-	 */ 
-	private List<Amount> transactions;
-
+	 * If the amount needs to be updated after obtaining the PayPal Payer info (eg. shipping address), it can be updated using this element.
+	 */
+	private List<Transactions> transactions;
+	
 	/**
-	 * Constructor
+	 * Default Constructor
 	 */
 	public PaymentExecution() {
+	}
 
-	}	
+	/**
+	 * Parameterized Constructor
+	 */
+	public PaymentExecution(String payerId) {
+		this.payerId = payerId;
+	}
+	
 
+	/**
+	 * Setter for payerId
+	 */
+	public PaymentExecution setPayerId(String payerId) {
+		this.payerId = payerId;
+		return this;
+	}
+	
 	/**
 	 * Getter for payerId
 	 */
 	public String getPayerId() {
-		return payerId;
+		return this.payerId;
+	}
+
+
+	/**
+	 * Setter for transactions
+	 */
+	public PaymentExecution setTransactions(List<Transactions> transactions) {
+		this.transactions = transactions;
+		return this;
 	}
 	
-	/**
-	 * Setter for payerId;
-	 */
-	public void setPayerId(String payerId) {
-		this.payerId = payerId;
-	}
 	/**
 	 * Getter for transactions
 	 */
-	public List<Amount> getTransactions() {
-		return transactions;
+	public List<Transactions> getTransactions() {
+		return this.transactions;
 	}
-	
-	/**
-	 * Setter for transactions;
-	 */
-	public void setTransactions(List<Amount> transactions) {
-		this.transactions = transactions;
-	}
-
-
-
 
 	/**
 	 * Returns a JSON string corresponding to object state
@@ -65,10 +79,9 @@ public class PaymentExecution extends Resource {
 	public String toJSON() {
 		return JSONFormatter.toJSON(this);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toJSON();
 	}
-
 }
