@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
+import com.paypal.core.ConfigManager;
+import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
 
@@ -128,7 +130,7 @@ public class AuthorizationTestCase {
 		logger.info("**** Capture Authorization (Null Capture) ****");
 		Capture responsecapture = getAuthorization().capture(TokenHolder.accessToken, null);
 	}
-
+	
 	@Test
 	public void testTOJSON() {
 		Authorization authorization = createAuthorization();
@@ -142,33 +144,39 @@ public class AuthorizationTestCase {
 	}
 
 	private Payment getPaymentAgainstAuthorization() {
-		Payment payment = new Payment();
-		Details details = new Details();
-		details.setShipping("10");
-		details.setSubtotal("75");
-		details.setTax("15");
+		Address billingAddress = AddressTestCase.createAddress();
+
+		CreditCard creditCard = new CreditCard();
+		creditCard.setBillingAddress(billingAddress);
+		creditCard.setCvv2("874");
+		creditCard.setExpireMonth(11);
+		creditCard.setExpireYear(2018);
+		creditCard.setFirstName("Joe");
+		creditCard.setLastName("Shopper");
+		creditCard.setNumber("4417119669820331");
+		creditCard.setType("visa");
 
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
-		amount.setTotal("100");
-		amount.setDetails(details);
+		amount.setTotal("7");
 
 		Transaction transaction = new Transaction();
 		transaction.setAmount(amount);
 		transaction
-				.setDescription("This is the payment authorization description.");
+				.setDescription("This is the payment transaction description.");
 		List<Transaction> transactions = new ArrayList<Transaction>();
 		transactions.add(transaction);
 
 		FundingInstrument fundingInstrument = new FundingInstrument();
-		fundingInstrument.setCreditCard(CreditCardTestCase.createCreditCard());
-		List<FundingInstrument> fundingInstruments = new ArrayList<FundingInstrument>();
-		fundingInstruments.add(fundingInstrument);
+		fundingInstrument.setCreditCard(creditCard);
+		List<FundingInstrument> fundingInstrumentList = new ArrayList<FundingInstrument>();
+		fundingInstrumentList.add(fundingInstrument);
 
 		Payer payer = new Payer();
+		payer.setFundingInstruments(fundingInstrumentList);
 		payer.setPaymentMethod("credit_card");
-		payer.setFundingInstruments(fundingInstruments);
 
+		Payment payment = new Payment();
 		payment.setIntent("authorize");
 		payment.setPayer(payer);
 		payment.setTransactions(transactions);
