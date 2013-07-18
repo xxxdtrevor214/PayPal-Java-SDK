@@ -94,6 +94,12 @@
 	<profiles>
 		<profile>
 			<id>coverage</id>
+			<activation>
+				<!-- Jenkins -->
+                <property>
+                    <name>env.BUILD_NUMBER</name>
+                </property>
+            </activation>
 			<dependencies>
 				<dependency>
 					<groupId>net.sourceforge.cobertura</groupId>
@@ -101,7 +107,7 @@
 					<version>1.9.4.1</version>
 				</dependency>
 			</dependencies>
-			<reporting>
+			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
@@ -113,9 +119,17 @@
 								<format>xml</format>
 							</formats>
 						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>cobertura</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
-			</reporting>
+			</build>
 		</profile>
 	</profiles>
 	<developers>
