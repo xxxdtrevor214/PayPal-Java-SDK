@@ -3,7 +3,7 @@ jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
-script: mvn -Ptravis clean cobertura:cobertura coveralls:cobertura
+script: mvn -f rest-api-sdk/pom.xml -Ptravis clean coveralls:cobertura && mvn clean test
 notifications:
   recipients:
     - DL-PP-Platform-Java-SDK@ebay.com
