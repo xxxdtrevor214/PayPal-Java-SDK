@@ -10,6 +10,8 @@ package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -59,10 +61,10 @@ public class GetPaymentHistoryServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		QueryParameters queryParameters = new QueryParameters();
-		queryParameters.setCount("10");
+		Map<String, String> containerMap = new HashMap<String, String>();
+		containerMap.put("count", "10");
 		try {
-			
+
 			// ###AccessToken
 			// Retrieve the access token from
 			// OAuthTokenCredential by passing in
@@ -75,12 +77,12 @@ public class GetPaymentHistoryServlet extends HttpServlet {
 			// Retrieve the PaymentHistory object by calling the
 			// static `get` method
 			// on the Payment class, and pass the
-			// AccessToken and a QueryParameters object that contains
+			// AccessToken and a ContainerMap object that contains
 			// query parameters for paginations and filtering.
 			// Refer the API documentation
 			// for valid values for keys
-			PaymentHistory paymentHistory = Payment.get(accessToken,
-					queryParameters);
+			PaymentHistory paymentHistory = Payment.list(accessToken,
+					containerMap);
 			LOGGER.info("Payment History = " + paymentHistory.toString());
 			req.setAttribute("response", Payment.getLastResponse());
 		} catch (PayPalRESTException e) {
