@@ -1,33 +1,47 @@
 package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
-import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Currency;
 
-public class Transactions  {
+public class Cost  {
 
 	/**
-	 * Amount being collected.
+	 * Cost in percent. Range of 0 to 100.
 	 */
-	private Amount amount;
+	private float percent;
+
+	/**
+	 * Cost in amount. Range of 0 to 999999.99.
+	 */
+	private Currency amount;
 
 	/**
 	 * Default Constructor
 	 */
-	public Transactions() {
+	public Cost() {
+	}
+
+
+	/**
+	 * Setter for percent
+	 */
+	public Cost setPercent(float percent) {
+		this.percent = percent;
+		return this;
 	}
 
 	/**
-	 * Parameterized Constructor
+	 * Getter for percent
 	 */
-	public Transactions(Amount amount) {
-		this.amount = amount;
+	public float getPercent() {
+		return this.percent;
 	}
 
 
 	/**
 	 * Setter for amount
 	 */
-	public Transactions setAmount(Amount amount) {
+	public Cost setAmount(Currency amount) {
 		this.amount = amount;
 		return this;
 	}
@@ -35,7 +49,7 @@ public class Transactions  {
 	/**
 	 * Getter for amount
 	 */
-	public Amount getAmount() {
+	public Currency getAmount() {
 		return this.amount;
 	}
 
