@@ -24,7 +24,7 @@ SDK Integration:
 		<dependency>
 			<groupId>com.paypal.sdk</groupId>
 			<artifactId>rest-api-sdk</artifactId>
-			<version>0.7.1</version>
+			<version>0.8.0</version>
 		</dependency>
 		
 		
@@ -89,4 +89,4 @@ The SDK uses Java properties format configuration file. Sample of this file is a
 
 *	Credentials	
 		
-
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/rest-api-sdk-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

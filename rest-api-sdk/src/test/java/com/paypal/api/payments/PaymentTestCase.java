@@ -208,9 +208,8 @@ public class PaymentTestCase {
 	@Test
 	public void testCreatePaymentAPI() throws PayPalRESTException {
 		logger.info("**** Create Payment ****");
-		String clientID = ConfigManager.getInstance().getValue("clientID");
-		String clientSecret = ConfigManager.getInstance().getValue(
-				"clientSecret");
+		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
 		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
 				clientSecret).getAccessToken();
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -269,33 +268,20 @@ public class PaymentTestCase {
 		logger.info("Setting Access Token = " + TokenHolder.accessToken);
 		Map<String, String> containerMap = new HashMap<String, String>();
 		containerMap.put("count", "10");
-		PaymentHistory paymentHistory = Payment.get(TokenHolder.accessToken,
+		PaymentHistory paymentHistory = Payment.list(TokenHolder.accessToken,
 				containerMap);
 		logger.info("Request = " + Payment.getLastRequest());
 		logger.info("Response = " + Payment.getLastResponse());
 		logger.info("Retrieved Payments count = " + paymentHistory.getCount());
 	}
-	
-	@Test(dependsOnMethods = { "testGetPaymentHistoryAPI" })
-	public void testGetPaymentHistoryQueryParamsAPI() throws PayPalRESTException {
-		logger.info("**** Get Payment History ****");
-		logger.info("Setting Access Token = " + TokenHolder.accessToken);
-		QueryParameters params = new QueryParameters();
-		params.setCount("10");
-		PaymentHistory paymentHistory = Payment.get(TokenHolder.accessToken,
-				params);
-		logger.info("Request = " + Payment.getLastRequest());
-		logger.info("Response = " + Payment.getLastResponse());
-		logger.info("Retrieved Payments count = " + paymentHistory.getCount());
-	}
 
-	@Test(dependsOnMethods = { "testGetPaymentHistoryQueryParamsAPI" })
+	@Test(dependsOnMethods = { "testGetPaymentHistoryAPI" })
 	public void testFailCreatePaymentAPI() {
 		logger.info("**** Failing Create Payment ****");
 		logger.info("Setting Access Token = " + TokenHolder.accessToken);
 		Payment payment = new Payment();
 		try {
-			Payment createdPayment = payment.create(TokenHolder.accessToken);
+			payment.create(TokenHolder.accessToken);
 		} catch (PayPalRESTException e) {
 			Assert.assertEquals(e.getCause().getClass().getSimpleName(),
 					"HttpErrorException");
@@ -307,8 +293,7 @@ public class PaymentTestCase {
 		logger.info("**** Failing Get Payment ****");
 		logger.info("Setting Access Token = " + TokenHolder.accessToken);
 		try {
-			Payment createdPayment = Payment.get(TokenHolder.accessToken,
-					(String) null);
+			Payment.get(TokenHolder.accessToken, (String) null);
 		} catch (IllegalArgumentException e) {
 			Assert.assertTrue(e != null,
 					"Illegal Argument Exception not thrown for null arguments");
