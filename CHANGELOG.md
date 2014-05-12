@@ -1,5 +1,10 @@
 CHANGELOG
 ========= 
+V0.9.0 (May 13, 2014)
+-----------------------
+   * Added future payment
+   * Updated core version
+
 V0.8.0 (April 16, 2014)
 -----------------------
    * Added invoicing support
