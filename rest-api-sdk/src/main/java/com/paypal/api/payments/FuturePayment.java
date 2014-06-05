@@ -48,20 +48,6 @@ public class FuturePayment extends Payment {
 		apiContext.getHTTPHeaders().put("Paypal-Application-Correlation-Id", correlationId);
 		return this.create(apiContext);
 	}
-	public Tokeninfo getTokeninfo2(CreateFromAuthorizationCodeParameters params) throws PayPalRESTException {
-		Map<String, String> configurationMap = new HashMap<String, String>();
-		configurationMap.put("mode", "sandbox");
-		System.out.println(params.getClientID());
-		System.out.println(params.getClientSecret());
-		CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
-		param.setClientID("AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd");
-		param.setClientSecret("EL1tVxAjhT7cJimnz5-Nsx9k2reTKSVfErNQF-CmrwJgxRtylkGTKlU4RvrX");
-		param.setCode("EGTV5jvRQN1ByDsBcmz6oIhQe57kvwYNY0FF46aPwFLiYAnDbO8qDruo9p0esRVMoZTU28NHM7ZVJSbhP-BF1bq76MC5sy8eVQ625BIUSEK_DPAyMyKlHyNVS2DqBR2iWVfQGfudbd9MDoRxMEjIZbY");
-		APIContext apiContext = new APIContext();
-		apiContext.setConfigurationMap(configurationMap);
-		Tokeninfo info = Tokeninfo.createFromAuthorizationCode(apiContext, param);
-		return info;
-	}
 	
 	public Tokeninfo getTokeninfo(CreateFromAuthorizationCodeParameters params) throws PayPalRESTException {
 		Map<String, String> configurationMap = new HashMap<String, String>();
