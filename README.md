@@ -76,7 +76,11 @@ To make an API call:
 		payment.create(apiContext);
 		```
 
-		
+*	[Future Payments](https://developer.paypal.com/docs/integration/mobile/make-future-payment/) sample is available [here](https://github.com/paypal/rest-api-sdk-java/blob/master/rest-api-sample/src/main/java/com/paypal/api/sample/FuturePaymentSample.java) for executing future payments for a customer who has granted consent on a mobile device.
+
+*	For [Invoicing](https://developer.paypal.com/webapps/developer/docs/api/#invoicing), check out the [samples](https://github.com/paypal/rest-api-sdk-java/blob/master/rest-api-sample/src/main/java/com/paypal/api/sample/InvoiceSample.java) to see how you can use the node sdk to create, send and manage invoices.
+
+## Running Samples
 SDK Configuration:
 ------------------
 The SDK uses Java properties format configuration file. Sample of this file is at 
