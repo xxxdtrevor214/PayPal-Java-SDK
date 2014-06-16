@@ -17,6 +17,10 @@ To build sdk and samples:
 
 SDK Integration:
 ----------------
+
+For Maven Users:
+----------------
+
 *	Create a new maven application.
 
 *	Add dependency to sdk in your application's pom.xml as below.
