@@ -1,5 +1,10 @@
 CHANGELOG
 ========= 
+V0.9.1 (June 16, 2014)
+----------------------
+   * Update core
+   * Make Java 6 compatible
+
 V0.9.0 (May 13, 2014)
 -----------------------
    * Added future payment
