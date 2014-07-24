@@ -6,5 +6,5 @@ jdk:
 after_script: mvn -f rest-api-sdk/pom.xml -Ptravis clean cobertura:cobertura coveralls:cobertura
 notifications:
   recipients:
-    - DL-PP-Platform-Java-SDK@ebay.com
+    - DL-PP-JAVA-SDK@ebay.com
   on_success: change
