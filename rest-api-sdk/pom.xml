@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.paypal.sdk</groupId>
             <artifactId>paypal-core</artifactId>
-            <version>1.6.1</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
     <build>
@@ -171,9 +171,9 @@
     </profiles>
     <developers>
         <developer>
-            <id>DL-PP-Platform-Java-SDK</id>
-            <name>DL-PP-Platform-Java-SDK</name>
-            <email>DL-PP-Platform-Java-SDK@ebay.com</email>
+            <id>DL-PP-JAVA-SDK</id>
+            <name>DL-PP-JAVA-SDK</name>
+            <email>DL-PP-JAVA-SDK@ebay.com</email>
             <url>http://www.paypal.com</url>
             <organization>PayPal</organization>
             <organizationUrl>http://www.paypal.com</organizationUrl>

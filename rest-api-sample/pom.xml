@@ -10,7 +10,7 @@
 		<dependency>
 			<groupId>com.paypal.sdk</groupId>
 			<artifactId>rest-api-sdk</artifactId>
-			<version>0.9.0</version>
+			<version>LATEST</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
