@@ -39,6 +39,22 @@ public class Transaction  {
 	 */
 	private List<Transaction> transactions;
 
+    /**
+     * Invoice number used to track the payment. 256 characters max.
+     */
+    private String invoiceNumber;
+
+    /**
+     *  Free-form field for the use of clients. 256 characters max.
+     */
+    private String custom;
+
+    /**
+     * Soft descriptor used when charging this funding source. 22 characters max.
+     */
+    private String softDescriptor;
+
+
 	/**
 	 * Default Constructor
 	 */
@@ -147,6 +163,51 @@ public class Transaction  {
 	public List<Transaction> getTransactions() {
 		return this.transactions;
 	}
+
+    /**
+     * Setter for invoiceNumber
+     */
+    public Transaction setInvoiceNumber( String invoiceNumber ) {
+        this.invoiceNumber = invoiceNumber;
+        return this;
+    }
+
+    /**
+     * Getter for invoiceNumber
+     */
+    public String getInvoiceNumber() {
+        return this.invoiceNumber;
+    }
+
+    /**
+     * Setter for custom
+     */
+    public Transaction setCustom( String custom ) {
+        this.custom = custom;
+        return this;
+    }
+
+    /**
+     *  Getter for custom
+     */
+    public String getCustom() {
+        return this.custom;
+    }
+
+    /**
+     * Setter for softDescriptor
+     */
+    public Transaction setSoftDescriptor( String softDescriptor ) {
+        this.softDescriptor = softDescriptor;
+        return this;
+    }
+
+    /**
+     * Getter for softDescriptor
+     */
+    public String getSoftDescriptor() {
+        return this.softDescriptor;
+    }
 
 	/**
 	 * Returns a JSON string corresponding to object state
