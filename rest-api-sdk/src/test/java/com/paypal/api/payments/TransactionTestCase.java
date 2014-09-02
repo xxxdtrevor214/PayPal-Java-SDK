@@ -14,6 +14,12 @@ public class TransactionTestCase {
 
 	public static final String DESCRIPTION = "sample description";
 
+    public static final String CUSTOM = "custom field value 1";
+
+    public static final String INVOICE = "invoice 1";
+
+    public static final String SOFT_DESCRIPTOR = "soft descriptor 1";
+
 	public static Transaction createTransaction() {
 		ItemList itemList = ItemListTestCase.createItemList();
 		List<RelatedResources> relResources = new ArrayList<RelatedResources>();
@@ -24,6 +30,9 @@ public class TransactionTestCase {
 		transaction.setDescription(DESCRIPTION);
 		transaction.setItemList(itemList);
 		transaction.setRelatedResources(relResources);
+        transaction.setCustom( CUSTOM );
+        transaction.setInvoiceNumber( INVOICE );
+        transaction.setSoftDescriptor( SOFT_DESCRIPTOR );
 		return transaction;
 	}
 
@@ -40,6 +49,9 @@ public class TransactionTestCase {
 				.getAuthorization().getId(), AuthorizationTestCase.ID);
 		Assert.assertEquals(transaction.getAmount().getCurrency(),
 				AmountTestCase.CURRENCY);
+		Assert.assertEquals(transaction.getCustom(), CUSTOM);
+		Assert.assertEquals(transaction.getInvoiceNumber(), INVOICE);
+		Assert.assertEquals(transaction.getSoftDescriptor(), SOFT_DESCRIPTOR);
 	}
 
 	@Test
