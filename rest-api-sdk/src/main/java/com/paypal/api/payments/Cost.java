@@ -8,7 +8,7 @@ public class Cost  {
 	/**
 	 * Cost in percent. Range of 0 to 100.
 	 */
-	private float percent;
+	private Float percent;
 
 	/**
 	 * Cost in amount. Range of 0 to 999999.99.
@@ -25,7 +25,7 @@ public class Cost  {
 	/**
 	 * Setter for percent
 	 */
-	public Cost setPercent(float percent) {
+	public Cost setPercent(Float percent) {
 		this.percent = percent;
 		return this;
 	}
@@ -33,10 +33,9 @@ public class Cost  {
 	/**
 	 * Getter for percent
 	 */
-	public float getPercent() {
+	public Float getPercent() {
 		return this.percent;
 	}
-
 
 	/**
 	 * Setter for amount
