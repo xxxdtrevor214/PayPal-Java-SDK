@@ -31,7 +31,7 @@ public class FuturePayment extends Payment {
 	 * https://developer.paypal.com/webapps/developer/docs/integration/mobile/make-future-payment/
 	 * 
 	 * @param authorizationCode	an authorization code
-	 * @param refreshToken		a refresh token
+	 * @param accessToken		an access token
 	 * @param correlationId		paypal application correlation ID
 	 * @return	a <code>Payment</code> object
 	 * @throws PayPalRESTException
