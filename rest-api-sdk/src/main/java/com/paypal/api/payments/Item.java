@@ -19,6 +19,11 @@ public class Item  {
 	 */
 	private String price;
 
+    /**
+     * Tax associated with the item.
+     */
+    private String tax;
+
 	/**
 	 * 3-letter Currency Code
 	 */
@@ -93,8 +98,21 @@ public class Item  {
 		return this.price;
 	}
 
+    /**
+     * Getter for tax
+     */
+    public String getTax() {
+        return tax;
+    }
 
-	/**
+    /**
+     * Setter for tax
+     */
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
+    /**
 	 * Setter for currency
 	 */
 	public Item setCurrency(String currency) {
