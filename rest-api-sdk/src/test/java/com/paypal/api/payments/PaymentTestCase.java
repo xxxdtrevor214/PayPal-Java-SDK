@@ -40,6 +40,8 @@ public class PaymentTestCase {
 
 	public static final String INTENT = "sale";
 
+	public static final String EXPERIENCEPROFILEID = "XP-ABCD-1234-EFGH-5678";
+
 	public static final String ID = "12345";
 
 	public static Payment payment;
@@ -91,6 +93,7 @@ public class PaymentTestCase {
 
 		Payment payment = new Payment();
 		payment.setIntent("sale");
+        payment.setExperienceProfileId(EXPERIENCEPROFILEID);
 		payment.setPayer(payer);
 		payment.setTransactions(transactions);
 		return payment;
@@ -146,6 +149,7 @@ public class PaymentTestCase {
 
 		Payment payment = new Payment();
 		payment.setIntent("sale");
+        payment.setExperienceProfileId(EXPERIENCEPROFILEID);
 		payment.setId(ID);
 		payment.setPayer(payer);
 		payment.setTransactions(transactions);
@@ -196,6 +200,7 @@ public class PaymentTestCase {
 		Assert.assertEquals(payment.getTransactions().get(0).getAmount()
 				.getTotal(), "100");
 		Assert.assertEquals(payment.getIntent(), INTENT);
+		Assert.assertEquals(payment.getExperienceProfileId(), EXPERIENCEPROFILEID);
 		Assert.assertEquals(payment.getRedirectUrls().getCancelUrl(),
 				RedirectUrlsTestCase.CANCELURL);
 		Assert.assertEquals(payment.getRedirectUrls().getReturnUrl(),
