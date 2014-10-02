@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,12 +72,25 @@ public class PaymentTestCase {
 		creditCard.setNumber("4417119669820331");
 		creditCard.setType("visa");
 
-		Amount amount = new Amount();
-		amount.setCurrency("USD");
-		amount.setTotal("7");
+
+        ItemList itemList = new ItemList();
+        List<Item> items = new ArrayList<Item>();
+        items.add(ItemTestCase.createItem());
+        itemList.setItems(items);
+
+        Details amountDetails = new Details();
+        amountDetails.setTax("8.40");
+        amountDetails.setSubtotal("44.10");
+        amountDetails.setShipping("4.99");
+
+        Amount amount = new Amount();
+        amount.setDetails(amountDetails);
+        amount.setCurrency("USD");
+        amount.setTotal("57.49");
 
 		Transaction transaction = new Transaction();
 		transaction.setAmount(amount);
+        transaction.setItemList(itemList);
 		transaction
 				.setDescription("This is the payment transaction description.");
 		List<Transaction> transactions = new ArrayList<Transaction>();
@@ -125,8 +139,14 @@ public class PaymentTestCase {
 		Payee payee = new Payee();
 		payee.setMerchantId("NMXBYHSEL4FEY");
 
+        ItemList itemList = new ItemList();
+        List<Item> items = new ArrayList<Item>();
+        items.add(ItemTestCase.createItem());
+        itemList.setItems(items);
+
 		Transaction transaction = new Transaction();
 		transaction.setAmount(amount);
+        transaction.setItemList(itemList);
 		transaction.setPayee(payee);
 		transaction
 				.setDescription("This is the payment transaction description.");
@@ -174,8 +194,14 @@ public class PaymentTestCase {
 		redirectUrls.setCancelUrl("http://www.hawaii.com");
 		redirectUrls.setReturnUrl("http://www.hawaii.com");
 
+        ItemList itemList = new ItemList();
+        List<Item> items = new ArrayList<Item>();
+        items.add(ItemTestCase.createItem());
+        itemList.setItems(items);
+
 		Transaction transaction = new Transaction();
 		transaction.setAmount(amount);
+        transaction.setItemList(itemList);
 		transaction
 				.setDescription("This is the payment transaction description.");
 		List<Transaction> transactions = new ArrayList<Transaction>();
