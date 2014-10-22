@@ -31,7 +31,7 @@ public class FuturePayment extends Payment {
 	 * https://developer.paypal.com/webapps/developer/docs/integration/mobile/make-future-payment/
 	 * 
 	 * @param authorizationCode	an authorization code
-	 * @param refreshToken		a refresh token
+	 * @param accessToken		an access token
 	 * @param correlationId		paypal application correlation ID
 	 * @return	a <code>Payment</code> object
 	 * @throws PayPalRESTException
@@ -45,7 +45,7 @@ public class FuturePayment extends Payment {
 		
 		APIContext apiContext = new APIContext(accessToken);
 		apiContext.setHTTPHeaders(new HashMap<String, String>());
-		apiContext.getHTTPHeaders().put("Paypal-Application-Correlation-Id", correlationId);
+		apiContext.getHTTPHeaders().put("PAYPAL-CLIENT-METADATA-ID", correlationId);
 		return this.create(apiContext);
 	}
 	
@@ -54,7 +54,6 @@ public class FuturePayment extends Payment {
 	    configurationMap.put("clientId", params.getClientID());
 	    configurationMap.put("clientSecret", params.getClientSecret());
 	    configurationMap.put("response_type", "token");
-	    configurationMap.put("mode", "sandbox");
 		APIContext apiContext = new APIContext();
 		apiContext.setConfigurationMap(configurationMap);
 	    params.setRedirectURI("urn:ietf:wg:oauth:2.0:oob");

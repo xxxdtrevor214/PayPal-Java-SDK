@@ -30,6 +30,18 @@ public class AddressTestCase {
 		billingAddress.setState(STATE);
 		return billingAddress;
 	}
+	
+	public static ShippingAddress createShippingAddress() {
+		ShippingAddress address = new ShippingAddress();
+		address.setCity(CITY);
+		address.setCountryCode(COUNTRYCODE);
+		address.setLine1(LINE1);
+		address.setLine2(LINE2);
+		address.setPostalCode(POSTALCODE);
+		address.setPhone(PHONE);
+		address.setState(STATE);
+		return address;
+	}
 
 	@Test
 	public void testConstruction() {

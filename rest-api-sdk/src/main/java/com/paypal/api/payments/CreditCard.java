@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.HttpMethod;
 import com.paypal.core.rest.RESTUtil;
 import com.paypal.core.rest.QueryParameters;
@@ -37,7 +38,7 @@ public class CreditCard  {
 	private String type;
 
 	/**
-	 * card expiry month with value 1 - 12.
+	 * 2 digit card expiry month.
 	 */
 	private int expireMonth;
 
@@ -49,7 +50,7 @@ public class CreditCard  {
 	/**
 	 * Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
 	 */
-	private String cvv2;
+	private int cvv2;
 
 	/**
 	 * Card holder's first name.
@@ -67,9 +68,9 @@ public class CreditCard  {
 	private Address billingAddress;
 
 	/**
-	 * A unique identifier of the payer generated and provided by the facilitator. This is required when creating or using a tokenized funding instrument.
+	 * A unique identifier of the customer to whom this bank account belongs to. Generated and provided by the facilitator. This is required when creating or using a stored funding instrument in vault.
 	 */
-	private String payerId;
+	private String externalCustomerId;
 
 	/**
 	 * State of the funding instrument.
@@ -110,9 +111,10 @@ public class CreditCard  {
 	 * @param is
 	 *            InputStream
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
+	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
+		return PayPalResource.initConfig(is);
 	}
 
 	/**
@@ -121,9 +123,10 @@ public class CreditCard  {
 	 * @param file
 	 *            File object of a properties entity
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
+	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
+		return PayPalResource.initConfig(file);
 	}
 
 	/**
@@ -131,9 +134,10 @@ public class CreditCard  {
 	 *
 	 * @param properties
 	 *            Properties object
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
+	public static OAuthTokenCredential initConfig(Properties properties) {
+		return PayPalResource.initConfig(properties);
 	}
 	/**
 	 * Default Constructor
@@ -235,7 +239,7 @@ public class CreditCard  {
 	/**
 	 * Setter for cvv2
 	 */
-	public CreditCard setCvv2(String cvv2) {
+	public CreditCard setCvv2(int cvv2) {
 		this.cvv2 = cvv2;
 		return this;
 	}
@@ -243,7 +247,7 @@ public class CreditCard  {
 	/**
 	 * Getter for cvv2
 	 */
-	public String getCvv2() {
+	public int getCvv2() {
 		return this.cvv2;
 	}
 
@@ -297,18 +301,18 @@ public class CreditCard  {
 
 
 	/**
-	 * Setter for payerId
+	 * Setter for externalCustomerId
 	 */
-	public CreditCard setPayerId(String payerId) {
-		this.payerId = payerId;
+	public CreditCard setExternalCustomerId(String externalCustomerId) {
+		this.externalCustomerId = externalCustomerId;
 		return this;
 	}
 
 	/**
-	 * Getter for payerId
+	 * Getter for externalCustomerId
 	 */
-	public String getPayerId() {
-		return this.payerId;
+	public String getExternalCustomerId() {
+		return this.externalCustomerId;
 	}
 
 

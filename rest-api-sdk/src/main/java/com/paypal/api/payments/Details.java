@@ -25,6 +25,16 @@ public class Details  {
 	private String fee;
 
 	/**
+	 * Amount being charged as handling fee.
+	 */
+	private String handlingFee;
+
+	/**
+	 * Amount being charged as gift wrap fee.
+	 */
+	private String giftWrap;
+
+	/**
 	 * Default Constructor
 	 */
 	public Details() {
@@ -92,6 +102,38 @@ public class Details  {
 	 */
 	public String getFee() {
 		return this.fee;
+	}
+
+
+	/**
+	 * Setter for handlingFee
+	 */
+	public Details setHandlingFee(String handlingFee) {
+		this.handlingFee = handlingFee;
+		return this;
+	}
+
+	/**
+	 * Getter for handlingFee
+	 */
+	public String getHandlingFee() {
+		return this.handlingFee;
+	}
+
+
+	/**
+	 * Setter for giftWrap
+	 */
+	public Details setGiftWrap(String giftWrap) {
+		this.giftWrap = giftWrap;
+		return this;
+	}
+
+	/**
+	 * Getter for giftWrap
+	 */
+	public String getGiftWrap() {
+		return this.giftWrap;
 	}
 
 	/**

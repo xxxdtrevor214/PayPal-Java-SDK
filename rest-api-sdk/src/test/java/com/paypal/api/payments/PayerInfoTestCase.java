@@ -15,8 +15,8 @@ public class PayerInfoTestCase {
 
 	public static final String PHONE = "716-298-1822";
 
-	public static final Address SHIPPINGADDRESS = AddressTestCase
-			.createAddress();
+	public static final ShippingAddress SHIPPINGADDRESS = AddressTestCase
+			.createShippingAddress();
 
 	public static PayerInfo createPayerInfo() {
 		PayerInfo payerInfo = new PayerInfo();

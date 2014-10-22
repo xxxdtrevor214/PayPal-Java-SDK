@@ -2,6 +2,7 @@ package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
 import com.paypal.api.payments.Address;
+import com.paypal.api.payments.ShippingAddress;
 
 public class PayerInfo  {
 
@@ -11,12 +12,22 @@ public class PayerInfo  {
 	private String email;
 
 	/**
-	 * First Name of the Payer from their PayPal Account.
+	 * External Remember Me id representing the Payer
+	 */
+	private String externalRememberMeId;
+
+	/**
+	 * Account Number representing the Payer
+	 */
+	private String buyerAccountNumber;
+
+	/**
+	 * First Name of the Payer.
 	 */
 	private String firstName;
 
 	/**
-	 * Last Name of the Payer from their PayPal Account.
+	 * Last Name of the Payer.
 	 */
 	private String lastName;
 
@@ -31,9 +42,34 @@ public class PayerInfo  {
 	private String phone;
 
 	/**
-	 * Shipping address of the Payer from their PayPal Account.
+	 * Phone type
 	 */
-	private Address shippingAddress;
+	private String phoneType;
+
+	/**
+	 * Birth date of the Payer in ISO8601 format (YYYY-MM-DD).
+	 */
+	private String birthDate;
+
+	/**
+	 * Payer's tax ID.
+	 */
+	private String taxId;
+
+	/**
+	 * Payer's tax ID type.
+	 */
+	private String taxIdType;
+
+	/**
+	 * Billing address of the Payer.
+	 */
+	private Address billingAddress;
+
+	/**
+	 * Obsolete. Use shipping address present in purchase unit.
+	 */
+	private ShippingAddress shippingAddress;
 
 	/**
 	 * Default Constructor
@@ -55,6 +91,38 @@ public class PayerInfo  {
 	 */
 	public String getEmail() {
 		return this.email;
+	}
+
+
+	/**
+	 * Setter for externalRememberMeId
+	 */
+	public PayerInfo setExternalRememberMeId(String externalRememberMeId) {
+		this.externalRememberMeId = externalRememberMeId;
+		return this;
+	}
+
+	/**
+	 * Getter for externalRememberMeId
+	 */
+	public String getExternalRememberMeId() {
+		return this.externalRememberMeId;
+	}
+
+
+	/**
+	 * Setter for buyerAccountNumber
+	 */
+	public PayerInfo setBuyerAccountNumber(String buyerAccountNumber) {
+		this.buyerAccountNumber = buyerAccountNumber;
+		return this;
+	}
+
+	/**
+	 * Getter for buyerAccountNumber
+	 */
+	public String getBuyerAccountNumber() {
+		return this.buyerAccountNumber;
 	}
 
 
@@ -123,9 +191,89 @@ public class PayerInfo  {
 
 
 	/**
+	 * Setter for phoneType
+	 */
+	public PayerInfo setPhoneType(String phoneType) {
+		this.phoneType = phoneType;
+		return this;
+	}
+
+	/**
+	 * Getter for phoneType
+	 */
+	public String getPhoneType() {
+		return this.phoneType;
+	}
+
+
+	/**
+	 * Setter for birthDate
+	 */
+	public PayerInfo setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+		return this;
+	}
+
+	/**
+	 * Getter for birthDate
+	 */
+	public String getBirthDate() {
+		return this.birthDate;
+	}
+
+
+	/**
+	 * Setter for taxId
+	 */
+	public PayerInfo setTaxId(String taxId) {
+		this.taxId = taxId;
+		return this;
+	}
+
+	/**
+	 * Getter for taxId
+	 */
+	public String getTaxId() {
+		return this.taxId;
+	}
+
+
+	/**
+	 * Setter for taxIdType
+	 */
+	public PayerInfo setTaxIdType(String taxIdType) {
+		this.taxIdType = taxIdType;
+		return this;
+	}
+
+	/**
+	 * Getter for taxIdType
+	 */
+	public String getTaxIdType() {
+		return this.taxIdType;
+	}
+
+
+	/**
+	 * Setter for billingAddress
+	 */
+	public PayerInfo setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+		return this;
+	}
+
+	/**
+	 * Getter for billingAddress
+	 */
+	public Address getBillingAddress() {
+		return this.billingAddress;
+	}
+
+
+	/**
 	 * Setter for shippingAddress
 	 */
-	public PayerInfo setShippingAddress(Address shippingAddress) {
+	public PayerInfo setShippingAddress(ShippingAddress shippingAddress) {
 		this.shippingAddress = shippingAddress;
 		return this;
 	}
@@ -133,7 +281,7 @@ public class PayerInfo  {
 	/**
 	 * Getter for shippingAddress
 	 */
-	public Address getShippingAddress() {
+	public ShippingAddress getShippingAddress() {
 		return this.shippingAddress;
 	}
 
