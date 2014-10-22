@@ -6,6 +6,7 @@ import com.paypal.api.payments.Links;
 import java.util.List;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.HttpMethod;
 import com.paypal.core.rest.RESTUtil;
 import com.paypal.core.rest.QueryParameters;
@@ -15,6 +16,7 @@ import com.paypal.core.SDKVersion;
 import com.paypal.sdk.info.SDKVersionImpl;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -26,12 +28,12 @@ public class Authorization  {
 	private String id;
 
 	/**
-	 * Time the resource was created.
+	 * Time the resource was created in UTC ISO8601 format.
 	 */
 	private String createTime;
 
 	/**
-	 * Time the resource was last updated.
+	 * Time the resource was last updated in UTC ISO8601 format.
 	 */
 	private String updateTime;
 
@@ -41,9 +43,24 @@ public class Authorization  {
 	private Amount amount;
 
 	/**
+	 * specifies payment mode of the transaction
+	 */
+	private String paymentMode;
+
+	/**
 	 * State of the authorization transaction.
 	 */
 	private String state;
+
+	/**
+	 * Protection Eligibility of the Payer 
+	 */
+	private String protectionEligibility;
+
+	/**
+	 * Protection Eligibility Type of the Payer 
+	 */
+	private String protectionEligibilityType;
 
 	/**
 	 * ID of the Payment resource that this transaction is based on.
@@ -84,9 +101,10 @@ public class Authorization  {
 	 * @param is
 	 *            InputStream
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
+	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
+		return PayPalResource.initConfig(is);
 	}
 
 	/**
@@ -95,9 +113,10 @@ public class Authorization  {
 	 * @param file
 	 *            File object of a properties entity
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
+	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
+		return PayPalResource.initConfig(file);
 	}
 
 	/**
@@ -105,9 +124,10 @@ public class Authorization  {
 	 *
 	 * @param properties
 	 *            Properties object
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
+	public static OAuthTokenCredential initConfig(Properties properties) {
+		return PayPalResource.initConfig(properties);
 	}
 	/**
 	 * Default Constructor
@@ -181,6 +201,22 @@ public class Authorization  {
 
 
 	/**
+	 * Setter for paymentMode
+	 */
+	public Authorization setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+		return this;
+	}
+
+	/**
+	 * Getter for paymentMode
+	 */
+	public String getPaymentMode() {
+		return this.paymentMode;
+	}
+
+
+	/**
 	 * Setter for state
 	 */
 	public Authorization setState(String state) {
@@ -193,6 +229,38 @@ public class Authorization  {
 	 */
 	public String getState() {
 		return this.state;
+	}
+
+
+	/**
+	 * Setter for protectionEligibility
+	 */
+	public Authorization setProtectionEligibility(String protectionEligibility) {
+		this.protectionEligibility = protectionEligibility;
+		return this;
+	}
+
+	/**
+	 * Getter for protectionEligibility
+	 */
+	public String getProtectionEligibility() {
+		return this.protectionEligibility;
+	}
+
+
+	/**
+	 * Setter for protectionEligibilityType
+	 */
+	public Authorization setProtectionEligibilityType(String protectionEligibilityType) {
+		this.protectionEligibilityType = protectionEligibilityType;
+		return this;
+	}
+
+	/**
+	 * Getter for protectionEligibilityType
+	 */
+	public String getProtectionEligibilityType() {
+		return this.protectionEligibilityType;
 	}
 
 

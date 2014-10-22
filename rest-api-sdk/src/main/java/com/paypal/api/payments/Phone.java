@@ -5,14 +5,19 @@ import com.paypal.core.rest.JSONFormatter;
 public class Phone  {
 
 	/**
-	 * Country code (in E.164 format). Assume length is n.
+	 * Country code (from in E.164 format)
 	 */
 	private String countryCode;
 
 	/**
-	 * In-country phone number (in E.164 format). Maximum (15 - n) digits.
+	 * In-country phone number (from in E.164 format)
 	 */
 	private String nationalNumber;
+
+	/**
+	 * Phone extension
+	 */
+	private String extension;
 
 	/**
 	 * Default Constructor
@@ -58,6 +63,22 @@ public class Phone  {
 	 */
 	public String getNationalNumber() {
 		return this.nationalNumber;
+	}
+
+
+	/**
+	 * Setter for extension
+	 */
+	public Phone setExtension(String extension) {
+		this.extension = extension;
+		return this;
+	}
+
+	/**
+	 * Getter for extension
+	 */
+	public String getExtension() {
+		return this.extension;
 	}
 
 	/**

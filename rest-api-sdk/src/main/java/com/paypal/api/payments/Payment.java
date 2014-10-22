@@ -9,6 +9,7 @@ import com.paypal.api.payments.Links;
 import java.util.Map;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.HttpMethod;
 import com.paypal.core.rest.RESTUtil;
 import com.paypal.core.rest.QueryParameters;
@@ -29,12 +30,12 @@ public class Payment  {
 	private String id;
 
 	/**
-	 * Time the resource was created.
+	 * Time the resource was created in UTC ISO8601 format.
 	 */
 	private String createTime;
 
 	/**
-	 * Time the resource was last updated.
+	 * Time the resource was last updated in UTC ISO8601 format.
 	 */
 	private String updateTime;
 
@@ -47,6 +48,11 @@ public class Payment  {
 	 * Source of the funds for this payment represented by a PayPal account or a direct credit card.
 	 */
 	private Payer payer;
+
+	/**
+	 * Cart for which the payment is done.
+	 */
+	private Object cart;
 
 	/**
 	 * A payment can have more than one transaction, with each transaction establishing a contract between the payer and a payee
@@ -92,9 +98,10 @@ public class Payment  {
 	 * @param is
 	 *            InputStream
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
+	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
+		return PayPalResource.initConfig(is);
 	}
 
 	/**
@@ -103,9 +110,10 @@ public class Payment  {
 	 * @param file
 	 *            File object of a properties entity
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
+	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
+		return PayPalResource.initConfig(file);
 	}
 
 	/**
@@ -113,9 +121,10 @@ public class Payment  {
 	 *
 	 * @param properties
 	 *            Properties object
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
+	public static OAuthTokenCredential initConfig(Properties properties) {
+		return PayPalResource.initConfig(properties);
 	}
 	/**
 	 * Default Constructor
@@ -126,10 +135,9 @@ public class Payment  {
 	/**
 	 * Parameterized Constructor
 	 */
-	public Payment(String intent, Payer payer, List<Transaction> transactions) {
+	public Payment(String intent, Payer payer) {
 		this.intent = intent;
 		this.payer = payer;
-		this.transactions = transactions;
 	}
 
 
@@ -210,6 +218,22 @@ public class Payment  {
 	 */
 	public Payer getPayer() {
 		return this.payer;
+	}
+
+
+	/**
+	 * Setter for cart
+	 */
+	public Payment setCart(Object cart) {
+		this.cart = cart;
+		return this;
+	}
+
+	/**
+	 * Getter for cart
+	 */
+	public Object getCart() {
+		return this.cart;
 	}
 
 

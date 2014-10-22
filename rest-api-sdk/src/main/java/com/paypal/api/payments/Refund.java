@@ -6,6 +6,7 @@ import com.paypal.api.payments.Links;
 import java.util.List;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.HttpMethod;
 import com.paypal.core.rest.RESTUtil;
 import com.paypal.core.rest.QueryParameters;
@@ -15,23 +16,24 @@ import com.paypal.core.SDKVersion;
 import com.paypal.sdk.info.SDKVersionImpl;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
 
 public class Refund  {
 
 	/**
-	 * Identifier of the refund transaction.
+	 * Identifier of the refund transaction in UTC ISO8601 format.
 	 */
 	private String id;
 
 	/**
-	 * Time the resource was created.
+	 * Time the resource was created in UTC ISO8601 format.
 	 */
 	private String createTime;
 
 	/**
-	 * Time the resource was last updated.
+	 * Time the resource was last updated in UTC ISO8601 format.
 	 */
 	private String updateTime;
 
@@ -59,6 +61,11 @@ public class Refund  {
 	 * ID of the Payment resource that this transaction is based on.
 	 */
 	private String parentPayment;
+
+	/**
+	 * Description of what is being refunded for.
+	 */
+	private String description;
 
 	/**
 	 * 
@@ -89,9 +96,10 @@ public class Refund  {
 	 * @param is
 	 *            InputStream
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
+	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
+		return PayPalResource.initConfig(is);
 	}
 
 	/**
@@ -100,9 +108,10 @@ public class Refund  {
 	 * @param file
 	 *            File object of a properties entity
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
+	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
+		return PayPalResource.initConfig(file);
 	}
 
 	/**
@@ -110,9 +119,10 @@ public class Refund  {
 	 *
 	 * @param properties
 	 *            Properties object
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
+	public static OAuthTokenCredential initConfig(Properties properties) {
+		return PayPalResource.initConfig(properties);
 	}
 	/**
 	 * Default Constructor
@@ -246,6 +256,22 @@ public class Refund  {
 	 */
 	public String getParentPayment() {
 		return this.parentPayment;
+	}
+
+
+	/**
+	 * Setter for description
+	 */
+	public Refund setDescription(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Getter for description
+	 */
+	public String getDescription() {
+		return this.description;
 	}
 
 

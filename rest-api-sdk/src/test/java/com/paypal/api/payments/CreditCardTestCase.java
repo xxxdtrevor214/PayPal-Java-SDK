@@ -36,11 +36,11 @@ public class CreditCardTestCase {
 
 	public static final int EXPYEAR = 2018;
 
-	public static final String CVV2 = "874";
+	public static final int CVV2 = 874;
 
 	public static final String ID = "12345";
 
-	public static final String PAYERID = "12345";
+	public static final String EXTERNAL_CUSTOMER_ID = "12345";
 
 	public static final String STATE = "Approved";
 
@@ -62,7 +62,7 @@ public class CreditCardTestCase {
 				.setExpireYear(EXPYEAR).setFirstName(FIRSTNAME)
 				.setLastName(LASTNAME).setNumber(NUMBER).setType(TYPE)
 				.setCvv2(CVV2).setBillingAddress(BILLINGADDRESS).setId(ID)
-				.setPayerId(PAYERID).setState(STATE).setValidUntil(VALIDUNTIL);
+				.setState(STATE).setValidUntil(VALIDUNTIL);
 		return creditCard;
 	}
 
@@ -78,7 +78,7 @@ public class CreditCardTestCase {
 		creditCard.setCvv2(CVV2);
 		creditCard.setBillingAddress(BILLINGADDRESS);
 		creditCard.setId(ID);
-		creditCard.setPayerId(PAYERID);
+		creditCard.setExternalCustomerId(EXTERNAL_CUSTOMER_ID);
 		creditCard.setState(STATE);
 		creditCard.setValidUntil(VALIDUNTIL);
 		List<Links> links = new ArrayList<Links>();
@@ -100,7 +100,7 @@ public class CreditCardTestCase {
 		Assert.assertEquals(creditCard.getBillingAddress().getCity(),
 				AddressTestCase.CITY);
 		Assert.assertEquals(creditCard.getId(), ID);
-		Assert.assertEquals(creditCard.getPayerId(), PAYERID);
+		Assert.assertEquals(creditCard.getExternalCustomerId(), EXTERNAL_CUSTOMER_ID);
 		Assert.assertEquals(creditCard.getState(), STATE);
 		Assert.assertEquals(creditCard.getValidUntil(), VALIDUNTIL);
 		Assert.assertEquals(creditCard.getLinks().size(), 1);
