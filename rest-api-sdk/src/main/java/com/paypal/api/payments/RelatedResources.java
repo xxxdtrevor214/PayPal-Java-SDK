@@ -2,7 +2,7 @@ package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
 import com.paypal.api.payments.Sale;
-import com.paypal.api.payments.Authorization;
+import com.paypal.api.payments.Order;
 import com.paypal.api.payments.Capture;
 import com.paypal.api.payments.Refund;
 
@@ -14,7 +14,7 @@ public class RelatedResources  {
 	private Sale sale;
 
 	/**
-	 * An authorization transaction
+	 * An order transaction
 	 */
 	private Authorization authorization;
 

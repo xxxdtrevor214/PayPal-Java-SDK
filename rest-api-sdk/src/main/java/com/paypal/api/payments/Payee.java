@@ -1,6 +1,7 @@
 package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
+import com.paypal.api.payments.Phone;
 
 public class Payee  {
 
@@ -15,9 +16,9 @@ public class Payee  {
 	private String merchantId;
 
 	/**
-	 * Phone number (in E.123 format) associated with the Payee's PayPal Account. If the provided phont number is not associated with any PayPal Account, the payee can only receiver PayPal Wallet Payments. Direct Credit Card Payments will be denied due to card compliance requirements.
+	 * Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
 	 */
-	private String phone;
+	private Phone phone;
 
 	/**
 	 * Default Constructor
@@ -28,10 +29,9 @@ public class Payee  {
 	/**
 	 * Parameterized Constructor
 	 */
-	public Payee(String email, String merchantId, String phone) {
+	public Payee(String email, String merchantId) {
 		this.email = email;
 		this.merchantId = merchantId;
-		this.phone = phone;
 	}
 
 
@@ -70,7 +70,7 @@ public class Payee  {
 	/**
 	 * Setter for phone
 	 */
-	public Payee setPhone(String phone) {
+	public Payee setPhone(Phone phone) {
 		this.phone = phone;
 		return this;
 	}
@@ -78,7 +78,7 @@ public class Payee  {
 	/**
 	 * Getter for phone
 	 */
-	public String getPhone() {
+	public Phone getPhone() {
 		return this.phone;
 	}
 

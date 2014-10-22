@@ -9,7 +9,7 @@ public class PayeeTestCase {
 
 	public static final String EMAIL = "somename@somedomain.com";
 
-	public static final String PHONE = "716-298-1822";
+	public static final Phone PHONE = new Phone("1", "716-298-1822");
 
 	public static Payee createPayee() {
 		Payee payee = new Payee();

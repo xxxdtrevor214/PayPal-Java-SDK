@@ -6,6 +6,7 @@ import com.paypal.api.payments.Links;
 import java.util.List;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.HttpMethod;
 import com.paypal.core.rest.RESTUtil;
 import com.paypal.core.rest.QueryParameters;
@@ -15,6 +16,7 @@ import com.paypal.core.SDKVersion;
 import com.paypal.sdk.info.SDKVersionImpl;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -26,12 +28,12 @@ public class Capture  {
 	private String id;
 
 	/**
-	 * Time the resource was created.
+	 * Time the resource was created in UTC ISO8601 format.
 	 */
 	private String createTime;
 
 	/**
-	 * Time the resource was last updated.
+	 * Time the resource was last updated in UTC ISO8601 format.
 	 */
 	private String updateTime;
 
@@ -84,9 +86,10 @@ public class Capture  {
 	 * @param is
 	 *            InputStream
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
+	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
+		return PayPalResource.initConfig(is);
 	}
 
 	/**
@@ -95,9 +98,10 @@ public class Capture  {
 	 * @param file
 	 *            File object of a properties entity
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
+	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
+		return PayPalResource.initConfig(file);
 	}
 
 	/**
@@ -105,9 +109,10 @@ public class Capture  {
 	 *
 	 * @param properties
 	 *            Properties object
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
+	public static OAuthTokenCredential initConfig(Properties properties) {
+		return PayPalResource.initConfig(properties);
 	}
 	/**
 	 * Default Constructor

@@ -48,11 +48,10 @@ public class Address  {
 	/**
 	 * Parameterized Constructor
 	 */
-	public Address(String line1, String city, String countryCode, String state) {
+	public Address(String line1, String city, String countryCode) {
 		this.line1 = line1;
 		this.city = city;
 		this.countryCode = countryCode;
-		this.state = state;
 	}
 
 
