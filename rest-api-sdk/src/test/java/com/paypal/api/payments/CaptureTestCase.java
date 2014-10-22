@@ -145,7 +145,7 @@ public class CaptureTestCase {
 
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
-		creditCard.setCvv2("874");
+		creditCard.setCvv2(874);
 		creditCard.setExpireMonth(11);
 		creditCard.setExpireYear(2018);
 		creditCard.setFirstName("Joe");

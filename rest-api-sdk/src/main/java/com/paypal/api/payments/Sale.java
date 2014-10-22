@@ -6,6 +6,7 @@ import com.paypal.api.payments.Links;
 import java.util.List;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;
+import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.HttpMethod;
 import com.paypal.core.rest.RESTUtil;
 import com.paypal.core.rest.QueryParameters;
@@ -15,6 +16,7 @@ import com.paypal.core.SDKVersion;
 import com.paypal.sdk.info.SDKVersionImpl;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -41,9 +43,34 @@ public class Sale  {
 	private Amount amount;
 
 	/**
+	 * specifies payment mode of the transaction
+	 */
+	private String paymentMode;
+
+	/**
 	 * State of the sale transaction.
 	 */
 	private String state;
+
+	/**
+	 * Reason code for the transaction state being Pending or Reversed.
+	 */
+	private String reasonCode;
+
+	/**
+	 * Protection Eligibility of the Payer 
+	 */
+	private String protectionEligibility;
+
+	/**
+	 * Protection Eligibility Type of the Payer 
+	 */
+	private String protectionEligibilityType;
+
+	/**
+	 * Expected clearing time for eCheck Transactions
+	 */
+	private String clearingTime;
 
 	/**
 	 * ID of the Payment resource that this transaction is based on.
@@ -79,9 +106,10 @@ public class Sale  {
 	 * @param is
 	 *            InputStream
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
+	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
+		return PayPalResource.initConfig(is);
 	}
 
 	/**
@@ -90,9 +118,10 @@ public class Sale  {
 	 * @param file
 	 *            File object of a properties entity
 	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
+	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
+		return PayPalResource.initConfig(file);
 	}
 
 	/**
@@ -100,9 +129,10 @@ public class Sale  {
 	 *
 	 * @param properties
 	 *            Properties object
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
 	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
+	public static OAuthTokenCredential initConfig(Properties properties) {
+		return PayPalResource.initConfig(properties);
 	}
 	/**
 	 * Default Constructor
@@ -185,6 +215,22 @@ public class Sale  {
 
 
 	/**
+	 * Setter for paymentMode
+	 */
+	public Sale setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+		return this;
+	}
+
+	/**
+	 * Getter for paymentMode
+	 */
+	public String getPaymentMode() {
+		return this.paymentMode;
+	}
+
+
+	/**
 	 * Setter for state
 	 */
 	public Sale setState(String state) {
@@ -197,6 +243,70 @@ public class Sale  {
 	 */
 	public String getState() {
 		return this.state;
+	}
+
+
+	/**
+	 * Setter for reasonCode
+	 */
+	public Sale setReasonCode(String reasonCode) {
+		this.reasonCode = reasonCode;
+		return this;
+	}
+
+	/**
+	 * Getter for reasonCode
+	 */
+	public String getReasonCode() {
+		return this.reasonCode;
+	}
+
+
+	/**
+	 * Setter for protectionEligibility
+	 */
+	public Sale setProtectionEligibility(String protectionEligibility) {
+		this.protectionEligibility = protectionEligibility;
+		return this;
+	}
+
+	/**
+	 * Getter for protectionEligibility
+	 */
+	public String getProtectionEligibility() {
+		return this.protectionEligibility;
+	}
+
+
+	/**
+	 * Setter for protectionEligibilityType
+	 */
+	public Sale setProtectionEligibilityType(String protectionEligibilityType) {
+		this.protectionEligibilityType = protectionEligibilityType;
+		return this;
+	}
+
+	/**
+	 * Getter for protectionEligibilityType
+	 */
+	public String getProtectionEligibilityType() {
+		return this.protectionEligibilityType;
+	}
+
+
+	/**
+	 * Setter for clearingTime
+	 */
+	public Sale setClearingTime(String clearingTime) {
+		this.clearingTime = clearingTime;
+		return this;
+	}
+
+	/**
+	 * Getter for clearingTime
+	 */
+	public String getClearingTime() {
+		return this.clearingTime;
 	}
 
 

@@ -1,151 +1,20 @@
 package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
-import com.paypal.api.payments.Amount;
-import com.paypal.api.payments.Payee;
-import com.paypal.api.payments.ItemList;
-import com.paypal.api.payments.RelatedResources;
 import java.util.List;
+import com.paypal.api.payments.TransactionBase;
 
-public class Transaction  {
-
-	/**
-	 * Amount being collected.
-	 */
-	private Amount amount;
+public class Transaction extends TransactionBase {
 
 	/**
-	 * Recepient of the funds in this transaction.
-	 */
-	private Payee payee;
-
-	/**
-	 * Description of what is being paid for.
-	 */
-	private String description;
-
-	/**
-	 * List of items being paid for.
-	 */
-	private ItemList itemList;
-
-	/**
-	 * List of financial transactions (Sale, Authorization, Capture, Refund) related to the payment.
-	 */
-	private List<RelatedResources> relatedResources;
-
-	/**
-	 * Additional transactions for complex payment (Parallel and Chained) scenarios.
+	 * Additional transactions for complex payment scenarios.
 	 */
 	private List<Transaction> transactions;
-
-    /**
-     * Invoice number used to track the payment. 256 characters max.
-     */
-    private String invoiceNumber;
-
-    /**
-     *  Free-form field for the use of clients. 256 characters max.
-     */
-    private String custom;
-
-    /**
-     * Soft descriptor used when charging this funding source. 22 characters max.
-     */
-    private String softDescriptor;
-
 
 	/**
 	 * Default Constructor
 	 */
 	public Transaction() {
-	}
-
-	/**
-	 * Parameterized Constructor
-	 */
-	public Transaction(Amount amount) {
-		this.amount = amount;
-	}
-
-
-	/**
-	 * Setter for amount
-	 */
-	public Transaction setAmount(Amount amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Getter for amount
-	 */
-	public Amount getAmount() {
-		return this.amount;
-	}
-
-
-	/**
-	 * Setter for payee
-	 */
-	public Transaction setPayee(Payee payee) {
-		this.payee = payee;
-		return this;
-	}
-
-	/**
-	 * Getter for payee
-	 */
-	public Payee getPayee() {
-		return this.payee;
-	}
-
-
-	/**
-	 * Setter for description
-	 */
-	public Transaction setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Getter for description
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
-
-	/**
-	 * Setter for itemList
-	 */
-	public Transaction setItemList(ItemList itemList) {
-		this.itemList = itemList;
-		return this;
-	}
-
-	/**
-	 * Getter for itemList
-	 */
-	public ItemList getItemList() {
-		return this.itemList;
-	}
-
-
-	/**
-	 * Setter for relatedResources
-	 */
-	public Transaction setRelatedResources(List<RelatedResources> relatedResources) {
-		this.relatedResources = relatedResources;
-		return this;
-	}
-
-	/**
-	 * Getter for relatedResources
-	 */
-	public List<RelatedResources> getRelatedResources() {
-		return this.relatedResources;
 	}
 
 
@@ -163,51 +32,6 @@ public class Transaction  {
 	public List<Transaction> getTransactions() {
 		return this.transactions;
 	}
-
-    /**
-     * Setter for invoiceNumber
-     */
-    public Transaction setInvoiceNumber( String invoiceNumber ) {
-        this.invoiceNumber = invoiceNumber;
-        return this;
-    }
-
-    /**
-     * Getter for invoiceNumber
-     */
-    public String getInvoiceNumber() {
-        return this.invoiceNumber;
-    }
-
-    /**
-     * Setter for custom
-     */
-    public Transaction setCustom( String custom ) {
-        this.custom = custom;
-        return this;
-    }
-
-    /**
-     *  Getter for custom
-     */
-    public String getCustom() {
-        return this.custom;
-    }
-
-    /**
-     * Setter for softDescriptor
-     */
-    public Transaction setSoftDescriptor( String softDescriptor ) {
-        this.softDescriptor = softDescriptor;
-        return this;
-    }
-
-    /**
-     * Getter for softDescriptor
-     */
-    public String getSoftDescriptor() {
-        return this.softDescriptor;
-    }
 
 	/**
 	 * Returns a JSON string corresponding to object state

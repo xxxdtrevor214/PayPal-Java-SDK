@@ -8,9 +8,14 @@ import com.paypal.api.payments.PayerInfo;
 public class Payer  {
 
 	/**
-	 * Payment method being used - PayPal Wallet payment or Direct Credit card.
+	 * Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.
 	 */
 	private String paymentMethod;
+
+	/**
+	 * Status of Payer PayPal Account.
+	 */
+	private String status;
 
 	/**
 	 * List of funding instruments from where the funds of the current payment come from. Typically a credit card.
@@ -18,7 +23,12 @@ public class Payer  {
 	private List<FundingInstrument> fundingInstruments;
 
 	/**
-	 * Information related to the Payer. In case of PayPal Wallet payment, this information will be filled in by PayPal after the user approves the payment using their PayPal Wallet. 
+	 * Id of user selected funding option for the payment. 'OneOf' funding_instruments or funding_option_id to be present 
+	 */
+	private String fundingOptionId;
+
+	/**
+	 * Information related to the Payer. 
 	 */
 	private PayerInfo payerInfo;
 
@@ -53,6 +63,22 @@ public class Payer  {
 
 
 	/**
+	 * Setter for status
+	 */
+	public Payer setStatus(String status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Getter for status
+	 */
+	public String getStatus() {
+		return this.status;
+	}
+
+
+	/**
 	 * Setter for fundingInstruments
 	 */
 	public Payer setFundingInstruments(List<FundingInstrument> fundingInstruments) {
@@ -65,6 +91,22 @@ public class Payer  {
 	 */
 	public List<FundingInstrument> getFundingInstruments() {
 		return this.fundingInstruments;
+	}
+
+
+	/**
+	 * Setter for fundingOptionId
+	 */
+	public Payer setFundingOptionId(String fundingOptionId) {
+		this.fundingOptionId = fundingOptionId;
+		return this;
+	}
+
+	/**
+	 * Getter for fundingOptionId
+	 */
+	public String getFundingOptionId() {
+		return this.fundingOptionId;
 	}
 
 
