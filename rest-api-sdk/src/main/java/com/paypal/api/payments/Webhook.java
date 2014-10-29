@@ -1,9 +1,9 @@
-package com.paypal.api.webhooks;
+package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
-import com.paypal.api.webhooks.EventType;
 import java.util.List;
-import com.paypal.api.payments.Links;
+
+import com.paypal.api.payments.EventType;
 
 public class Webhook  {
 

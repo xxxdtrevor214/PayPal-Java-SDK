@@ -1,7 +1,6 @@
-package com.paypal.api.webhooks;
+package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
-import com.paypal.api.payments.Links;
 import java.util.List;
 import com.paypal.core.rest.PayPalRESTException;
 import com.paypal.core.rest.PayPalResource;

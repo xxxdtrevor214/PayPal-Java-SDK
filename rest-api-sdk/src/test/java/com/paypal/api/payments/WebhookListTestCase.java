@@ -1,4 +1,4 @@
-package com.paypal.api.webhooks;
+package com.paypal.api.payments;
 
 public class WebhookListTestCase {
 
