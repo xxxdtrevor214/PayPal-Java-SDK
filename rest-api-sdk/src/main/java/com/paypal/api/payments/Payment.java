@@ -44,6 +44,11 @@ public class Payment  {
 	 */
 	private String intent;
 
+    /**
+     * Payment Experience Web Profile ID to be used for this payment. Experience profile can be obtained by using the Payment Experience API.
+     */
+    private String experienceProfileId;
+
 	/**
 	 * Source of the funds for this payment represented by a PayPal account or a direct credit card.
 	 */
@@ -204,8 +209,21 @@ public class Payment  {
 		return this.intent;
 	}
 
+    /**
+     * Getter for Experience Profile ID
+     */
+    public String getExperienceProfileId() {
+        return experienceProfileId;
+    }
 
-	/**
+    /**
+     * Setter for Experience Profile ID
+     */
+    public void setExperienceProfileId(String experienceProfileId) {
+        this.experienceProfileId = experienceProfileId;
+    }
+
+    /**
 	 * Setter for payer
 	 */
 	public Payment setPayer(Payer payer) {

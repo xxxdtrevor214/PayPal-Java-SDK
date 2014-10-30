@@ -9,7 +9,9 @@ public class ItemTestCase {
 
 	public static final String CURRENCY = "USD";
 
-	public static final String PRICE = "10.50";
+	public static final String PRICE = "8.82";
+
+	public static final String TAX = "1.68";
 
 	public static final String QUANTITY = "5";
 
@@ -20,6 +22,7 @@ public class ItemTestCase {
 		item.setName(NAME);
 		item.setCurrency(CURRENCY);
 		item.setPrice(PRICE);
+        item.setTax(TAX);
 		item.setQuantity(QUANTITY);
 		item.setSku(SKU);
 		return item;
@@ -31,6 +34,7 @@ public class ItemTestCase {
 		Assert.assertEquals(item.getName(), NAME);
 		Assert.assertEquals(item.getCurrency(), CURRENCY);
 		Assert.assertEquals(item.getPrice(), PRICE);
+		Assert.assertEquals(item.getTax(), TAX);
 		Assert.assertEquals(item.getQuantity(), QUANTITY);
 		Assert.assertEquals(item.getSku(), SKU);
 	}
