@@ -2,7 +2,7 @@ package com.paypal.api.payments;
 
 import com.paypal.core.rest.JSONFormatter;
 
-public class PatchRequest  {
+public class Patch  {
 
 	/**
 	 * Patch operation to perform.Value required for add & remove operation can be any JSON value.
@@ -17,13 +17,13 @@ public class PatchRequest  {
 	/**
 	 * Default Constructor
 	 */
-	public PatchRequest() {
+	public Patch() {
 	}
 
 	/**
 	 * Parameterized Constructor
 	 */
-	public PatchRequest(String op, String path) {
+	public Patch(String op, String path) {
 		this.op = op;
 		this.path = path;
 	}
@@ -32,7 +32,7 @@ public class PatchRequest  {
 	/**
 	 * Setter for op
 	 */
-	public PatchRequest setOp(String op) {
+	public Patch setOp(String op) {
 		this.op = op;
 		return this;
 	}
@@ -48,7 +48,7 @@ public class PatchRequest  {
 	/**
 	 * Setter for path
 	 */
-	public PatchRequest setPath(String path) {
+	public Patch setPath(String path) {
 		this.path = path;
 		return this;
 	}
