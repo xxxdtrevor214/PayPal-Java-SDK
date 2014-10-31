@@ -1,5 +1,9 @@
 CHANGELOG
 ========= 
+V0.10.0 (October 30, 2014)
+--------------------------
+   * Add web profile support
+
 V0.9.1 (June 16, 2014)
 ----------------------
    * Update core
