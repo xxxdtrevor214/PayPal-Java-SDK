@@ -23,7 +23,7 @@ public class WebhookListTestCase {
 	}
 	
 	@Test
-	public void testWebhooksList() {
+	public void testWebhooksListConstruction() {
 		WebhookList webhookList = createWebhookList();
 		Assert.assertEquals(webhookList.getWebhooks().size(), 2);
 		Assert.assertNotEquals(webhookList.getWebhooks().get(0), webhookList.getWebhooks().get(1));
