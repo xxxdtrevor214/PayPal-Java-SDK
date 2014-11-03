@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.paypal.sdk</groupId>
     <artifactId>rest-api-sdk</artifactId>
-    <version>0.11.1</version>
+    <version>0.11.2</version>
     <packaging>jar</packaging>
     <name>REST API SDK</name>
     <description>PayPal SDK for integrating with the REST APIs</description>
@@ -94,12 +94,6 @@
     <profiles>
         <profile>
             <id>coverage</id>
-            <activation>
-                <!-- Jenkins -->
-                <property>
-                    <name>env.BUILD_NUMBER</name>
-                </property>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>net.sourceforge.cobertura</groupId>
