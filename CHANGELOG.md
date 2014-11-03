@@ -1,5 +1,9 @@
 CHANGELOG
 ========= 
+V0.11.2 (November 3, 2014)
+--------------------------
+   * Deactivate maven coverage profile
+
 V0.10.0 (October 30, 2014)
 --------------------------
    * Add web profile support
