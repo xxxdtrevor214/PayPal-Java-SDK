@@ -1,8 +1,13 @@
 package com.paypal.api.payments;
 
+import java.util.UUID;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
+
+import com.paypal.core.rest.OAuthTokenCredential;
+import com.paypal.core.rest.PayPalRESTException;
 
 public class EventTypeTestCase {
 	
@@ -33,6 +38,42 @@ public class EventTypeTestCase {
 	public void testTOString() {
 		EventType eventType = createEventType();
 		Assert.assertEquals(eventType.toString().length() == 0, false);
+	}
+	
+	@Test
+	public void testSubscribedEventTypes() throws PayPalRESTException {
+		logger.info("**** Subscribed EventTypes ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+		
+		Webhook webhookRequest = new Webhook();
+		String uuid = UUID.randomUUID().toString();
+		webhookRequest.setUrl(WebhooksInputData.WEBHOOK_URL + uuid);
+		webhookRequest.setEventTypes(EventTypeListTestCase.createAuthEventTypeList());
+		Webhook webhookResponse = webhookRequest.create(TokenHolder.accessToken, webhookRequest);
+		String webhookId =  webhookResponse.getId();
+		
+		EventTypeList eventTypeList = EventType.subscribedEventTypes(TokenHolder.accessToken, webhookId);
+		logger.info("Response = " + eventTypeList.toJSON());
+
+		Assert.assertNotNull(eventTypeList.getEventTypes());
+		Assert.assertEquals(eventTypeList.getEventTypes().size(), 2);
+		Assert.assertEquals(eventTypeList.getEventTypes().get(0).getName(), WebhooksInputData.availableEvents[1][0]);
+		Assert.assertEquals(eventTypeList.getEventTypes().get(1).getName(), WebhooksInputData.availableEvents[2][0]);
+		Assert.assertNotEquals(eventTypeList.getEventTypes().size(), WebhooksInputData.availableEvents.length);
+	}
+	
+	@Test
+	public void testAvailableEventTypes() throws PayPalRESTException {
+		logger.info("**** Subscribed EventTypes ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+		
+		EventTypeList eventTypeList = EventType.availableEventTypes(TokenHolder.accessToken);
+		logger.info("Response = " + eventTypeList.toJSON());
+
+		Assert.assertNotNull(eventTypeList.getEventTypes());
+		Assert.assertEquals(eventTypeList.getEventTypes().size(), WebhooksInputData.availableEvents.length);
 	}
 
 }
