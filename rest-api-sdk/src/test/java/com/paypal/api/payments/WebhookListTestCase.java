@@ -2,10 +2,14 @@ package com.paypal.api.payments;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
+
+import com.paypal.core.rest.OAuthTokenCredential;
+import com.paypal.core.rest.PayPalRESTException;
 
 public class WebhookListTestCase {
 
@@ -40,5 +44,26 @@ public class WebhookListTestCase {
 	public void testTOString() {
 		WebhookList webhookList = createWebhookList();
 		Assert.assertEquals(webhookList.toJSON().length() == 0, false);
+	}
+	
+	@Test
+	public void testListWebhooks() throws PayPalRESTException {
+		logger.info("**** List All Webhooks ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+		
+		for(int i=0; i<2; i++) {
+			Webhook webhookRequest = new Webhook();
+			String uuid = UUID.randomUUID().toString();
+			webhookRequest.setUrl(WebhooksInputData.WEBHOOK_URL + uuid);
+			webhookRequest.setEventTypes(EventTypeListTestCase.createAuthEventTypeList());
+			webhookRequest.create(TokenHolder.accessToken, webhookRequest);
+		}
+			
+		WebhookList webhookList = new WebhookList();
+		WebhookList webhookResponse = webhookList.getAll(TokenHolder.accessToken);
+		logger.info("Response = " + webhookResponse.toJSON());
+		
+		Assert.assertTrue(webhookResponse.getWebhooks().size() >= 2, "Webhook List contains Two or More Webhooks");
 	}
 }
