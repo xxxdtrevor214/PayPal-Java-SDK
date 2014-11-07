@@ -5,6 +5,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
+import com.paypal.core.rest.APIContext;
+import com.paypal.core.rest.OAuthTokenCredential;
+import com.paypal.core.rest.PayPalRESTException;
+
 public class EventTestCase {
 	
 	private static final Logger logger = Logger.getLogger(EventTestCase.class);
@@ -60,6 +64,40 @@ public class EventTestCase {
 	public void testTOString() {
 		Event event = createEvent();
 		Assert.assertEquals(event.toString().length() == 0, false);
+	}
+
+	@Test
+	public void testEventList() throws PayPalRESTException {
+		logger.info("**** Create Event ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+		
+		EventList list = Event.list(TokenHolder.accessToken);
+		logger.info(list.toJSON());
+
+	}
+	
+	@Test
+	public void testEventResend() throws PayPalRESTException {
+		logger.info("**** Resend Event ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+		
+		Event event = new Event();
+		Event event2= event.resend(TokenHolder.accessToken);
+		logger.info(event2.toJSON());
+
+	}
+	
+	@Test
+	public void testEventGet() throws PayPalRESTException {
+		logger.info("**** Get Event ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+
+		String eventId = null;
+		Event event = Event.get(TokenHolder.accessToken, eventId);
+		logger.info(event.toJSON());
 	}
 
 }

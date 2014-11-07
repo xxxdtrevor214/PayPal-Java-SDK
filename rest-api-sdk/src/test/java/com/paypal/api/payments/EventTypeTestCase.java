@@ -58,14 +58,14 @@ public class EventTypeTestCase {
 
 		Assert.assertNotNull(eventTypeList.getEventTypes());
 		Assert.assertEquals(eventTypeList.getEventTypes().size(), 2);
-		Assert.assertEquals(eventTypeList.getEventTypes().get(0).getName(), WebhooksInputData.availableEvents[1][0]);
-		Assert.assertEquals(eventTypeList.getEventTypes().get(1).getName(), WebhooksInputData.availableEvents[2][0]);
+		Assert.assertEquals(eventTypeList.getEventTypes().get(0).getName(), WebhooksInputData.availableEvents[2][0]);
+		Assert.assertEquals(eventTypeList.getEventTypes().get(1).getName(), WebhooksInputData.availableEvents[1][0]);
 		Assert.assertNotEquals(eventTypeList.getEventTypes().size(), WebhooksInputData.availableEvents.length);
 	}
 	
 	@Test
 	public void testAvailableEventTypes() throws PayPalRESTException {
-		logger.info("**** Subscribed EventTypes ****");
+		logger.info("**** Available EventTypes ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		
