@@ -146,7 +146,7 @@ public class WebhookTestCase {
 		Assert.assertNotEquals(webhookGetResponse.getEventTypes().size(), WebhooksInputData.availableEvents.length);
 	}
 	
-	@Test(dependsOnMethods = { "testCreateWebhook" })
+	@Test(dependsOnMethods = { "testGetWebhook" })
 	public void testUpdateWebhook() throws PayPalRESTException {
 		logger.info("**** Update Webhook ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -187,7 +187,7 @@ public class WebhookTestCase {
 		Assert.assertEquals(webhookGetResponse.getEventTypes().get(0).getName(), WebhooksInputData.availableEvents[4][0]);
 	}
 	
-	@Test(dependsOnMethods= { "testCreateWebhook" }, expectedExceptions = {PayPalRESTException.class} )
+	@Test(dependsOnMethods= { "testUpdateWebhook" }, expectedExceptions = {PayPalRESTException.class} )
 	public void testDeleteWebhook() throws PayPalRESTException {
 		logger.info("**** Delete Webhook ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();

@@ -15,7 +15,11 @@ public class WebhooksInputData {
         {"PAYMENT.CAPTURE.REVERSED", "A capture payment was reversed"}
 	};
 	
-	public static final String ACCESS_TOKEN = "Y3JlYXRlV2ViaG9va3NEZW1vQWNjZXNzVG9rZW4="; //Base64 Encode of createWebhooksDemoAccessToken
+	public static final String WEBHOOK_URL = "https://github.com/paypal/";
+	public static final String WEBHOOK_HATEOAS_URL = "https://api.sandbox.paypal.com/v1/notifications/webhooks/";
+
+	public static final String CLIENT_ID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+	public static final String CLIENT_SECRET = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
 	public static final String EVENT_ID = "WH-SDK-1S115631EN580315E-9KH94552VF7913711";
 
 	public static final String LINK_HREF = "https://api.sandbox.paypal.com/v1/notifications/webhooks-events/" + EVENT_ID;
