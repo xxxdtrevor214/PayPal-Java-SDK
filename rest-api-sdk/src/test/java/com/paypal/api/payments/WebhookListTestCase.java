@@ -46,7 +46,7 @@ public class WebhookListTestCase {
 		Assert.assertEquals(webhookList.toJSON().length() == 0, false);
 	}
 	
-	@Test
+	@Test(dependsOnMethods = {"testDeleteAllWebhooks"})
 	public void testListWebhooks() throws PayPalRESTException {
 		logger.info("**** List All Webhooks ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -65,5 +65,24 @@ public class WebhookListTestCase {
 		logger.info("Response = " + webhookResponse.toJSON());
 		
 		Assert.assertTrue(webhookResponse.getWebhooks().size() >= 2, "Webhook List contains Two or More Webhooks");
+	}
+	
+	@Test
+	public void testDeleteAllWebhooks() throws PayPalRESTException {
+		logger.info("**** Delete All Webhooks ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+			
+		WebhookList webhookList = new WebhookList();
+		WebhookList webhookRequest = webhookList.getAll(TokenHolder.accessToken);
+		
+		for(int i=0; i<webhookRequest.getWebhooks().size(); i++) {
+			Webhook webhook = new Webhook();
+			webhook.delete(TokenHolder.accessToken, webhookRequest.getWebhooks().get(i).getId());
+		}
+		
+		webhookRequest = webhookList.getAll(TokenHolder.accessToken);
+		logger.info("Response = " + webhookRequest.toJSON());
+		Assert.assertEquals(webhookRequest.getWebhooks().size(), 0);
 	}
 }
