@@ -155,7 +155,7 @@ public class WebhookTestCase {
 		String webhookUpdatedUrl = webhookUrl + "/new_url";
 		
 		JsonObject patchUrl = new JsonObject();
-		patchUrl.addProperty("op", Properties.replace.toString());
+		patchUrl.addProperty("op", "replace");
 		patchUrl.addProperty("path", "/url");
 		patchUrl.addProperty("value", webhookUpdatedUrl);
 		
@@ -165,7 +165,7 @@ public class WebhookTestCase {
 		eventTypeArray.add(eventType);
 		
 		JsonObject patchEventType = new JsonObject();
-		patchEventType.addProperty("op", Properties.replace.toString());
+		patchEventType.addProperty("op", "replace");
 		patchEventType.addProperty("path", "/event_types");
 		patchEventType.add("value", eventTypeArray);
 		
