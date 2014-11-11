@@ -10,6 +10,7 @@ import org.testng.log4testng.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.paypal.api.payments.PatchRequest.Properties;
 import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.PayPalRESTException;
 
