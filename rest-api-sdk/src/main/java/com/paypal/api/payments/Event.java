@@ -317,9 +317,9 @@ public class Event  {
 	 * @return EventList
 	 * @throws PayPalRESTException
 	 */
-	public static EventList list(String accessToken) throws PayPalRESTException {
+	public static EventList list(String accessToken, String queryParams) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
-		return list(apiContext);
+		return list(apiContext, queryParams);
 	}
 
 	/**
@@ -329,7 +329,7 @@ public class Event  {
 	 * @return EventList
 	 * @throws PayPalRESTException
 	 */
-	public static EventList list(APIContext apiContext) throws PayPalRESTException {
+	public static EventList list(APIContext apiContext, String queryParams) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -341,7 +341,7 @@ public class Event  {
 		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
-		String resourcePath = "v1/notifications/webhooks-events";
+		String resourcePath = "v1/notifications/webhooks-events" + queryParams;
 		String payLoad = "";
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventList.class);
 	}
