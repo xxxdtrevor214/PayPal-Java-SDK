@@ -193,6 +193,5 @@ public class WebhookTestCase {
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		Webhook webhookRequest = new Webhook();
 		webhookRequest.delete(TokenHolder.accessToken, webhookId);
-		webhookRequest.get(TokenHolder.accessToken, webhookId); //This should throw PayPalRESTException since Resource does not exist 
 	}
 }
