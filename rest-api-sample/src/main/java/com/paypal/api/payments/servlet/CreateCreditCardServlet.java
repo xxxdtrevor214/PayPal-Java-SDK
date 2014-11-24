@@ -55,7 +55,7 @@ public class CreateCreditCardServlet extends HttpServlet {
 	}
 
 	// ##Create
-	// Sample showing to create a CreditCard
+	// Sample showing how to create a CreditCard.
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
