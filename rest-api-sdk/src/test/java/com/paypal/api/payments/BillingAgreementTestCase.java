@@ -108,7 +108,6 @@ public class BillingAgreementTestCase {
 	public void testRetrieveAgreement() throws PayPalRESTException {
 		Agreement agreement = Agreement.get(accessToken, "I-ASXCM9U5MJJV");
 		Assert.assertEquals("I-ASXCM9U5MJJV", agreement.getId());
-		Assert.assertEquals("Agreement for T-Shirt of the Month Club Plan", agreement.getDescription());
 		Assert.assertEquals("2015-02-19T08:00:00Z", agreement.getStartDate());
 		Assert.assertNotNull(agreement.getPlan());
 	}
