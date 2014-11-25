@@ -54,7 +54,7 @@ public class BillingAgreementTestCase {
 				clientSecret).getAccessToken();
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testCreateAgreement() throws PayPalRESTException, MalformedURLException, UnsupportedEncodingException {
 		// first, set up plan to be included in the agreement
 		Plan plan = new Plan();
@@ -72,7 +72,7 @@ public class BillingAgreementTestCase {
 		Assert.assertEquals(this.id, agreement.getId());
 	}
 	
-	@Test(dependsOnMethods = {"testCreateAgreement"})
+	@Test(groups = "integration", dependsOnMethods = {"testCreateAgreement"})
 	public void testExecuteAgreement() throws PayPalRESTException {
 		Agreement agreement =  new Agreement();
 		agreement.setToken("EC-2CD33889A9699491E");
@@ -80,7 +80,7 @@ public class BillingAgreementTestCase {
 		Assert.assertEquals("I-ASXCM9U5MJJV", this.agreement.getId());
 	}
 	
-	@Test(dependsOnMethods = {"testExecuteAgreement"})
+	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testExecuteAgreement"})
 	public void testUpdateAgreement() throws PayPalRESTException {
 		// set up changes to update with randomized string as description
 		Agreement newAgreement = new Agreement();
@@ -104,7 +104,7 @@ public class BillingAgreementTestCase {
 		Assert.assertEquals(newAgreement.getDescription(), updatedAgreement.getDescription());
 	}
 	
-	@Test(dependsOnMethods = {"testExecuteAgreement"})
+	@Test(groups = "integration", dependsOnMethods = {"testExecuteAgreement"})
 	public void testRetrieveAgreement() throws PayPalRESTException {
 		Agreement agreement = Agreement.get(accessToken, "I-ASXCM9U5MJJV");
 		Assert.assertEquals("I-ASXCM9U5MJJV", agreement.getId());
@@ -112,7 +112,7 @@ public class BillingAgreementTestCase {
 		Assert.assertNotNull(agreement.getPlan());
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testSearchAgreement() throws PayPalRESTException {
 		Date startDate = new GregorianCalendar(2014, 10, 1).getTime();
 		Date endDate = new GregorianCalendar(2014, 10, 14).getTime();
@@ -126,7 +126,7 @@ public class BillingAgreementTestCase {
 	 * 
 	 * @throws PayPalRESTException
 	 */
-	@Test(enabled=false, dependsOnMethods = {"testRetrieveAgreement"})
+	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testRetrieveAgreement"})
 	public void testSuspendAgreement() throws PayPalRESTException {
 		String agreementId = "";
 		Agreement agreement = Agreement.get(accessToken, agreementId);
@@ -140,7 +140,7 @@ public class BillingAgreementTestCase {
 		Assert.assertEquals("SUSPENDED", suspendedAgreement.getPlan().getState());
 	}
 	
-	@Test(enabled=false, dependsOnMethods = {"testSuspendAgreement"})
+	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testSuspendAgreement"})
 	public void testReactivateAgreement() throws PayPalRESTException {
 		String agreementId = "";
 		Agreement agreement = Agreement.get(accessToken, agreementId);
@@ -150,7 +150,7 @@ public class BillingAgreementTestCase {
 		agreement.reActivate(accessToken, stateDescriptor);
 	}
 	
-	@Test(enabled=false, dependsOnMethods = {"testReactivateAgreement"})
+	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testReactivateAgreement"})
 	public void testCancelAgreement() throws PayPalRESTException {
 		String agreementId = "";
 		Agreement agreement = Agreement.get(accessToken, agreementId);

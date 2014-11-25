@@ -69,7 +69,7 @@ public class RefundTestCase {
 		Assert.assertEquals(refund.getLinks().size(), 1);
 	}
 
-	@Test(dependsOnMethods = { "getCreditCard" })
+	@Test(groups = "integration")
 	public void testGetRefund() {
 		logger.info("**** Get Refund ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -84,7 +84,7 @@ public class RefundTestCase {
 		}
 	}
 
-	@Test(dependsOnMethods = { "testGetRefund" })
+	@Test(groups = "integration", dependsOnMethods = { "testGetRefund" })
 	public void testGetRefundForNull() {
 		logger.info("**** Get Refund For Null ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);

@@ -65,7 +65,7 @@ public class AuthorizationTestCase {
 				AmountTestCase.CURRENCY);
 	}
 
-	@Test(dependsOnMethods = { "testGetRefundForNull" })
+	@Test(groups = "integration")
 	public void testGetAuthorization() throws PayPalRESTException {
 		logger.info("**** Authorize Payment ****");
 		Payment payment = getPaymentAgainstAuthorization();
@@ -84,7 +84,7 @@ public class AuthorizationTestCase {
 		logger.info("Authorization State: " + authorization.getState());
 	}
 
-	@Test(dependsOnMethods = { "testGetAuthorization" }, expectedExceptions = { PayPalRESTException.class })
+	@Test(groups = "integration", dependsOnMethods = { "testGetAuthorization" }, expectedExceptions = { PayPalRESTException.class })
 	public void testGetReauthorization() throws PayPalRESTException{
 		logger.info("**** Reauthorization ****");
 		authorization = Authorization.get(TokenHolder.accessToken, "7GH53639GA425732B");
@@ -99,7 +99,7 @@ public class AuthorizationTestCase {
 	}
 	
 	
-	@Test(dependsOnMethods = { "testGetAuthorization" })
+	@Test(groups = "integration", dependsOnMethods = { "testGetAuthorization" })
 	public void testAuthorizationCapture() throws PayPalRESTException {
 		logger.info("**** Capture Authorization ****");
 		Capture capture = new Capture();
@@ -115,7 +115,7 @@ public class AuthorizationTestCase {
 		logger.info("Returned Capture state: " + responsecapture.getState());
 	}
 
-	@Test(dependsOnMethods = { "testAuthorizationCapture" })
+	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" })
 	public void testAuthorizationVoid() throws PayPalRESTException {
 		logger.info("**** Void Authorization ****");
 		Authorization auth = getAuthorization();
@@ -128,19 +128,19 @@ public class AuthorizationTestCase {
 				+ responseAuthorization.getState());
 	}
 
-	@Test(expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullAccessToken() throws PayPalRESTException {
 		logger.info("**** Get Authorization (Null Access Token) ****");
 		Authorization auth = Authorization.get((String) null, "123");
 	}
 	
-	@Test(expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullAuthId() throws PayPalRESTException {
 		logger.info("**** Get Authorization (Null Auth ID) ****");
 		Authorization auth = Authorization.get(TokenHolder.accessToken, null);
 	}
 	
-	@Test(expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullCapture() throws PayPalRESTException {
 		logger.info("**** Capture Authorization (Null Capture) ****");
 		Capture responsecapture = getAuthorization().capture(TokenHolder.accessToken, null);
