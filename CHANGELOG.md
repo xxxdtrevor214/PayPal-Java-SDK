@@ -1,17 +1,22 @@
 CHANGELOG
 ========= 
+V0.12.0 (November 24, 2014)
+---------------------------
+   * Added support for billing agreement and plan
+   * Updated user-agent header
+
 V0.11.2 (November 3, 2014)
 --------------------------
-   * Deactivate maven coverage profile
+   * Deactivated maven coverage profile
 
 V0.10.0 (October 30, 2014)
 --------------------------
-   * Add web profile support
+   * Added web profile support
 
 V0.9.1 (June 16, 2014)
 ----------------------
-   * Update core
-   * Make Java 6 compatible
+   * Updated core
+   * Made Java 6 compatible
 
 V0.9.0 (May 13, 2014)
 -----------------------

@@ -6,7 +6,7 @@ import com.paypal.api.payments.Currency;
 public class MerchantPreferences  {
 
 	/**
-	 * Identifier of the merchant_preferences.
+	 * Identifier of the merchant_preferences. 128 characters max.
 	 */
 	private String id;
 
@@ -16,17 +16,17 @@ public class MerchantPreferences  {
 	private Currency setupFee;
 
 	/**
-	 * Redirect URL on cancellation of agreement request.
+	 * Redirect URL on cancellation of agreement request. 1000 characters max.
 	 */
 	private String cancelUrl;
 
 	/**
-	 * Redirect URL on creation of agreement request.
+	 * Redirect URL on creation of agreement request. 1000 characters max.
 	 */
 	private String returnUrl;
 
 	/**
-	 * Notify URL on agreement creation.
+	 * Notify URL on agreement creation. 1000 characters max.
 	 */
 	private String notifyUrl;
 
@@ -36,12 +36,12 @@ public class MerchantPreferences  {
 	private String maxFailAttempts;
 
 	/**
-	 * Allow auto billing for the outstanding amount of the agreement in the next cycle. Default is false.
+	 * Allow auto billing for the outstanding amount of the agreement in the next cycle. Allowed values: `YES`, `NO`. Default is `NO`.
 	 */
 	private String autoBillAmount;
 
 	/**
-	 * Action to take if a failure occurs during initial payment. Default is continue.
+	 * Action to take if a failure occurs during initial payment. Allowed values: `CONTINUE`, `CANCEL`. Default is continue.
 	 */
 	private String initialFailAmountAction;
 

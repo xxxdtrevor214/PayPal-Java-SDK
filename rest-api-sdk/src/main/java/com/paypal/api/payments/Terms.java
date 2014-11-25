@@ -6,12 +6,12 @@ import com.paypal.api.payments.Currency;
 public class Terms  {
 
 	/**
-	 * Identifier of the terms.
+	 * Identifier of the terms. 128 characters max.
 	 */
 	private String id;
 
 	/**
-	 * Term type
+	 * Term type. Allowed values: `MONTHLY`, `WEEKLY`, `YEARLY`.
 	 */
 	private String type;
 
