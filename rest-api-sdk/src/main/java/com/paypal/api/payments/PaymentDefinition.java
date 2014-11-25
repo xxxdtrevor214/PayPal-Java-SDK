@@ -8,17 +8,17 @@ import java.util.List;
 public class PaymentDefinition  {
 
 	/**
-	 * Identifier of the payment_definition.
+	 * Identifier of the payment_definition. 128 characters max.
 	 */
 	private String id;
 
 	/**
-	 * Name of the payment definition.
+	 * Name of the payment definition. 128 characters max.
 	 */
 	private String name;
 
 	/**
-	 * Type of the payment definition. Possible types include: TRIAL and REGULAR.
+	 * Type of the payment definition. Allowed values: `TRIAL`, `REGULAR`.
 	 */
 	private String type;
 
@@ -28,7 +28,7 @@ public class PaymentDefinition  {
 	private String frequencyInterval;
 
 	/**
-	 * Frequency of the payment definition offered.
+	 * Frequency of the payment definition offered. Allowed values: `WEEK`, `DAY`, `YEAR`, `MONTH`.
 	 */
 	private String frequency;
 

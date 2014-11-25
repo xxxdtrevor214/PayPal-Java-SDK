@@ -6,12 +6,12 @@ import com.paypal.api.payments.Currency;
 public class ChargeModels  {
 
 	/**
-	 * Identifier of the charge model.
+	 * Identifier of the charge model. 128 characters max.
 	 */
 	private String id;
 
 	/**
-	 * Type of charge model, possible values can be shipping/tax.
+	 * Type of charge model. Allowed values: `SHIPPING`, `TAX`.
 	 */
 	private String type;
 

@@ -13,6 +13,10 @@ public class Patch  {
 	 * string containing a JSON-Pointer value that references a location within the target document (the target location) where the operation is performed.
 	 */
 	private String path;
+	
+	private Object value;
+
+	private String from;
 
 	/**
 	 * Default Constructor
@@ -58,6 +62,22 @@ public class Patch  {
 	 */
 	public String getPath() {
 		return this.path;
+	}
+
+	public Object getValue() {
+		return value;
+	}
+
+	public void setValue(Object value) {
+		this.value = value;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
 	/**
