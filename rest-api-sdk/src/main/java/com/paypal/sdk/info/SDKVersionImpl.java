@@ -10,12 +10,12 @@ public class SDKVersionImpl implements SDKVersion {
     /**
 	 * SDK ID used in User-Agent HTTP header
 	 */
-	private static final String SDK_ID = "rest-sdk-java";
+	private static final String SDK_ID = "PayPal-Java-SDK";
 	
 	/**
 	 * SDK Version used in User-Agent HTTP header
 	 */
-	private static final String SDK_VERSION = "0.11.2";
+	private static final String SDK_VERSION = "0.12.0";
 	
 	public String getSDKId() {
 		return SDK_ID;	
