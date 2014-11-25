@@ -1,9 +1,11 @@
 package com.paypal.api.payments;
 
+import com.google.gson.GsonBuilder;
 import com.paypal.core.rest.JSONFormatter;
-import com.paypal.api.payments.Payee;
 import com.paypal.api.payments.PaymentDefinition;
+
 import java.util.List;
+
 import com.paypal.api.payments.Terms;
 import com.paypal.api.payments.MerchantPreferences;
 import com.paypal.api.payments.Links;
@@ -17,6 +19,7 @@ import com.paypal.core.rest.APIContext;
 import com.paypal.core.Constants;
 import com.paypal.core.SDKVersion;
 import com.paypal.sdk.info.SDKVersionImpl;
+
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
@@ -26,34 +29,29 @@ import java.util.Properties;
 public class Plan  {
 
 	/**
-	 * Identifier of the billing plan.
+	 * Identifier of the billing plan. 128 characters max.
 	 */
 	private String id;
 
 	/**
-	 * Name of the billing plan.
+	 * Name of the billing plan. 128 characters max.
 	 */
 	private String name;
 
 	/**
-	 * Description of the billing plan.
+	 * Description of the billing plan. 128 characters max.
 	 */
 	private String description;
 
 	/**
-	 * Type of the billing plan. Possible types include: FIXED and INFINITE.
+	 * Type of the billing plan. Allowed values: `FIXED`, `INFINITE`.
 	 */
 	private String type;
 
 	/**
-	 * Status of the billing plan. Possible states include: CREATED, ACTIVE, and INACTIVE.
+	 * Status of the billing plan. Allowed values: `CREATED`, `ACTIVE`, `INACTIVE`, and `DELETED`.
 	 */
 	private String state;
-
-	/**
-	 * Details of the merchant who is creating this billing plan.
-	 */
-	private Payee payee;
 
 	/**
 	 * Time when the billing plan was created. Format YYYY-MM-DDTimeTimezone, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
@@ -230,22 +228,6 @@ public class Plan  {
 	 */
 	public String getState() {
 		return this.state;
-	}
-
-
-	/**
-	 * Setter for payee
-	 */
-	public Plan setPayee(Payee payee) {
-		this.payee = payee;
-		return this;
-	}
-
-	/**
-	 * Getter for payee
-	 */
-	public Payee getPayee() {
-		return this.payee;
 	}
 
 
@@ -437,7 +419,7 @@ public class Plan  {
 	 * @return 
 	 * @throws PayPalRESTException
 	 */
-	public void update(String accessToken, PatchRequest patchRequest) throws PayPalRESTException {
+	public void update(String accessToken, List<Patch> patchRequest) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		update(apiContext, patchRequest);
 		return;
@@ -452,7 +434,7 @@ public class Plan  {
 	 * @return 
 	 * @throws PayPalRESTException
 	 */
-	public void update(APIContext apiContext, PatchRequest patchRequest) throws PayPalRESTException {
+	public void update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -473,7 +455,7 @@ public class Plan  {
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/payments/billing-plans/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = patchRequest.toJSON();
+		String payLoad = new GsonBuilder().create().toJson(patchRequest);
 		PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
 		return;
 	}
@@ -488,9 +470,9 @@ public class Plan  {
 	 * @return PlanList
 	 * @throws PayPalRESTException
 	 */
-	public static PlanList plans(String accessToken, Map<String, String> containerMap) throws PayPalRESTException {
+	public static PlanList list(String accessToken, Map<String, String> containerMap) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
-		return plans(apiContext, containerMap);
+		return list(apiContext, containerMap);
 	}
 
 	/**
@@ -502,7 +484,7 @@ public class Plan  {
 	 * @return PlanList
 	 * @throws PayPalRESTException
 	 */
-	public static PlanList plans(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
+	public static PlanList list(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -518,7 +500,7 @@ public class Plan  {
 			throw new IllegalArgumentException("containerMap cannot be null");
 		}
 		Object[] parameters = new Object[] {containerMap};
-		String pattern = "v1/plans/billing-plans?start_id={0}&sort_order={1}&status={2}";
+		String pattern = "v1/payments/billing-plans?page_size={0}&status={1}&page={2}&total_required={3}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PlanList.class);

@@ -1,11 +1,15 @@
 package com.paypal.api.payments;
 
+import com.google.gson.GsonBuilder;
 import com.paypal.core.rest.JSONFormatter;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Address;
 import com.paypal.api.payments.MerchantPreferences;
 import com.paypal.api.payments.OverrideChargeModel;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
+
 import com.paypal.api.payments.Plan;
 import com.paypal.api.payments.Links;
 import com.paypal.core.rest.PayPalRESTException;
@@ -18,8 +22,14 @@ import com.paypal.core.rest.APIContext;
 import com.paypal.core.Constants;
 import com.paypal.core.SDKVersion;
 import com.paypal.sdk.info.SDKVersionImpl;
+
 import java.io.File;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
@@ -80,6 +90,11 @@ public class Agreement  {
 	 * Date and time that this resource was updated. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String updateTime;
+	
+	/**
+	 * Payment token
+	 */
+	private String token;
 
 	/**
 	 * 
@@ -349,13 +364,31 @@ public class Agreement  {
 
 
 	/**
+	 * Setter for token
+	 */
+	public Agreement setToken(String token) {
+		this.token = token;
+		return this;
+	}
+
+	/**
+	 * Getter for token
+	 */
+	public String getToken() {
+		return this.token;
+	}
+
+
+	/**
 	 * Create a new billing agreement by passing the details for the agreement, including the name, description, start date, payer, and billing plan in the request JSON.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Agreement
 	 * @throws PayPalRESTException
+	 * @throws MalformedURLException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public Agreement create(String accessToken) throws PayPalRESTException {
+	public Agreement create(String accessToken) throws PayPalRESTException, MalformedURLException, UnsupportedEncodingException {
 		APIContext apiContext = new APIContext(accessToken);
 		return create(apiContext);
 	}
@@ -366,8 +399,10 @@ public class Agreement  {
 	 *            {@link APIContext} used for the API call.
 	 * @return Agreement
 	 * @throws PayPalRESTException
+	 * @throws MalformedURLException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public Agreement create(APIContext apiContext) throws PayPalRESTException {
+	public Agreement create(APIContext apiContext) throws PayPalRESTException, MalformedURLException, UnsupportedEncodingException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -381,7 +416,34 @@ public class Agreement  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payments/billing-agreements";
 		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Agreement.class);
+		Agreement agreement = PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Agreement.class);
+		
+		for (Links links : agreement.getLinks()) {
+			if ("approval_url".equals(links.getRel())) {
+				URL url = new URL(links.getHref());
+				agreement.setToken(splitQuery(url).get("token"));
+				break;
+			}
+		}
+		
+		return agreement;
+	}
+	
+	/**
+	 * Helper class to parse Query part of a URL
+	 * @param url
+	 * @return	Query part in the given URL in name-value pair
+	 * @throws UnsupportedEncodingException
+	 */
+	private static Map<String, String> splitQuery(URL url) throws UnsupportedEncodingException {
+	    Map<String, String> queryPairs = new HashMap<String, String>();
+	    String query = url.getQuery();
+	    String[] pairs = query.split("&");
+	    for (String pair : pairs) {
+	        int idx = pair.indexOf("=");
+	        queryPairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+	    }
+	    return queryPairs;
 	}
 
 
@@ -414,9 +476,12 @@ public class Agreement  {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
+		if (this.getToken() == null) {
+			throw new IllegalArgumentException("agreement.token cannot be null");
+		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
-		Object[] parameters = new Object[] {this.getId()};
+		Object[] parameters = new Object[] {this.getToken()};
 		String pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
@@ -479,7 +544,7 @@ public class Agreement  {
 	 * @return Agreement
 	 * @throws PayPalRESTException
 	 */
-	public Agreement update(String accessToken, PatchRequest patchRequest) throws PayPalRESTException {
+	public Agreement update(String accessToken, List<Patch> patchRequest) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		return update(apiContext, patchRequest);
 	}
@@ -493,7 +558,7 @@ public class Agreement  {
 	 * @return Agreement
 	 * @throws PayPalRESTException
 	 */
-	public Agreement update(APIContext apiContext, PatchRequest patchRequest) throws PayPalRESTException {
+	public Agreement update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -514,7 +579,7 @@ public class Agreement  {
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/payments/billing-agreements/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = patchRequest.toJSON();
+		String payLoad = new GsonBuilder().create().toJson(patchRequest);
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, Agreement.class);
 	}
 
@@ -783,9 +848,9 @@ public class Agreement  {
 	 * @return AgreementTransactions
 	 * @throws PayPalRESTException
 	 */
-	public static AgreementTransactions transactions(String accessToken, String agreementId) throws PayPalRESTException {
+	public static AgreementTransactions transactions(String accessToken, String agreementId, Date startDate, Date endDate) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
-		return transactions(apiContext, agreementId);
+		return transactions(apiContext, agreementId, startDate, endDate);
 	}
 
 	/**
@@ -797,7 +862,7 @@ public class Agreement  {
 	 * @return AgreementTransactions
 	 * @throws PayPalRESTException
 	 */
-	public static AgreementTransactions transactions(APIContext apiContext, String agreementId) throws PayPalRESTException {
+	public static AgreementTransactions transactions(APIContext apiContext, String agreementId, Date startDate, Date endDate) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -812,8 +877,17 @@ public class Agreement  {
 		if (agreementId == null) {
 			throw new IllegalArgumentException("agreementId cannot be null");
 		}
-		Object[] parameters = new Object[] {agreementId};
-		String pattern = "v1/payments/billing-agreements/{0}/transactions";
+		if (startDate == null) {
+			throw new IllegalArgumentException("startDate cannot be null");
+		}
+		if (endDate == null) {
+			throw new IllegalArgumentException("endDate cannot be null");
+		}
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String sDate = dateFormat.format(startDate);
+		String eDate = dateFormat.format(endDate);
+		Object[] parameters = new Object[] {agreementId, sDate, eDate};
+		String pattern = "v1/payments/billing-agreements/{0}/transactions?start_date={1}&end_date={2}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, AgreementTransactions.class);
