@@ -1,5 +1,10 @@
 CHANGELOG
 ========= 
+V0.12.1 (November 25, 2014)
+---------------------------
+   * Fixed test case issues
+   * Grouped integration tests separately and disabled them by default
+
 V0.12.0 (November 24, 2014)
 ---------------------------
    * Added support for billing agreement and plan
