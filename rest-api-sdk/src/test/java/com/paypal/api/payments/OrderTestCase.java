@@ -36,7 +36,7 @@ public class OrderTestCase {
 				clientSecret).getAccessToken();
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testGetOrder() throws PayPalRESTException {
 		order = Order.get(TokenHolder.accessToken, ID);
 	}

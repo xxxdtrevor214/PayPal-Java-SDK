@@ -62,7 +62,7 @@ public class SaleTestCase {
 		Assert.assertEquals(sale.getLinks().size(), 1);
 	}
 
-	@Test(dependsOnMethods = { "testFailGetPaymentAPI" })
+	@Test(groups = "integration")
 	public void testSaleRefundAPI() throws PayPalRESTException {
 		logger.info("**** Sale Refund ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -99,7 +99,7 @@ public class SaleTestCase {
 		logger.info("Refund Status = " + returnRefund.getState());
 	}
 
-	@Test(dependsOnMethods = { "testSaleRefundAPI" })
+	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPI" })
 	public void testGetSale() {
 		logger.info("**** Sale Get for SaleId : " + this.SALE_ID);
 		Sale sale = null;
@@ -114,7 +114,7 @@ public class SaleTestCase {
 		logger.info("**** Sale Id : " + sale.getId());
 	}
 
-	@Test(dependsOnMethods = { "testGetSale" })
+	@Test(groups = "integration", dependsOnMethods = { "testGetSale" })
 	public void testSaleRefundAPIForNullRefund() {
 		logger.info("**** Sale Refund For Null Refund ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -130,7 +130,7 @@ public class SaleTestCase {
 		}
 	}
 
-	@Test(dependsOnMethods = { "testSaleRefundAPIForNullRefund" })
+	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPIForNullRefund" })
 	public void testSaleRefundAPIForNullID() {
 		logger.info("**** Sale Refund For Null Id ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -152,7 +152,7 @@ public class SaleTestCase {
 		}
 	}
 
-	@Test(dependsOnMethods = { "testSaleRefundAPIForNullID" })
+	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPIForNullID" })
 	public void testGetSaleForNullId() {
 		logger.info("**** Sale Get for Null SaleId ****");
 		try {

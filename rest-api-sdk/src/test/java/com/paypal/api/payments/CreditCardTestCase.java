@@ -106,7 +106,7 @@ public class CreditCardTestCase {
 		Assert.assertEquals(creditCard.getLinks().size(), 1);
 	}
 
-	@Test(dependsOnMethods = { "testSaleRefundAPIForNullRefund" })
+	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPIForNullRefund" })
 	public void createCreditCardTest() throws PayPalRESTException {
 		logger.info("**** Create CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -127,7 +127,7 @@ public class CreditCardTestCase {
 		createdCreditCardId = this.creditCard.getId();
 	}
 
-	@Test(dependsOnMethods = { "createCreditCardTest" })
+	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
 	public void getCreditCard() throws PayPalRESTException {
 		logger.info("**** Get CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -145,7 +145,7 @@ public class CreditCardTestCase {
 
 	}
 	
-	@Test(dependsOnMethods = { "getCreditCard" })
+	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
 	public void deleteCreditCard() throws PayPalRESTException {
 		logger.info("**** Delete CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -157,7 +157,7 @@ public class CreditCardTestCase {
 		logger.info("Response = " + CreditCard.getLastResponse());
 	}
 
-	@Test(dependsOnMethods = { "getCreditCard" })
+	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
 	public void getCreditCardForNull() {
 		logger.info("**** Get CreditCard Null ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
