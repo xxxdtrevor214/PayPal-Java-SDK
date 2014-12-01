@@ -101,7 +101,7 @@ public class WebhookTestCase {
 		Assert.assertEquals(webhook.toString().length() == 0, false);
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testCreateWebhook() throws PayPalRESTException {
 		logger.info("**** Create Webhook ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -126,7 +126,7 @@ public class WebhookTestCase {
 		Assert.assertNotEquals(webhookResponse.getEventTypes().size(), WebhooksInputData.availableEvents.length);
 	}
 	
-	@Test(dependsOnMethods = { "testCreateWebhook" })
+	@Test(groups = "integration", dependsOnMethods = { "testCreateWebhook" })
 	public void testGetWebhook() throws PayPalRESTException {
 		logger.info("**** Get Webhook ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -145,7 +145,7 @@ public class WebhookTestCase {
 		Assert.assertNotEquals(webhookGetResponse.getEventTypes().size(), WebhooksInputData.availableEvents.length);
 	}
 	
-	@Test(dependsOnMethods = { "testGetWebhook" })
+	@Test(groups = "integration", dependsOnMethods = { "testGetWebhook" })
 	public void testUpdateWebhook() throws PayPalRESTException {
 		logger.info("**** Update Webhook ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -186,7 +186,7 @@ public class WebhookTestCase {
 		Assert.assertEquals(webhookGetResponse.getEventTypes().get(0).getName(), WebhooksInputData.availableEvents[4][0]);
 	}
 	
-	@Test(dependsOnMethods= { "testUpdateWebhook" }, expectedExceptions = {PayPalRESTException.class} )
+	@Test(groups = "integration", dependsOnMethods= { "testUpdateWebhook" }, expectedExceptions = {PayPalRESTException.class} )
 	public void testDeleteWebhook() throws PayPalRESTException {
 		logger.info("**** Delete Webhook ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();

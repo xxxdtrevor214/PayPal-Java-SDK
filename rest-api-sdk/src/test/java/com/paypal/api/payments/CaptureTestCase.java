@@ -63,7 +63,7 @@ public class CaptureTestCase {
 		Assert.assertEquals(capture.getLinks().size(), 1);
 	}
 
-	@Test(dependsOnMethods = { "testAuthorizationVoid" })
+	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationVoid" })
 	public void testGetCapture() throws PayPalRESTException {
 		logger.info("**** Get Capture ****");
 		Payment payment = getPaymentAgainstAuthorization();
@@ -86,7 +86,7 @@ public class CaptureTestCase {
 		logger.info("Retrieved Capture State: " + retrievedCapture.getState());
 	}
 
-	@Test(dependsOnMethods = { "testGetCapture" })
+	@Test(groups = "integration", dependsOnMethods = { "testGetCapture" })
 	public void testRefundCapture() throws PayPalRESTException {
 		logger.info("**** Refund Capture ****");
 		Refund refund = new Refund();
@@ -101,13 +101,13 @@ public class CaptureTestCase {
 		logger.info("Refund State: " + responseRefund.getState());
 	}
 
-	@Test(expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
 	public void testGetCaptureNullCaptureId() throws PayPalRESTException {
 		logger.info("**** Get Capture (Null Capture Id) ****");
 		Capture capture = Capture.get(TokenHolder.accessToken, null);
 	}
 
-	@Test(expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
 	public void testCaptureNullRefund() throws PayPalRESTException {
 		logger.info("**** Get Capture (Null Refund) ****");
 		Payment payment = getPaymentAgainstAuthorization();

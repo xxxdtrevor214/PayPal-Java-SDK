@@ -40,7 +40,7 @@ public class EventTypeTestCase {
 		Assert.assertEquals(eventType.toString().length() == 0, false);
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testSubscribedEventTypes() throws PayPalRESTException {
 		logger.info("**** Subscribed EventTypes ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -63,7 +63,7 @@ public class EventTypeTestCase {
 		Assert.assertNotEquals(eventTypeList.getEventTypes().size(), WebhooksInputData.availableEvents.length);
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testAvailableEventTypes() throws PayPalRESTException {
 		logger.info("**** Available EventTypes ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();

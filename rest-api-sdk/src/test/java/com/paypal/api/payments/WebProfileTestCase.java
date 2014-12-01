@@ -56,7 +56,7 @@ public class WebProfileTestCase {
 				clientSecret).getAccessToken();
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testCreateWebProfile() throws PayPalRESTException {
 		long randomNumber = random.nextLong();
 		WebProfile webProfile = loadWebProfile();
@@ -66,19 +66,19 @@ public class WebProfileTestCase {
 		Assert.assertNotNull(response.getId());
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testRetrieveWebProfile() throws PayPalRESTException {
 		WebProfile webProfile = WebProfile.get(this.accessToken, this.id);
 		Assert.assertEquals(this.id, webProfile.getId());
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testListWebProfiles() throws PayPalRESTException {
 		List<WebProfile> webProfileList = WebProfile.getList(this.accessToken);
 		Assert.assertTrue(webProfileList.size() > 0);
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testUpdateWebProfile() throws PayPalRESTException {
 		long randomNumber = random.nextLong();
 		String newName = "YeowZa! T-Shirt Shop" + String.valueOf(randomNumber);

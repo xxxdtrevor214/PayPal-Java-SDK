@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -49,7 +48,7 @@ public class BillingPlanTestCase {
 				clientSecret).getAccessToken();
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testCreatePlan() throws PayPalRESTException {
 		Plan plan = loadPlan();
 		plan = plan.create(this.accessToken);
@@ -57,7 +56,7 @@ public class BillingPlanTestCase {
 		Assert.assertNotNull(plan.getId());
 	}
 	
-	@Test(dependsOnMethods = {"testCreatePlan"})
+	@Test(groups = "integration", dependsOnMethods = {"testCreatePlan"})
 	public void testUpdatePlan() throws PayPalRESTException {
 		// get original plan
 		Plan plan = loadPlan();
@@ -84,13 +83,13 @@ public class BillingPlanTestCase {
 		Assert.assertEquals(updatedPlan.getState(), "ACTIVE");
 	}
 	
-	@Test(dependsOnMethods = {"testUpdatePlan"})
+	@Test(groups = "integration", dependsOnMethods = {"testUpdatePlan"})
 	public void testRetrievePlan() throws PayPalRESTException {
 		Plan plan = Plan.get(accessToken, this.id);
 		Assert.assertEquals(plan.getId(), this.id);
 	}
 	
-	@Test(dependsOnMethods = {"testRetrievePlan"})
+	@Test(groups = "integration", dependsOnMethods = {"testRetrievePlan"})
 	public void testListPlan() throws PayPalRESTException {
 		// store all required parameters in Map
 		Map<String, String> parameters = new HashMap<String, String>();
