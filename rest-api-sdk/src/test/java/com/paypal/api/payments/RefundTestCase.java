@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Properties;
 
@@ -108,7 +109,7 @@ public class RefundTestCase {
 		}
 	}
 
-	@Test(groups = "unit")
+	@Test(groups = "unit", expectedExceptions = { ConcurrentModificationException.class })
 	public void testRefundInputStreamConfiguration() {
 		try {
 			File testFile = new File(".",
