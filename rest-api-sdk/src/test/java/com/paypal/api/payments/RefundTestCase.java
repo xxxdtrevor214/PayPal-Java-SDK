@@ -109,7 +109,7 @@ public class RefundTestCase {
 		}
 	}
 
-	@Test(groups = "unit", expectedExceptions = { ConcurrentModificationException.class })
+	@Test(groups = "unit")
 	public void testRefundInputStreamConfiguration() {
 		try {
 			File testFile = new File(".",
@@ -120,7 +120,7 @@ public class RefundTestCase {
 			Assert.fail("[sdk_config.properties] stream loading failed");
 		} catch (FileNotFoundException e) {
 			Assert.fail("[sdk_config.properties] file is not available");
-		}
+		} catch (ConcurrentModificationException e) {}
 	}
 
 	@Test(groups = "unit")
