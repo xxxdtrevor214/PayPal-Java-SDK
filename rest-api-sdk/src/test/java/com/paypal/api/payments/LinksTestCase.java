@@ -19,7 +19,7 @@ public class LinksTestCase {
 		return link;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Links link = LinksTestCase.createLinks();
 		Assert.assertEquals(link.getHref(), HREF);
@@ -27,13 +27,13 @@ public class LinksTestCase {
 		Assert.assertEquals(link.getMethod(), METHOD);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Links link = LinksTestCase.createLinks();
 		Assert.assertEquals(link.toJSON().length() == 0, false);
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOString() {
 		Links link = LinksTestCase.createLinks();
 		Assert.assertEquals(link.toString().length() == 0, false);

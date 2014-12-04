@@ -25,22 +25,22 @@ public class WebhookListTestCase {
 		webhookList.setWebhooks(webhooks);
 		return webhookList;
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testWebhooksListConstruction() {
 		WebhookList webhookList = createWebhookList();
 		Assert.assertEquals(webhookList.getWebhooks().size(), 2);
 		Assert.assertNotEquals(webhookList.getWebhooks().get(0), webhookList.getWebhooks().get(1));
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		WebhookList webhookList = createWebhookList();
 		Assert.assertEquals(webhookList.toJSON().length() == 0, false);
 		logger.info("WebhookListJSON = " + webhookList.toJSON());
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOString() {
 		WebhookList webhookList = createWebhookList();
 		Assert.assertEquals(webhookList.toJSON().length() == 0, false);

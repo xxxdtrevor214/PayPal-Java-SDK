@@ -23,7 +23,7 @@ public class RelatedResourcesTestCase {
 		return subTransaction;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		RelatedResources subTransaction = createRelatedResources();
 		Assert.assertEquals(subTransaction.getAuthorization().getId(),
@@ -35,13 +35,13 @@ public class RelatedResourcesTestCase {
 				CaptureTestCase.ID);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		RelatedResources subTransaction = createRelatedResources();
 		Assert.assertEquals(subTransaction.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		RelatedResources subTransaction = createRelatedResources();
 		Assert.assertEquals(subTransaction.toString().length() == 0, false);

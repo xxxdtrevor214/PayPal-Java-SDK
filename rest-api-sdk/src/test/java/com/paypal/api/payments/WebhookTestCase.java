@@ -63,8 +63,8 @@ public class WebhookTestCase {
 		
 		return linksList;
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testWebhookConstruction() {
 		Webhook webhook = createWebhook();
 		Assert.assertEquals(webhook.getId(), WEBHOOK_ID);
@@ -75,8 +75,8 @@ public class WebhookTestCase {
 		Assert.assertEquals(webhook.getEventTypes().get(1).getName(), WebhooksInputData.availableEvents[2][0]);
 		Assert.assertNotEquals(webhook.getEventTypes().size(), WebhooksInputData.availableEvents.length);
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testWebhookWithAllEventsConstruction() {
 		Webhook webhook = createWebhookWithAllEvents();
 		Assert.assertEquals(webhook.getId(), WEBHOOK_ID);
@@ -87,15 +87,15 @@ public class WebhookTestCase {
 			Assert.assertEquals(webhook.getEventTypes().get(i).getName(), WebhooksInputData.availableEvents[i][0]);
 		}
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Webhook webhook =  createWebhook();
 		Assert.assertEquals(webhook.toJSON().length() == 0, false);
 		logger.info("EventTypeJSON = " + webhook.toJSON());
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOString() {
 		Webhook webhook =  createWebhook();
 		Assert.assertEquals(webhook.toString().length() == 0, false);

@@ -51,7 +51,7 @@ public class SaleTestCase {
 		return sale;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Sale sale = createSale();
 		Assert.assertEquals(sale.getId(), ID);
@@ -205,13 +205,13 @@ public class SaleTestCase {
 		}
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Sale sale = createSale();
 		Assert.assertEquals(sale.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Sale sale = createSale();
 		Assert.assertEquals(sale.toString().length() == 0, false);

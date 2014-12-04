@@ -21,7 +21,7 @@ public class PayerTestCase {
 		return payer;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Payer payer = createPayer();
 
@@ -33,13 +33,13 @@ public class PayerTestCase {
 				PayerInfoTestCase.FIRSTNAME);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Payer payer = createPayer();
 		Assert.assertEquals(payer.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Payer payer = createPayer();
 		Assert.assertEquals(payer.toString().length() == 0, false);

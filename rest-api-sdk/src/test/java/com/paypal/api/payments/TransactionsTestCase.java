@@ -13,20 +13,20 @@ public class TransactionsTestCase {
 		return transactions;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Transactions transactions = TransactionsTestCase.createTransactions();
 		Assert.assertEquals(transactions.getAmount().getTotal(), "100.00");
 
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Transactions transactions = TransactionsTestCase.createTransactions();
 		Assert.assertEquals(transactions.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Transactions transactions = TransactionsTestCase.createTransactions();
 		Assert.assertEquals(transactions.toString().length() == 0, false);

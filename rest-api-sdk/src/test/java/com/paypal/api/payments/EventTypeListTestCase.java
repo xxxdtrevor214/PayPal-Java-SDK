@@ -40,30 +40,30 @@ public class EventTypeListTestCase {
 		return eventTypes;
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testCreateAllEventTypeListConstruction() {
 		List<EventType> eventTypeList = createAllEventTypeList();
 		for(int i=0; i < eventTypeList.size(); i++) {
 			Assert.assertEquals(eventTypeList.get(i).getName(), WebhooksInputData.availableEvents[i][0]);
 		}
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testCreateAuthEventTypeListConstruction() {
 		List<EventType> eventTypeList = createAuthEventTypeList();
 		Assert.assertEquals(eventTypeList.get(0).getName(), WebhooksInputData.availableEvents[1][0]);
 		Assert.assertEquals(eventTypeList.get(1).getName(), WebhooksInputData.availableEvents[2][0]);
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		EventTypeList eventTypeList = new EventTypeList();
 		eventTypeList.setEventTypes(createAllEventTypeList());
 		Assert.assertEquals(eventTypeList.toJSON().length() == 0, false);
 		logger.info("EventTypeListJSON = " + eventTypeList.toJSON());
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOString() {
 		EventTypeList eventTypeList = new EventTypeList();
 		eventTypeList.setEventTypes(createAllEventTypeList());

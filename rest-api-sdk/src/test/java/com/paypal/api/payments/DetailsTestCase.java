@@ -22,7 +22,7 @@ public class DetailsTestCase {
 		return amountDetails;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Details amountDetails = createDetails();
 		Assert.assertEquals(amountDetails.getFee(), FEE);
@@ -31,13 +31,13 @@ public class DetailsTestCase {
 		Assert.assertEquals(amountDetails.getTax(), TAX);
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Details amountDetails = createDetails();
 		Assert.assertEquals(amountDetails.toJSON().length() == 0, false);
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Details amountDetails = createDetails();
 		Assert.assertEquals(amountDetails.toString().length() == 0, false);

@@ -15,20 +15,20 @@ public class CreditCardTokenTestCase {
 		return creditCardToken;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		CreditCardToken creditCardToken = createCreditCardToken();
 		Assert.assertEquals(creditCardToken.getCreditCardId(), "CARD-8PV12506MG6587946KEBHH4A");
 		Assert.assertEquals(creditCardToken.getPayerId(), "12345");
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		CreditCardToken creditCardToken = createCreditCardToken();
 		Assert.assertEquals(creditCardToken.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		CreditCardToken creditCardToken = createCreditCardToken();
 		Assert.assertEquals(creditCardToken.toString().length() == 0, false);

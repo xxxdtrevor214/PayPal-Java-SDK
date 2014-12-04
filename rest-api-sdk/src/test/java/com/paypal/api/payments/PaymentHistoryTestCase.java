@@ -22,7 +22,7 @@ public class PaymentHistoryTestCase {
 		return paymentHistory;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		PaymentHistory paymentHistory = PaymentHistoryTestCase
 				.createPaymentHistory();
@@ -31,14 +31,14 @@ public class PaymentHistoryTestCase {
 		Assert.assertEquals(paymentHistory.getPayments().size(), 1);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		PaymentHistory paymentHistory = PaymentHistoryTestCase
 				.createPaymentHistory();
 		Assert.assertEquals(paymentHistory.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		PaymentHistory paymentHistory = PaymentHistoryTestCase
 				.createPaymentHistory();
