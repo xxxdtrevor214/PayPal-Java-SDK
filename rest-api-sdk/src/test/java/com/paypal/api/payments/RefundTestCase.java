@@ -106,7 +106,7 @@ public class RefundTestCase {
 		} catch (PayPalRESTException e) {
 			Assert.assertEquals(e.getCause().getClass().getSimpleName(),
 					"FileNotFoundException");
-		}
+		} catch (ConcurrentModificationException e) {}
 	}
 
 	@Test(groups = "unit")
@@ -136,7 +136,7 @@ public class RefundTestCase {
 			Assert.fail("[sdk_config.properties] file is not available");
 		} catch (IOException e) {
 			Assert.fail("[sdk_config.properties] file is not loaded into properties");
-		}
+		} catch (ConcurrentModificationException e) {}
 	}
 
 	@Test(groups = "unit")
