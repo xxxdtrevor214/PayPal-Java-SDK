@@ -36,7 +36,7 @@ public class TransactionTestCase {
 		return transaction;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Transaction transaction = createTransaction();
 		Assert.assertEquals(transaction.getAmount().getTotal(), "100.00");
@@ -54,13 +54,13 @@ public class TransactionTestCase {
 		Assert.assertEquals(transaction.getSoftDescriptor(), SOFT_DESCRIPTOR);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Transaction transaction = createTransaction();
 		Assert.assertEquals(transaction.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Transaction transaction = createTransaction();
 		Assert.assertEquals(transaction.toString().length() == 0, false);

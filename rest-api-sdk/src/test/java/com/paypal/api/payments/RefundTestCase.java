@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Properties;
 
@@ -55,7 +56,7 @@ public class RefundTestCase {
 		return refund;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Refund refund = createRefund();
 		Assert.assertEquals(refund.getId(), ID);
@@ -98,17 +99,17 @@ public class RefundTestCase {
 		}
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testRefundUnknownFileConfiguration() {
 		try {
 			Refund.initConfig(new File("unknown.properties"));
 		} catch (PayPalRESTException e) {
 			Assert.assertEquals(e.getCause().getClass().getSimpleName(),
 					"FileNotFoundException");
-		}
+		} catch (ConcurrentModificationException e) {}
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testRefundInputStreamConfiguration() {
 		try {
 			File testFile = new File(".",
@@ -119,10 +120,10 @@ public class RefundTestCase {
 			Assert.fail("[sdk_config.properties] stream loading failed");
 		} catch (FileNotFoundException e) {
 			Assert.fail("[sdk_config.properties] file is not available");
-		}
+		} catch (ConcurrentModificationException e) {}
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testRefundPropertiesConfiguration() {
 		try {
 			File testFile = new File(".",
@@ -135,16 +136,16 @@ public class RefundTestCase {
 			Assert.fail("[sdk_config.properties] file is not available");
 		} catch (IOException e) {
 			Assert.fail("[sdk_config.properties] file is not loaded into properties");
-		}
+		} catch (ConcurrentModificationException e) {}
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Refund refund = createRefund();
 		Assert.assertEquals(refund.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Refund refund = createRefund();
 		Assert.assertEquals(refund.toString().length() == 0, false);

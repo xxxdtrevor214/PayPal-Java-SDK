@@ -29,7 +29,7 @@ public class PayerInfoTestCase {
 		return payerInfo;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		PayerInfo payerInfo = createPayerInfo();
 		Assert.assertEquals(payerInfo.getFirstName(), FIRSTNAME);
@@ -41,13 +41,13 @@ public class PayerInfoTestCase {
 				AddressTestCase.CITY);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		PayerInfo payerInfo = createPayerInfo();
 		Assert.assertEquals(payerInfo.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		PayerInfo payerInfo = createPayerInfo();
 		Assert.assertEquals(payerInfo.toString().length() == 0, false);

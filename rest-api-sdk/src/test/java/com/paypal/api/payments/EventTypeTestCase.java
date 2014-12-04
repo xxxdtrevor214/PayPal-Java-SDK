@@ -20,21 +20,21 @@ public class EventTypeTestCase {
 		return eventType;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testEventConstruction() {
 		EventType eventType = createEventType();
 		Assert.assertEquals(eventType.getName(), WebhooksInputData.availableEvents[0][0]);
 		Assert.assertEquals(eventType.getDescription(), WebhooksInputData.availableEvents[0][1]);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		EventType eventType = createEventType();
 		Assert.assertEquals(eventType.toJSON().length() == 0, false);
 		logger.info("EventTypeJSON = " + eventType.toJSON());
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOString() {
 		EventType eventType = createEventType();
 		Assert.assertEquals(eventType.toString().length() == 0, false);

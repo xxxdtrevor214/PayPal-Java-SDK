@@ -28,7 +28,7 @@ public class ItemTestCase {
 		return item;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Item item = createItem();
 		Assert.assertEquals(item.getName(), NAME);
@@ -38,14 +38,14 @@ public class ItemTestCase {
 		Assert.assertEquals(item.getQuantity(), QUANTITY);
 		Assert.assertEquals(item.getSku(), SKU);
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Item item = createItem();
 		Assert.assertEquals(item.toJSON().length() == 0, false);
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOString() {
 		Item item = createItem();
 		Assert.assertEquals(item.toString().length() == 0, false);

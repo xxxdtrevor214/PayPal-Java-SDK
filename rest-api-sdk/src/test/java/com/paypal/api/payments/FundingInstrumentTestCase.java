@@ -18,7 +18,7 @@ public class FundingInstrumentTestCase {
 		return fundingInstrument;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		FundingInstrument fundingInsturment = createFundingInstrument();
 		Assert.assertEquals(fundingInsturment.getCreditCardToken()
@@ -27,13 +27,13 @@ public class FundingInstrumentTestCase {
 				CreditCardTestCase.CVV2);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		FundingInstrument fundingInsturment = createFundingInstrument();
 		Assert.assertEquals(fundingInsturment.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		FundingInstrument fundingInsturment = createFundingInstrument();
 		Assert.assertEquals(fundingInsturment.toString().length() == 0, false);

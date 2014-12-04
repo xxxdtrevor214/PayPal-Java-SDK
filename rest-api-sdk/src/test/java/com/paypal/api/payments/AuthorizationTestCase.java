@@ -53,7 +53,7 @@ public class AuthorizationTestCase {
 		return authorization;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Authorization authorization = createAuthorization();
 		Assert.assertEquals(authorization.getId(), ID);

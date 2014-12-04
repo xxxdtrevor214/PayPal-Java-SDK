@@ -13,19 +13,19 @@ public class ShippingAddressTestCase {
 		return shippingAddress;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		ShippingAddress shippingAddress = createShippingAddress();
 		Assert.assertEquals(shippingAddress.getRecipientName(), RECIPIENTSNAME);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		ShippingAddress address = createShippingAddress();
 		Assert.assertEquals(address.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		ShippingAddress address = createShippingAddress();
 		Assert.assertEquals(address.toString().length() == 0, false);

@@ -16,8 +16,8 @@ public class PaymentExecutionTestCase {
 		pae.setTransactions(transactions);
 		return pae;
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testConstruction(){
 		PaymentExecution pae = createPaymentExecution();
 		Assert.assertEquals(pae.getPayerId(), PayerInfoTestCase.PAYERID);
@@ -25,14 +25,14 @@ public class PaymentExecutionTestCase {
 		Assert.assertEquals(pae.getTransactions().get(0).getAmount().getCurrency(),AmountTestCase.CURRENCY);
 	}
 	
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testToJson(){
 		PaymentExecution pae = createPaymentExecution();
 		Assert.assertEquals(pae.toJSON().length() == 0, false);
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testToString(){
 		PaymentExecution pae = createPaymentExecution();
 		Assert.assertEquals(pae.toString().length() == 0, false);

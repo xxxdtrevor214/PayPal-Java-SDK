@@ -15,21 +15,21 @@ public class RedirectUrlsTestCase {
 		redirectUrls.setReturnUrl(RETURNURL);
 		return  redirectUrls;
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testConstruction() {
 		RedirectUrls redirectUrls = createRedirectUrls();
 		Assert.assertEquals(redirectUrls.getCancelUrl(), CANCELURL);
 		Assert.assertEquals(redirectUrls.getReturnUrl(), RETURNURL);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		RedirectUrls redirectUrls = createRedirectUrls();
 		Assert.assertEquals(redirectUrls.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		RedirectUrls redirectUrls = createRedirectUrls();
 		Assert.assertEquals(redirectUrls.toString().length() == 0, false);
