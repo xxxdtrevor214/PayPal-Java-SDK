@@ -29,7 +29,7 @@ public class EventListTestCase {
 		return eventList;
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testEventListConstruction() {
 		EventList eventListt = createEventList();
 		Assert.assertNotEquals(eventListt.getEvents(), null);
@@ -37,14 +37,14 @@ public class EventListTestCase {
 		Assert.assertNotEquals(eventListt.getLinks(), null);
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		EventList eventList = createEventList();
 		Assert.assertEquals(eventList.toJSON().length() == 0, false);
 		logger.info("EventListJSON = " + eventList.toJSON());
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		EventList eventList = createEventList();
 		Assert.assertEquals(eventList.toString().length() == 0, false);

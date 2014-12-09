@@ -18,7 +18,7 @@ public class AmountTestCase {
 		return amount;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Amount amount = createAmount("1000.00");
 		Assert.assertEquals(amount.getTotal(), "1000.00");
@@ -27,7 +27,7 @@ public class AmountTestCase {
 				DetailsTestCase.FEE);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Amount amount = createAmount("12.25");
 		Assert.assertEquals(amount.toJSON().length() == 0, false);

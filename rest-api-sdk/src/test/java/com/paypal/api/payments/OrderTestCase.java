@@ -41,16 +41,19 @@ public class OrderTestCase {
 		order = Order.get(TokenHolder.accessToken, ID);
 	}
 	
+	@Test(groups = "integration", dependsOnMethods = { "testGetOrder" })
 	public void testAuthorize() throws PayPalRESTException {
 		Authorization authorization = order.authorize(TokenHolder.accessToken);
 		Assert.assertEquals(authorization.getState(), "Pending");
 	}
 	
+	@Test(groups = "integration", dependsOnMethods = { "testAuthorize" })
 	public void testCapture() throws PayPalRESTException {
 		Capture capture = order.capture(TokenHolder.accessToken, CaptureTestCase.createCapture());
 		Assert.assertEquals(capture.getState(), "Pending");
 	}
 	
+	@Test(groups = "integration", dependsOnMethods = { "testCapture" })
 	public void testDoVoid() throws PayPalRESTException {
 		order = order.doVoid(TokenHolder.accessToken);
 		Assert.assertEquals(order.getState(), "voided");

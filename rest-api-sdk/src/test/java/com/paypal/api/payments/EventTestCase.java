@@ -44,7 +44,7 @@ public class EventTestCase {
 		return event;
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testEventConstruction() {
 		Event event = createEvent();
 		Event saleEvent = createSaleEvent();
@@ -60,14 +60,14 @@ public class EventTestCase {
 		Assert.assertEquals(saleEvent.getSummary(), EVENT_SUMMARY);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Event event = createEvent();
 		Assert.assertEquals(event.toJSON().length() == 0, false);
 		logger.info("EventJSON = " + event.toJSON());
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Event event = createEvent();
 		Assert.assertEquals(event.toString().length() == 0, false);
@@ -75,7 +75,7 @@ public class EventTestCase {
 
 	
 	
-	@Test
+	@Test(groups = "integration")
 	public void testEventList() throws PayPalRESTException {
 		logger.info("**** Create Event ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -94,7 +94,7 @@ public class EventTestCase {
 		Assert.assertNotNull(list.getEvents().get(0).getLinks(), "HATEOAS links related to this call is Not Null");
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testEventResend() throws PayPalRESTException {
 		logger.info("**** Resend Event ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -112,7 +112,7 @@ public class EventTestCase {
 		Assert.assertNotNull(event.getLinks(), "HATEOAS links related to this call is Not Null");
 	}
 	
-	@Test
+	@Test(groups = "integration")
 	public void testEventGet() throws PayPalRESTException {
 		logger.info("**** Get Event ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -133,6 +133,7 @@ public class EventTestCase {
 	 * To create a New Notification event, use the stub below. 
 	 * When prompted for payerId, use the payerId obtained from executing approval URL in payment.create request
 	 */
+	@Test(groups = "integration")
 	public void createNotification() throws PayPalRESTException, IOException {
 		logger.info("**** Create Notification ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
@@ -158,6 +159,7 @@ public class EventTestCase {
 	/**
 	 * Creates a Payment with AuthorizeIntent and PayPal as Sale method 
 	 */
+	@Test(groups = "integration")
 	public Payment createPaymentWithAuthorizeIntent() {
 		Details details = new Details();
 		details.setShipping("10");

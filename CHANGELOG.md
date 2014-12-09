@@ -1,5 +1,10 @@
 CHANGELOG
-========= 
+=========
+V0.12.2 (December 5, 2014)
+--------------------------
+   * Grouped tests into 2 subsets: unit tests and integration tests
+   * Disabled integration tests by default
+ 
 V0.12.1 (November 25, 2014)
 ---------------------------
    * Fixed test case issues

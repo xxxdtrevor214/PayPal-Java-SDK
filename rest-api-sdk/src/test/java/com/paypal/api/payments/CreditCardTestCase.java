@@ -87,7 +87,7 @@ public class CreditCardTestCase {
 		return creditCard;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		CreditCard creditCard = createDummyCreditCard();
 		Assert.assertEquals(creditCard.getCvv2(), CVV2);

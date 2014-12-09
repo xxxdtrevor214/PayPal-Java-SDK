@@ -43,7 +43,7 @@ public class AddressTestCase {
 		return address;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Address address = createAddress();
 		Assert.assertEquals(address.getCity(), CITY);
@@ -55,13 +55,13 @@ public class AddressTestCase {
 		Assert.assertEquals(address.getState(), STATE);
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Address address = createAddress();
 		Assert.assertEquals(address.toJSON().length() == 0, false);
 	}
 	
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		Address address = createAddress();
 		Assert.assertEquals(address.toString().length() == 0, false);
