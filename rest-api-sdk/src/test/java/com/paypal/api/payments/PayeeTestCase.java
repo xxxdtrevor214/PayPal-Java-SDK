@@ -19,7 +19,7 @@ public class PayeeTestCase {
 		return payee;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Payee payee = createPayee();
 		Assert.assertEquals(payee.getMerchantId(), MERCHANTID);
@@ -27,13 +27,13 @@ public class PayeeTestCase {
 		Assert.assertEquals(payee.getPhone(), PHONE);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		Payee payee = createPayee();
 		Assert.assertEquals(payee.toJSON().length()==0, false);
 	}
-	
-	@Test
+
+	@Test(groups = "unit")
 	public void testTOString() {
 		Payee payee = createPayee();
 		Assert.assertEquals(payee.toString().length()==0, false);

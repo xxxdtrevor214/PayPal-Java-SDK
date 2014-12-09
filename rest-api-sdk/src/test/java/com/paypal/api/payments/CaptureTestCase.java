@@ -51,7 +51,7 @@ public class CaptureTestCase {
 		return capture;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		Capture capture = createCapture();
 		Assert.assertEquals(capture.getId(), ID);
@@ -63,7 +63,7 @@ public class CaptureTestCase {
 		Assert.assertEquals(capture.getLinks().size(), 1);
 	}
 
-	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationVoid" })
+	@Test(groups = "integration")
 	public void testGetCapture() throws PayPalRESTException {
 		logger.info("**** Get Capture ****");
 		Payment payment = getPaymentAgainstAuthorization();

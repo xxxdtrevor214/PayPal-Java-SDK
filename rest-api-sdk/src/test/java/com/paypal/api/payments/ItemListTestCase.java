@@ -19,7 +19,7 @@ public class ItemListTestCase {
 		return itemList;
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testConstruction() {
 		ItemList itemList = createItemList();
 		Assert.assertEquals(itemList.getShippingAddress().getRecipientName(),
@@ -27,13 +27,13 @@ public class ItemListTestCase {
 		Assert.assertEquals(itemList.getItems().size(), 2);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOJSON() {
 		ItemList itemList = createItemList();
 		Assert.assertEquals(itemList.toJSON().length() == 0, false);
 	}
 
-	@Test
+	@Test(groups = "unit")
 	public void testTOString() {
 		ItemList itemList = createItemList();
 		Assert.assertEquals(itemList.toString().length() == 0, false);

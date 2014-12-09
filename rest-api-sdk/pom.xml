@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.paypal.sdk</groupId>
     <artifactId>rest-api-sdk</artifactId>
-    <version>0.12.1</version>
+    <version>0.12.2</version>
     <packaging>jar</packaging>
     <name>REST API SDK</name>
     <description>PayPal SDK for integrating with the REST APIs</description>
@@ -89,7 +89,7 @@
 				<configuration>
 					<parallel>methods</parallel>
 					<threadCount>10</threadCount>
-					<excludedGroups>integration</excludedGroups>
+					<groups>unit</groups>
 				</configuration>
 			</plugin>
 		</plugins>

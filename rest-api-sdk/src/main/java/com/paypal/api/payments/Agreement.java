@@ -2,6 +2,7 @@ package com.paypal.api.payments;
 
 import com.google.gson.GsonBuilder;
 import com.paypal.core.rest.JSONFormatter;
+import com.paypal.api.payments.AgreementDetails;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Address;
 import com.paypal.api.payments.MerchantPreferences;
@@ -57,6 +58,11 @@ public class Agreement  {
 	private String startDate;
 
 	/**
+	 * Details of the agreement.
+	 */
+	private AgreementDetails agreementDetails;
+
+	/**
 	 * Details of the buyer who is enrolling in this agreement. This information is gathered from execution of the approval URL.
 	 */
 	private Payer payer;
@@ -95,7 +101,7 @@ public class Agreement  {
 	 * Payment token
 	 */
 	private String token;
-
+	
 	/**
 	 * 
 	 */
@@ -236,6 +242,22 @@ public class Agreement  {
 
 
 	/**
+	 * Setter for agreementDetails
+	 */
+	public Agreement setAgreementDetails(AgreementDetails agreementDetails) {
+		this.agreementDetails = agreementDetails;
+		return this;
+	}
+
+	/**
+	 * Getter for agreementDetails
+	 */
+	public AgreementDetails getAgreementDetails() {
+		return this.agreementDetails;
+	}
+
+
+	/**
 	 * Setter for payer
 	 */
 	public Agreement setPayer(Payer payer) {
@@ -346,6 +368,20 @@ public class Agreement  {
 		return this.updateTime;
 	}
 
+	/**
+	 * Setter for token
+	 */
+	public Agreement setToken(String token) {
+		this.token = token;
+		return this;
+	}
+
+	/**
+	 * Getter for token
+	 */
+	public String getToken() {
+		return this.token;
+	}
 
 	/**
 	 * Setter for links
@@ -364,29 +400,13 @@ public class Agreement  {
 
 
 	/**
-	 * Setter for token
-	 */
-	public Agreement setToken(String token) {
-		this.token = token;
-		return this;
-	}
-
-	/**
-	 * Getter for token
-	 */
-	public String getToken() {
-		return this.token;
-	}
-
-
-	/**
 	 * Create a new billing agreement by passing the details for the agreement, including the name, description, start date, payer, and billing plan in the request JSON.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Agreement
 	 * @throws PayPalRESTException
-	 * @throws MalformedURLException 
 	 * @throws UnsupportedEncodingException 
+	 * @throws MalformedURLException 
 	 */
 	public Agreement create(String accessToken) throws PayPalRESTException, MalformedURLException, UnsupportedEncodingException {
 		APIContext apiContext = new APIContext(accessToken);
@@ -417,7 +437,7 @@ public class Agreement  {
 		String resourcePath = "v1/payments/billing-agreements";
 		String payLoad = this.toJSON();
 		Agreement agreement = PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Agreement.class);
-		
+
 		for (Links links : agreement.getLinks()) {
 			if ("approval_url".equals(links.getRel())) {
 				URL url = new URL(links.getHref());
@@ -476,12 +496,9 @@ public class Agreement  {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
-		if (this.getToken() == null) {
-			throw new IllegalArgumentException("agreement.token cannot be null");
-		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
-		Object[] parameters = new Object[] {this.getToken()};
+		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
@@ -554,7 +571,7 @@ public class Agreement  {
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param patchRequest
-	 *            PatchRequest
+	 *            PatchRequest (list of patches)
 	 * @return Agreement
 	 * @throws PayPalRESTException
 	 */
@@ -872,16 +889,16 @@ public class Agreement  {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
-		if (agreementId == null) {
-			throw new IllegalArgumentException("agreementId cannot be null");
-		}
 		if (startDate == null) {
 			throw new IllegalArgumentException("startDate cannot be null");
 		}
 		if (endDate == null) {
 			throw new IllegalArgumentException("endDate cannot be null");
+		}
+		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.setSdkVersion(new SDKVersionImpl());
+		if (agreementId == null) {
+			throw new IllegalArgumentException("agreementId cannot be null");
 		}
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String sDate = dateFormat.format(startDate);
