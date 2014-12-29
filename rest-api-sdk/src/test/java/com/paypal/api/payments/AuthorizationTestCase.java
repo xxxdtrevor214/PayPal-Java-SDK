@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
@@ -33,11 +34,15 @@ public class AuthorizationTestCase {
 
 	public Authorization authorization = null;
 
-	@BeforeClass
+	@BeforeTest(groups = "integration")
 	public void beforeClass() throws PayPalRESTException {
 		File testFile = new File(".",
 				"src/test/resources/sdk_config.properties");
 		PayPalResource.initConfig(testFile);
+		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
+				clientSecret).getAccessToken();
 	}
 
 	public static Authorization createAuthorization() {
@@ -69,6 +74,7 @@ public class AuthorizationTestCase {
 	public void testGetAuthorization() throws PayPalRESTException {
 		logger.info("**** Authorize Payment ****");
 		Payment payment = getPaymentAgainstAuthorization();
+		logger.info("Authorization Token Set to " + TokenHolder.accessToken);
 		Payment authPayment = payment.create(TokenHolder.accessToken);
 		logger.info("Authorization Payment created with ID = "
 				+ authPayment.getId());

@@ -18,7 +18,6 @@ import com.paypal.core.rest.PayPalRESTException;
 
 public class BillingPlanTestCase {
 	private String id = null;
-	private String accessToken = null;
 
 	public static Plan loadPlan() {
 	    try {
@@ -44,14 +43,14 @@ public class BillingPlanTestCase {
 	public void setUp() throws PayPalRESTException {
 		String clientID = "AUASNhD7YM7dc5Wmc5YE9pEsC0o4eVOyYWO9ezXWBu2XTc63d3Au_s9c-v-U";
 		String clientSecret = "EBq0TRAE-4R9kgCDKzVh09sm1TeNcuY-xJirid7LNtheUh5t5vlOhR0XSHt3";
-		this.accessToken = new OAuthTokenCredential(clientID,
+		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
 				clientSecret).getAccessToken();
 	}
 	
 	@Test(groups = "integration")
 	public void testCreatePlan() throws PayPalRESTException {
 		Plan plan = loadPlan();
-		plan = plan.create(this.accessToken);
+		plan = plan.create(TokenHolder.accessToken);
 		this.id = plan.getId();
 		Assert.assertNotNull(plan.getId());
 	}
@@ -77,15 +76,15 @@ public class BillingPlanTestCase {
 		patchRequest.add(patch);
 		
 		// execute update
-		plan.update(accessToken, patchRequest);
-		Plan updatedPlan = Plan.get(accessToken, plan.getId());
+		plan.update(TokenHolder.accessToken, patchRequest);
+		Plan updatedPlan = Plan.get(TokenHolder.accessToken, plan.getId());
 		Assert.assertEquals(plan.getId(), updatedPlan.getId());
 		Assert.assertEquals(updatedPlan.getState(), "ACTIVE");
 	}
 	
 	@Test(groups = "integration", dependsOnMethods = {"testUpdatePlan"})
 	public void testRetrievePlan() throws PayPalRESTException {
-		Plan plan = Plan.get(accessToken, this.id);
+		Plan plan = Plan.get(TokenHolder.accessToken, this.id);
 		Assert.assertEquals(plan.getId(), this.id);
 	}
 	
@@ -99,7 +98,7 @@ public class BillingPlanTestCase {
 		parameters.put("total_required", "yes");
 		
 		// retrieve plans that match the specified criteria
-		PlanList planList = Plan.list(accessToken, parameters);
+		PlanList planList = Plan.list(TokenHolder.accessToken, parameters);
 		List<Plan> plans = planList.getPlans();
 		for (int i = 0; i < plans.size(); ++i) {
 			Assert.assertEquals(plans.get(i).getState(), "ACTIVE");
