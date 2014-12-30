@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalRESTException;
 
 public class RefundTestCase {
 

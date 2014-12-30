@@ -1,6 +1,6 @@
 package com.paypal.api.payments;
 
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.base.rest.JSONFormatter;
 
 public class CreditCardToken  {
 

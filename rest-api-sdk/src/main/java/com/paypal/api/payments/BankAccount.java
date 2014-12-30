@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.base.rest.JSONFormatter;
 import com.paypal.api.payments.Address;
 import com.paypal.api.payments.Links;
+
 import java.util.List;
 
 public class BankAccount  {

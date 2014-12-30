@@ -3,7 +3,7 @@ package com.paypal.api.payments;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.base.rest.JSONFormatter;
 import com.paypal.api.payments.FlowConfig;
 import com.paypal.api.payments.InputFields;
 import com.paypal.api.payments.Presentation;

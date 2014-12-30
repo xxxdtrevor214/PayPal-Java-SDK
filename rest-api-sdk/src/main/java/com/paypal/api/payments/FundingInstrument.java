@@ -1,6 +1,6 @@
 package com.paypal.api.payments;
 
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.base.rest.JSONFormatter;
 import com.paypal.api.payments.CreditCard;
 import com.paypal.api.payments.CreditCardToken;
 import com.paypal.api.payments.PaymentCard;

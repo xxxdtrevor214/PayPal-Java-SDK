@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
+import com.paypal.api.openidconnect.CreateFromRefreshTokenParameters;
+import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.api.payments.Payment;
-import com.paypal.core.ClientCredentials;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.sdk.openidconnect.CreateFromAuthorizationCodeParameters;
-import com.paypal.sdk.openidconnect.Tokeninfo;
-import com.paypal.sdk.openidconnect.CreateFromRefreshTokenParameters;
+import com.paypal.base.ClientCredentials;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
 
 public class FuturePayment extends Payment {
 

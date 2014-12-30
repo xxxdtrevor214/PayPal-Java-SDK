@@ -1,9 +1,21 @@
 package com.paypal.api.payments;
 
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.base.Constants;
+import com.paypal.base.SDKVersion;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.HttpMethod;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
+import com.paypal.base.rest.QueryParameters;
+import com.paypal.base.rest.RESTUtil;
+import com.paypal.base.sdk.info.SDKVersionImpl;
 import com.paypal.api.payments.MerchantInfo;
 import com.paypal.api.payments.BillingInfo;
+
 import java.util.List;
+
 import com.paypal.api.payments.ShippingInfo;
 import com.paypal.api.payments.InvoiceItem;
 import com.paypal.api.payments.PaymentTerm;
@@ -14,16 +26,7 @@ import com.paypal.api.payments.Currency;
 import com.paypal.api.payments.PaymentDetail;
 import com.paypal.api.payments.RefundDetail;
 import com.paypal.api.payments.Metadata;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
-import com.paypal.core.rest.OAuthTokenCredential;
-import com.paypal.core.rest.HttpMethod;
-import com.paypal.core.rest.RESTUtil;
-import com.paypal.core.rest.QueryParameters;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.Constants;
-import com.paypal.core.SDKVersion;
-import com.paypal.sdk.info.SDKVersionImpl;
+
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
