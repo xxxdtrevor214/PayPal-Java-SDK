@@ -7,17 +7,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
+import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.FuturePayment;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
-import com.paypal.core.ClientCredentials;
-import com.paypal.core.LoggingManager;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.sdk.openidconnect.CreateFromAuthorizationCodeParameters;
-import com.paypal.sdk.openidconnect.Tokeninfo;
+import com.paypal.base.ClientCredentials;
+import com.paypal.base.LoggingManager;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
 
 public class FuturePaymentSample {
 	public Payment create(String correlationId, String authorizationCode) throws PayPalRESTException, FileNotFoundException, IOException {

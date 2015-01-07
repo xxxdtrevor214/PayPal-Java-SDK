@@ -29,9 +29,9 @@ import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class GetCaptureServlet extends HttpServlet {
 
@@ -134,7 +134,7 @@ public class GetCaptureServlet extends HttpServlet {
 		// If set to true, all remaining 
 		// funds held by the authorization 
 		// will be released in the funding 
-		// instrument. Default is ‘false’.
+		// instrument. Default is ï¿½falseï¿½.
 		capture.setIsFinalCapture(true);
 
 		// Capture by POSTing to

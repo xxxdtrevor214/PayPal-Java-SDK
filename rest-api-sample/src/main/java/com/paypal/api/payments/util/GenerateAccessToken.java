@@ -1,10 +1,11 @@
 package com.paypal.api.payments.util;
 
-import com.paypal.core.ConfigManager;
-import com.paypal.core.rest.OAuthTokenCredential;
-import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.base.ConfigManager;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
 
-public class GenerateAccessToken {
+
+public class GenerateAccessToken { 
 
 	public static String getAccessToken() throws PayPalRESTException {
 

@@ -3,7 +3,7 @@
         <test name="standard">
         <groups>
             <run>
-                <!-- exclude name="integration" /> -->
+                <exclude name="integration" />
             </run>
         </groups>
         <packages>

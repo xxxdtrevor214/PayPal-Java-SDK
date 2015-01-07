@@ -10,9 +10,10 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.paypal.api.payments.*;
-import com.paypal.core.rest.JSONFormatter;
-import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.api.payments.PatchRequest;
+import com.paypal.api.payments.Plan;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalRESTException;
 
 public class SubscriptionSample extends BaseSample<Plan> {
 
