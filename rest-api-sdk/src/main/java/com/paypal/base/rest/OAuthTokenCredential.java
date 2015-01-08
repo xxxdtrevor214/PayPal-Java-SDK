@@ -17,6 +17,7 @@ import com.paypal.base.SDKVersion;
 import com.paypal.base.codec.binary.Base64;
 import com.paypal.base.credential.ICredential;
 import com.paypal.base.util.UserAgentHeader;
+import com.paypal.base.sdk.info.SDKVersionImpl;
 
 /**
  * OAuthTokenCredential is used for generation of OAuth Token used by PayPal
@@ -280,30 +281,6 @@ public final class OAuthTokenCredential implements ICredential {
 				.setGoogleAppEngine(Boolean.parseBoolean(configurationMap
 						.get(Constants.GOOGLE_APP_ENGINE)));
 		return httpConfiguration;
-	}
-
-	/**
-	 * Implemenation of {@link SDKVersion} for User-Agent HTTP header
-	 * 
-	 * @author kjayakumar
-	 * 
-	 */
-	private static class SDKVersionImpl implements SDKVersion {
-
-		public String getSDKId() {
-			/**
-			 * Java SDK-ID
-			 */
-			return Constants.SDK_ID;
-		}
-
-		public String getSDKVersion() {
-			/**
-			 * Java SDK Core Version
-			 */
-			return Constants.SDK_VERSION;
-		}
-
 	}
 
 }
