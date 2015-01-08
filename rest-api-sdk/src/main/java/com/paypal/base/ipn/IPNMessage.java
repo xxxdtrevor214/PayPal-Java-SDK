@@ -8,16 +8,20 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.paypal.base.ConfigManager;
 import com.paypal.base.ConnectionManager;
 import com.paypal.base.Constants;
 import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
-import com.paypal.base.LoggingManager;
 import com.paypal.base.SDKUtil;
 
 public class IPNMessage {
 
+	private static final Logger log = LogManager.getLogger(IPNMessage.class);
+	
 	private static final long serialVersionUID = -7187275404183441828L;
 	private static final String ENCODING = "windows-1252";
 
@@ -112,7 +116,7 @@ public class IPNMessage {
 					payload.append("&").append(name).append("=")
 							.append(URLEncoder.encode(value[0], encoding));
 				} catch (Exception e) {
-					LoggingManager.debug(IPNMessage.class, e.getMessage());
+					log.debug(e.getMessage());
 				}
 			}
 		}
@@ -139,7 +143,7 @@ public class IPNMessage {
 			}
 
 		} catch (Exception e) {
-			LoggingManager.debug(IPNMessage.class, e.getMessage());
+			log.debug(e.getMessage());
 		}
 
 		// check notification validation

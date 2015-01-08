@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.exception.InvalidCredentialException;
@@ -21,6 +24,8 @@ import com.paypal.base.exception.SSLConfigurationException;
  * Service class generated may extend this class to make API calls through HTTP
  */
 public abstract class BaseService {
+	
+	private static final Logger log = LogManager.getLogger(BaseService.class);
 
 	/*
 	 * Map used for to override ConfigManager configurations
@@ -179,7 +184,7 @@ public abstract class BaseService {
 		try {
 			ConfigManager.getInstance().load(is);
 		} catch (IOException ioe) {
-			LoggingManager.debug(BaseService.class, ioe.getMessage(), ioe);
+			log.debug(ioe.getMessage(), ioe);
 			throw ioe;
 		}
 	}
@@ -200,7 +205,7 @@ public abstract class BaseService {
 			FileInputStream fis = new FileInputStream(file);
 			initConfig(fis);
 		} catch (IOException ioe) {
-			LoggingManager.debug(BaseService.class, ioe.getMessage(), ioe);
+			log.debug(ioe.getMessage(), ioe);
 			throw ioe;
 		}
 	}
@@ -217,7 +222,7 @@ public abstract class BaseService {
 			File file = new File(filepath);
 			initConfig(file);
 		} catch (IOException ioe) {
-			LoggingManager.debug(BaseService.class, ioe.getMessage(), ioe);
+			log.debug(ioe.getMessage(), ioe);
 			throw ioe;
 		}
 	}
