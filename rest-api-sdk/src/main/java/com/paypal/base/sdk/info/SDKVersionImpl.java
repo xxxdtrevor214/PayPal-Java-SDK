@@ -1,6 +1,6 @@
-package com.paypal.sdk.info;
+package com.paypal.base.sdk.info;
 
-import com.paypal.core.SDKVersion;
+import com.paypal.base.SDKVersion;
 
 /**
  * Implementation of SDKVersion

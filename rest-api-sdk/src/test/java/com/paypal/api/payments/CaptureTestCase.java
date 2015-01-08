@@ -6,12 +6,15 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
+@Test
 public class CaptureTestCase {
 
 	private static final Logger logger = Logger
@@ -31,11 +34,15 @@ public class CaptureTestCase {
 
 	private Capture retrievedCapture = null;
 
-	@BeforeClass
+	@BeforeTest
 	public void beforeClass() throws PayPalRESTException {
 		File testFile = new File(".",
 				"src/test/resources/sdk_config.properties");
 		PayPalResource.initConfig(testFile);
+		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
+				clientSecret).getAccessToken();
 	}
 
 	public static Capture createCapture() {
@@ -65,9 +72,12 @@ public class CaptureTestCase {
 
 	@Test(groups = "integration")
 	public void testGetCapture() throws PayPalRESTException {
+		
 		logger.info("**** Get Capture ****");
 		Payment payment = getPaymentAgainstAuthorization();
+
 		Payment authPayment = payment.create(TokenHolder.accessToken);
+		logger.info("Received AuthPayment: " + authPayment.getId());
 		String authorizationId = authPayment.getTransactions().get(0)
 				.getRelatedResources().get(0).getAuthorization().getId();
 		Authorization authorization = Authorization.get(
@@ -84,10 +94,12 @@ public class CaptureTestCase {
 		logger.info("Request = " + Capture.getLastRequest());
 		logger.info("Response = " + Capture.getLastResponse());
 		logger.info("Retrieved Capture State: " + retrievedCapture.getState());
+		
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetCapture" })
 	public void testRefundCapture() throws PayPalRESTException {
+		
 		logger.info("**** Refund Capture ****");
 		Refund refund = new Refund();
 		Amount amount = new Amount();
@@ -99,6 +111,7 @@ public class CaptureTestCase {
 		logger.info("Request = " + Capture.getLastRequest());
 		logger.info("Response = " + Capture.getLastResponse());
 		logger.info("Refund State: " + responseRefund.getState());
+		
 	}
 
 	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })

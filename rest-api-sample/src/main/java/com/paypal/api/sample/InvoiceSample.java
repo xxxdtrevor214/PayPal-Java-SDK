@@ -14,8 +14,8 @@ import com.paypal.api.payments.Invoices;
 import com.paypal.api.payments.Notification;
 import com.paypal.api.payments.Search;
 import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.core.rest.JSONFormatter;
-import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalRESTException;
 
 /**
  * This class shows code samples for invoicing.

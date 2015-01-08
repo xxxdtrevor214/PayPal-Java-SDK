@@ -15,15 +15,14 @@ import junit.framework.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.paypal.core.rest.JSONFormatter;
-import com.paypal.core.rest.OAuthTokenCredential;
-import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
 
 import java.util.Random;
 
 public class BillingAgreementTestCase {
 	private String id = null;
-	private String accessToken = null;
 	private Agreement agreement = null;
 
 	public static Agreement loadAgreement() {
@@ -46,11 +45,11 @@ public class BillingAgreementTestCase {
 	    }
 	}
 	
-	@BeforeTest
+	@BeforeTest(groups = "integration")
 	public void setUp() throws PayPalRESTException {
 		String clientID = "AUASNhD7YM7dc5Wmc5YE9pEsC0o4eVOyYWO9ezXWBu2XTc63d3Au_s9c-v-U";
 		String clientSecret = "EBq0TRAE-4R9kgCDKzVh09sm1TeNcuY-xJirid7LNtheUh5t5vlOhR0XSHt3";
-		this.accessToken = new OAuthTokenCredential(clientID,
+		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
 				clientSecret).getAccessToken();
 	}
 	
@@ -64,7 +63,7 @@ public class BillingAgreementTestCase {
 		Agreement agreement = loadAgreement();
 		agreement.setPlan(plan);
 		agreement.setShippingAddress(null);
-		agreement = agreement.create(accessToken);
+		agreement = agreement.create(TokenHolder.accessToken);
 		
 		this.id = agreement.getId();
 		Assert.assertNull(agreement.getId());
@@ -76,7 +75,7 @@ public class BillingAgreementTestCase {
 	public void testExecuteAgreement() throws PayPalRESTException {
 		Agreement agreement =  new Agreement();
 		agreement.setToken("EC-2CD33889A9699491E");
-		this.agreement = agreement.execute(accessToken);
+		this.agreement = agreement.execute(TokenHolder.accessToken);
 		Assert.assertEquals("I-ASXCM9U5MJJV", this.agreement.getId());
 	}
 	
@@ -98,7 +97,7 @@ public class BillingAgreementTestCase {
 		List<Patch> patchRequest = new ArrayList<Patch>();
 		patchRequest.add(patch);
 		
-		Agreement updatedAgreement = this.agreement.update(accessToken, patchRequest);
+		Agreement updatedAgreement = this.agreement.update(TokenHolder.accessToken, patchRequest);
 		Assert.assertNotSame(agreement.getDescription(), updatedAgreement.getDescription());
 		Assert.assertEquals(updatedAgreement.getId(), this.agreement.getId());
 		Assert.assertEquals(newAgreement.getDescription(), updatedAgreement.getDescription());
@@ -106,7 +105,7 @@ public class BillingAgreementTestCase {
 	
 	@Test(groups = "integration", dependsOnMethods = {"testExecuteAgreement"})
 	public void testRetrieveAgreement() throws PayPalRESTException {
-		Agreement agreement = Agreement.get(accessToken, "I-ASXCM9U5MJJV");
+		Agreement agreement = Agreement.get(TokenHolder.accessToken, "I-ASXCM9U5MJJV");
 		Assert.assertEquals("I-ASXCM9U5MJJV", agreement.getId());
 		Assert.assertEquals("2015-02-19T08:00:00Z", agreement.getStartDate());
 		Assert.assertNotNull(agreement.getPlan());
@@ -116,7 +115,7 @@ public class BillingAgreementTestCase {
 	public void testSearchAgreement() throws PayPalRESTException {
 		Date startDate = new GregorianCalendar(2014, 10, 1).getTime();
 		Date endDate = new GregorianCalendar(2014, 10, 14).getTime();
-		AgreementTransactions transactions = Agreement.transactions(accessToken, "I-9STXMKR58UNN", startDate, endDate);
+		AgreementTransactions transactions = Agreement.transactions(TokenHolder.accessToken, "I-9STXMKR58UNN", startDate, endDate);
 		Assert.assertNotNull(transactions);
 		Assert.assertNotNull(transactions.getAgreementTransactionList());
 	}
@@ -129,34 +128,34 @@ public class BillingAgreementTestCase {
 	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testRetrieveAgreement"})
 	public void testSuspendAgreement() throws PayPalRESTException {
 		String agreementId = "";
-		Agreement agreement = Agreement.get(accessToken, agreementId);
+		Agreement agreement = Agreement.get(TokenHolder.accessToken, agreementId);
 		System.out.println("agreement state: " + agreement.getPlan().getState());
 		
 		AgreementStateDescriptor agreementStateDescriptor = new AgreementStateDescriptor();
 		agreementStateDescriptor.setNote("Suspending the agreement.");
-		agreement.suspend(accessToken, agreementStateDescriptor);
+		agreement.suspend(TokenHolder.accessToken, agreementStateDescriptor);
 		
-		Agreement suspendedAgreement = Agreement.get(accessToken, "I-ASXCM9U5MJJV");
+		Agreement suspendedAgreement = Agreement.get(TokenHolder.accessToken, "I-ASXCM9U5MJJV");
 		Assert.assertEquals("SUSPENDED", suspendedAgreement.getPlan().getState());
 	}
 	
 	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testSuspendAgreement"})
 	public void testReactivateAgreement() throws PayPalRESTException {
 		String agreementId = "";
-		Agreement agreement = Agreement.get(accessToken, agreementId);
+		Agreement agreement = Agreement.get(TokenHolder.accessToken, agreementId);
 		
 		AgreementStateDescriptor stateDescriptor = new AgreementStateDescriptor();
 		stateDescriptor.setNote("Re-activating the agreement");
-		agreement.reActivate(accessToken, stateDescriptor);
+		agreement.reActivate(TokenHolder.accessToken, stateDescriptor);
 	}
 	
 	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testReactivateAgreement"})
 	public void testCancelAgreement() throws PayPalRESTException {
 		String agreementId = "";
-		Agreement agreement = Agreement.get(accessToken, agreementId);
+		Agreement agreement = Agreement.get(TokenHolder.accessToken, agreementId);
 		
 		AgreementStateDescriptor stateDescriptor = new AgreementStateDescriptor();
 		stateDescriptor.setNote("Cancelling the agreement");
-		agreement.cancel(accessToken, stateDescriptor);
+		agreement.cancel(TokenHolder.accessToken, stateDescriptor);
 	}
 }

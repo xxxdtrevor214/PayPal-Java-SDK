@@ -10,8 +10,8 @@ import org.testng.log4testng.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.paypal.core.rest.OAuthTokenCredential;
-import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
 
 public class WebhookTestCase {
 	

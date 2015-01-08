@@ -10,10 +10,13 @@ import java.util.Properties;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.core.rest.PayPalRESTException;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class CreditCardTestCase {
 
@@ -49,13 +52,17 @@ public class CreditCardTestCase {
 	public static final Address BILLINGADDRESS = AddressTestCase
 			.createAddress();
 
-	@BeforeClass
+	@BeforeTest
 	public void beforeClass() throws PayPalRESTException {
 		File testFile = new File(".",
 				"src/test/resources/sdk_config.properties");
-		CreditCard.initConfig(testFile);
+		PayPalResource.initConfig(testFile);
+		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
+				clientSecret).getAccessToken();
 	}
-
+	
 	public static CreditCard createCreditCard() {
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(BILLINGADDRESS).setExpireMonth(EXPMONTH)

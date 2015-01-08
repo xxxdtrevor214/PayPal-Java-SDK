@@ -1,8 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.base.rest.JSONFormatter;
 import com.paypal.api.payments.Plan;
+
 import java.util.List;
+
 import com.paypal.api.payments.Links;
 
 public class PlanList  {
