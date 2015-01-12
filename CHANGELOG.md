@@ -1,5 +1,12 @@
 CHANGELOG
 =========
+V1.0.0 (January 12, 2014)
+-------------------------
+   * Merged sdk-core-java
+   * Replaced java.util.logging to log4j
+   * Fixed token expiration time
+   * Fixed agreement state
+
 V0.12.2 (December 5, 2014)
 --------------------------
    * Grouped tests into 2 subsets: unit tests and integration tests

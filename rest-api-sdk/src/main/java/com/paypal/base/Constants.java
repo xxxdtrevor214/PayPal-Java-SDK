@@ -213,10 +213,4 @@ public final class Constants {
 	// Client Secret
 	public static final String CLIENT_SECRET = "clientSecret";
 
-	// Java SDK_ID for paypal-core
-	public static final String SDK_ID = "paypal-core-java";
-	
-	// Java SDK_VERSION for paypal-core
-	public static final String SDK_VERSION = "1.5.0";
-
 }

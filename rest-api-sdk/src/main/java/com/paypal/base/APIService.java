@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.paypal.base.credential.CertificateCredential;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
@@ -19,6 +22,8 @@ import com.paypal.base.exception.SSLConfigurationException;
  */
 public class APIService {
 
+	private static final Logger log = LogManager.getLogger(APIService.class);
+	
 	/**
 	 * Service Endpoint
 	 * @deprecated
@@ -159,7 +164,7 @@ public class APIService {
 		httpConfiguration.setEndPointUrl(url);
 		headers = apiCallPreHandler.getHeaderMap();
 		String payLoad = apiCallPreHandler.getPayLoad();
-		LoggingManager.info(APIService.class, payLoadToLog(payLoad));
+		log.info(payLoadToLog(payLoad));
 		if (apiCallPreHandler.getCredential() instanceof CertificateCredential) {
 			CertificateCredential credential = (CertificateCredential) apiCallPreHandler
 					.getCredential();
@@ -175,7 +180,7 @@ public class APIService {
 					httpConfiguration.getIpAddress());
 		}
 		response = connection.execute(url, payLoad, headers);
-		LoggingManager.info(APIService.class, response);
+		log.info(response);
 		return response;
 	}
 	

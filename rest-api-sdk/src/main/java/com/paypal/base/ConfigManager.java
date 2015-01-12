@@ -150,7 +150,7 @@ public final class ConfigManager {
 	/**
 	 * Loads the internal properties with the passed {@link InputStream}
 	 * 
-	 * @deprecated
+	 * @deprecated use {@link PayPalResource.initConfig()} instead 
 	 * @param is
 	 *            InputStream
 	 * 
@@ -168,7 +168,7 @@ public final class ConfigManager {
 	 * Initializes the internal properties with the passed {@link Properties}
 	 * instance
 	 * 
-	 * @deprecated
+	 * @deprecated use {@link PayPalResource.initConfig()} instead
 	 * @param properties
 	 *            Properties instance
 	 * 

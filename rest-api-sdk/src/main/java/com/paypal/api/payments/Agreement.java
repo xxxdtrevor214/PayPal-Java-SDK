@@ -41,6 +41,11 @@ public class Agreement  {
 	 * Identifier of the agreement.
 	 */
 	private String id;
+	
+	/**
+	 * State of the agreement
+	 */
+	private String state;
 
 	/**
 	 * Name of the agreement.
@@ -192,6 +197,20 @@ public class Agreement  {
 		return this.id;
 	}
 
+	/**
+	 * Setter for state
+	 */
+	public Agreement setState(String state) {
+		this.state = state;
+		return this;
+	}
+
+	/**
+	 * Getter for state
+	 */
+	public String getState() {
+		return this.state;
+	}
 
 	/**
 	 * Setter for name
