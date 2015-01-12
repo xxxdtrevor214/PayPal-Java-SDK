@@ -9,13 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.paypal.base.APICallPreHandler;
 import com.paypal.base.ConfigManager;
 import com.paypal.base.ConnectionManager;
 import com.paypal.base.Constants;
 import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
-import com.paypal.base.LoggingManager;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
 
@@ -24,6 +26,8 @@ import com.paypal.base.SDKVersion;
  */
 public abstract class PayPalResource {
 
+	private static final Logger log = LogManager.getLogger(PayPalResource.class);
+	
 	/*
 	 * The class relies on an implementation of APICallPreHandler (here
 	 * RESTAPICallPreHandler)to get access to endpoint, HTTP headers, and
@@ -69,7 +73,7 @@ public abstract class PayPalResource {
 			FileInputStream fis = new FileInputStream(file);
 			return initConfig(fis);
 		} catch (IOException ioe) {
-			LoggingManager.severe(PayPalResource.class, ioe.getMessage(), ioe);
+			log.error(ioe.getMessage(), ioe);
 			throw new PayPalRESTException(ioe.getMessage(), ioe);
 		}
 
@@ -118,7 +122,7 @@ public abstract class PayPalResource {
 			configInitialized = true;
 			return getOAuthTokenCredential();
 		} catch (IOException ioe) {
-			LoggingManager.severe(PayPalResource.class, ioe.getMessage(), ioe);
+			log.error(ioe.getMessage(), ioe);
 			throw new PayPalRESTException(ioe.getMessage(), ioe);
 		}
 	}

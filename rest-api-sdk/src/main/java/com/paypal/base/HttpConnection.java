@@ -10,6 +10,9 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.exception.InvalidResponseDataException;
@@ -21,6 +24,8 @@ import com.paypal.base.exception.SSLConfigurationException;
  */
 public abstract class HttpConnection {
 
+	private static final Logger log = LogManager.getLogger(HttpConnection.class);
+	
 	/**
 	 * Subclasses must set the http configuration in the
 	 * createAndconfigureHttpConnection() method.
@@ -61,16 +66,16 @@ public abstract class HttpConnection {
 		connection.setRequestProperty("Content-Length", ""
 				+ payload.trim().length());
 		if (headers != null) {
-			LoggingManager.debug(HttpConnection.class, "curl command: ");
-			LoggingManager.debug(HttpConnection.class, "curl -v '" + connection.getURL().toString() + "' \\");
+			log.debug("curl command: ");
+			log.debug("curl -v '" + connection.getURL().toString() + "' \\");
 			setHttpHeaders(headers);
 			Iterator<String> keyIter = headers.keySet().iterator();
 			while (keyIter.hasNext()) {
 				String key = keyIter.next();
 				String value = headers.get(key);
-				LoggingManager.debug(HttpConnection.class, "-H \"" + key + ": " + value + "\" \\");
+				log.debug("-H \"" + key + ": " + value + "\" \\");
 			}
-			LoggingManager.debug(HttpConnection.class, "-d '" + payload + "'");
+			log.debug("-d '" + payload + "'");
 		}
 		try {
 			// This exception is used to make final log more explicit
@@ -94,8 +99,7 @@ public abstract class HttpConnection {
 							Constants.ENCODING_FORMAT));
 					if (responsecode >= 200 && responsecode < 300) {
 						successResponse = read(reader);
-						LoggingManager.debug(HttpConnection.class,
-								"Response : " + successResponse);
+						log.debug("Response : " + successResponse);
 						break retryLoop;
 					} else {
 						successResponse = read(reader);
@@ -112,8 +116,7 @@ public abstract class HttpConnection {
 									connection.getErrorStream(),
 									Constants.ENCODING_FORMAT));
 							errorResponse = read(reader);
-							LoggingManager.severe(HttpConnection.class,
-									"Error code : " + responsecode
+							log.error("Error code : " + responsecode
 											+ " with response : " + errorResponse);
 						}
 						if ((errorResponse == null)
@@ -131,12 +134,12 @@ public abstract class HttpConnection {
 						throw ex;
 					} catch (Exception ex) {
 						lastException = ex;
-						LoggingManager.severe(this.getClass(), "Caught exception while handling error response", ex);
+						log.error("Caught exception while handling error response", ex);
 					}
 				}
 				retry++;
 				if (retry > 0) {
-					LoggingManager.severe(HttpConnection.class, " Retry  No : " + retry + "...");
+					log.error(" Retry  No : " + retry + "...");
 					Thread.sleep(this.config.getRetryDelay());
 				}
 			} while (retry < this.config.getMaxRetry());
