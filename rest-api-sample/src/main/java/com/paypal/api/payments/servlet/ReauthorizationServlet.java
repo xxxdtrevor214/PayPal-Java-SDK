@@ -14,9 +14,9 @@ import org.apache.log4j.Logger;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Authorization;
 import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class ReauthorizationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

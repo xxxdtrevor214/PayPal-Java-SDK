@@ -30,9 +30,9 @@ import com.paypal.api.payments.PaymentExecution;
 import com.paypal.api.payments.RedirectUrls;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 /**
  * @author lvairamani

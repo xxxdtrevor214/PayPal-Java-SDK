@@ -35,10 +35,26 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.paypal.sdk</groupId>
-            <artifactId>paypal-core</artifactId>
-            <version>LATEST</version>
-        </dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.1</version>
+		</dependency>
     </dependencies>
     <build>
         <plugins>
@@ -87,10 +103,10 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18</version>
 				<configuration>
-					<parallel>methods</parallel>
-					<threadCount>10</threadCount>
-					<groups>unit</groups>
-				</configuration>
+			        <suiteXmlFiles>
+			            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+			        </suiteXmlFiles>
+     			</configuration>
 			</plugin>
 		</plugins>
 	</build>

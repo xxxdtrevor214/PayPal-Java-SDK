@@ -20,9 +20,9 @@ import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Refund;
 import com.paypal.api.payments.Sale;
 import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 /**
  * @author lvairamani

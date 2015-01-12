@@ -24,9 +24,8 @@ import org.apache.log4j.Logger;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.PaymentHistory;
 import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
-import com.paypal.core.rest.QueryParameters;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 /**
  * @author lvairamani

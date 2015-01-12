@@ -8,11 +8,10 @@ import java.io.IOException;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.paypal.api.payments.Invoice;
 import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.core.rest.JSONFormatter;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class BaseSample<T> {
 

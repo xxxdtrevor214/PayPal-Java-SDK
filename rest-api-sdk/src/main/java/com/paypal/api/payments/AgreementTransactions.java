@@ -1,7 +1,8 @@
 package com.paypal.api.payments;
 
-import com.paypal.core.rest.JSONFormatter;
+import com.paypal.base.rest.JSONFormatter;
 import com.paypal.api.payments.AgreementTransaction;
+
 import java.util.List;
 
 public class AgreementTransactions  {

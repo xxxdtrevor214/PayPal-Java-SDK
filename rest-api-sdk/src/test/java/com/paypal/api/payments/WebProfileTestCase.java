@@ -13,10 +13,10 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.core.rest.JSONFormatter;
-import com.paypal.core.rest.OAuthTokenCredential;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class WebProfileTestCase {
 
@@ -24,7 +24,6 @@ public class WebProfileTestCase {
 			.getLogger(WebProfileTestCase.class);
 	
 	private String id = null;
-	private String accessToken = null;
 	private Random random = null;
 
 	public static WebProfile loadWebProfile() {
@@ -47,12 +46,15 @@ public class WebProfileTestCase {
 	    }
 	}
 	
-	@BeforeTest
+	@BeforeTest(groups = "integration")
 	public void setUp() throws PayPalRESTException {
 		random = new Random();
+		File testFile = new File(".",
+				"src/test/resources/sdk_config.properties");
+		PayPalResource.initConfig(testFile);
 		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
 		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
-		this.accessToken = new OAuthTokenCredential(clientID,
+		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
 				clientSecret).getAccessToken();
 	}
 	
@@ -61,32 +63,33 @@ public class WebProfileTestCase {
 		long randomNumber = random.nextLong();
 		WebProfile webProfile = loadWebProfile();
 		webProfile.setName(webProfile.getName() + String.valueOf(randomNumber));
-		CreateProfileResponse response = webProfile.create(this.accessToken);
+		CreateProfileResponse response = webProfile.create(TokenHolder.accessToken);
 		this.id = response.getId();
 		Assert.assertNotNull(response.getId());
 	}
 	
 	@Test(groups = "integration")
 	public void testRetrieveWebProfile() throws PayPalRESTException {
-		WebProfile webProfile = WebProfile.get(this.accessToken, this.id);
+		WebProfile webProfile = WebProfile.get(TokenHolder.accessToken, this.id);
 		Assert.assertEquals(this.id, webProfile.getId());
 	}
 	
 	@Test(groups = "integration")
 	public void testListWebProfiles() throws PayPalRESTException {
-		List<WebProfile> webProfileList = WebProfile.getList(this.accessToken);
+		List<WebProfile> webProfileList = WebProfile.getList(TokenHolder.accessToken);
 		Assert.assertTrue(webProfileList.size() > 0);
 	}
 	
 	@Test(groups = "integration")
 	public void testUpdateWebProfile() throws PayPalRESTException {
+		logger.info("Starting Test Update Web Profile");
 		long randomNumber = random.nextLong();
 		String newName = "YeowZa! T-Shirt Shop" + String.valueOf(randomNumber);
 		WebProfile webProfile = loadWebProfile();
 		webProfile.setId(this.id);
 		webProfile.setName(newName);
-		webProfile.update(this.accessToken);
-		webProfile = WebProfile.get(this.accessToken, this.id);
+		webProfile.update(TokenHolder.accessToken);
+		webProfile = WebProfile.get(TokenHolder.accessToken, this.id);
 		Assert.assertEquals(webProfile.getName(), newName);
 	}
 }

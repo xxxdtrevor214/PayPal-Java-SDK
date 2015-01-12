@@ -1,13 +1,13 @@
 package com.paypal.api.payments;
 
-import com.paypal.core.Constants;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.HttpMethod;
-import com.paypal.core.rest.JSONFormatter;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.PayPalResource;
-import com.paypal.core.rest.RESTUtil;
-import com.paypal.sdk.info.SDKVersionImpl;
+import com.paypal.base.Constants;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.HttpMethod;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
+import com.paypal.base.rest.RESTUtil;
+import com.paypal.base.sdk.info.SDKVersionImpl;
 import com.paypal.api.payments.Webhook;
 
 import java.util.HashMap;

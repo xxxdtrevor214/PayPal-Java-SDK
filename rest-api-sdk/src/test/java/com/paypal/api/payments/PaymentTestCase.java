@@ -19,10 +19,10 @@ import org.testng.log4testng.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.paypal.core.ConfigManager;
-import com.paypal.core.rest.OAuthTokenCredential;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.core.rest.QueryParameters;
+import com.paypal.base.ConfigManager;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.QueryParameters;
 
 public class PaymentTestCase {
 

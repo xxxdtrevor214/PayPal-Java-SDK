@@ -7,19 +7,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
+import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.FuturePayment;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
-import com.paypal.core.ClientCredentials;
-import com.paypal.core.LoggingManager;
-import com.paypal.core.rest.APIContext;
-import com.paypal.core.rest.PayPalRESTException;
-import com.paypal.sdk.openidconnect.CreateFromAuthorizationCodeParameters;
-import com.paypal.sdk.openidconnect.Tokeninfo;
+import com.paypal.base.ClientCredentials;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
 
 public class FuturePaymentSample {
+	
+	private static final Logger log = LogManager.getLogger(FuturePaymentSample.class);
+	
 	public Payment create(String correlationId, String authorizationCode) throws PayPalRESTException, FileNotFoundException, IOException {
 		
 		Payer payer = new Payer();
@@ -40,7 +45,7 @@ public class FuturePaymentSample {
 		
 		Tokeninfo tokeninfo = null;
 		if (authorizationCode != null && authorizationCode.trim().length() > 0) {
-			LoggingManager.info(getClass(), "creating future payment with auth code: " + authorizationCode);
+			log.info("creating future payment with auth code: " + authorizationCode);
 			
 			ClientCredentials credentials = futurePayment.getClientCredential();
 			CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();

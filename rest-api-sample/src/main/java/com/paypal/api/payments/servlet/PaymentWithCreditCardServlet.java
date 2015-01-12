@@ -15,7 +15,9 @@ import org.apache.log4j.Logger;
 
 import com.paypal.api.payments.*;
 import com.paypal.api.payments.util.*;
-import com.paypal.core.rest.*;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 /**
  * @author lvairamani
