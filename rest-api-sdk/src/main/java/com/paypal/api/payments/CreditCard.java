@@ -79,7 +79,7 @@ public class CreditCard  {
 	private String state;
 
 	/**
-	 * Date/Time until this resource can be used fund a payment.
+	 * Date/Time until this resource can be used to fund a payment.
 	 */
 	private String validUntil;
 
