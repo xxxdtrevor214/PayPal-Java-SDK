@@ -7,10 +7,12 @@
 // can save a Credit Card on PayPal using 
 // the Vault API.
 // API used: POST /v1/vault/credit-card
-package com.paypal.api.payments.servlet;
+package com.paypal.api.payouts.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,26 +22,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.paypal.api.payments.CreditCard;
+import com.paypal.api.payments.Payout;
+import com.paypal.api.payments.PayoutBatch;
 import com.paypal.api.payments.util.GenerateAccessToken;
 import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 
-public class CreateCreditCardServlet extends HttpServlet {
+public class GetPayoutBatchStatusServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = Logger
-			.getLogger(CreateCreditCardServlet.class);
+			.getLogger(GetPayoutBatchStatusServlet.class);
 
 	public void init(ServletConfig servletConfig) throws ServletException {
 		// ##Load Configuration
 		// Load SDK configuration for
 		// the resource. This intialization code can be
 		// done as Init Servlet.
-		InputStream is = CreateCreditCardServlet.class
+		InputStream is = GetPayoutBatchStatusServlet.class
 				.getResourceAsStream("/sdk_config.properties");
 		try {
 			PayPalResource.initConfig(is);
@@ -55,20 +58,28 @@ public class CreateCreditCardServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 
-	// ##Create
-	// Sample showing how to create a CreditCard.
+	// ##GetPayoutBatchStatus
+	// Sample showing how to get a Payout Batch Status
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// ###CreditCard
-		// A resource representing a credit card that can be
-		// used to fund a payment.
-		CreditCard creditCard = new CreditCard();
-		creditCard.setExpireMonth(11);
-		creditCard.setExpireYear(2018);
-		creditCard.setNumber("4417119669820331");
-		creditCard.setType("visa");
 
+		getPayoutBatchStatus(req, resp);
+		req.getRequestDispatcher("response.jsp").forward(req, resp);
+	}
+
+	@SuppressWarnings("unchecked")
+	public PayoutBatch getPayoutBatchStatus(HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		// ### Create a Payout Batch
+		// We are re-using the CreateBatchPayoutServlet to create a batch payout
+		// for us. This will make sure the samples will work all the time.
+		CreateBatchPayoutServlet servlet = new CreateBatchPayoutServlet();
+		PayoutBatch batch = servlet.createBatchPayout(req, resp);
+		String payoutBatchId = batch.getBatchHeader().getPayoutBatchId();
+
+		PayoutBatch response = null;
 		try {
 
 			// ###AccessToken
@@ -81,33 +92,32 @@ public class CreateCreditCardServlet extends HttpServlet {
 			String accessToken = GenerateAccessToken.getAccessToken();
 
 			// ### Api Context
-			// Pass in a `ApiContext` object to authenticate 
-			// the call and to send a unique request id 
+			// Pass in a `ApiContext` object to authenticate
+			// the call and to send a unique request id
 			// (that ensures idempotency). The SDK generates
-			// a request id if you do not pass one explicitly. 
+			// a request id if you do not pass one explicitly.
 			APIContext apiContext = new APIContext(accessToken);
-			// Use this variant if you want to pass in a request id  
-			// that is meaningful in your application, ideally 
+			// Use this variant if you want to pass in a request id
+			// that is meaningful in your application, ideally
 			// a order id.
-			/* 
-			 * String requestId = Long.toString(System.nanoTime();
-			 * APIContext apiContext = new APIContext(accessToken, requestId ));
+			/*
+			 * String requestId = Long.toString(System.nanoTime(); APIContext
+			 * apiContext = new APIContext(accessToken, requestId ));
 			 */
-			
-			// ###Save
-			// Creates the credit card as a resource
-			// in the PayPal vault. The response contains
-			// an 'id' that you can use to refer to it
-			// in the future payments.
-			CreditCard createdCreditCard = creditCard.create(apiContext);
-			
-			LOGGER.info("Credit Card Created With ID: "
-					+ createdCreditCard.getId());
-			ResultPrinter.addResult(req, resp, "Created Credit Card", CreditCard.getLastRequest(), CreditCard.getLastResponse(), null);
+
+			// ###Create Payout Synchronous
+			response = Payout.get(apiContext, payoutBatchId);
+
+			LOGGER.info("Payout Batch With ID: "
+					+ response.getBatchHeader().getPayoutBatchId());
+			ResultPrinter.addResult(req, resp, "Get Payout Batch Status",
+					Payout.getLastRequest(), Payout.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			ResultPrinter.addResult(req, resp, "Created Credit Card", CreditCard.getLastRequest(), null, e.getMessage());
+			ResultPrinter.addResult(req, resp, "Get Payout Batch Status",
+					Payout.getLastRequest(), null, e.getMessage());
 		}
-		req.getRequestDispatcher("response.jsp").forward(req, resp);
+
+		return response;
 	}
 
 }

@@ -29,6 +29,7 @@ import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -107,12 +108,11 @@ public class GetCaptureServlet extends HttpServlet {
 			// URI v1/payments/capture/{capture_id}
 			Capture capture = Capture.get(apiContext, captureId);
 			
-			req.setAttribute("response", Capture.getLastResponse());
 			LOGGER.info("Capture id = " + capture.getId()
 					+ " and status = " + capture.getState());
-			
+			ResultPrinter.addResult(req, resp, "Get Capture", Capture.getLastRequest(), Capture.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Get Capture", Capture.getLastRequest(), null, e.getMessage());
 		}
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
