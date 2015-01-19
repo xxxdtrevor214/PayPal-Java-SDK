@@ -224,7 +224,7 @@ public class Payout {
 					"AccessToken cannot be null or empty");
 		}
 		if (parameters == null) {
-			throw new IllegalArgumentException("parameters cannot be null");
+			parameters = new HashMap<String, String>();
 		}
 		Object[] parametersObj = new Object[] {parameters};
 		if (apiContext.getHTTPHeaders() == null) {
