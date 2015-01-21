@@ -48,14 +48,20 @@ To make an API call:
 		
 *	Or load config file from any custom location using absolute path with the below method calls as required,
 	```java
-	Payment.initConfig(new File("../sdk_config.properties"));
+	OAuthTokenCredential tokenCredential = Payment.initConfig(new File("../sdk_config.properties"));
 						Or
-	Payment.initConfig(new InputStream(new File("../sdk_config.properties")));
+	OAuthTokenCredential tokenCredential = Payment.initConfig(new InputStream(new File("../sdk_config.properties")));
 						Or
-	Payment.initConfig(new Properties().load(new InputStream(new File("../sdk_config.properties"))));
+	OAuthTokenCredential tokenCredential = Payment.initConfig(new Properties().load(new InputStream(new File("../sdk_config.properties"))));
 	```
 
-*	Create `accesstoken` from `clientID` and `clientSecret` using `OAuthTokenCredential` 
+*   Create `accesstoken` from the above OAuthTokenCredential
+
+    ```java
+    String accessToken = tokenCredential.getAccessToken()
+    ```
+
+*	Alternatively, create `accesstoken` from `clientID` and `clientSecret` using `OAuthTokenCredential` 
 
 	```java
 	String accessToken = new OAuthTokenCredential(clientID, clientSecret).getAccessToken();
