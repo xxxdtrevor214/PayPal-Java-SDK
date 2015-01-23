@@ -1,12 +1,8 @@
-// #CreateCreditCard Sample
-// Using the 'vault' API, you can store a 
-// Credit Card securely on PayPal. You can
-// use a saved Credit Card to process
-// a payment in the future.
-// The following code demonstrates how 
-// can save a Credit Card on PayPal using 
-// the Vault API.
-// API used: POST /v1/vault/credit-card
+// #Create Batch Payout
+// The asynchronous payout mode (sync_mode=false, which is the default) enables a maximum of 500 individual payouts to be specified in one API call. 
+// Exceeding 500 payouts in one call returns an HTTP response message with status code 400 (Bad Request).
+
+// API used: POST /v1/payments/payouts
 package com.paypal.api.payouts.servlet;
 
 import java.io.IOException;
@@ -181,7 +177,7 @@ public class CreateBatchPayoutServlet extends HttpServlet {
 			 * apiContext = new APIContext(accessToken, requestId ));
 			 */
 
-			// ###Create Payout Synchronous
+			// ###Create Batch Payout 
 			batch = payout.create(apiContext, new HashMap<String, String>());
 
 			LOGGER.info("Payout Batch With ID: "

@@ -81,6 +81,15 @@
 		<servlet-name>GetPayoutItemStatusServlet</servlet-name>
 		<url-pattern>/payouts.GetPayoutItemStatus</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>CancelPayoutItemServlet</servlet-name>
+		<servlet-class>com.paypal.api.payouts.servlet.CancelPayoutItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelPayoutItemServlet</servlet-name>
+		<url-pattern>/payouts.CancelPayoutItem</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>ReauthorizationServlet</servlet-name>
 		<url-pattern>/reauthorization</url-pattern>

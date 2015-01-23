@@ -224,8 +224,8 @@ public class PayoutItem {
 	 * @return PayoutItemDetails
 	 * @throws PayPalRESTException
 	 */
-	public static PayoutItemDetails get(APIContext apiContext, String payoutItemId)
-			throws PayPalRESTException {
+	public static PayoutItemDetails get(APIContext apiContext,
+			String payoutItemId) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -248,6 +248,65 @@ public class PayoutItem {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET,
+				resourcePath, payLoad, PayoutItemDetails.class);
+	}
+
+	/**
+	 * Cancels the unclaimed payment using the items id passed in the request
+	 * URI. If an unclaimed item is not claimed within 30 days, the funds will
+	 * be automatically returned to the sender. This call can be used to cancel
+	 * the unclaimed item prior to the automatic 30-day return.
+	 * 
+	 * @param accessToken
+	 *            Access Token used for the API call.
+	 * @param payoutItemId
+	 *            String
+	 * @return PayoutItemDetails
+	 * @throws PayPalRESTException
+	 */
+	public static PayoutItemDetails cancel(String accessToken,
+			String payoutItemId) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		return cancel(apiContext, payoutItemId);
+	}
+
+	/**
+	 * Cancels the unclaimed payment using the items id passed in the request
+	 * URI. If an unclaimed item is not claimed within 30 days, the funds will
+	 * be automatically returned to the sender. This call can be used to cancel
+	 * the unclaimed item prior to the automatic 30-day return.
+	 * 
+	 * @param apiContext
+	 *            {@link APIContext} used for the API call.
+	 * @param payoutItemId
+	 *            String
+	 * @return PayoutItemDetails
+	 * @throws PayPalRESTException
+	 */
+	public static PayoutItemDetails cancel(APIContext apiContext,
+			String payoutItemId) throws PayPalRESTException {
+		if (apiContext == null) {
+			throw new IllegalArgumentException("APIContext cannot be null");
+		}
+		if (apiContext.getAccessToken() == null
+				|| apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException(
+					"AccessToken cannot be null or empty");
+		}
+		if (apiContext.getHTTPHeaders() == null) {
+			apiContext.setHTTPHeaders(new HashMap<String, String>());
+		}
+		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER,
+				Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.setSdkVersion(new SDKVersionImpl());
+		if (payoutItemId == null) {
+			throw new IllegalArgumentException("payoutItemId cannot be null");
+		}
+		Object[] parameters = new Object[] { payoutItemId };
+		String pattern = "v1/payments/payouts-item/{0}/cancel";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, PayoutItemDetails.class);
 	}
 

@@ -1,19 +1,12 @@
-// #CreateCreditCard Sample
-// Using the 'vault' API, you can store a 
-// Credit Card securely on PayPal. You can
-// use a saved Credit Card to process
-// a payment in the future.
-// The following code demonstrates how 
-// can save a Credit Card on PayPal using 
-// the Vault API.
-// API used: POST /v1/vault/credit-card
+// #Get Payout Item Status
+// Use this call to get data about a payout item, including the status, without retrieving an entire batch. 
+// You can get the status of an individual payout item in a batch in order to review the current status of a previously-unclaimed, or pending, payout item.
+// API used: GET /v1/payments/payouts-item/<Payout-Item-Id>
+
 package com.paypal.api.payouts.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -23,12 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.paypal.api.payments.Currency;
-import com.paypal.api.payments.Payout;
 import com.paypal.api.payments.PayoutBatch;
 import com.paypal.api.payments.PayoutItem;
 import com.paypal.api.payments.PayoutItemDetails;
-import com.paypal.api.payments.PayoutSenderBatchHeader;
 import com.paypal.api.payments.util.GenerateAccessToken;
 import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
@@ -116,7 +106,7 @@ public class GetPayoutItemStatusServlet extends HttpServlet {
 			 * apiContext = new APIContext(accessToken, requestId ));
 			 */
 
-			// ###Create Payout Synchronous
+			// ###Get Payout Item
 			response = PayoutItem.get(apiContext, payoutItemId);
 
 			LOGGER.info("Payout Item With ID: " + response.getPayoutItemId());

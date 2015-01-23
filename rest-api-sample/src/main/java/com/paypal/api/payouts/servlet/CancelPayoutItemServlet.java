@@ -1,12 +1,12 @@
-// #Get Payout Batch Status
-// This call can be used to periodically to get the latest status of a batch, along with the transaction status and other data for individual items.
-// API used: GET /v1/payments/payouts/<Payout-Batch-Id>
+// #Cancel Unclaimed Payout
+// Use this call to cancel an existing, unclaimed transaction. If an unclaimed item is not claimed within 30 days, the funds will be automatically returned to the sender. 
+// This call can be used to cancel the unclaimed item prior to the automatic 30-day return.
+// API used: POST /v1/payments/payouts-item/<Payout-Item-Id>/cancel
+
 package com.paypal.api.payouts.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,27 +16,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.paypal.api.payments.Payout;
 import com.paypal.api.payments.PayoutBatch;
+import com.paypal.api.payments.PayoutItem;
+import com.paypal.api.payments.PayoutItemDetails;
 import com.paypal.api.payments.util.GenerateAccessToken;
 import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 
-public class GetPayoutBatchStatusServlet extends HttpServlet {
+public class CancelPayoutItemServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = Logger
-			.getLogger(GetPayoutBatchStatusServlet.class);
+			.getLogger(CancelPayoutItemServlet.class);
 
 	public void init(ServletConfig servletConfig) throws ServletException {
 		// ##Load Configuration
 		// Load SDK configuration for
 		// the resource. This intialization code can be
 		// done as Init Servlet.
-		InputStream is = GetPayoutBatchStatusServlet.class
+		InputStream is = CancelPayoutItemServlet.class
 				.getResourceAsStream("/sdk_config.properties");
 		try {
 			PayPalResource.initConfig(is);
@@ -52,28 +53,34 @@ public class GetPayoutBatchStatusServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 
-	// ##GetPayoutBatchStatus
-	// Sample showing how to get a Payout Batch Status
+	// ##Get Payout Item Status
+	// Sample showing how to get a Payout Item Status
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		getPayoutBatchStatus(req, resp);
+		cancelPayoutItem(req, resp);
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 
-	@SuppressWarnings("unchecked")
-	public PayoutBatch getPayoutBatchStatus(HttpServletRequest req,
+	public PayoutItemDetails cancelPayoutItem(HttpServletRequest req,
 			HttpServletResponse resp) {
 
-		// ### Create a Payout Batch
-		// We are re-using the CreateBatchPayoutServlet to create a batch payout
+		// ### Get a Payout Batch
+		// We are re-using the CreateSinglePayoutServlet to get a batch payout
 		// for us. This will make sure the samples will work all the time.
-		CreateBatchPayoutServlet servlet = new CreateBatchPayoutServlet();
-		PayoutBatch batch = servlet.createBatchPayout(req, resp);
-		String payoutBatchId = batch.getBatchHeader().getPayoutBatchId();
+		CreateSinglePayoutServlet servlet = new CreateSinglePayoutServlet();
+		PayoutBatch batch = servlet.createSynchronousSinglePayout(req, resp);
 
-		PayoutBatch response = null;
+		// ### Retrieve PayoutItem ID
+		// In the samples, we are extractingt he payoutItemId of a payout we
+		// just created.
+		// In reality, you might be using the payoutItemId stored in your
+		// database, or passed manually.
+		PayoutItemDetails itemDetails = batch.getItems().get(0);
+		String payoutItemId = itemDetails.getPayoutItemId();
+
+		// Initiate the response object
+		PayoutItemDetails response = null;
 		try {
 
 			// ###AccessToken
@@ -99,19 +106,26 @@ public class GetPayoutBatchStatusServlet extends HttpServlet {
 			 * apiContext = new APIContext(accessToken, requestId ));
 			 */
 
-			// ###Get Payout Batch Status
-			response = Payout.get(apiContext, payoutBatchId);
+			// ###Cancel Payout Item if it is unclaimed
+			if (itemDetails.getTransactionStatus().equalsIgnoreCase("UNCLAIMED")) {
+				response = PayoutItem.cancel(apiContext, payoutItemId);
 
-			LOGGER.info("Payout Batch With ID: "
-					+ response.getBatchHeader().getPayoutBatchId());
-			ResultPrinter.addResult(req, resp, "Get Payout Batch Status",
-					Payout.getLastRequest(), Payout.getLastResponse(), null);
+				LOGGER.info("Payout Item With ID: "
+						+ response.getPayoutItemId());
+				ResultPrinter.addResult(req, resp, "Cancelled Unclaimed Payout Item",
+						PayoutItem.getLastRequest(),
+						PayoutItem.getLastResponse(), null);
+			} else {
+				LOGGER.info("Payout Item needs to be Unclaimed");
+				ResultPrinter.addResult(req, resp, "Cancelled Unclaimed Payout Item",
+						null,
+						null,  "Payout Item needs to be Unclaimed");
+			}
 		} catch (PayPalRESTException e) {
-			ResultPrinter.addResult(req, resp, "Get Payout Batch Status",
-					Payout.getLastRequest(), null, e.getMessage());
+			ResultPrinter.addResult(req, resp, "Cancelled Unclaimed Payout Item",
+					PayoutItem.getLastRequest(), null, e.getMessage());
 		}
 
 		return response;
 	}
-
 }

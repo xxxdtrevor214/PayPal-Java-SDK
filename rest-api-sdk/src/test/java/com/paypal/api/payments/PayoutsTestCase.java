@@ -123,5 +123,24 @@ public class PayoutsTestCase {
 		Assert.assertEquals(result.getPayoutItemFee().getCurrency(), payoutItem.getPayoutItemFee().getCurrency());
 	}
 	
+	@Test(groups = "integration")
+	public void testPayoutItemCancel() throws PayPalRESTException {
+		logger.info("**** Cancel Payout Item ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		PayoutItemDetails payoutItem = this.result.getItems().get(0);
+		String payoutItemId = payoutItem.getPayoutItemId();
+		
+		if (payoutItem.getTransactionStatus() == "UNCLAIMED") {
+			PayoutItemDetails result = PayoutItem.cancel(TokenHolder.accessToken, payoutItemId);
+			
+			Assert.assertNotNull(result);
+			Assert.assertEquals(result.getPayoutItemId(), payoutItemId);
+			Assert.assertEquals(result.getPayoutItemFee().getValue(), payoutItem.getPayoutItemFee().getValue());
+			Assert.assertEquals(result.getPayoutItemFee().getCurrency(), payoutItem.getPayoutItemFee().getCurrency());
+			Assert.assertEquals("RETURNED", result.getTransactionStatus());
+		}
+		
+	}
+	
 	
 }
