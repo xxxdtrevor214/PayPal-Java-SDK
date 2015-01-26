@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.base.ConfigManager;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -134,19 +132,19 @@ public class AuthorizationTestCase {
 				+ responseAuthorization.getState());
 	}
 
-	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" }, expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullAccessToken() throws PayPalRESTException {
 		logger.info("**** Get Authorization (Null Access Token) ****");
 		Authorization auth = Authorization.get((String) null, "123");
 	}
 	
-	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" }, expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullAuthId() throws PayPalRESTException {
 		logger.info("**** Get Authorization (Null Auth ID) ****");
 		Authorization auth = Authorization.get(TokenHolder.accessToken, null);
 	}
 	
-	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
+	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" }, expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullCapture() throws PayPalRESTException {
 		logger.info("**** Capture Authorization (Null Capture) ****");
 		Capture responsecapture = getAuthorization().capture(TokenHolder.accessToken, null);

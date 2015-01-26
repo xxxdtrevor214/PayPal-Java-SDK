@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class FlowConfig  {
+
+public class FlowConfig  extends PayPalModel {
 
 	/**
 	 * Type of PayPal page to be displayed when a user lands on the PayPal site for checkout. Allowed values: `Billing` or `Login`. When set to `Billing`, the Non-PayPal account landing page is used. When set to `Login`, the PayPal account login landing page is used.
@@ -51,18 +52,5 @@ public class FlowConfig  {
 	public String getBankTxnPendingUrl() {
 		return this.bankTxnPendingUrl;
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }

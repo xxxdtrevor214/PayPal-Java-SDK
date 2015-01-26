@@ -1,15 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.CreditCard;
-import com.paypal.api.payments.CreditCardToken;
-import com.paypal.api.payments.PaymentCard;
-import com.paypal.api.payments.PaymentCardToken;
-import com.paypal.api.payments.ExtendedBankAccount;
-import com.paypal.api.payments.BankToken;
-import com.paypal.api.payments.Credit;
+import com.paypal.base.rest.PayPalModel;
 
-public class FundingInstrument  {
+
+public class FundingInstrument  extends PayPalModel {
 
 	/**
 	 * Credit Card information.
@@ -164,17 +158,5 @@ public class FundingInstrument  {
 		return this.credit;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

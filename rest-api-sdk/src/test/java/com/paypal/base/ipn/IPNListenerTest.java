@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.paypal.base.ConfigManager;
 import com.paypal.base.DataProviderClass;
-import com.paypal.base.ipn.IPNMessage;
 
 public class IPNListenerTest {
 	

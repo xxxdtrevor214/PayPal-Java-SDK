@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class PaymentCardToken  {
+
+public class PaymentCardToken  extends PayPalModel {
 
 	/**
 	 * ID of a previously saved Payment Card resource.
@@ -145,17 +146,5 @@ public class PaymentCardToken  {
 		return this.expireYear;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

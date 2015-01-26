@@ -1,11 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Links;
-
 import java.util.List;
 
-public class HyperSchema  {
+import com.paypal.base.rest.PayPalModel;
+
+public class HyperSchema  extends PayPalModel {
 
 	/**
 	 * 
@@ -139,17 +138,5 @@ public class HyperSchema  {
 		return this.mediaType;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

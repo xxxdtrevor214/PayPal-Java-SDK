@@ -1,27 +1,18 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.Constants;
-import com.paypal.base.SDKVersion;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.QueryParameters;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
-import com.paypal.api.payments.Address;
-import com.paypal.api.payments.Links;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Properties;
 
-public class CreditCard  {
+import com.paypal.base.Constants;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.HttpMethod;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
+import com.paypal.base.rest.RESTUtil;
+import com.paypal.base.sdk.info.SDKVersionImpl;
+
+public class CreditCard  extends PayPalResource {
 
 	/**
 	 * ID of the credit card being saved for later use.
@@ -88,58 +79,7 @@ public class CreditCard  {
 	 */
 	private List<Links> links;
 
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 *
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
-		return PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 *
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
-		return PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 *
-	 * @param properties
-	 *            Properties object
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(Properties properties) {
-		return PayPalResource.initConfig(properties);
-	}
+	
 	/**
 	 * Default Constructor
 	 */
@@ -398,7 +338,7 @@ public class CreditCard  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/vault/credit-card";
 		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreditCard.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreditCard.class);
 	}
 
 
@@ -444,7 +384,7 @@ public class CreditCard  {
 		String pattern = "v1/vault/credit-card/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
 	}
 
 
@@ -452,7 +392,7 @@ public class CreditCard  {
 	 * Delete the Credit Card resource for the given identifier.
 	 * @param accessToken
 	 *            Access Token used for the API call.
-	 * @return 
+
 	 * @throws PayPalRESTException
 	 */
 	public void delete(String accessToken) throws PayPalRESTException {
@@ -465,7 +405,6 @@ public class CreditCard  {
 	 * Delete the Credit Card resource for the given identifier.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
@@ -488,7 +427,7 @@ public class CreditCard  {
 		String pattern = "v1/vault/credit-card/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -531,7 +470,7 @@ public class CreditCard  {
 		String pattern = "v1/vault/credit-card/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, CreditCard.class);
+		return configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, CreditCard.class);
 	}
 
 
@@ -577,20 +516,8 @@ public class CreditCard  {
 		String pattern = "v1/vault/credit-card?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payer_id={5}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCardHistory.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCardHistory.class);
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

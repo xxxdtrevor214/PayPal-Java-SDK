@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class PatchRequest  {
+
+public class PatchRequest  extends PayPalModel {
 
 	/**
 	 * Patch operation to perform.Value required for add & remove operation can be any JSON value.
@@ -59,18 +60,5 @@ public class PatchRequest  {
 	public String getPath() {
 		return this.path;
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }

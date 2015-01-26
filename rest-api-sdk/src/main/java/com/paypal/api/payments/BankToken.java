@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class BankToken  {
+
+public class BankToken  extends PayPalModel {
 
 	/**
 	 * ID of a previously saved Bank resource using /vault/bank API.
@@ -81,17 +82,5 @@ public class BankToken  {
 		return this.mandateReferenceNumber;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

@@ -1,9 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.HyperSchema;
+import com.paypal.base.rest.PayPalModel;
 
-public class Links  {
+
+public class Links  extends PayPalModel {
 
 	/**
 	 * 
@@ -145,17 +145,5 @@ public class Links  {
 		return this.schema;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

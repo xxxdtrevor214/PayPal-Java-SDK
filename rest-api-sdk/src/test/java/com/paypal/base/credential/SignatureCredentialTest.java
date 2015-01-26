@@ -7,10 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.paypal.base.UnitTestConstants;
-import com.paypal.base.credential.SignatureCredential;
-import com.paypal.base.credential.SubjectAuthorization;
-import com.paypal.base.credential.ThirdPartyAuthorization;
-import com.paypal.base.credential.TokenAuthorization;
 import com.paypal.base.exception.MissingCredentialException;
 
 public class SignatureCredentialTest {

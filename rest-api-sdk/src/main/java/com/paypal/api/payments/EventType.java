@@ -1,20 +1,16 @@
 package com.paypal.api.payments;
 
+import java.util.HashMap;
+
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Properties;
-
-public class EventType  {
+public class EventType  extends PayPalResource {
 
 	/**
 	 * Unique event-type name.
@@ -25,59 +21,7 @@ public class EventType  {
 	 * Human readable description of the event-type
 	 */
 	private String description;
-
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 *
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 *
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 *
-	 * @param properties
-	 *            Properties object
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
-	}
+	
 	/**
 	 * Default Constructor
 	 */
@@ -166,7 +110,7 @@ public class EventType  {
 		String pattern = "v1/notifications/webhooks/{0}/event-types";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
 	}
 
 
@@ -203,20 +147,8 @@ public class EventType  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/notifications/webhooks-event-types";
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

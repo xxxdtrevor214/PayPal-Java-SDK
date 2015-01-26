@@ -30,7 +30,7 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 	 * class if no configuration methods initConfig(..) was attempted before
 	 * making the API call. The users can override this default file
 	 * 'sdk_config.properties' by choosing different version of
-	 * PayPalResource.initConfi(...) and passing their custom configuration.
+	 * initConfi(...) and passing their custom configuration.
 	 * Initializing to default means the system looks for a file specifically
 	 * named 'sdk_config.properties' in the classpath and reads the
 	 * configuration from there. 'Dynamic Configuration' enables the users to

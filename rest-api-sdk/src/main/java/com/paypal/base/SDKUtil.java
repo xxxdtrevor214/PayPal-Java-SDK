@@ -1,6 +1,5 @@
 package com.paypal.base;
 
-import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -254,7 +253,6 @@ public final class SDKUtil {
 	 * @param properties
 	 *            Input {@link Properties}
 	 * @return Map<String, String>
-	 * @throws IOException
 	 */
 	public static Map<String, String> constructMap(Properties properties) {
 		Map<String, String> propsMap = null;

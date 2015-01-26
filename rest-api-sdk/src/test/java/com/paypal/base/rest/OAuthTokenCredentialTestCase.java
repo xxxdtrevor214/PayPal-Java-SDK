@@ -1,6 +1,5 @@
 package com.paypal.base.rest;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,10 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.base.SDKVersion;
 import com.paypal.base.exception.HttpErrorException;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
 
 public class OAuthTokenCredentialTestCase {
 

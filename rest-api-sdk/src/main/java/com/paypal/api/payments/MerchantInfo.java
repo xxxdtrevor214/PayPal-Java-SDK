@@ -1,10 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Address;
-import com.paypal.api.payments.Phone;
+import com.paypal.base.rest.PayPalModel;
 
-public class MerchantInfo  {
+
+public class MerchantInfo  extends PayPalModel {
 
 	/**
 	 * Email address of the merchant. 260 characters max.
@@ -229,17 +228,5 @@ public class MerchantInfo  {
 		return this.additionalInfo;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

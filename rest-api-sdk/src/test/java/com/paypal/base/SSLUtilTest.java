@@ -3,7 +3,6 @@ package com.paypal.base;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.paypal.base.SSLUtil;
 import com.paypal.base.exception.SSLConfigurationException;
 
 public class SSLUtilTest {

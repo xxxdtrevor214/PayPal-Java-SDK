@@ -1,12 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Address;
-import com.paypal.api.payments.Links;
-
 import java.util.List;
 
-public class PaymentCard  {
+import com.paypal.base.rest.PayPalModel;
+
+public class PaymentCard  extends PayPalModel {
 
 	/**
 	 * ID of the credit card being saved for later use.
@@ -339,17 +337,5 @@ public class PaymentCard  {
 		return this.links;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

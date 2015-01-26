@@ -1,23 +1,23 @@
 package com.paypal.api.openidconnect;
 
-import java.io.File;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 
-public class Tokeninfo {
+/**
+ * Class Tokeninfo
+ *
+ */
+public class Tokeninfo extends PayPalResource {
 
 	/**
 	 * OPTIONAL, if identical to the scope requested by the client; otherwise,
@@ -47,56 +47,6 @@ public class Tokeninfo {
 	 * The lifetime in seconds of the access token.
 	 */
 	private Integer expiresIn;
-
-	/**
-	 * Returns the last request sent to the Service
-	 * 
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 * 
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 * 
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 * 
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 * 
-	 * @param properties
-	 *            Properties object
-	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
-	}
 
 	/**
 	 * Default Constructor
@@ -282,7 +232,7 @@ public class Tokeninfo {
 		headersMap.put(Constants.HTTP_ACCEPT_HEADER,
 				Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setHTTPHeaders(headersMap);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST,
+		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);
 	}
 	
@@ -352,21 +302,8 @@ public class Tokeninfo {
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 		
 		apiContext.setHTTPHeaders(headersMap);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST,
+		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 * 
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }

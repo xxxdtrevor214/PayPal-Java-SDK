@@ -1,8 +1,8 @@
 package com.paypal.api.openidconnect;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class Error {
+public class Error extends PayPalModel {
 
 	/**
 	 * A single ASCII error code from the following enum.
@@ -74,18 +74,4 @@ public class Error {
 		return this.errorUri;
 	}
 	
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 * 
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

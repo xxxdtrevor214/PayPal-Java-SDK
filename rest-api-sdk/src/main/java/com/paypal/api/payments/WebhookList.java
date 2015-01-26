@@ -1,19 +1,17 @@
 package com.paypal.api.payments;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 import com.paypal.base.sdk.info.SDKVersionImpl;
-import com.paypal.api.payments.Webhook;
 
-import java.util.HashMap;
-import java.util.List;
-
-public class WebhookList  {
+public class WebhookList  extends PayPalResource {
 
 	/**
 	 * A list of Webhooks
@@ -78,20 +76,8 @@ public class WebhookList  {
 		String pattern = "v1/notifications/webhooks/";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebhookList.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebhookList.class);
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

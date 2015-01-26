@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class Currency  {
+
+public class Currency  extends PayPalModel {
 
 	/**
 	 * 3 letter currency code
@@ -59,18 +60,5 @@ public class Currency  {
 	public String getValue() {
 		return this.value;
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }

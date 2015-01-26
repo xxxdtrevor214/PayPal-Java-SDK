@@ -1,39 +1,17 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.Constants;
-import com.paypal.base.SDKVersion;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.QueryParameters;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
-import com.paypal.api.payments.MerchantInfo;
-import com.paypal.api.payments.BillingInfo;
-
+import java.util.HashMap;
 import java.util.List;
 
-import com.paypal.api.payments.ShippingInfo;
-import com.paypal.api.payments.InvoiceItem;
-import com.paypal.api.payments.PaymentTerm;
-import com.paypal.api.payments.Cost;
-import com.paypal.api.payments.ShippingCost;
-import com.paypal.api.payments.CustomAmount;
-import com.paypal.api.payments.Currency;
-import com.paypal.api.payments.PaymentDetail;
-import com.paypal.api.payments.RefundDetail;
-import com.paypal.api.payments.Metadata;
+import com.paypal.base.Constants;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.HttpMethod;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
+import com.paypal.base.rest.RESTUtil;
+import com.paypal.base.sdk.info.SDKVersionImpl;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Properties;
-
-public class Invoice  {
+public class Invoice extends PayPalResource {
 
 	/**
 	 * Unique invoice resource identifier.
@@ -150,58 +128,7 @@ public class Invoice  {
 	 */
 	private Metadata metadata;
 
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 *
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
-		return PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 *
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
-		return PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 *
-	 * @param properties
-	 *            Properties object
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(Properties properties) {
-		return PayPalResource.initConfig(properties);
-	}
+	
 	/**
 	 * Default Constructor
 	 */
@@ -617,7 +544,7 @@ public class Invoice  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/invoicing/invoices";
 		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Invoice.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Invoice.class);
 	}
 
 
@@ -663,7 +590,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/search";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = search.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Invoices.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Invoices.class);
 	}
 
 
@@ -671,7 +598,6 @@ public class Invoice  {
 	 * Sends a legitimate invoice to the payer.
 	 * @param accessToken
 	 *            Access Token used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void send(String accessToken) throws PayPalRESTException {
@@ -684,7 +610,6 @@ public class Invoice  {
 	 * Sends a legitimate invoice to the payer.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void send(APIContext apiContext) throws PayPalRESTException {
@@ -706,7 +631,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}/send";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -732,7 +657,6 @@ public class Invoice  {
 	 *            {@link APIContext} used for the API call.
 	 * @param notification
 	 *            Notification
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void remind(APIContext apiContext, Notification notification) throws PayPalRESTException {
@@ -757,7 +681,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}/remind";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = notification.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -783,7 +707,6 @@ public class Invoice  {
 	 *            {@link APIContext} used for the API call.
 	 * @param cancelNotification
 	 *            CancelNotification
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void cancel(APIContext apiContext, CancelNotification cancelNotification) throws PayPalRESTException {
@@ -808,7 +731,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}/cancel";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = cancelNotification.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -819,7 +742,6 @@ public class Invoice  {
 	 *            Access Token used for the API call.
 	 * @param paymentDetail
 	 *            PaymentDetail
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void recordPayment(String accessToken, PaymentDetail paymentDetail) throws PayPalRESTException {
@@ -834,7 +756,6 @@ public class Invoice  {
 	 *            {@link APIContext} used for the API call.
 	 * @param paymentDetail
 	 *            PaymentDetail
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void recordPayment(APIContext apiContext, PaymentDetail paymentDetail) throws PayPalRESTException {
@@ -859,7 +780,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}/record-payment";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = paymentDetail.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -870,7 +791,6 @@ public class Invoice  {
 	 *            Access Token used for the API call.
 	 * @param refundDetail
 	 *            RefundDetail
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void recordRefund(String accessToken, RefundDetail refundDetail) throws PayPalRESTException {
@@ -885,7 +805,6 @@ public class Invoice  {
 	 *            {@link APIContext} used for the API call.
 	 * @param refundDetail
 	 *            RefundDetail
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void recordRefund(APIContext apiContext, RefundDetail refundDetail) throws PayPalRESTException {
@@ -910,7 +829,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}/record-refund";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = refundDetail.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -957,7 +876,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Invoice.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Invoice.class);
 	}
 
 
@@ -994,7 +913,7 @@ public class Invoice  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/invoicing/invoices";
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Invoices.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Invoices.class);
 	}
 
 
@@ -1036,7 +955,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, Invoice.class);
+		return configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, Invoice.class);
 	}
 
 
@@ -1044,7 +963,6 @@ public class Invoice  {
 	 * Delete invoice resource for the given identifier.
 	 * @param accessToken
 	 *            Access Token used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void delete(String accessToken) throws PayPalRESTException {
@@ -1057,7 +975,6 @@ public class Invoice  {
 	 * Delete invoice resource for the given identifier.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
@@ -1080,21 +997,7 @@ public class Invoice  {
 		String pattern = "v1/invoicing/invoices/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 		return;
-	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
 	}
 }

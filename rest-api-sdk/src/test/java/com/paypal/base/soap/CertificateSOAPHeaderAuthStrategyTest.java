@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 import com.paypal.base.credential.CertificateCredential;
 import com.paypal.base.credential.SubjectAuthorization;
 import com.paypal.base.credential.TokenAuthorization;
-import com.paypal.base.soap.CertificateSOAPHeaderAuthStrategy;
 
 public class CertificateSOAPHeaderAuthStrategyTest {
 	@Test

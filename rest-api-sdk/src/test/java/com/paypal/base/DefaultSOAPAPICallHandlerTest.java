@@ -13,9 +13,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.base.BaseAPIContext;
-import com.paypal.base.DefaultSOAPAPICallHandler;
-import com.paypal.base.SDKUtil;
 import com.paypal.base.DefaultSOAPAPICallHandler.XmlNamespaceProvider;
 import com.paypal.base.message.XMLMessageSerializer;
 

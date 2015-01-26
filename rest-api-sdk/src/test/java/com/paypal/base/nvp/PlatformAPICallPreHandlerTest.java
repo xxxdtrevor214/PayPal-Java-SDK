@@ -11,7 +11,6 @@ import com.paypal.base.CredentialManager;
 import com.paypal.base.credential.ICredential;
 import com.paypal.base.credential.SignatureCredential;
 import com.paypal.base.credential.TokenAuthorization;
-import com.paypal.base.nvp.PlatformAPICallPreHandler;
 
 public class PlatformAPICallPreHandlerTest {
 

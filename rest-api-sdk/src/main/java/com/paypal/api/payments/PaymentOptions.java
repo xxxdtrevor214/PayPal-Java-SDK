@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class PaymentOptions  {
+
+public class PaymentOptions  extends PayPalModel {
 
 	/**
 	 * Payment method requested for this purchase unit
@@ -31,17 +32,5 @@ public class PaymentOptions  {
 		return this.allowedPaymentMethod;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

@@ -1,17 +1,16 @@
 package com.paypal.api.openidconnect;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.Properties;
-
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 
-public class Userinfo {
+/**
+ * Class Userinfo
+ *
+ */
+public class Userinfo extends PayPalResource{
 
 	/**
 	 * Subject - Identifier for the End-User at the Issuer.
@@ -107,56 +106,7 @@ public class Userinfo {
 	 * Account payer identifier.
 	 */
 	private String payerId;
-	
-	/**
-	 * Returns the last request sent to the Service
-	 * 
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
 
-	/**
-	 * Returns the last response returned by the Service
-	 * 
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 * 
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 * 
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 * 
-	 * @param properties
-	 *            Properties object
-	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
-	}
 	/**
 	 * Default Constructor
 	 */
@@ -389,6 +339,7 @@ public class Userinfo {
 	
 	/**
 	 * Setter for accountType
+	 * @param accountType 
 	 */
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
@@ -459,21 +410,8 @@ public class Userinfo {
 		Object[] parameters = new Object[] { userinfoParameters };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET,
+		return configureAndExecute(apiContext, HttpMethod.GET,
 				resourcePath, payLoad, Userinfo.class);
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 * 
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

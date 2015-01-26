@@ -6,8 +6,6 @@ import java.util.Map;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.paypal.base.NVPUtil;
-
 public class NVPUtilTest {
 
 	@Test

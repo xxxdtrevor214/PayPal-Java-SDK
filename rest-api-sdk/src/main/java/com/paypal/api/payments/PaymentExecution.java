@@ -1,11 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Transactions;
-
 import java.util.List;
 
-public class PaymentExecution  {
+import com.paypal.base.rest.PayPalModel;
+
+public class PaymentExecution  extends PayPalModel {
 
 	/**
 	 * PayPal assigned Payer ID returned in the approval return url.
@@ -62,17 +61,5 @@ public class PaymentExecution  {
 		return this.transactions;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

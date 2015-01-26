@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class InvoicingNotification  {
+
+public class InvoicingNotification  extends PayPalModel {
 
 	/**
 	 * Subject of the notification.
@@ -73,17 +74,5 @@ public class InvoicingNotification  {
 		return this.sendToMerchant;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

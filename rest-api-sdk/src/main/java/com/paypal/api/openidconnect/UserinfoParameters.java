@@ -5,6 +5,10 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class UserinfoParameters
+ *
+ */
 public class UserinfoParameters {
 
 	/**
@@ -21,6 +25,9 @@ public class UserinfoParameters {
 	// by SDK library 'RESTUtil'
 	private Map<String, String> containerMap;
 
+	/**
+	 * 
+	 */
 	public UserinfoParameters() {
 		containerMap = new HashMap<String, String>();
 		containerMap.put(SCHEMA, "openid");

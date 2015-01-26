@@ -5,9 +5,6 @@ import java.util.Map;
 import com.paypal.base.credential.ICredential;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.OAuthException;
-import com.paypal.base.nvp.PlatformAPICallPreHandler;
-import com.paypal.base.rest.RESTAPICallPreHandler;
-import com.paypal.base.soap.MerchantAPICallPreHandler;
 
 /**
  * <code>APICallPreHandler</code> defines a high level abstraction for call

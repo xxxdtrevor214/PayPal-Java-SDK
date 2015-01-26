@@ -71,7 +71,10 @@ public class RefundTestCase {
 	}
 
 	@Test(groups = "integration")
-	public void testGetRefund() {
+	public void testGetRefund() throws PayPalRESTException {
+		if (ObjectHolder.refundId == null) {
+			new SaleTestCase().testSaleRefundAPI();
+		}
 		logger.info("**** Get Refund ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		try {

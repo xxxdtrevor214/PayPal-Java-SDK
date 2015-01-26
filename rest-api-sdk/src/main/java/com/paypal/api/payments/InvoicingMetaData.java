@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class InvoicingMetaData  {
+
+public class InvoicingMetaData  extends PayPalModel {
 
 	/**
 	 * Date when the resource was created.
@@ -199,17 +200,5 @@ public class InvoicingMetaData  {
 		return this.lastSentBy;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }
