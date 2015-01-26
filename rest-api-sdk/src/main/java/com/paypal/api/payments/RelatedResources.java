@@ -27,6 +27,11 @@ public class RelatedResources  {
 	 * A refund transaction
 	 */
 	private Refund refund;
+	
+	/**
+	 * An order transaction
+	 */
+	private Order order;
 
 	/**
 	 * Default Constructor
@@ -96,6 +101,21 @@ public class RelatedResources  {
 	 */
 	public Refund getRefund() {
 		return this.refund;
+	}
+
+	/**
+	 * Setter for order
+	 */
+	public RelatedResources setOrder(Order order) {
+		this.order = order;
+		return this;
+	}
+
+	/**
+	 * Getter for order
+	 */
+	public Order getOrder() {
+		return this.order;
 	}
 
 	/**

@@ -110,9 +110,9 @@ The SDK uses Java properties format configuration file. Sample of this file is a
 
 ```java
     Map<String, String> configurationMap = new HashMap<String, String>();
-    configurationMap.put("clientId", "...");
-    configurationMap.put("clientSecret", "...");
-    configurationMap.put("service.EndPoint", "https://api.paypal.com/");
+    configurationMap.put(Constants.CLIENT_ID, "...");
+    configurationMap.put(Constants.CLIENT_SECRET, "...");
+    configurationMap.put(Constants.ENDPOINT, "https://api.paypal.com/");
     APIContext apiContext = new APIContext();
     apiContext.setConfigurationMap(configurationMap);
     ...
@@ -125,9 +125,9 @@ The SDK uses Java properties format configuration file. Sample of this file is a
 
 ```java
     Map<String, String> configurationMap = new HashMap<String, String>();
-    configurationMap.put("clientId", "...");
-    configurationMap.put("clientSecret", "...");
-    configurationMap.put("service.EndPoint", "https://api.paypal.com/");
+    configurationMap.put(Constants.CLIENT_ID, "...");
+    configurationMap.put(Constants.CLIENT_SECRET, "...");
+    configurationMap.put(Constants.ENDPOINT, "https://api.paypal.com/");
     APIContext apiContext = new APIContext();
     apiContext.setConfigurationMap(configurationMap);
     ...
@@ -141,9 +141,9 @@ The SDK uses Java properties format configuration file. Sample of this file is a
 
 ```java
     Map<String, String> configurationMap = new HashMap<String, String>();
-    configurationMap.put("clientId", "...");
-    configurationMap.put("clientSecret", "...");
-    configurationMap.put("service.EndPoint", "https://api.paypal.com/");
+    configurationMap.put(Constants.CLIENT_ID, "...");
+    configurationMap.put(Constants.CLIENT_SECRET, "...");
+    configurationMap.put(Constants.ENDPOINT, "https://api.paypal.com/");
     APIContext apiContext = new APIContext();
     apiContext.setConfigurationMap(configurationMap);
     ...

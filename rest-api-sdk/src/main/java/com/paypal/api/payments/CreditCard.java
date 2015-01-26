@@ -87,6 +87,11 @@ public class CreditCard  {
 	 * 
 	 */
 	private List<Links> links;
+	
+	/**
+	 * Payer ID
+	 */
+	private String payerId;
 
 	/**
 	 * Returns the last request sent to the Service
@@ -362,6 +367,22 @@ public class CreditCard  {
 	 */
 	public List<Links> getLinks() {
 		return this.links;
+	}
+
+
+	/**
+	 * Setter for payer ID
+	 */
+	public CreditCard setPayerId(String payerId) {
+		this.payerId = payerId;
+		return this;
+	}
+
+	/**
+	 * Getter for payer ID
+	 */
+	public String getpayerId() {
+		return this.payerId;
 	}
 
 
