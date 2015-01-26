@@ -5,7 +5,6 @@ import com.paypal.base.Constants;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
-
 public class GenerateAccessToken { 
 
 	public static String getAccessToken() throws PayPalRESTException {

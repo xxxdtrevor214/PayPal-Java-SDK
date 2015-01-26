@@ -30,6 +30,7 @@ import com.paypal.api.payments.PaymentExecution;
 import com.paypal.api.payments.RedirectUrls;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -107,9 +108,9 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 			paymentExecution.setPayerId(req.getParameter("PayerID"));
 			try {
 				payment.execute(apiContext, paymentExecution);
-				req.setAttribute("response", Payment.getLastResponse());
+				ResultPrinter.addResult(req, resp, "Executed The Payment", Payment.getLastRequest(), Payment.getLastResponse(), null);
 			} catch (PayPalRESTException e) {
-				req.setAttribute("error", e.getMessage());
+				ResultPrinter.addResult(req, resp, "Executed The Payment", Payment.getLastRequest(), null, e.getMessage());
 			}
 		} else {
 
@@ -186,13 +187,13 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 						req.setAttribute("redirectURL", link.getHref());
 					}
 				}
-				req.setAttribute("response", Payment.getLastResponse());
+				ResultPrinter.addResult(req, resp, "Payment with PayPal", Payment.getLastRequest(), Payment.getLastResponse(), null);
 				map.put(guid, createdPayment.getId());
 			} catch (PayPalRESTException e) {
-				req.setAttribute("error", e.getMessage());
+				ResultPrinter.addResult(req, resp, "Payment with PayPal", Payment.getLastRequest(), null, e.getMessage());
 			}
 		}
-		req.setAttribute("request", Payment.getLastRequest());
+		
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 }

@@ -20,6 +20,7 @@ import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Refund;
 import com.paypal.api.payments.Sale;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -110,11 +111,11 @@ public class SaleRefundServlet extends HttpServlet {
 			// Refund by posting to the APIService
 			// using a valid AccessToken
 			sale.refund(apiContext, refund);
-			req.setAttribute("response", Sale.getLastResponse());
+			ResultPrinter.addResult(req, resp, "Sale Refunded", Sale.getLastRequest(), Sale.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Sale Refunded", Sale.getLastRequest(), null, e.getMessage());
 		}
-		req.setAttribute("request", Sale.getLastRequest());
+
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 
