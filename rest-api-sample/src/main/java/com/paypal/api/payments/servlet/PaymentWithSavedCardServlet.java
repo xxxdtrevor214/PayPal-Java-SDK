@@ -153,11 +153,11 @@ public class PaymentWithSavedCardServlet extends HttpServlet {
 			Payment createdPayment = payment.create(apiContext);
 			LOGGER.info("Created payment with id = " + createdPayment.getId()
 					+ " and status = " + createdPayment.getState());
-			req.setAttribute("response", Payment.getLastResponse());
+			ResultPrinter.addResult(req, resp, "Payment with Saved Card", Payment.getLastRequest(), Payment.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Payment with Saved Card", Payment.getLastRequest(), null, e.getMessage());
 		}
-		req.setAttribute("request", Payment.getLastRequest());
+		
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 }

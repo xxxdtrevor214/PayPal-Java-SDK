@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.paypal.api.payments.CreditCard;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -102,11 +103,10 @@ public class CreateCreditCardServlet extends HttpServlet {
 			
 			LOGGER.info("Credit Card Created With ID: "
 					+ createdCreditCard.getId());
-			req.setAttribute("response", CreditCard.getLastResponse());
+			ResultPrinter.addResult(req, resp, "Created Credit Card", CreditCard.getLastRequest(), CreditCard.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Created Credit Card", CreditCard.getLastRequest(), null, e.getMessage());
 		}
-		req.setAttribute("request", CreditCard.getLastRequest());
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 

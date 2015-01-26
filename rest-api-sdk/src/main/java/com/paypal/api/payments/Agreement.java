@@ -517,7 +517,7 @@ public class Agreement  {
 		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
-		Object[] parameters = new Object[] {this.getId()};
+		Object[] parameters = new Object[] {this.token};
 		String pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";

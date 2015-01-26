@@ -30,6 +30,7 @@ import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -101,11 +102,12 @@ public class VoidAuthorizationServlet extends HttpServlet {
 			// URI v1/payments/authorization/{authorization_id}/void
 			Authorization returnAuthorization = authorization.doVoid(apiContext);
 
-			req.setAttribute("response", Authorization.getLastResponse());
+
 			LOGGER.info("Authorization id = " + returnAuthorization.getId()
 					+ " and status = " + returnAuthorization.getState());
+			ResultPrinter.addResult(req, resp, "Voided Authorization", Authorization.getLastRequest(), Authorization.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Voided Authorization", Authorization.getLastRequest(), null, e.getMessage());
 		}
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}

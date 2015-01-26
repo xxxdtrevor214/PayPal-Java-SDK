@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import com.paypal.api.payments.CreditCard;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 
@@ -75,9 +76,9 @@ public class GetCreditCardServlet extends HttpServlet {
 					"CARD-5BT058015C739554AKE2GCEI");
 			LOGGER.info("Credit Card retrieved ID = " + creditCard.getId()
 					+ ", status = " + creditCard.getState());
-			req.setAttribute("response", CreditCard.getLastResponse());
+			ResultPrinter.addResult(req, resp, "Got Credit Card from Vault", CreditCard.getLastRequest(), CreditCard.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Got Credit Card from Vault", CreditCard.getLastRequest(), null, e.getMessage());
 		}
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}

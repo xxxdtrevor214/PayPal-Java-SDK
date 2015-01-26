@@ -30,6 +30,7 @@ import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Refund;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -121,14 +122,13 @@ public class RefundCaptureServlet extends HttpServlet {
 			// URI v1/payments/capture/{capture_id}/refund
 			Refund responseRefund = capture.refund(apiContext, refund);
 			
-			req.setAttribute("response", Capture.getLastResponse());
 			LOGGER.info("Refund id = " + responseRefund.getId()
 					+ " and status = " + responseRefund.getState());
+			ResultPrinter.addResult(req, resp, "Refund a Capture", Refund.getLastRequest(), Refund.getLastResponse(), null);
 			
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Refund a Capture", Refund.getLastRequest(), null, e.getMessage());
 		}
-		req.setAttribute("request", Capture.getLastRequest());
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 	

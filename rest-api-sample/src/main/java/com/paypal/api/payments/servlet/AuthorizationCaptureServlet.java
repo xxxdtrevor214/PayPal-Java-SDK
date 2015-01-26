@@ -30,6 +30,7 @@ import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -117,13 +118,12 @@ public class AuthorizationCaptureServlet extends HttpServlet {
 			// URI v1/payments/authorization/{authorization_id}/capture
 			Capture responseCapture = authorization.capture(apiContext, capture);
 
-			req.setAttribute("response", Authorization.getLastResponse());
 			LOGGER.info("Capture id = " + responseCapture.getId()
 					+ " and status = " + responseCapture.getState());
+			ResultPrinter.addResult(req, resp, "Authorization Capture", Authorization.getLastRequest(), Authorization.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Authorization Capture", Authorization.getLastRequest(), null, e.getMessage());
 		}
-		req.setAttribute("request", Authorization.getLastRequest());
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 
