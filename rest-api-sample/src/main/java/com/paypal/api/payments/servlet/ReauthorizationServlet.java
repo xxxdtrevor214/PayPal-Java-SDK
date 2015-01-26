@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Authorization;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -93,13 +94,13 @@ public class ReauthorizationServlet extends HttpServlet {
 			Authorization reauthorization = authorization
 					.reauthorize(apiContext);
 
-			req.setAttribute("response", Authorization.getLastResponse());
 			LOGGER.info("Reauthorization id = " + reauthorization.getId()
 					+ " and status = " + reauthorization.getState());
+			ResultPrinter.addResult(req, resp, "Reauthorized a Payment", Authorization.getLastRequest(), Authorization.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Reauthorized a Payment", Authorization.getLastRequest(), null, e.getMessage());
 		}
-		req.setAttribute("request", Authorization.getLastRequest());
+		
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}
 

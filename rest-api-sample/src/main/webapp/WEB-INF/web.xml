@@ -49,6 +49,47 @@
 		<servlet-name>ReauthorizationServlet</servlet-name>
 		<servlet-class>com.paypal.api.payments.servlet.ReauthorizationServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>CreateSinglePayoutServlet</servlet-name>
+		<servlet-class>com.paypal.api.payouts.servlet.CreateSinglePayoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateSinglePayoutServlet</servlet-name>
+		<url-pattern>/payouts.CreateSinglePayout</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CreateBatchPayoutServlet</servlet-name>
+		<servlet-class>com.paypal.api.payouts.servlet.CreateBatchPayoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateBatchPayoutServlet</servlet-name>
+		<url-pattern>/payouts.CreateBatchPayout</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GetPayoutBatchStatusServlet</servlet-name>
+		<servlet-class>com.paypal.api.payouts.servlet.GetPayoutBatchStatusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetPayoutBatchStatusServlet</servlet-name>
+		<url-pattern>/payouts.GetPayoutBatchStatus</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GetPayoutItemStatusServlet</servlet-name>
+		<servlet-class>com.paypal.api.payouts.servlet.GetPayoutItemStatusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetPayoutItemStatusServlet</servlet-name>
+		<url-pattern>/payouts.GetPayoutItemStatus</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CancelPayoutItemServlet</servlet-name>
+		<servlet-class>com.paypal.api.payouts.servlet.CancelPayoutItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelPayoutItemServlet</servlet-name>
+		<url-pattern>/payouts.CancelPayoutItem</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>ReauthorizationServlet</servlet-name>
 		<url-pattern>/reauthorization</url-pattern>

@@ -170,14 +170,13 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 			// using a valid AccessToken
 			// The return object contains the status;
 			Payment createdPayment = payment.create(apiContext);
-			req.setAttribute("response", Payment.getLastResponse());
+			
 			LOGGER.info("Created payment with id = " + createdPayment.getId()
 					+ " and status = " + createdPayment.getState());
+			ResultPrinter.addResult(req, resp, "Payment with Credit Card", Payment.getLastRequest(), Payment.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Payment with Credit Card", Payment.getLastRequest(), null, e.getMessage());
 		}
-
-		req.setAttribute("request", Payment.getLastRequest());
 
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}

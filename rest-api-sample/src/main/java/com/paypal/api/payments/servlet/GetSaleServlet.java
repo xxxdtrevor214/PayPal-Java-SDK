@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import com.paypal.api.payments.Sale;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 
@@ -68,9 +69,9 @@ public class GetSaleServlet extends HttpServlet {
 			Sale sale = Sale.get(accessToken, "03W403310B593121A");
 			LOGGER.info("Sale amount : " + sale.getAmount() + " for saleID : "
 					+ sale.getId());
-			req.setAttribute("response", Sale.getLastResponse());
+			ResultPrinter.addResult(req, resp, "Get Sale", Sale.getLastRequest(), Sale.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Get Sale", Sale.getLastRequest(), null, e.getMessage());
 		}
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 	}

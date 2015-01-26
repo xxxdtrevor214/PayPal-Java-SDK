@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.PaymentHistory;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 
@@ -83,9 +84,9 @@ public class GetPaymentHistoryServlet extends HttpServlet {
 			PaymentHistory paymentHistory = Payment.list(accessToken,
 					containerMap);
 			LOGGER.info("Payment History = " + paymentHistory.toString());
-			req.setAttribute("response", Payment.getLastResponse());
+			ResultPrinter.addResult(req, resp, "Got Payment History", Payment.getLastRequest(), Payment.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			req.setAttribute("error", e.getMessage());
+			ResultPrinter.addResult(req, resp, "Got Payment History", Payment.getLastRequest(), null, e.getMessage());
 		}
 		req.getRequestDispatcher("response.jsp").forward(req, resp);
 
