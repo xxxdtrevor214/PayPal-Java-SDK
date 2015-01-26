@@ -29,8 +29,8 @@ public class OpenIdTest {
 	Map<String, String> configurationMap = new HashMap<String, String>();
 
 	public OpenIdTest() {
-		// configurationMap.put("clientId", "");
-		// configurationMap.put("clientSecret", "");
+		// configurationMap.put(Constants.CLIENT_ID, "");
+		// configurationMap.put(Constants.CLIENT_SECRET, "");
 		configurationMap.put("mode", "sandbox");
 	}
 
