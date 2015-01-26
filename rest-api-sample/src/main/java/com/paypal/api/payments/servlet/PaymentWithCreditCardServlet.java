@@ -26,6 +26,7 @@ import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
 import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
