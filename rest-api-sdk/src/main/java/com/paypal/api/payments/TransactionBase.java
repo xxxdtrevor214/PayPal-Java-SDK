@@ -1,11 +1,6 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.RelatedResources;
-
 import java.util.List;
-
-import com.paypal.api.payments.CartBase;
 
 public class TransactionBase extends CartBase {
 
@@ -36,17 +31,5 @@ public class TransactionBase extends CartBase {
 		return this.relatedResources;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

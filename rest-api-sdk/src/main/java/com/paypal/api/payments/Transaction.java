@@ -1,10 +1,6 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-
 import java.util.List;
-
-import com.paypal.api.payments.TransactionBase;
 
 public class Transaction extends TransactionBase {
 
@@ -35,17 +31,5 @@ public class Transaction extends TransactionBase {
 		return this.transactions;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

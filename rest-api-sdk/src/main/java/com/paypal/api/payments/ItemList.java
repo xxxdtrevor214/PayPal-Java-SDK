@@ -1,13 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Item;
-
 import java.util.List;
 
-import com.paypal.api.payments.ShippingAddress;
+import com.paypal.base.rest.PayPalModel;
 
-public class ItemList  {
+public class ItemList  extends PayPalModel {
 
 	/**
 	 * List of items.
@@ -57,17 +54,5 @@ public class ItemList  {
 		return this.shippingAddress;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

@@ -1,11 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Currency;
-import com.paypal.api.payments.Tax;
-import com.paypal.api.payments.Cost;
+import com.paypal.base.rest.PayPalModel;
 
-public class InvoiceItem  {
+
+public class InvoiceItem  extends PayPalModel {
 
 	/**
 	 * Name of the item. 60 characters max.
@@ -169,17 +167,5 @@ public class InvoiceItem  {
 		return this.discount;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

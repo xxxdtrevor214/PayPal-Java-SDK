@@ -1,11 +1,9 @@
 package com.paypal.base;
 
 import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
-
-import com.paypal.base.HttpConfiguration;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 public class HttpConfigurationTest {
 	HttpConfiguration httpConf;

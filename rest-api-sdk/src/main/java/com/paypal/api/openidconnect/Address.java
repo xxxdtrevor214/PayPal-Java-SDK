@@ -1,8 +1,8 @@
 package com.paypal.api.openidconnect;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class Address {
+public class Address extends PayPalModel {
 
 	/**
 	 * Full street address component, which may include house number, street name.
@@ -37,6 +37,7 @@ public class Address {
 
 	/**
 	 * Setter for streetAddress
+	 * @param streetAddress 
 	 */
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
@@ -104,19 +105,5 @@ public class Address {
 	public String getCountry() {
 		return this.country;
 	}
-	
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 * 
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

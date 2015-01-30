@@ -5,12 +5,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.paypal.base.ConnectionManager;
-import com.paypal.base.DefaultHttpConnection;
-import com.paypal.base.GoogleAppEngineHttpConnection;
-import com.paypal.base.HttpConfiguration;
-import com.paypal.base.HttpConnection;
-
 public class ConnectionManagerTest {
 	ConnectionManager conn;
 	HttpConnection http;

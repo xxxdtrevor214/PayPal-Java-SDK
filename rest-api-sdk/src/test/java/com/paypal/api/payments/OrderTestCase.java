@@ -1,8 +1,6 @@
 package com.paypal.api.payments;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +14,7 @@ import com.paypal.base.rest.PayPalResource;
 /**
  * NOTE: Tests that use this class must be ignored when run in an automated environment because executing an order will require approval via the executed payment's approval_url.
  */
+@Test(enabled=false)
 public class OrderTestCase {
 
 	private static final Logger logger = Logger

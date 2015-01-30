@@ -7,9 +7,6 @@ import java.util.Set;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.paypal.base.ConfigManager;
-import com.paypal.base.UnitTestConstants;
-
 public class ConfigManagerTest {
 
 	@Test(dataProvider = "configParams", dataProviderClass = DataProviderClass.class)

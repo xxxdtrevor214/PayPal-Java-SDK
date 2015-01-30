@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class PaymentTerm  {
+
+public class PaymentTerm  extends PayPalModel {
 
 	/**
 	 * Terms by which the invoice payment is due.
@@ -52,17 +53,5 @@ public class PaymentTerm  {
 		return this.dueDate;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

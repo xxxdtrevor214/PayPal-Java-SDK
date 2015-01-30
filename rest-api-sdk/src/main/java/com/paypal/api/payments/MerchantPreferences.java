@@ -1,9 +1,8 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Currency;
+import com.paypal.base.rest.PayPalModel;
 
-public class MerchantPreferences  {
+public class MerchantPreferences  extends PayPalModel {
 
 	/**
 	 * Identifier of the merchant_preferences. 128 characters max.
@@ -228,18 +227,5 @@ public class MerchantPreferences  {
 	public String getCharSet() {
 		return this.charSet;
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }

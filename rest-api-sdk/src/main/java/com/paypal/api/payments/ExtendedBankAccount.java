@@ -1,7 +1,5 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.BankAccount;
 
 public class ExtendedBankAccount extends BankAccount {
 
@@ -32,17 +30,5 @@ public class ExtendedBankAccount extends BankAccount {
 		return this.mandateReferenceNumber;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

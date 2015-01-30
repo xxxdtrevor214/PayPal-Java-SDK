@@ -1,12 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Amount;
-import com.paypal.api.payments.Payee;
-import com.paypal.api.payments.PaymentOptions;
-import com.paypal.api.payments.ItemList;
+import com.paypal.base.rest.PayPalModel;
 
-public class CartBase  {
+
+public class CartBase  extends PayPalModel {
 
 	/**
 	 * Amount being collected.
@@ -203,17 +200,5 @@ public class CartBase  {
 		return this.itemList;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

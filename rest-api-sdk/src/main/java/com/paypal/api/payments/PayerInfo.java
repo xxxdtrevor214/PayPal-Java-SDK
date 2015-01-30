@@ -1,10 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Address;
-import com.paypal.api.payments.ShippingAddress;
+import com.paypal.base.rest.PayPalModel;
 
-public class PayerInfo  {
+
+public class PayerInfo  extends PayPalModel {
 
 	/**
 	 * Email address representing the Payer.
@@ -285,17 +284,5 @@ public class PayerInfo  {
 		return this.shippingAddress;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

@@ -1,11 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.CreditCard;
-
 import java.util.List;
 
-public class CreditCardHistory  {
+import com.paypal.base.rest.PayPalModel;
+
+public class CreditCardHistory  extends PayPalModel {
 
 	/**
 	 * A list of credit card resources
@@ -76,17 +75,5 @@ public class CreditCardHistory  {
 		return this.nextId;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

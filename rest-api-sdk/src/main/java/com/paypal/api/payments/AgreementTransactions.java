@@ -1,11 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.AgreementTransaction;
-
 import java.util.List;
 
-public class AgreementTransactions  {
+import com.paypal.base.rest.PayPalModel;
+
+public class AgreementTransactions  extends PayPalModel {
 
 	/**
 	 * Array of agreement_transaction object.
@@ -34,17 +33,5 @@ public class AgreementTransactions  {
 		return this.agreementTransactionList;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

@@ -12,9 +12,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.paypal.base.ConnectionManager;
-import com.paypal.base.HttpConfiguration;
-import com.paypal.base.HttpConnection;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.exception.InvalidResponseDataException;

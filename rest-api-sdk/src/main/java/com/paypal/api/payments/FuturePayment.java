@@ -11,7 +11,6 @@ import java.util.Properties;
 import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
 import com.paypal.api.openidconnect.CreateFromRefreshTokenParameters;
 import com.paypal.api.openidconnect.Tokeninfo;
-import com.paypal.api.payments.Payment;
 import com.paypal.base.ClientCredentials;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;

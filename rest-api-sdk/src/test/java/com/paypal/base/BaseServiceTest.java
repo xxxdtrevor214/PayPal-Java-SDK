@@ -8,8 +8,6 @@ import java.io.InputStream;
 
 import org.testng.annotations.Test;
 
-import com.paypal.base.BaseService;
-
 public class BaseServiceTest {
 	BaseService service;
 	String incorrectFilePath = "src/test/resources/config.properties";

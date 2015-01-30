@@ -1,12 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Currency;
-import com.paypal.api.payments.ChargeModels;
-
 import java.util.List;
 
-public class PaymentDefinition  {
+import com.paypal.base.rest.PayPalModel;
+
+public class PaymentDefinition  extends PayPalModel {
 
 	/**
 	 * Identifier of the payment_definition. 128 characters max.
@@ -194,17 +192,4 @@ public class PaymentDefinition  {
 		return this.chargeModels;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

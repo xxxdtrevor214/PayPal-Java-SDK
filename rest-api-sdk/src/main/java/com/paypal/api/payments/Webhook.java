@@ -1,20 +1,17 @@
 package com.paypal.api.payments;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 
-import java.util.HashMap;
-import java.util.List;
-
-import com.paypal.api.payments.EventType;
-
-public class Webhook  {
+public class Webhook  extends PayPalResource {
 
 	/**
 	 * Identifier of the webhook resource.
@@ -157,7 +154,7 @@ public class Webhook  {
 		String pattern = "v1/notifications/webhooks";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = webhook.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Webhook.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Webhook.class);
 	}
 	
 	/**
@@ -205,7 +202,7 @@ public class Webhook  {
 		String pattern = "v1/notifications/webhooks/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Webhook.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Webhook.class);
 	}
 
 	/**
@@ -256,7 +253,7 @@ public class Webhook  {
 		String pattern = "v1/notifications/webhooks/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = patchRequest;
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, Webhook.class);
+		return configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, Webhook.class);
 	}
 	
 	/**
@@ -300,20 +297,8 @@ public class Webhook  {
 		String pattern = "v1/notifications/webhooks/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 	}
 	
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }
