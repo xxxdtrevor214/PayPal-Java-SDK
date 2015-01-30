@@ -12,6 +12,7 @@ import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
 import com.paypal.api.openidconnect.CreateFromRefreshTokenParameters;
 import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.base.ClientCredentials;
+import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -50,8 +51,8 @@ public class FuturePayment extends Payment {
 	
 	public Tokeninfo getTokeninfo(CreateFromAuthorizationCodeParameters params) throws PayPalRESTException {
 		Map<String, String> configurationMap = new HashMap<String, String>();
-	    configurationMap.put("clientId", params.getClientID());
-	    configurationMap.put("clientSecret", params.getClientSecret());
+	    configurationMap.put(Constants.CLIENT_ID, params.getClientID());
+	    configurationMap.put(Constants.CLIENT_SECRET, params.getClientSecret());
 	    configurationMap.put("response_type", "token");
 		APIContext apiContext = new APIContext();
 		apiContext.setConfigurationMap(configurationMap);
@@ -71,8 +72,8 @@ public class FuturePayment extends Payment {
 	public ClientCredentials getClientCredential() throws FileNotFoundException, IOException {
 		ClientCredentials credentials = new ClientCredentials();
 		Properties properties = getCredential();
-		credentials.setClientID(properties.getProperty("clientID"));
-		credentials.setClientSecret(properties.getProperty("clientSecret"));
+		credentials.setClientID(properties.getProperty(Constants.CLIENT_ID));
+		credentials.setClientSecret(properties.getProperty(Constants.CLIENT_SECRET));
 		return credentials;
 	}
 }

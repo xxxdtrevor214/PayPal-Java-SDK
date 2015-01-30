@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+V1.1.0 (January 26, 2014)
+-------------------------
+   * Added Payout support
+
 V1.0.0 (January 12, 2014)
 -------------------------
    * Merged sdk-core-java

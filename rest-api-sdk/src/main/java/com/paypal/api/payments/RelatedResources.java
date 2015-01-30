@@ -24,6 +24,11 @@ public class RelatedResources  extends PayPalModel {
 	 * A refund transaction
 	 */
 	private Refund refund;
+	
+	/**
+	 * An order transaction
+	 */
+	private Order order;
 
 	/**
 	 * Default Constructor
@@ -94,6 +99,4 @@ public class RelatedResources  extends PayPalModel {
 	public Refund getRefund() {
 		return this.refund;
 	}
-
-
 }
