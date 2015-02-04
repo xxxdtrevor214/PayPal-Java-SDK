@@ -1,18 +1,22 @@
 package com.paypal.api.payments;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 
-public class WebProfile  extends PayPalResource {
+public class WebProfile  {
 
 	/**
 	 * Unique ID of the web experience profile.
@@ -39,6 +43,58 @@ public class WebProfile  extends PayPalResource {
 	 */
 	private Presentation presentation;
 
+	/**
+	 * Returns the last request sent to the Service
+	 *
+	 * @return Last request sent to the server
+	 */
+	public static String getLastRequest() {
+		return PayPalResource.getLastRequest();
+	}
+
+	/**
+	 * Returns the last response returned by the Service
+	 *
+	 * @return Last response got from the Service
+	 */
+	public static String getLastResponse() {
+		return PayPalResource.getLastResponse();
+	}
+
+	/**
+	 * Initialize using InputStream(of a Properties file)
+	 *
+	 * @param is
+	 *            InputStream
+	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
+	 */
+	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
+		return PayPalResource.initConfig(is);
+	}
+
+	/**
+	 * Initialize using a File(Properties file)
+	 *
+	 * @param file
+	 *            File object of a properties entity
+	 * @throws PayPalRESTException
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
+	 */
+	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
+		return PayPalResource.initConfig(file);
+	}
+
+	/**
+	 * Initialize using Properties
+	 *
+	 * @param properties
+	 *            Properties object
+	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
+	 */
+	public static OAuthTokenCredential initConfig(Properties properties) {
+		return PayPalResource.initConfig(properties);
+	}
 	/**
 	 * Default Constructor
 	 */
@@ -166,7 +222,7 @@ public class WebProfile  extends PayPalResource {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = this.toJSON();
-		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreateProfileResponse.class);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreateProfileResponse.class);
 	}
 
 
@@ -174,6 +230,7 @@ public class WebProfile  extends PayPalResource {
 	 * Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
 	 * @param accessToken
 	 *            Access Token used for the API call.
+	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void update(String accessToken) throws PayPalRESTException {
@@ -186,6 +243,7 @@ public class WebProfile  extends PayPalResource {
 	 * Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
+	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void update(APIContext apiContext) throws PayPalRESTException {
@@ -207,7 +265,7 @@ public class WebProfile  extends PayPalResource {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = this.toJSON();
-		configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, null);
+		PayPalResource.configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -218,6 +276,7 @@ public class WebProfile  extends PayPalResource {
 	 *            Access Token used for the API call.
 	 * @param patchRequest
 	 *            PatchRequest
+	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void partialUpdate(String accessToken, PatchRequest patchRequest) throws PayPalRESTException {
@@ -232,6 +291,7 @@ public class WebProfile  extends PayPalResource {
 	 *            {@link APIContext} used for the API call.
 	 * @param patchRequest
 	 *            PatchRequest
+	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void partialUpdate(APIContext apiContext, PatchRequest patchRequest) throws PayPalRESTException {
@@ -256,7 +316,7 @@ public class WebProfile  extends PayPalResource {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = patchRequest.toJSON();
-		configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
+		PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -303,7 +363,7 @@ public class WebProfile  extends PayPalResource {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfile.class);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfile.class);
 	}
 
 
@@ -326,7 +386,6 @@ public class WebProfile  extends PayPalResource {
 	 * @return WebProfileList
 	 * @throws PayPalRESTException
 	 */
-	@SuppressWarnings("unchecked")
 	public static List<WebProfile> getList(APIContext apiContext) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
@@ -341,7 +400,7 @@ public class WebProfile  extends PayPalResource {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, new ArrayList<WebProfile>().getClass());
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
 	}
 
 
@@ -349,6 +408,7 @@ public class WebProfile  extends PayPalResource {
 	 * Delete an existing web experience profile by passing the profile ID to the request URI.
 	 * @param accessToken
 	 *            Access Token used for the API call.
+	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void delete(String accessToken) throws PayPalRESTException {
@@ -361,6 +421,7 @@ public class WebProfile  extends PayPalResource {
 	 * Delete an existing web experience profile by passing the profile ID to the request URI.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
+	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
@@ -383,8 +444,21 @@ public class WebProfile  extends PayPalResource {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		PayPalResource.configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 		return;
 	}
 
+	/**
+	 * Returns a JSON string corresponding to object state
+	 *
+	 * @return JSON representation
+	 */
+	public String toJSON() {
+		return JSONFormatter.toJSON(this);
+	}
+
+	@Override
+	public String toString() {
+		return toJSON();
+	}
 }
