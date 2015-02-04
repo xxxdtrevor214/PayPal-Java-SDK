@@ -1,27 +1,20 @@
 package com.paypal.api.payments;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
+
 import com.paypal.base.Constants;
-import com.paypal.base.SDKVersion;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
 import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.QueryParameters;
 import com.paypal.base.rest.RESTUtil;
 import com.paypal.base.sdk.info.SDKVersionImpl;
-import com.paypal.api.payments.FlowConfig;
-import com.paypal.api.payments.InputFields;
-import com.paypal.api.payments.Presentation;
-
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Properties;
 
 public class WebProfile  {
 
@@ -407,7 +400,7 @@ public class WebProfile  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, new ArrayList<WebProfile>().getClass());
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
 	}
 
 
