@@ -33,6 +33,15 @@ public class OpenIdTest {
 		// configurationMap.put(Constants.CLIENT_SECRET, "");
 		configurationMap.put("mode", "sandbox");
 	}
+	
+	private static String generateAccessToken() throws PayPalRESTException {
+		Map<String, String> configurationMap = new HashMap<String, String>();
+		configurationMap.put("service.EndPoint",
+				"https://api.sandbox.paypal.com");
+		OAuthTokenCredential merchantTokenCredential = new OAuthTokenCredential(
+				"AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd", "EL1tVxAjhT7cJimnz5-Nsx9k2reTKSVfErNQF-CmrwJgxRtylkGTKlU4RvrX", configurationMap);
+		return merchantTokenCredential.getAccessToken();
+	}
 
 	@Test(groups = "integration", enabled = false)
 	public void testCreateFromAuthorizationCodeDynamic()
