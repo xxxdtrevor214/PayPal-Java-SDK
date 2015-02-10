@@ -23,6 +23,8 @@ import org.apache.log4j.Logger;
 
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Details;
+import com.paypal.api.payments.Item;
+import com.paypal.api.payments.ItemList;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
@@ -73,6 +75,12 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		createPayment(req, resp);
+		req.getRequestDispatcher("response.jsp").forward(req, resp);
+	}
+
+	public Payment createPayment(HttpServletRequest req, HttpServletResponse resp) {
+		Payment createdPayment = null;
 		// ###AccessToken
 		// Retrieve the access token from
 		// OAuthTokenCredential by passing in
@@ -107,7 +115,7 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 			PaymentExecution paymentExecution = new PaymentExecution();
 			paymentExecution.setPayerId(req.getParameter("PayerID"));
 			try {
-				payment.execute(apiContext, paymentExecution);
+				createdPayment = payment.execute(apiContext, paymentExecution);
 				ResultPrinter.addResult(req, resp, "Executed The Payment", Payment.getLastRequest(), Payment.getLastResponse(), null);
 			} catch (PayPalRESTException e) {
 				ResultPrinter.addResult(req, resp, "Executed The Payment", Payment.getLastRequest(), null, e.getMessage());
@@ -139,6 +147,17 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 			transaction
 					.setDescription("This is the payment transaction description.");
 
+			// ### Items
+			Item item = new Item();
+			item.setName("Ground Coffee 40 oz").setQuantity("1").setCurrency("USD").setPrice("5");
+			ItemList itemList = new ItemList();
+			List<Item> items = new ArrayList<Item>();
+			items.add(item);
+			itemList.setItems(items);
+			
+			transaction.setItemList(itemList);
+			
+			
 			// The Payment creation API requires a list of
 			// Transaction; add the created `Transaction`
 			// to a List
@@ -171,11 +190,12 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 					+ req.getContextPath() + "/paymentwithpaypal?guid=" + guid);
 			payment.setRedirectUrls(redirectUrls);
 
+			
 			// Create a payment by posting to the APIService
 			// using a valid AccessToken
 			// The return object contains the status;
 			try {
-				Payment createdPayment = payment.create(apiContext);
+				createdPayment = payment.create(apiContext);
 				LOGGER.info("Created payment with id = "
 						+ createdPayment.getId() + " and status = "
 						+ createdPayment.getState());
@@ -193,7 +213,6 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 				ResultPrinter.addResult(req, resp, "Payment with PayPal", Payment.getLastRequest(), null, e.getMessage());
 			}
 		}
-		
-		req.getRequestDispatcher("response.jsp").forward(req, resp);
+		return createdPayment;
 	}
 }
