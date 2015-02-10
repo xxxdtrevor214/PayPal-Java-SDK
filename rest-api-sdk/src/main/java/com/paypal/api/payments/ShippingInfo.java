@@ -1,9 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Address;
+import com.paypal.base.rest.PayPalModel;
 
-public class ShippingInfo  {
+
+public class ShippingInfo  extends PayPalModel {
 
 	/**
 	 * First name of the invoice recipient. 30 characters max.
@@ -95,17 +95,5 @@ public class ShippingInfo  {
 		return this.address;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

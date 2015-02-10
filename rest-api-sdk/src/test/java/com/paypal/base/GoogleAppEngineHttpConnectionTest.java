@@ -6,9 +6,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.paypal.base.GoogleAppEngineHttpConnection;
-import com.paypal.base.HttpConfiguration;
-
 public class GoogleAppEngineHttpConnectionTest {
 
 	GoogleAppEngineHttpConnection googleAppEngineHttpConnection;

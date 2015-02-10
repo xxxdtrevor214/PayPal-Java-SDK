@@ -9,13 +9,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.paypal.base.APICallPreHandler;
-import com.paypal.base.APIService;
-import com.paypal.base.ConnectionManager;
-import com.paypal.base.CredentialManager;
-import com.paypal.base.DefaultSOAPAPICallHandler;
-import com.paypal.base.HttpConnection;
-import com.paypal.base.SDKUtil;
 import com.paypal.base.credential.ICredential;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;

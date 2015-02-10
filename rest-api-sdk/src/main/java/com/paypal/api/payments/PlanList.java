@@ -1,13 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Plan;
-
 import java.util.List;
 
-import com.paypal.api.payments.Links;
+import com.paypal.base.rest.PayPalModel;
 
-public class PlanList  {
+public class PlanList  extends PayPalModel {
 
 	/**
 	 * Array of billing plans.
@@ -99,17 +96,5 @@ public class PlanList  {
 		return this.links;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

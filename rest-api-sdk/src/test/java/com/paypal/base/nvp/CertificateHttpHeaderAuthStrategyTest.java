@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 
 import com.paypal.base.credential.CertificateCredential;
 import com.paypal.base.credential.TokenAuthorization;
-import com.paypal.base.nvp.CertificateHttpHeaderAuthStrategy;
 
 public class CertificateHttpHeaderAuthStrategyTest {
 	@Test

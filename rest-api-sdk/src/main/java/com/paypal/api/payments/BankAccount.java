@@ -1,12 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Address;
-import com.paypal.api.payments.Links;
-
 import java.util.List;
 
-public class BankAccount  {
+import com.paypal.base.rest.PayPalModel;
+
+public class BankAccount  extends PayPalModel {
 
 	/**
 	 * ID of the bank account being saved for later use.
@@ -526,17 +524,5 @@ public class BankAccount  {
 		return this.links;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

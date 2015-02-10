@@ -24,7 +24,7 @@ import com.paypal.base.SDKVersion;
 /**
  * PayPalResource acts as a base class for REST enabled resources.
  */
-public abstract class PayPalResource {
+public abstract class PayPalResource extends PayPalModel{
 
 	private static final Logger log = LogManager.getLogger(PayPalResource.class);
 	
@@ -246,7 +246,7 @@ public abstract class PayPalResource {
 				 * The Map returned here is already combined with default values
 				 */
 				cMap = new HashMap<String, String>(
-						PayPalResource.configurationMap);
+						configurationMap);
 			}
 			headersMap = apiContext.getHTTPHeaders();
 			accessToken = apiContext.getAccessToken();
@@ -319,7 +319,7 @@ public abstract class PayPalResource {
 			/*
 			 * The Map returned here is already combined with default values
 			 */
-			cMap = new HashMap<String, String>(PayPalResource.configurationMap);
+			cMap = new HashMap<String, String>(configurationMap);
 		}
 
 		APICallPreHandler apiCallPreHandler = createAPICallPreHandler(cMap,

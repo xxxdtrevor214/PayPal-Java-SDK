@@ -12,9 +12,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.paypal.base.ConfigManager;
-import com.paypal.base.CredentialManager;
-import com.paypal.base.SDKUtil;
 import com.paypal.base.credential.CertificateCredential;
 import com.paypal.base.credential.ICredential;
 import com.paypal.base.credential.SignatureCredential;

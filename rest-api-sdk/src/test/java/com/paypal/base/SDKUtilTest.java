@@ -3,8 +3,6 @@ package com.paypal.base;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.paypal.base.SDKUtil;
-
 public class SDKUtilTest {
 
 	@Test

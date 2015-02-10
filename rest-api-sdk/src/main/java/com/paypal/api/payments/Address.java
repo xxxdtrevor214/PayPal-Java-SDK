@@ -1,8 +1,8 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class Address  {
+public class Address  extends PayPalModel {
 
 	/**
 	 * Line 1 of the Address (eg. number, street, etc).
@@ -25,7 +25,9 @@ public class Address  {
 	private String countryCode;
 
 	/**
-	 * Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code.
+	 * Zip code or equivalent is usually required for countries that have them.
+	 * For list of countries that do not have postal codes please refer to
+	 * http://en.wikipedia.org/wiki/Postal_code.
 	 */
 	private String postalCode;
 
@@ -54,7 +56,6 @@ public class Address  {
 		this.countryCode = countryCode;
 	}
 
-
 	/**
 	 * Setter for line1
 	 */
@@ -69,7 +70,6 @@ public class Address  {
 	public String getLine1() {
 		return this.line1;
 	}
-
 
 	/**
 	 * Setter for line2
@@ -86,7 +86,6 @@ public class Address  {
 		return this.line2;
 	}
 
-
 	/**
 	 * Setter for city
 	 */
@@ -101,7 +100,6 @@ public class Address  {
 	public String getCity() {
 		return this.city;
 	}
-
 
 	/**
 	 * Setter for countryCode
@@ -118,7 +116,6 @@ public class Address  {
 		return this.countryCode;
 	}
 
-
 	/**
 	 * Setter for postalCode
 	 */
@@ -133,7 +130,6 @@ public class Address  {
 	public String getPostalCode() {
 		return this.postalCode;
 	}
-
 
 	/**
 	 * Setter for state
@@ -150,7 +146,6 @@ public class Address  {
 		return this.state;
 	}
 
-
 	/**
 	 * Setter for phone
 	 */
@@ -164,19 +159,5 @@ public class Address  {
 	 */
 	public String getPhone() {
 		return this.phone;
-	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
 	}
 }

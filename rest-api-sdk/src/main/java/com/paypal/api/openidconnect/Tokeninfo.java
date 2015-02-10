@@ -1,23 +1,23 @@
 package com.paypal.api.openidconnect;
 
-import java.io.File;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 
-public class Tokeninfo {
+/**
+ * Class Tokeninfo
+ *
+ */
+public class Tokeninfo extends PayPalResource {
 
 	/**
 	 * OPTIONAL, if identical to the scope requested by the client; otherwise,
@@ -49,55 +49,10 @@ public class Tokeninfo {
 	private Integer expiresIn;
 
 	/**
-	 * Returns the last request sent to the Service
-	 * 
-	 * @return Last request sent to the server
+	 * APP ID associated with this token
 	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 * 
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 * 
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 * 
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 * 
-	 * @param properties
-	 *            Properties object
-	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
-	}
-
+	private String appId;
+	
 	/**
 	 * Default Constructor
 	 */
@@ -188,6 +143,20 @@ public class Tokeninfo {
 	 */
 	public Integer getExpiresIn() {
 		return this.expiresIn;
+	}
+
+	/**
+	 * Setter for appId
+	 */
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	/**
+	 * Getter for appId
+	 */
+	public String getAppId() {
+		return this.appId;
 	}
 
 	/**
@@ -282,7 +251,7 @@ public class Tokeninfo {
 		headersMap.put(Constants.HTTP_ACCEPT_HEADER,
 				Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setHTTPHeaders(headersMap);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST,
+		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);
 	}
 	
@@ -352,21 +321,45 @@ public class Tokeninfo {
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 		
 		apiContext.setHTTPHeaders(headersMap);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST,
+		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);
 	}
 
 	/**
-	 * Returns a JSON string corresponding to object state
+	 * Creates an Access Token from an Refresh Token for future payment.
 	 * 
-	 * @return JSON representation
+	 * @param apiContext
+	 *            {@link APIContext} to be used for the call.
+	 * @return Tokeninfo
+	 * @throws PayPalRESTException
 	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
+	public Tokeninfo createFromRefreshTokenForFpp(APIContext apiContext)
+			throws PayPalRESTException {
+		if (getRefreshToken() == null || getRefreshToken().equals("")) {
+			throw new PayPalRESTException("refresh token is empty");
+		}
+		String pattern = "v1/oauth2/token?grant_type=refresh_token&refresh_token={0}";
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		try {
+			paramsMap.put("refresh_token", URLEncoder.encode(getRefreshToken(),
+					Constants.ENCODING_FORMAT));
+		} catch (UnsupportedEncodingException ex) {
+			// Ignore
+		}
+		Object[] parameters = new Object[] { paramsMap };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = resourcePath.substring(resourcePath.indexOf('?') + 1);
+		resourcePath = resourcePath.substring(0, resourcePath.indexOf('?'));
+		if (apiContext == null) {
+			apiContext = new APIContext();
+		}
+		apiContext.setMaskRequestId(true);
+		Map<String, String> headersMap = new HashMap<String, String>();
+		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
+				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
+		
+		apiContext.setHTTPHeaders(headersMap);
+		return configureAndExecute(apiContext, HttpMethod.POST,
+				resourcePath, payLoad, Tokeninfo.class);
 	}
 }

@@ -1,11 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.EventType;
-
 import java.util.List;
 
-public class EventTypeList  {
+import com.paypal.base.rest.PayPalModel;
+
+public class EventTypeList  extends PayPalModel {
 
 	/**
 	 * A list of Webhooks event-types
@@ -34,17 +33,5 @@ public class EventTypeList  {
 		return this.eventTypes;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

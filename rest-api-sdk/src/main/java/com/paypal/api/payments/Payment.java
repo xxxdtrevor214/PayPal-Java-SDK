@@ -1,31 +1,19 @@
 package com.paypal.api.payments;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.GsonBuilder;
 import com.paypal.base.Constants;
-import com.paypal.base.SDKVersion;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.QueryParameters;
 import com.paypal.base.rest.RESTUtil;
 import com.paypal.base.sdk.info.SDKVersionImpl;
-import com.paypal.api.payments.Payer;
-import com.paypal.api.payments.Transaction;
 
-import java.util.List;
-
-import com.paypal.api.payments.RedirectUrls;
-import com.paypal.api.payments.Links;
-
-import java.util.Map;
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Properties;
-
-public class Payment  {
+public class Payment  extends PayPalResource {
 
 	/**
 	 * Identifier of the payment resource created.
@@ -82,58 +70,6 @@ public class Payment  {
 	 */
 	private List<Links> links;
 
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 *
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
-		return PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 *
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
-		return PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 *
-	 * @param properties
-	 *            Properties object
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(Properties properties) {
-		return PayPalResource.initConfig(properties);
-	}
 	/**
 	 * Default Constructor
 	 */
@@ -355,7 +291,7 @@ public class Payment  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payments/payment";
 		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
 	}
 
 
@@ -401,7 +337,7 @@ public class Payment  {
 		String pattern = "v1/payments/payment/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Payment.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Payment.class);
 	}
 
 
@@ -450,7 +386,57 @@ public class Payment  {
 		String pattern = "v1/payments/payment/{0}/execute";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = paymentExecution.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
+	}
+	
+	/**
+	 * Partially update a payment resource by by passing the payment_id in the request URI. In addition, pass a patch_request_object in the body of the request JSON that specifies the operation to perform, path of the target location, and new value to apply. Please note that it is not possible to use patch after execute has been called.
+	 * @param accessToken
+	 *            Access Token used for the API call.
+	 * @param patchRequest
+	 *            List<Patch>
+	 * @return 
+	 * @throws PayPalRESTException
+	 */
+	public void update(String accessToken, List<Patch> patchRequest) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		update(apiContext, patchRequest);
+		return;
+	}
+
+	/**
+	 * Partially update a payment resource by by passing the payment_id in the request URI. In addition, pass a patch_request_object in the body of the request JSON that specifies the operation to perform, path of the target location, and new value to apply. Please note that it is not possible to use patch after execute has been called.
+	 * @param apiContext
+	 *            {@link APIContext} used for the API call.
+	 * @param patchRequest
+	 *            List<Patch>
+	 * @return 
+	 * @throws PayPalRESTException
+	 */
+	public void update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
+		if (apiContext == null) {
+			throw new IllegalArgumentException("APIContext cannot be null");
+		}
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		if (apiContext.getHTTPHeaders() == null) {
+			apiContext.setHTTPHeaders(new HashMap<String, String>());
+		}
+		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.setSdkVersion(new SDKVersionImpl());
+		if (this.getId() == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+		if (patchRequest == null) {
+			throw new IllegalArgumentException("patchRequest cannot be null");
+		}
+		Object[] parameters = new Object[] {this.getId()};
+		String pattern = "v1/payments/payment/{0}";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = new GsonBuilder().create().toJson(patchRequest);
+		PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
+		return;
 	}
 
 
@@ -496,20 +482,8 @@ public class Payment  {
 		String pattern = "v1/payments/payment?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payee_id={5}&sort_by={6}&sort_order={7}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

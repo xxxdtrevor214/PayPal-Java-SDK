@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>payments/servlet/AuthorizationCaptureServlet</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="payments/servlet/AuthorizationCaptureServlet"><meta name="groc-project-path" content="src/main/java/com/paypal/api/payments/servlet/AuthorizationCaptureServlet.java"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/main/java/com/paypal/api/payments/servlet/AuthorizationCaptureServlet.java</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="authorizationcapture-sample">AuthorizationCapture Sample</h1>
+<!DOCTYPE html><html lang="en"><head><title>payments/servlet/AuthorizationCaptureServlet</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="payments/servlet/AuthorizationCaptureServlet"><meta name="groc-project-path" content="payments/servlet/AuthorizationCaptureServlet.java"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">payments/servlet/AuthorizationCaptureServlet.java</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="authorizationcapture-sample">AuthorizationCapture Sample</h1>
 <p>This sample code demonstrate how you 
 do a Capture on an Authorization
 API used: /v1/payments/authorization/{authorization_id}/capture</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">package</span> com.paypal.api.payments.servlet;
@@ -6,9 +6,7 @@ API used: /v1/payments/authorization/{authorization_id}/capture</p></div></div><
 <span class="hljs-keyword">import</span> java.io.IOException;
 <span class="hljs-keyword">import</span> java.io.InputStream;
 <span class="hljs-keyword">import</span> java.util.ArrayList;
-<span class="hljs-keyword">import</span> java.util.HashMap;
 <span class="hljs-keyword">import</span> java.util.List;
-<span class="hljs-keyword">import</span> java.util.Map;
 
 <span class="hljs-keyword">import</span> javax.servlet.ServletConfig;
 <span class="hljs-keyword">import</span> javax.servlet.ServletException;

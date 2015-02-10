@@ -6,15 +6,27 @@ package com.paypal.api.payments.servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.paypal.api.payments.*;
-import com.paypal.api.payments.util.*;
+import com.paypal.api.payments.Address;
+import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.CreditCard;
+import com.paypal.api.payments.Details;
+import com.paypal.api.payments.FundingInstrument;
+import com.paypal.api.payments.Payer;
+import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.Transaction;
+import com.paypal.api.payments.util.GenerateAccessToken;
+import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
@@ -56,7 +68,12 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		createPayment(req, resp);
+		req.getRequestDispatcher("response.jsp").forward(req, resp);
+	}
 
+	public Payment createPayment(HttpServletRequest req,
+			HttpServletResponse resp) {
 		// ###Address
 		// Base Address object used as shipping or billing
 		// address in a payment. [Optional]
@@ -72,13 +89,13 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 		// used to fund a payment.
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
-		creditCard.setCvv2(874);
+		creditCard.setCvv2(111);
 		creditCard.setExpireMonth(11);
 		creditCard.setExpireYear(2018);
 		creditCard.setFirstName("Joe");
 		creditCard.setLastName("Shopper");
-		creditCard.setNumber("4417119669820331");
-		creditCard.setType("visa");
+		creditCard.setNumber("5500005555555559");
+		creditCard.setType("mastercard");
 
 		// ###Details
 		// Let's you specify details of a payment amount.
@@ -141,7 +158,7 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 		payment.setIntent("sale");
 		payment.setPayer(payer);
 		payment.setTransactions(transactions);
-
+		Payment createdPayment = null;
 		try {
 			// ###AccessToken
 			// Retrieve the access token from
@@ -153,32 +170,34 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 			String accessToken = GenerateAccessToken.getAccessToken();
 
 			// ### Api Context
-			// Pass in a `ApiContext` object to authenticate 
-			// the call and to send a unique request id 
+			// Pass in a `ApiContext` object to authenticate
+			// the call and to send a unique request id
 			// (that ensures idempotency). The SDK generates
-			// a request id if you do not pass one explicitly. 
+			// a request id if you do not pass one explicitly.
 			APIContext apiContext = new APIContext(accessToken);
-			// Use this variant if you want to pass in a request id  
-			// that is meaningful in your application, ideally 
+			// Use this variant if you want to pass in a request id
+			// that is meaningful in your application, ideally
 			// a order id.
-			/* 
-			 * String requestId = Long.toString(System.nanoTime();
-			 * APIContext apiContext = new APIContext(accessToken, requestId ));
+			/*
+			 * String requestId = Long.toString(System.nanoTime(); APIContext
+			 * apiContext = new APIContext(accessToken, requestId ));
 			 */
-			
+
 			// Create a payment by posting to the APIService
 			// using a valid AccessToken
 			// The return object contains the status;
-			Payment createdPayment = payment.create(apiContext);
-			
+			createdPayment = payment.create(apiContext);
+
 			LOGGER.info("Created payment with id = " + createdPayment.getId()
 					+ " and status = " + createdPayment.getState());
-			ResultPrinter.addResult(req, resp, "Payment with Credit Card", Payment.getLastRequest(), Payment.getLastResponse(), null);
+			ResultPrinter.addResult(req, resp, "Payment with Credit Card",
+					Payment.getLastRequest(), Payment.getLastResponse(), null);
 		} catch (PayPalRESTException e) {
-			ResultPrinter.addResult(req, resp, "Payment with Credit Card", Payment.getLastRequest(), null, e.getMessage());
+			ResultPrinter.addResult(req, resp, "Payment with Credit Card",
+					Payment.getLastRequest(), null, e.getMessage());
 		}
-
-		req.getRequestDispatcher("response.jsp").forward(req, resp);
+		return createdPayment;
+		
 	}
 
 }

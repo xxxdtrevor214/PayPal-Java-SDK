@@ -1,13 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.FundingInstrument;
-
 import java.util.List;
 
-import com.paypal.api.payments.PayerInfo;
+import com.paypal.base.rest.PayPalModel;
 
-public class Payer  {
+public class Payer  extends PayPalModel {
 
 	/**
 	 * Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.
@@ -127,17 +124,5 @@ public class Payer  {
 		return this.payerInfo;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

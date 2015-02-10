@@ -9,9 +9,6 @@ import java.util.Properties;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-
 public class PayPalResourceTestCase {
 
 	@Test

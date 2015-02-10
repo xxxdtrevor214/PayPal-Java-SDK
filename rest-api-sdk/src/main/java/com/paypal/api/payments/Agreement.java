@@ -1,41 +1,25 @@
 package com.paypal.api.payments;
 
-import com.google.gson.GsonBuilder;
-import com.paypal.base.Constants;
-import com.paypal.base.SDKVersion;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.QueryParameters;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
-import com.paypal.api.payments.AgreementDetails;
-import com.paypal.api.payments.Payer;
-import com.paypal.api.payments.Address;
-import com.paypal.api.payments.MerchantPreferences;
-import com.paypal.api.payments.OverrideChargeModel;
-
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-import com.paypal.api.payments.Plan;
-import com.paypal.api.payments.Links;
-
-import java.io.File;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.Properties;
+import java.util.List;
+import java.util.Map;
 
-public class Agreement  {
+import com.google.gson.GsonBuilder;
+import com.paypal.base.Constants;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.HttpMethod;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
+import com.paypal.base.rest.RESTUtil;
+import com.paypal.base.sdk.info.SDKVersionImpl;
+
+public class Agreement  extends PayPalResource {
 
 	/**
 	 * Identifier of the agreement.
@@ -112,58 +96,6 @@ public class Agreement  {
 	 */
 	private List<Links> links;
 
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 *
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
-		return PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 *
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
-		return PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 *
-	 * @param properties
-	 *            Properties object
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(Properties properties) {
-		return PayPalResource.initConfig(properties);
-	}
 	/**
 	 * Default Constructor
 	 */
@@ -455,7 +387,7 @@ public class Agreement  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payments/billing-agreements";
 		String payLoad = this.toJSON();
-		Agreement agreement = PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Agreement.class);
+		Agreement agreement = configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Agreement.class);
 
 		for (Links links : agreement.getLinks()) {
 			if ("approval_url".equals(links.getRel())) {
@@ -517,11 +449,11 @@ public class Agreement  {
 		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
-		Object[] parameters = new Object[] {this.token};
+		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Agreement.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Agreement.class);
 	}
 
 
@@ -567,7 +499,7 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Agreement.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Agreement.class);
 	}
 
 
@@ -616,7 +548,7 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = new GsonBuilder().create().toJson(patchRequest);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, Agreement.class);
+		return configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, Agreement.class);
 	}
 
 
@@ -626,7 +558,6 @@ public class Agreement  {
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void suspend(String accessToken, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -641,7 +572,6 @@ public class Agreement  {
 	 *            {@link APIContext} used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void suspend(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -666,7 +596,7 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}/suspend";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = agreementStateDescriptor.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -677,7 +607,6 @@ public class Agreement  {
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void reActivate(String accessToken, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -692,7 +621,6 @@ public class Agreement  {
 	 *            {@link APIContext} used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void reActivate(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -717,7 +645,7 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}/re-activate";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = agreementStateDescriptor.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -728,7 +656,6 @@ public class Agreement  {
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void cancel(String accessToken, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -743,7 +670,6 @@ public class Agreement  {
 	 *            {@link APIContext} used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void cancel(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -768,7 +694,7 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}/cancel";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = agreementStateDescriptor.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -779,7 +705,6 @@ public class Agreement  {
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void billBalance(String accessToken, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -794,7 +719,6 @@ public class Agreement  {
 	 *            {@link APIContext} used for the API call.
 	 * @param agreementStateDescriptor
 	 *            AgreementStateDescriptor
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void billBalance(APIContext apiContext, AgreementStateDescriptor agreementStateDescriptor) throws PayPalRESTException {
@@ -819,7 +743,7 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}/bill-balance";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = agreementStateDescriptor.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -830,7 +754,7 @@ public class Agreement  {
 	 *            Access Token used for the API call.
 	 * @param currency
 	 *            Currency
-	 * @return 
+
 	 * @throws PayPalRESTException
 	 */
 	public void setBalance(String accessToken, Currency currency) throws PayPalRESTException {
@@ -845,7 +769,6 @@ public class Agreement  {
 	 *            {@link APIContext} used for the API call.
 	 * @param currency
 	 *            Currency
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void setBalance(APIContext apiContext, Currency currency) throws PayPalRESTException {
@@ -870,7 +793,7 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}/set-balance";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = currency.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -926,20 +849,6 @@ public class Agreement  {
 		String pattern = "v1/payments/billing-agreements/{0}/transactions?start_date={1}&end_date={2}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, AgreementTransactions.class);
-	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, AgreementTransactions.class);
 	}
 }

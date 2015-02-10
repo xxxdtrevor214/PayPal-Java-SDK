@@ -3,13 +3,13 @@ package com.paypal.api.payments;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.FlowConfig;
-import com.paypal.api.payments.InputFields;
-import com.paypal.api.payments.Presentation;
+public class WebProfileList  extends ArrayList<WebProfile> {
 
-public class WebProfileList extends ArrayList<WebProfile> {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private List<WebProfile> webProfiles = null;
 	
 	/**
@@ -33,19 +33,5 @@ public class WebProfileList extends ArrayList<WebProfile> {
 	 */
 	public List<WebProfile> getWebProfileLists() {
 		return this.webProfiles;
-	}
-	
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
 	}
 }

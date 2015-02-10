@@ -1,9 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Currency;
+import com.paypal.base.rest.PayPalModel;
 
-public class Cost  {
+
+public class Cost  extends PayPalModel {
 
 	/**
 	 * Cost in percent. Range of 0 to 100.
@@ -53,17 +53,5 @@ public class Cost  {
 		return this.amount;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

@@ -17,6 +17,10 @@ import javax.net.ssl.SSLContext;
 
 import com.paypal.base.exception.SSLConfigurationException;
 
+/**
+ * Class SSLUtil
+ *
+ */
 public abstract class SSLUtil {
 
 	/**
@@ -47,8 +51,6 @@ public abstract class SSLUtil {
 	 *            KeyManager[] The key managers
 	 * @return SSLContext with proper client certificate
 	 * @throws SSLConfigurationException
-	 * @throws IOException
-	 *             if an IOException occurs
 	 */
 	public static SSLContext getSSLContext(KeyManager[] keymanagers)
 			throws SSLConfigurationException {

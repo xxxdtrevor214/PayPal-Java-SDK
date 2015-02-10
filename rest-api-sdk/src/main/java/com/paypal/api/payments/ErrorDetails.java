@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class ErrorDetails  {
+
+public class ErrorDetails  extends PayPalModel {
 
 	/**
 	 * Name of the field that caused the error.
@@ -59,18 +60,5 @@ public class ErrorDetails  {
 	public String getIssue() {
 		return this.issue;
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }

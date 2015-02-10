@@ -1,12 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Sale;
-import com.paypal.api.payments.Order;
-import com.paypal.api.payments.Capture;
-import com.paypal.api.payments.Refund;
+import com.paypal.base.rest.PayPalModel;
 
-public class RelatedResources  {
+
+public class RelatedResources  extends PayPalModel {
 
 	/**
 	 * A sale transaction
@@ -101,34 +98,5 @@ public class RelatedResources  {
 	 */
 	public Refund getRefund() {
 		return this.refund;
-	}
-
-	/**
-	 * Setter for order
-	 */
-	public RelatedResources setOrder(Order order) {
-		this.order = order;
-		return this;
-	}
-
-	/**
-	 * Getter for order
-	 */
-	public Order getOrder() {
-		return this.order;
-	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
 	}
 }

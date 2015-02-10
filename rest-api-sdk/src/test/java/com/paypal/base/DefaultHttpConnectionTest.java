@@ -9,10 +9,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.paypal.base.ConfigManager;
-import com.paypal.base.Constants;
-import com.paypal.base.DefaultHttpConnection;
-import com.paypal.base.HttpConfiguration;
 import com.paypal.base.exception.SSLConfigurationException;
 
 public class DefaultHttpConnectionTest {

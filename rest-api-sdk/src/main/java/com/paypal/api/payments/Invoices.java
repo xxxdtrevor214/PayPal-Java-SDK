@@ -1,11 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Invoice;
-
 import java.util.List;
 
-public class Invoices  {
+import com.paypal.base.rest.PayPalModel;
+
+public class Invoices  extends PayPalModel {
 
 	/**
 	 * 
@@ -55,17 +54,5 @@ public class Invoices  {
 		return this.invoices;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

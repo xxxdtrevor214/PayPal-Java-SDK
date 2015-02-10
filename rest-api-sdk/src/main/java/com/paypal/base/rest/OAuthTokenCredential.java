@@ -16,8 +16,8 @@ import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
 import com.paypal.base.codec.binary.Base64;
 import com.paypal.base.credential.ICredential;
-import com.paypal.base.util.UserAgentHeader;
 import com.paypal.base.sdk.info.SDKVersionImpl;
+import com.paypal.base.util.UserAgentHeader;
 
 /**
  * OAuthTokenCredential is used for generation of OAuth Token used by PayPal

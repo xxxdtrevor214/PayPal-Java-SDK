@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
@@ -113,7 +112,7 @@ public class CreditCardTestCase {
 		Assert.assertEquals(creditCard.getLinks().size(), 1);
 	}
 
-	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPIForNullRefund" })
+	@Test(groups = "integration")
 	public void createCreditCardTest() throws PayPalRESTException {
 		logger.info("**** Create CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);

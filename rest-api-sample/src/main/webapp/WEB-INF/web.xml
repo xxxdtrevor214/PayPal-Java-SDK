@@ -46,6 +46,14 @@
 		<url-pattern>/paymentwithpaypal</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>UpdatePayment</servlet-name>
+		<servlet-class>com.paypal.api.payments.servlet.UpdatePaymentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdatePayment</servlet-name>
+		<url-pattern>/updatePayment</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>ReauthorizationServlet</servlet-name>
 		<servlet-class>com.paypal.api.payments.servlet.ReauthorizationServlet</servlet-class>
 	</servlet>

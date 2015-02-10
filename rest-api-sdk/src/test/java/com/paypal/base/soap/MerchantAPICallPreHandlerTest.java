@@ -21,7 +21,6 @@ import com.paypal.base.Constants;
 import com.paypal.base.CredentialManager;
 import com.paypal.base.DefaultSOAPAPICallHandler;
 import com.paypal.base.credential.ICredential;
-import com.paypal.base.soap.MerchantAPICallPreHandler;
 
 public class MerchantAPICallPreHandlerTest {
 

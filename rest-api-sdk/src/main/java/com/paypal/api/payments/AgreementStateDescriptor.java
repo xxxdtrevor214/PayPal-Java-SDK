@@ -1,9 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Currency;
+import com.paypal.base.rest.PayPalModel;
 
-public class AgreementStateDescriptor  {
+
+public class AgreementStateDescriptor  extends PayPalModel {
 
 	/**
 	 * Reason for changing the state of the agreement.
@@ -60,17 +60,5 @@ public class AgreementStateDescriptor  {
 		return this.amount;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

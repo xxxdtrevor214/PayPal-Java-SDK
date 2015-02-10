@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +18,8 @@ import org.testng.log4testng.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.paypal.base.ConfigManager;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.QueryParameters;
 
 public class PaymentTestCase {
 
@@ -331,6 +328,49 @@ public class PaymentTestCase {
 		} catch (PayPalRESTException e) {
 			Assert.fail();
 		}
+	}
+	
+	@Test(groups = "integration", dependsOnMethods = { "testCreatePaymentAPI" })
+	public void testUpdatePayment() throws PayPalRESTException {
+
+		logger.info("**** Update Payment ****");
+		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
+				clientSecret).getAccessToken();
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+		
+		// set update values
+		//        {
+		//		  "op": "replace",
+		//        "path": "/transactions/0/amount",
+		//        "value": {
+		//            "total": "18.37",
+		//            "currency": "EUR",
+		//            "details": {
+		//                "subtotal": "13.37",
+		//                "shipping": "5.00"
+		//            }
+		//        }
+		Details details = new Details();
+		details.setSubtotal("13.37");
+		details.setShipping("5.00");
+		Amount value = new Amount();
+		value.setTotal("18.37");
+		value.setCurrency("EUR");
+		value.setDetails(details);
+		Patch patch = new Patch();
+		patch.setOp("replace");
+		patch.setPath("/transactions/0/amount");
+		patch.setValue(value);
+		List<Patch> patchRequest = new ArrayList<Patch>();
+		patchRequest.add(patch);
+		
+		Payment payment = Payment.get(TokenHolder.accessToken, ID);
+		payment.update(TokenHolder.accessToken, patchRequest);
+		logger.info("Request = " + Payment.getLastRequest());
+		logger.info("Response = " + Payment.getLastResponse());
+		logger.info("updated payment ID = " + createdPaymentID);
 	}
 
 	@Test(groups = "unit")

@@ -1,11 +1,10 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.ErrorDetails;
-
 import java.util.List;
 
-public class Error  {
+import com.paypal.base.rest.PayPalModel;
+
+public class Error  extends PayPalModel {
 
 	/**
 	 * Human readable, unique name of the error.
@@ -127,17 +126,5 @@ public class Error  {
 		return this.details;
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
 
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

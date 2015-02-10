@@ -1,15 +1,12 @@
 package com.paypal.base.rest;
 
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.paypal.base.rest.RESTAPICallPreHandler;
 
 public class RESTConfigurationTestCase {
 

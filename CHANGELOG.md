@@ -1,6 +1,11 @@
 CHANGELOG
 =========
-V1.1.0 (January 26, 2014)
+V1.1.1 (February 10, 2015)
+--------------------------
+   * Added Payment.create()
+   * Fixed UserInfo retrieval
+
+V1.1.0 (January 26, 2015)
 -------------------------
    * Added Payout support
 

@@ -1,17 +1,19 @@
 package com.paypal.api.openidconnect;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.Properties;
+import java.util.HashMap;
 
+import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
 
-public class Userinfo {
+/**
+ * Class Userinfo
+ *
+ */
+public class Userinfo extends PayPalResource{
 
 	/**
 	 * Subject - Identifier for the End-User at the Issuer.
@@ -107,56 +109,7 @@ public class Userinfo {
 	 * Account payer identifier.
 	 */
 	private String payerId;
-	
-	/**
-	 * Returns the last request sent to the Service
-	 * 
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
 
-	/**
-	 * Returns the last response returned by the Service
-	 * 
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 * 
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(InputStream is) throws PayPalRESTException {
-		PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 * 
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 */
-	public static void initConfig(File file) throws PayPalRESTException {
-		PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 * 
-	 * @param properties
-	 *            Properties object
-	 */
-	public static void initConfig(Properties properties) {
-		PayPalResource.initConfig(properties);
-	}
 	/**
 	 * Default Constructor
 	 */
@@ -389,6 +342,7 @@ public class Userinfo {
 	
 	/**
 	 * Setter for accountType
+	 * @param accountType 
 	 */
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
@@ -433,14 +387,25 @@ public class Userinfo {
 	/**
 	 * Returns user details
 	 * 
-	 * @param userinfoParameters
-	 *            Query parameters used for API call
+	 * @param accessToken
+	 *            access token
 	 * @return Userinfo
 	 * @throws PayPalRESTException
 	 */
-	public static Userinfo getUserinfo(UserinfoParameters userinfoParameters)
+	public static Userinfo getUserinfo(String accessToken)
 			throws PayPalRESTException {
-		return getUserinfo(null, userinfoParameters);
+		System.out.println("accessToken=" + accessToken);
+		String resourcePath = "v1/identity/openidconnect/userinfo?schema=openid";
+		String payLoad = "";
+		APIContext apiContext = new APIContext(accessToken);
+		HashMap<String, String> httpHeaders = new HashMap<String, String>();
+		if (!accessToken.startsWith("Bearer ")) {
+			accessToken = "Bearer " + accessToken;
+		}
+		httpHeaders.put(Constants.AUTHORIZATION_HEADER, accessToken);
+		apiContext.setHTTPHeaders(httpHeaders);
+		return configureAndExecute(apiContext, HttpMethod.GET,
+				resourcePath, payLoad, Userinfo.class);
 	}
 
 	/**
@@ -448,32 +413,11 @@ public class Userinfo {
 	 * 
 	 * @param apiContext
 	 *            {@link APIContext} to be used for the call.
-	 * @param userinfoParameters
-	 *            Query parameters used for API call
 	 * @return Userinfo
 	 * @throws PayPalRESTException
 	 */
-	public static Userinfo getUserinfo(APIContext apiContext,
-			UserinfoParameters userinfoParameters) throws PayPalRESTException {
-		String pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
-		Object[] parameters = new Object[] { userinfoParameters };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET,
-				resourcePath, payLoad, Userinfo.class);
+	public static Userinfo getUserinfo(APIContext apiContext) throws PayPalRESTException {
+		return getUserinfo(apiContext.getAccessToken());
 	}
 
-	/**
-	 * Returns a JSON string corresponding to object state
-	 * 
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
 }

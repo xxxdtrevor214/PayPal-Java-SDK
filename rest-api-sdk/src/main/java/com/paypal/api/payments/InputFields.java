@@ -1,8 +1,9 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalModel;
 
-public class InputFields  {
+
+public class InputFields  extends PayPalModel {
 
 	/**
 	 * Enables the buyer to enter a note to the merchant on the PayPal page during checkout.
@@ -72,18 +73,5 @@ public class InputFields  {
 	public int getAddressOverride() {
 		return this.addressOverride;
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }

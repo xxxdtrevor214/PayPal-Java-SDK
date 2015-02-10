@@ -1,9 +1,8 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.api.payments.Currency;
+import com.paypal.base.rest.PayPalModel;
 
-public class Terms  {
+public class Terms  extends PayPalModel {
 
 	/**
 	 * Identifier of the terms. 128 characters max.
@@ -147,18 +146,5 @@ public class Terms  {
 	public String getBuyerEditable() {
 		return this.buyerEditable;
 	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
-	}
+	
 }
