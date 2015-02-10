@@ -1,5 +1,8 @@
 package com.paypal.api.openidconnect;
 
+import java.util.HashMap;
+
+import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
 import com.paypal.base.rest.PayPalRESTException;
@@ -384,14 +387,25 @@ public class Userinfo extends PayPalResource{
 	/**
 	 * Returns user details
 	 * 
-	 * @param userinfoParameters
-	 *            Query parameters used for API call
+	 * @param accessToken
+	 *            access token
 	 * @return Userinfo
 	 * @throws PayPalRESTException
 	 */
-	public static Userinfo getUserinfo(UserinfoParameters userinfoParameters)
+	public static Userinfo getUserinfo(String accessToken)
 			throws PayPalRESTException {
-		return getUserinfo(null, userinfoParameters);
+		System.out.println("accessToken=" + accessToken);
+		String resourcePath = "v1/identity/openidconnect/userinfo?schema=openid";
+		String payLoad = "";
+		APIContext apiContext = new APIContext(accessToken);
+		HashMap<String, String> httpHeaders = new HashMap<String, String>();
+		if (!accessToken.startsWith("Bearer ")) {
+			accessToken = "Bearer " + accessToken;
+		}
+		httpHeaders.put(Constants.AUTHORIZATION_HEADER, accessToken);
+		apiContext.setHTTPHeaders(httpHeaders);
+		return configureAndExecute(apiContext, HttpMethod.GET,
+				resourcePath, payLoad, Userinfo.class);
 	}
 
 	/**
@@ -399,19 +413,11 @@ public class Userinfo extends PayPalResource{
 	 * 
 	 * @param apiContext
 	 *            {@link APIContext} to be used for the call.
-	 * @param userinfoParameters
-	 *            Query parameters used for API call
 	 * @return Userinfo
 	 * @throws PayPalRESTException
 	 */
-	public static Userinfo getUserinfo(APIContext apiContext,
-			UserinfoParameters userinfoParameters) throws PayPalRESTException {
-		String pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
-		Object[] parameters = new Object[] { userinfoParameters };
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET,
-				resourcePath, payLoad, Userinfo.class);
+	public static Userinfo getUserinfo(APIContext apiContext) throws PayPalRESTException {
+		return getUserinfo(apiContext.getAccessToken());
 	}
 
 }

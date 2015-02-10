@@ -17,6 +17,7 @@ import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.api.openidconnect.Userinfo;
 import com.paypal.api.openidconnect.UserinfoParameters;
 import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
 public class OpenIdTest {
@@ -32,8 +33,17 @@ public class OpenIdTest {
 		// configurationMap.put(Constants.CLIENT_SECRET, "");
 		configurationMap.put("mode", "sandbox");
 	}
+	
+	private static String generateAccessToken() throws PayPalRESTException {
+		Map<String, String> configurationMap = new HashMap<String, String>();
+		configurationMap.put("service.EndPoint",
+				"https://api.sandbox.paypal.com");
+		OAuthTokenCredential merchantTokenCredential = new OAuthTokenCredential(
+				"AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO_-MCI4DQQ4-LWvkDLIN2fGsd", "EL1tVxAjhT7cJimnz5-Nsx9k2reTKSVfErNQF-CmrwJgxRtylkGTKlU4RvrX", configurationMap);
+		return merchantTokenCredential.getAccessToken();
+	}
 
-	@Test(enabled = false)
+	@Test(groups = "integration", enabled = false)
 	public void testCreateFromAuthorizationCodeDynamic()
 			throws PayPalRESTException, UnsupportedEncodingException {
 		CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
@@ -44,7 +54,7 @@ public class OpenIdTest {
 		apiContext.setConfigurationMap(configurationMap);
 		info = Tokeninfo.createFromAuthorizationCode(apiContext, param);
 		logger.info("Generated Access Token : " + info.getAccessToken());
-		logger.info("Generated Refrest Token: " + info.getRefreshToken());
+		logger.info("Generated Refresh Token: " + info.getRefreshToken());
 	}
 
 	@Test(dependsOnMethods = { "testCreateFromAuthorizationCodeDynamic" }, enabled = false)
@@ -59,13 +69,13 @@ public class OpenIdTest {
 		logger.info("Refresh Token: " + info.getRefreshToken());
 	}
 
-	@Test(dependsOnMethods = { "testCreateFromRefreshTokenDynamic" }, enabled = false)
+	@Test(groups = "integration")
 	public void testUserinfoDynamic() throws PayPalRESTException {
-		UserinfoParameters param = new UserinfoParameters();
-		param.setAccessToken(info.getAccessToken());
-		APIContext apiContext = new APIContext();
+		APIContext apiContext = new APIContext(generateAccessToken());
 		apiContext.setConfigurationMap(configurationMap);
-		Userinfo userInfo = Userinfo.getUserinfo(apiContext, param);
+		Userinfo userInfo = Userinfo.getUserinfo(apiContext);
+		Assert.assertNotNull(userInfo.getUserId());
+		logger.info("User ID: " + userInfo.getUserId());
 		logger.info("User Info Email: " + userInfo.getEmail());
 		logger.info("User Info Account Type: " + userInfo.getAccountType());
 		logger.info("User Info Name: " + userInfo.getGivenName());

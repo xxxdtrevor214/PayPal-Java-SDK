@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.GsonBuilder;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
@@ -386,6 +387,56 @@ public class Payment  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = paymentExecution.toJSON();
 		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
+	}
+	
+	/**
+	 * Partially update a payment resource by by passing the payment_id in the request URI. In addition, pass a patch_request_object in the body of the request JSON that specifies the operation to perform, path of the target location, and new value to apply. Please note that it is not possible to use patch after execute has been called.
+	 * @param accessToken
+	 *            Access Token used for the API call.
+	 * @param patchRequest
+	 *            List<Patch>
+	 * @return 
+	 * @throws PayPalRESTException
+	 */
+	public void update(String accessToken, List<Patch> patchRequest) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		update(apiContext, patchRequest);
+		return;
+	}
+
+	/**
+	 * Partially update a payment resource by by passing the payment_id in the request URI. In addition, pass a patch_request_object in the body of the request JSON that specifies the operation to perform, path of the target location, and new value to apply. Please note that it is not possible to use patch after execute has been called.
+	 * @param apiContext
+	 *            {@link APIContext} used for the API call.
+	 * @param patchRequest
+	 *            List<Patch>
+	 * @return 
+	 * @throws PayPalRESTException
+	 */
+	public void update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
+		if (apiContext == null) {
+			throw new IllegalArgumentException("APIContext cannot be null");
+		}
+		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
+		if (apiContext.getHTTPHeaders() == null) {
+			apiContext.setHTTPHeaders(new HashMap<String, String>());
+		}
+		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.setSdkVersion(new SDKVersionImpl());
+		if (this.getId() == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+		if (patchRequest == null) {
+			throw new IllegalArgumentException("patchRequest cannot be null");
+		}
+		Object[] parameters = new Object[] {this.getId()};
+		String pattern = "v1/payments/payment/{0}";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = new GsonBuilder().create().toJson(patchRequest);
+		PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
+		return;
 	}
 
 
