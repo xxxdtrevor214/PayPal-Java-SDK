@@ -20,6 +20,7 @@ import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
+import com.paypal.base.exception.HttpErrorException;
 
 /**
  * PayPalResource acts as a base class for REST enabled resources.
@@ -405,6 +406,8 @@ public abstract class PayPalResource extends PayPalModel{
 			if (clazz != null) {
 				t = JSONFormatter.fromJSON(responseString, clazz);
 			}
+		} catch (HttpErrorException e) {
+			throw PayPalRESTException.createFromHttpErrorException(e);
 		} catch (Exception e) {
 			throw new PayPalRESTException(e.getMessage(), e);
 		}
