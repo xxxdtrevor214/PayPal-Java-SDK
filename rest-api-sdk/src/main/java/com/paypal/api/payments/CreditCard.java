@@ -42,7 +42,7 @@ public class CreditCard  extends PayPalResource {
 	/**
 	 * Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
 	 */
-	private int cvv2;
+	private Integer cvv2;
 
 	/**
 	 * Card holder's first name.
@@ -185,7 +185,7 @@ public class CreditCard  extends PayPalResource {
 	/**
 	 * Setter for cvv2
 	 */
-	public CreditCard setCvv2(int cvv2) {
+	public CreditCard setCvv2(Integer cvv2) {
 		this.cvv2 = cvv2;
 		return this;
 	}
