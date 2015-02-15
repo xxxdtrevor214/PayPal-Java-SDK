@@ -28,7 +28,7 @@ public class CreditCardTestCase {
 
 	public static final String TYPE = "visa";
 
-	public static final String NUMBER = "4111111111111111";
+	public static final String NUMBER = "4329685037393232";
 
 	public static final String FIRSTNAME = "Joe";
 
