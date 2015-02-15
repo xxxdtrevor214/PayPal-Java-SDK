@@ -427,17 +427,19 @@ public class Agreement  extends PayPalResource {
 	 */
 	public Agreement execute(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
-		return execute(apiContext);
+		return execute(apiContext, this.getToken());
 	}
 
 	/**
 	 * Execute a billing agreement after buyer approval by passing the payment token to the request URI.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
+	 * @param token
+	 * 				payment token (e.g., EC-0JP008296V451950C)
 	 * @return Agreement
 	 * @throws PayPalRESTException
 	 */
-	public Agreement execute(APIContext apiContext) throws PayPalRESTException {
+	public static Agreement execute(APIContext apiContext, String token) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -449,7 +451,7 @@ public class Agreement  extends PayPalResource {
 		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
-		Object[] parameters = new Object[] {this.getId()};
+		Object[] parameters = new Object[] { token };
 		String pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";

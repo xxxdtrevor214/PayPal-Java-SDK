@@ -1,5 +1,12 @@
 CHANGELOG
 =========
+V1.1.2 (February 15, 2015)
+--------------------------
+   * Changed credit card CVV type from int to Integer
+   * Fixed maven artifact issue
+   * Fixed Agreement.execute() and updated Agreement.execute(APIContext, String)
+   * Fixed test case issues
+
 V1.1.1 (February 10, 2015)
 --------------------------
    * Added Payment.create()
