@@ -99,6 +99,21 @@ public class RelatedResources  {
 	}
 
 	/**
+	 * Setter for order
+	 */
+	public RelatedResources setOrder(Order order) {
+		this.order = order;
+		return this;
+	}
+
+	/**
+	 * Getter for order
+	 */
+	public Order getOrder() {
+		return this.order;
+	}
+
+	/**
 	 * Returns a JSON string corresponding to object state
 	 *
 	 * @return JSON representation
