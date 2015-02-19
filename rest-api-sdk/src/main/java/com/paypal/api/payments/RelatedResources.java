@@ -99,4 +99,19 @@ public class RelatedResources  extends PayPalModel {
 	public Refund getRefund() {
 		return this.refund;
 	}
+	
+	/**
+	 * Setter for order
+	 */
+	public RelatedResources setOrder(Order order) {
+		this.order = order;
+		return this;
+	}
+
+	/**
+	 * Getter for order
+	 */
+	public Order getOrder() {
+		return this.order;
+	}
 }
