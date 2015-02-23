@@ -7,14 +7,6 @@ Prerequisites:
 *	Apache Maven 3 or higher
 *	Please refer http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html for any help in Maven.
 
-SDK Core Dependency:
----------------------
-*	Source code for core files are present at https://github.com/paypal/sdk-core-java.
-
-To build sdk and samples:
---------------------------
-*	Run `mvn install` to build sdk jar and sample war files.
-
 SDK Integration:
 ----------------
 
