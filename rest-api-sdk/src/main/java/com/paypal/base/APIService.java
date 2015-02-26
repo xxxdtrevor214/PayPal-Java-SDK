@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.paypal.base.credential.CertificateCredential;
 import com.paypal.base.exception.ClientActionRequiredException;
@@ -15,6 +13,8 @@ import com.paypal.base.exception.InvalidResponseDataException;
 import com.paypal.base.exception.MissingCredentialException;
 import com.paypal.base.exception.OAuthException;
 import com.paypal.base.exception.SSLConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Wrapper class for api calls
@@ -22,7 +22,7 @@ import com.paypal.base.exception.SSLConfigurationException;
  */
 public class APIService {
 
-	private static final Logger log = LogManager.getLogger(APIService.class);
+	private static final Logger log = LoggerFactory.getLogger(APIService.class);
 	
 	/**
 	 * Service Endpoint
