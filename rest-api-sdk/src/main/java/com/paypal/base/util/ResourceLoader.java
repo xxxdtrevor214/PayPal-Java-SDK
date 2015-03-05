@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -99,7 +100,11 @@ public class ResourceLoader {
 	private static File urlToFile(URL res) {
 		String externalForm = res.toExternalForm();
 		if (externalForm.startsWith(FILESCHEME)) {
-			return new File(externalForm.substring(5));
+			try {
+				return new File(res.toURI());
+			} catch (URISyntaxException e) {
+				return new File(externalForm.substring(5));
+			}
 		}
 		return null;
 	}
