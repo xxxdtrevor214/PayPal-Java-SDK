@@ -5,10 +5,10 @@ import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.paypal.base.exception.SSLConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A special HttpConnection for use on Google App Engine.
@@ -19,8 +19,8 @@ import com.paypal.base.exception.SSLConfigurationException;
  */
 public class GoogleAppEngineHttpConnection extends HttpConnection {
 
-	private static final Logger log = LogManager.getLogger(GoogleAppEngineHttpConnection.class);
-	
+	private static final Logger log = LoggerFactory.getLogger(GoogleAppEngineHttpConnection.class);
+
 	@Override
 	public void setupClientSSL(String certPath, String certKey)
 			throws SSLConfigurationException {

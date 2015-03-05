@@ -8,19 +8,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.paypal.base.ConfigManager;
-import com.paypal.base.ConnectionManager;
-import com.paypal.base.Constants;
-import com.paypal.base.HttpConfiguration;
-import com.paypal.base.HttpConnection;
-import com.paypal.base.SDKUtil;
+import com.paypal.base.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IPNMessage {
 
-	private static final Logger log = LogManager.getLogger(IPNMessage.class);
+	private static final Logger log = LoggerFactory.getLogger(BaseService.class);
 	
 	private static final long serialVersionUID = -7187275404183441828L;
 	private static final String ENCODING = "windows-1252";
