@@ -56,6 +56,17 @@ public class Order  extends PayPalResource {
 	 * Protection Eligibility Type of the Payer 
 	 */
 	private String protectionEligibilityType;
+	
+	/**
+	 * Reason code for the transaction state being Pending. This field will replace pending_reason field eventually
+	 */
+	private String reasonCode;
+	
+	/**
+	 * Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+	 */
+	private FmfDetails fmfDetails;
+
 
 	/**
 	 * Default Constructor
@@ -214,6 +225,28 @@ public class Order  extends PayPalResource {
 	 */
 	public String getProtectionEligibilityType() {
 		return this.protectionEligibilityType;
+	}
+
+
+	public String getReasonCode() {
+		return reasonCode;
+	}
+
+
+	public Order setReasonCode(String reasonCode) {
+		this.reasonCode = reasonCode;
+		return this;
+	}
+
+
+	public FmfDetails getFmfDetails() {
+		return fmfDetails;
+	}
+
+
+	public Order setFmfDetails(FmfDetails fmfDetails) {
+		this.fmfDetails = fmfDetails;
+		return this;
 	}
 
 

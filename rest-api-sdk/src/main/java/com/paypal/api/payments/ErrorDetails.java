@@ -16,6 +16,17 @@ public class ErrorDetails  extends PayPalModel {
 	private String issue;
 
 	/**
+	 * Reference ID of the purchase_unit associated with this error
+	 */
+	private String purchaseUnitReferenceId;
+	
+	/**
+	 * PayPal internal error code.
+	 */
+	private String code;
+	
+
+	/**
 	 * Default Constructor
 	 */
 	public ErrorDetails() {
@@ -59,6 +70,25 @@ public class ErrorDetails  extends PayPalModel {
 	 */
 	public String getIssue() {
 		return this.issue;
+	}
+
+
+	public String getPurchaseUnitReferenceId() {
+		return purchaseUnitReferenceId;
+	}
+
+	public ErrorDetails setPurchaseUnitReferenceId(String purchaseUnitReferenceId) {
+		this.purchaseUnitReferenceId = purchaseUnitReferenceId;
+		return this;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public ErrorDetails setCode(String code) {
+		this.code = code;
+		return this;
 	}
 	
 }

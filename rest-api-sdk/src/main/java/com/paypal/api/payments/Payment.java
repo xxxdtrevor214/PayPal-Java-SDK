@@ -46,6 +46,11 @@ public class Payment  extends PayPalResource {
 	private Payer payer;
 
 	/**
+	 * 
+	 */
+	private Payee payee;
+
+	/**
 	 * Cart for which the payment is done.
 	 */
 	private Object cart;
@@ -83,7 +88,15 @@ public class Payment  extends PayPalResource {
 		this.intent = intent;
 		this.payer = payer;
 	}
+	
+	public Payee getPayee() {
+		return payee;
+	}
 
+	public Payment setPayee(Payee payee) {
+		this.payee = payee;
+		return this;
+	}
 
 	/**
 	 * Setter for id

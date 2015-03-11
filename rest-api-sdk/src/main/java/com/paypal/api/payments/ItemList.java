@@ -15,6 +15,12 @@ public class ItemList  extends PayPalModel {
 	 * Shipping address.
 	 */
 	private ShippingAddress shippingAddress;
+	
+	/**
+	 * Shipping method used for this payment like USPSParcel etc.
+	 */
+	private String shippingMethod;
+
 
 	/**
 	 * Default Constructor
@@ -54,5 +60,13 @@ public class ItemList  extends PayPalModel {
 		return this.shippingAddress;
 	}
 
+	public String getShippingMethod() {
+		return shippingMethod;
+	}
 
+
+	public ItemList setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+		return this;
+	}
 }
