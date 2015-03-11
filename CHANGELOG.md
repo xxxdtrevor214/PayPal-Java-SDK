@@ -1,5 +1,11 @@
 CHANGELOG
 =========
+V1.2.0 (March 10, 2015)
+-----------------------
+   * Changed default logger to slf4j for Google App Engine
+   * Payment API update
+   * Redesigned error model structure
+
 V1.1.2 (February 15, 2015)
 --------------------------
    * Changed credit card CVV type from int to Integer
