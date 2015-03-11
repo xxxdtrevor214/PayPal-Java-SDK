@@ -28,6 +28,9 @@ local.properties
 # PDT-specific
 .buildpath
 
+# release files
+version.sh
+release.sh
 
 #################
 ## IntelliJ
