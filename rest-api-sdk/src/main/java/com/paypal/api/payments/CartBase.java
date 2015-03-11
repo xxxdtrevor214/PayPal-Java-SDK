@@ -49,6 +49,16 @@ public class CartBase  extends PayPalModel {
 	 * List of items being paid for.
 	 */
 	private ItemList itemList;
+	
+	/**
+	 * URL to send payment notifications
+	 */
+	private String notifyUrl;
+
+	/**
+	 * Url on merchant site pertaining to this payment.
+	 */
+	private String orderUrl;
 
 	/**
 	 * Default Constructor
@@ -200,5 +210,26 @@ public class CartBase  extends PayPalModel {
 		return this.itemList;
 	}
 
+	
+	public String getNotifyUrl() {
+		return notifyUrl;
+	}
+
+
+	public CartBase setNotifyUrl(String notifyUrl) {
+		this.notifyUrl = notifyUrl;
+		return this;
+	}
+
+
+	public String getOrderUrl() {
+		return orderUrl;
+	}
+
+
+	public CartBase setOrderUrl(String orderUrl) {
+		this.orderUrl = orderUrl;
+		return this;
+	}
 
 }

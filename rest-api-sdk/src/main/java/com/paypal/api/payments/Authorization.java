@@ -67,6 +67,21 @@ public class Authorization  extends PayPalResource {
 	 * 
 	 */
 	private List<Links> links;
+	
+	/**
+	 * [DEPRECATED] Reason code for the transaction state being Pending.Obsolete. use reason_code field instead.
+	 */
+	private String pendingReason;
+	
+	/**
+	 * Reason code for the transaction state being Pending. This field will replace pending_reason field eventually
+	 */
+	private String reasonCode;
+	
+	/**
+	 * Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+	 */
+	private FmfDetails fmfDetails;
 
 	/**
 	 * Default Constructor
@@ -249,6 +264,39 @@ public class Authorization  extends PayPalResource {
 	public List<Links> getLinks() {
 		return this.links;
 	}
+
+	
+	public String getPendingReason() {
+		return pendingReason;
+	}
+
+	public Authorization setPendingReason(String pendingReason) {
+		this.pendingReason = pendingReason;
+		return this;
+	}
+
+
+	public String getReasonCode() {
+		return reasonCode;
+	}
+
+
+	public Authorization setReasonCode(String reasonCode) {
+		this.reasonCode = reasonCode;
+		return this;
+	}
+
+
+	public FmfDetails getFmfDetails() {
+		return fmfDetails;
+	}
+
+
+	public Authorization setFmfDetails(FmfDetails fmfDetails) {
+		this.fmfDetails = fmfDetails;
+		return this;
+	}
+
 
 
 	/**

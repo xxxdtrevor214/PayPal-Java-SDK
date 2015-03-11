@@ -72,6 +72,41 @@ public class Sale  extends PayPalResource {
 	 * 
 	 */
 	private List<Links> links;
+	
+	/**
+	 * Indicates the credit status of fund to the recipient. It will be returned only when payment status is 'completed'
+	 */
+	private String recipientFundStatus;
+
+	/**
+	 * Reason for holding the funds.
+	 */
+	private String holdReason;
+	
+	/**
+	 * Transaction fee applicable for this payment.
+	 */
+	private Currency transactionFee;
+	
+	/**
+	 * Net amount payee receives for this transaction after deducting transaction fee.
+	 */
+	private Currency receivableAmount;
+	
+	/**
+	 * Exchange rate applied for this transaction.
+	 */
+	private String exchangeRate;
+	
+	/**
+	 * Fraud Management Filter (FMF) details applied for the payment that could result in accept/deny/pending action.
+	 */
+	private FmfDetails fmfDetails;
+	
+	/**
+	 * Receipt id is 16 digit number payment identification number returned for guest users to identify the payment.
+	 */
+	private String receiptId;
 
 	/**
 	 * Default Constructor
@@ -278,6 +313,69 @@ public class Sale  extends PayPalResource {
 	 */
 	public List<Links> getLinks() {
 		return this.links;
+	}
+
+	public String getRecipientFundStatus() {
+		return recipientFundStatus;
+	}
+
+	public Sale setRecipientFundStatus(String recipientFundStatus) {
+		this.recipientFundStatus = recipientFundStatus;
+		return this;
+	}
+
+	public String getHoldReason() {
+		return holdReason;
+	}
+
+	public Sale setHoldReason(String holdReason) {
+		this.holdReason = holdReason;
+		return this;
+	}
+
+	public Currency getTransactionFee() {
+		return transactionFee;
+	}
+
+	public Sale setTransactionFee(Currency transactionFee) {
+		this.transactionFee = transactionFee;
+		return this;
+	}
+
+	public Currency getReceivableAmount() {
+		return receivableAmount;
+	}
+
+	public Sale setReceivableAmount(Currency receivableAmount) {
+		this.receivableAmount = receivableAmount;
+		return this;
+	}
+
+	public String getExchangeRate() {
+		return exchangeRate;
+	}
+
+	public Sale setExchangeRate(String exchangeRate) {
+		this.exchangeRate = exchangeRate;
+		return this;
+	}
+
+	public FmfDetails getFmfDetails() {
+		return fmfDetails;
+	}
+
+	public Sale setFmfDetails(FmfDetails fmfDetails) {
+		this.fmfDetails = fmfDetails;
+		return this;
+	}
+
+	public String getReceiptId() {
+		return receiptId;
+	}
+
+	public Sale setReceiptId(String receiptId) {
+		this.receiptId = receiptId;
+		return this;
 	}
 
 

@@ -47,6 +47,11 @@ public class Capture  extends PayPalResource {
 	 * ID of the Payment resource that this transaction is based on.
 	 */
 	private String parentPayment;
+	
+	/**
+	 * Transaction fee applicable for this payment.
+	 */
+	private Currency transactionFee;
 
 	/**
 	 * 
@@ -192,6 +197,15 @@ public class Capture  extends PayPalResource {
 	 */
 	public List<Links> getLinks() {
 		return this.links;
+	}
+
+	public Currency getTransactionFee() {
+		return transactionFee;
+	}
+
+	public Capture setTransactionFee(Currency transactionFee) {
+		this.transactionFee = transactionFee;
+		return this;
 	}
 
 

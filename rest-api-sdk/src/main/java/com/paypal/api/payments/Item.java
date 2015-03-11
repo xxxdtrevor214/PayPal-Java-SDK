@@ -34,6 +34,26 @@ public class Item  extends PayPalModel {
 	 * Number or code to identify the item in your catalog/records.
 	 */
 	private String sku;
+	
+	/**
+	 * Weight of the item.
+	 */
+	private Measurement weight;
+	
+	/**
+	 * Length of the item.
+	 */
+	private Measurement length;
+	
+	/**
+	 * Height of the item.
+	 */
+	private Measurement height;
+	
+	/**
+	 * Width of the item
+	 */
+	private Measurement width;
 
 	/**
 	 * Default Constructor
