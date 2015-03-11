@@ -15,6 +15,16 @@ public class Payer  extends PayPalModel {
 	 * Status of Payer PayPal Account.
 	 */
 	private String status;
+	
+	/**
+	 * Type of account relationship payer has with PayPal.
+	 */
+	private String accountType;
+	
+	/**
+	 * Duration since the payer established account relationship with PayPal in days.
+	 */
+	private String accountAge;
 
 	/**
 	 * List of funding instruments from where the funds of the current payment come from. Typically a credit card.
@@ -74,6 +84,22 @@ public class Payer  extends PayPalModel {
 	 */
 	public String getStatus() {
 		return this.status;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+	public String getAccountAge() {
+		return accountAge;
+	}
+
+	public void setAccountAge(String accountAge) {
+		this.accountAge = accountAge;
 	}
 
 

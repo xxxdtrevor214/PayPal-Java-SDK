@@ -10,6 +10,12 @@ public class TransactionBase extends CartBase {
 	private List<RelatedResources> relatedResources;
 
 	/**
+	 * Identifier to the purchase unit corresponding to this sale transaction.
+	 */
+	private String purchaseUnitReferenceId;
+
+
+	/**
 	 * Default Constructor
 	 */
 	public TransactionBase() {
@@ -29,6 +35,16 @@ public class TransactionBase extends CartBase {
 	 */
 	public List<RelatedResources> getRelatedResources() {
 		return this.relatedResources;
+	}
+	
+	public String getPurchaseUnitReferenceId() {
+		return purchaseUnitReferenceId;
+	}
+
+
+	public TransactionBase setPurchaseUnitReferenceId(String purchaseUnitReferenceId) {
+		this.purchaseUnitReferenceId = purchaseUnitReferenceId;
+		return this;
 	}
 
 

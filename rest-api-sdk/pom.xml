@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.paypal.sdk</groupId>
     <artifactId>rest-api-sdk</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
     <name>REST API SDK</name>
     <description>PayPal SDK for integrating with the REST APIs</description>
@@ -45,15 +45,39 @@
 			<artifactId>gson</artifactId>
 			<version>2.2.2</version>
 		</dependency>
-		<dependency>
+        <!-- BEGIN: logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.10</version>
+        </dependency>
+        <!--
+        This is the static binding for log4j 2 with slf4j, see http://www.slf4j.org/codes.html#StaticLoggerBinder
+        Projects that depend on rest-api-sdk that want to continue to use log4j will need to add this dependency.
+        To allow other projects to use other bindings this dependency was made optional.
+
+        To minimize impact on your user base, you could remove the <optional>  on the log4j dependencies and projects
+        that CANNOT use log4j would have to exclude this dependency doing something like what is described here:
+        http://www.slf4j.org/codes.html#multiple_bindings
+        -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.1</version>
+            <optional>true</optional>
+        </dependency>
+        <!-- End static binding -->
+        <dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.1</version>
+            <optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.1</version>
+            <optional>true</optional>
 		</dependency>
     </dependencies>
     <build>

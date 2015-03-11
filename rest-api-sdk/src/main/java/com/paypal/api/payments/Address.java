@@ -40,6 +40,11 @@ public class Address  extends PayPalModel {
 	 * Phone number in E.123 format.
 	 */
 	private String phone;
+	
+	/**
+	 * Address status
+	 */
+	private String status;
 
 	/**
 	 * Default Constructor
@@ -159,5 +164,13 @@ public class Address  extends PayPalModel {
 	 */
 	public String getPhone() {
 		return this.phone;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

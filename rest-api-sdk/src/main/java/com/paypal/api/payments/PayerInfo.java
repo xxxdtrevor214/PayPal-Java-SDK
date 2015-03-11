@@ -71,6 +71,26 @@ public class PayerInfo  extends PayPalModel {
 	private ShippingAddress shippingAddress;
 
 	/**
+	 * Salutation of the Payer.
+	 */
+	private String salutation;
+	
+	/**
+	 * Middle Name of the Payer.
+	 */
+	private String middleName;
+	
+	/**
+	 * Suffix of the Payer.
+	 */
+	private String suffix;
+	
+	/**
+	 * 2 letter registered country code of the payer to identify the buyer country
+	 */
+	private String countryCode;
+	
+	/**
 	 * Default Constructor
 	 */
 	public PayerInfo() {
@@ -284,5 +304,47 @@ public class PayerInfo  extends PayPalModel {
 		return this.shippingAddress;
 	}
 
+
+	public String getSalutation() {
+		return salutation;
+	}
+
+
+	public PayerInfo setSalutation(String salutation) {
+		this.salutation = salutation;
+		return this;
+	}
+
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+
+	public PayerInfo setMiddleName(String middleName) {
+		this.middleName = middleName;
+		return this;
+	}
+
+
+	public String getSuffix() {
+		return suffix;
+	}
+
+
+	public PayerInfo setSuffix(String suffix) {
+		this.suffix = suffix;
+		return this;
+	}
+
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 
 }

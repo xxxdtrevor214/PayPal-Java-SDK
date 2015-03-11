@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.paypal.base.APICallPreHandler;
 import com.paypal.base.ConfigManager;
@@ -20,13 +18,16 @@ import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.paypal.base.exception.HttpErrorException;
 
 /**
  * PayPalResource acts as a base class for REST enabled resources.
  */
 public abstract class PayPalResource extends PayPalModel{
 
-	private static final Logger log = LogManager.getLogger(PayPalResource.class);
+	private static final Logger log = LoggerFactory.getLogger(PayPalResource.class);
 	
 	/*
 	 * The class relies on an implementation of APICallPreHandler (here
@@ -405,6 +406,8 @@ public abstract class PayPalResource extends PayPalModel{
 			if (clazz != null) {
 				t = JSONFormatter.fromJSON(responseString, clazz);
 			}
+		} catch (HttpErrorException e) {
+			throw PayPalRESTException.createFromHttpErrorException(e);
 		} catch (Exception e) {
 			throw new PayPalRESTException(e.getMessage(), e);
 		}
