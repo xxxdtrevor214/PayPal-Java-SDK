@@ -213,4 +213,9 @@ public final class Constants {
 	// Client Secret
 	public static final String CLIENT_SECRET = "clientSecret";
 
+	// SSLUtil JRE
+	public static final String SSLUTIL_JRE = "sslutil.jre";
+
+	// SSLUtil Protocol
+	public static final String SSLUTIL_PROTOCOL = "sslutil.protocol";
 }
