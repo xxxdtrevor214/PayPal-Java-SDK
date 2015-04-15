@@ -1,5 +1,11 @@
 CHANGELOG
 =========
+V1.2.1 (April 15, 2015)
+-----------------------
+   * Fixed error field in Payouts API
+   * Added time_stamp field in subscription
+   * Made SSL fields configurable
+
 V1.2.0 (March 10, 2015)
 -----------------------
    * Changed default logger to slf4j for Google App Engine
