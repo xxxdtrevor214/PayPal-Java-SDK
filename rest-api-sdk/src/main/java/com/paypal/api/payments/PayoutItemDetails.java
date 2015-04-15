@@ -49,10 +49,15 @@ public class PayoutItemDetails extends PayPalModel {
 	private String timeProcessed;
 
 	/**
-	 * 
+	 * @deprecated use errors instead
 	 */
 	private Error error;
 
+	/**
+	 * *
+	 */
+	private Error errors;
+	
 	/**
 	 * HATEOAS links
 	 */
@@ -200,7 +205,7 @@ public class PayoutItemDetails extends PayPalModel {
 	 * Setter for error
 	 */
 	public PayoutItemDetails setError(Error error) {
-		this.error = error;
+		this.errors = error;
 		return this;
 	}
 
@@ -208,7 +213,24 @@ public class PayoutItemDetails extends PayPalModel {
 	 * Getter for error
 	 */
 	public Error getError() {
-		return this.error;
+		return this.errors;
+	}
+	
+
+
+	/**
+	 * Setter for errors
+	 */
+	public PayoutItemDetails setErrors(Error errors) {
+		this.errors = errors;
+		return this;
+	}
+
+	/**
+	 * Getter for errors
+	 */
+	public Error getErrors() {
+		return this.errors;
 	}
 
 	/**
