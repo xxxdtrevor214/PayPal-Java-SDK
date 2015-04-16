@@ -99,12 +99,32 @@ public class PayoutsTestCase {
 		logger.info("**** Get Payout ****");
 		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
 		String payoutBatchId = this.result.getBatchHeader().getPayoutBatchId();
+		payoutBatchId = "XR3H37QDELPZS";
 		
 		this.result = Payout.get(TokenHolder.accessToken, payoutBatchId);
 		
 		Assert.assertNotNull(this.result);
 		Assert.assertEquals(this.result.getBatchHeader().getPayoutBatchId(), payoutBatchId);
 		Assert.assertEquals(this.result.getItems().size(), 1);
+	}
+	
+
+	
+	@Test(groups = "integration")
+	public void testGetPayoutItemError() throws PayPalRESTException {
+		logger.info("**** Get Payout Item Error ****");
+		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
+		PayoutItemDetails payoutItem = this.result.getItems().get(0);
+		String payoutItemId = "BYGU98D9Z8SQG";
+		
+		PayoutItemDetails result = PayoutItem.get(TokenHolder.accessToken, payoutItemId);
+		
+		Assert.assertNotNull(result);
+		Assert.assertEquals(result.getPayoutItemId(), payoutItemId);
+		Assert.assertEquals(result.getPayoutItemFee().getValue(), payoutItem.getPayoutItemFee().getValue());
+		Assert.assertEquals(result.getPayoutItemFee().getCurrency(), payoutItem.getPayoutItemFee().getCurrency());
+		Assert.assertEquals(result.getErrors().getName(), "RECEIVER_UNREGISTERED");
+		
 	}
 	
 	
