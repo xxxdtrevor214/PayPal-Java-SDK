@@ -46,6 +46,7 @@ public class AgreementTransaction  extends PayPalModel {
 	private String payerName;
 
 	/**
+	 * @deprecated use timeUpdated instead.
 	 * Time at which this transaction happened.
 	 */
 	private String timeUpdated;
@@ -54,6 +55,11 @@ public class AgreementTransaction  extends PayPalModel {
 	 * Time zone of time_updated field.
 	 */
 	private String timeZone;
+	
+	/**
+	 * Time at which this transaction happened.
+	 */
+	private String timeStamp;
 
 	/**
 	 * Default Constructor
@@ -200,18 +206,20 @@ public class AgreementTransaction  extends PayPalModel {
 
 
 	/**
+	 * @deprecated use setTimeStamp instead.
 	 * Setter for timeUpdated
 	 */
 	public AgreementTransaction setTimeUpdated(String timeUpdated) {
-		this.timeUpdated = timeUpdated;
+		this.timeStamp = timeUpdated;
 		return this;
 	}
 
 	/**
+	 * @deprecated use getTimeStamp instead.
 	 * Getter for timeUpdated
 	 */
 	public String getTimeUpdated() {
-		return this.timeUpdated;
+		return this.timeStamp;
 	}
 
 
@@ -230,5 +238,21 @@ public class AgreementTransaction  extends PayPalModel {
 		return this.timeZone;
 	}
 
+
+
+	/**
+	 * Setter for timeStamp
+	 */
+	public AgreementTransaction setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+		return this;
+	}
+
+	/**
+	 * Getter for timeStamp
+	 */
+	public String getTimeStamp() {
+		return this.timeStamp;
+	}
 
 }

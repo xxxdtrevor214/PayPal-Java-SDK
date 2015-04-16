@@ -33,12 +33,19 @@ public abstract class SSLUtil {
 	 */
 	private static final Map<String, KeyStore> STOREMAP;
 
+	/**
+	 * Map used for dynamic configuration
+	 */
+	private static final Map<String, String> CONFIG_MAP;
+
 	static {
 		try {
 			
 			// Initialize KeyManagerFactory and local KeyStore cache
 			KMF = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
 			STOREMAP = new HashMap<String, KeyStore>();
+			CONFIG_MAP = SDKUtil.combineDefaultMap(ConfigManager
+					.getInstance().getConfigurationMap());
 		} catch (NoSuchAlgorithmException e) {
 			throw new ExceptionInInitializerError(e);
 		}
@@ -55,7 +62,7 @@ public abstract class SSLUtil {
 	public static SSLContext getSSLContext(KeyManager[] keymanagers)
 			throws SSLConfigurationException {
 		try {
-			SSLContext ctx = SSLContext.getInstance("TLS"); // TLS, SSLv3, SSL
+			SSLContext ctx = SSLContext.getInstance(CONFIG_MAP.get(Constants.SSLUTIL_PROTOCOL)); // TLS, SSLv3, SSL
 			ctx.init(keymanagers, null, null);
 			return ctx;
 		} catch (Exception e) {
@@ -84,7 +91,7 @@ public abstract class SSLUtil {
 			CertificateException, NoSuchAlgorithmException, IOException {
 		KeyStore keyStore = STOREMAP.get(p12Path);
 		if (keyStore == null) {
-			keyStore = KeyStore.getInstance("PKCS12", "SunJSSE");
+			keyStore = KeyStore.getInstance("PKCS12", CONFIG_MAP.get(Constants.SSLUTIL_JRE));
 			FileInputStream in = null;
 			try {
 				in = new FileInputStream(p12Path);

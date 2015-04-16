@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.paypal.sdk</groupId>
     <artifactId>rest-api-sdk</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
     <name>REST API SDK</name>
     <description>PayPal SDK for integrating with the REST APIs</description>
@@ -144,6 +144,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
                     <archive>                   
                         <manifest>
