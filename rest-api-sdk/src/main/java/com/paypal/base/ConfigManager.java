@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.paypal.base.util.ResourceLoader;
 
 /**
@@ -25,6 +27,8 @@ import com.paypal.base.util.ResourceLoader;
  */
 public final class ConfigManager {
 
+	private static final Logger log = LoggerFactory.getLogger(ConfigManager.class);
+	
 	/**
 	 * Singleton instance variable
 	 */
@@ -83,13 +87,15 @@ public final class ConfigManager {
 		 */
 		ResourceLoader resourceLoader = new ResourceLoader(
 				Constants.DEFAULT_CONFIGURATION_FILE);
+		properties = new Properties();
 		try {
 			InputStream inputStream = resourceLoader.getInputStream();
-			properties = new Properties();
 			properties.load(inputStream);
-			setPropertyLoaded(true);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			// We tried reading the config, but it seems like you dont have it. Skipping...
+			log.debug(Constants.DEFAULT_CONFIGURATION_FILE + " not present. Skipping...");
+		} finally {
+			setPropertyLoaded(true);
 		}
 	}
 
@@ -143,7 +149,7 @@ public final class ConfigManager {
 				combinedProperties.load(new ByteArrayInputStream(bos
 						.toByteArray()));
 			} catch (IOException e) {
-				// TODO return defaultProperties
+				// Something failed trying to load the properties. Skipping...
 			}
 		}
 		return combinedProperties;
