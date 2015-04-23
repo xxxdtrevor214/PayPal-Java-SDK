@@ -1,5 +1,10 @@
 CHANGELOG
 =========
+V1.2.2 (April 23, 2015)
+-----------------------
+   * Fixed IPNmessage behind proxy settings
+   * Made sdk_config.properties optional
+
 V1.2.1 (April 15, 2015)
 -----------------------
    * Fixed error field in Payouts API
