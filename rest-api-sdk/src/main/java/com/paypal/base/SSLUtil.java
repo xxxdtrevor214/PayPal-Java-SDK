@@ -2,26 +2,48 @@ package com.paypal.base;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.zip.CRC32;
+import java.util.zip.Checksum;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.paypal.base.codec.binary.Base64;
 import com.paypal.base.exception.SSLConfigurationException;
+import com.paypal.base.rest.PayPalRESTException;
 
 /**
  * Class SSLUtil
  *
  */
 public abstract class SSLUtil {
+
+	private static final Logger log = LoggerFactory.getLogger(SSLUtil.class);
 
 	/**
 	 * KeyManagerFactory used for {@link SSLContext} {@link KeyManager}
@@ -40,7 +62,7 @@ public abstract class SSLUtil {
 
 	static {
 		try {
-			
+
 			// Initialize KeyManagerFactory and local KeyStore cache
 			KMF = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
 			STOREMAP = new HashMap<String, KeyStore>();
@@ -135,5 +157,138 @@ public abstract class SSLUtil {
 			throw new SSLConfigurationException(e.getMessage(), e);
 		}
 		return sslContext;
+	}
+
+	public static boolean validateCertificateChain(Collection<X509Certificate> clientCerts, Collection<X509Certificate> trustCerts) throws PayPalRESTException  {
+		TrustManager trustManagers[];
+		X509Certificate[] clientChain;
+
+		String authType = "RSA";
+		try {
+
+			clientChain = clientCerts.toArray(new X509Certificate[0]);
+			List<X509Certificate> list = Arrays.asList(clientChain);
+			clientChain = list.toArray(new X509Certificate[0]);
+
+			// Create a Keystore and load the Root CA Cert
+			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+			keyStore.load(null, "".toCharArray());
+
+			// Iterate through each certificate and add to keystore
+			int i = 0;
+			for (Iterator<X509Certificate> payPalCertificate = trustCerts.iterator(); payPalCertificate.hasNext();) {
+				X509Certificate x509Certificate = (X509Certificate) payPalCertificate.next();
+				keyStore.setCertificateEntry("paypalCert" + i, x509Certificate);
+				i++;
+			}
+
+			// Create TrustManager
+			TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+			trustManagerFactory.init(keyStore);
+			trustManagers = trustManagerFactory.getTrustManagers();
+
+		} catch (Exception ex) {
+			throw new PayPalRESTException(ex);
+		}
+
+		// For Each TrustManager of type X509
+		for(TrustManager trustManager : trustManagers) {
+			if(trustManager instanceof X509TrustManager) {
+				X509TrustManager pkixTrustManager = (X509TrustManager) trustManager;
+				// Check the trust manager if server is trusted
+				try {
+					pkixTrustManager.checkClientTrusted(clientChain, authType);
+					// Checks that the certificate is currently valid. It is if the current date and time are within the validity period given in the certificate.
+					for (X509Certificate cert : clientChain) {
+						cert.checkValidity();
+						// Check for CN name matching
+						String dn = cert.getSubjectX500Principal().getName();
+						if (!dn.contains("CN=messageverificationcerts")) {
+							throw new PayPalRESTException("CN of client certificate does not match with trusted CN");
+						}
+					}
+					// If everything looks good, return true
+					return true;
+				} catch (CertificateException e) {
+					throw new PayPalRESTException(e);
+				}
+			}
+		}
+
+
+		return false;
+
+	}
+
+	public static InputStream downloadCertificateFromPath(String urlPath) throws PayPalRESTException {
+		if (urlPath == null || urlPath.trim() == "") {
+			throw new PayPalRESTException("Certificate Path cannot be empty");
+		}
+		try {
+			Map<String, String> headerMap = new HashMap<String, String>();
+			HttpConfiguration httpConfiguration = new HttpConfiguration();
+			httpConfiguration.setEndPointUrl(urlPath);
+			httpConfiguration.setConnectionTimeout(Integer
+					.parseInt(ConfigManager.getInstance().getConfigurationMap()
+							.get(Constants.HTTP_CONNECTION_TIMEOUT)));
+			httpConfiguration.setMaxRetry(Integer.parseInt(ConfigManager.getInstance().getConfigurationMap()
+					.get(Constants.HTTP_CONNECTION_RETRY)));
+			httpConfiguration.setReadTimeout(Integer.parseInt(ConfigManager.getInstance().getConfigurationMap()
+					.get(Constants.HTTP_CONNECTION_READ_TIMEOUT)));
+			httpConfiguration.setMaxHttpConnection(Integer
+					.parseInt(ConfigManager.getInstance().getConfigurationMap()
+							.get(Constants.HTTP_CONNECTION_MAX_CONNECTION)));
+			httpConfiguration.setHttpMethod("GET");
+			URL url = null;
+			HttpConnection connection = ConnectionManager.getInstance()
+					.getConnection();
+			connection.createAndconfigureHttpConnection(httpConfiguration);
+			url = new URL(urlPath);
+			headerMap.put("Host", url.getHost());
+			InputStream stream =  connection.executeWithStream(url.toString(), "", headerMap);
+			return stream;
+		} catch (Exception ex) {
+			throw new PayPalRESTException(ex);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static Collection<X509Certificate> getCertificateFromStream(InputStream stream) throws PayPalRESTException {
+		if (stream == null) { throw new PayPalRESTException("Certificate Not Found"); }
+		Collection<X509Certificate> certs = null;
+				try {
+				// Create a Certificate Factory
+					CertificateFactory cf = CertificateFactory.getInstance("X.509");
+									
+					// Read the Trust Certs
+					certs = (Collection<X509Certificate>) cf.generateCertificates(stream);
+				} catch (CertificateException ex) {
+					throw new PayPalRESTException(ex);
+				}
+		return certs;
+	}
+	
+	public static long crc32(String data) {
+		// get bytes from string
+					byte bytes[] = data.getBytes();
+					Checksum checksum = new CRC32();
+					// update the current checksum with the specified array of bytes
+					checksum.update(bytes, 0, bytes.length);
+					// get the current checksum value
+					return checksum.getValue();
+	}
+
+	public static Boolean validateData(Collection<X509Certificate> clientCerts, String algo,
+			String actualSignatureEncoded, String expectedSignature, String requestBody, String webhookId) throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+		// Get the signatureAlgorithm from the PAYPAL-AUTH-ALGO HTTP header
+		Signature signatureAlgorithm = Signature.getInstance(algo);
+		// Get the certData from the URL provided in the HTTP headers and cache it
+		X509Certificate[] clientChain = clientCerts.toArray(new X509Certificate[0]);
+		signatureAlgorithm.initVerify(clientChain[0].getPublicKey());
+		signatureAlgorithm.update(expectedSignature.getBytes());
+		// Actual signature is base 64 encoded and available in the HTTP headers
+		byte[] actualSignature = Base64.decodeBase64(actualSignatureEncoded.getBytes());
+		boolean isValid = signatureAlgorithm.verify(actualSignature);
+		return isValid;
 	}
 }

@@ -280,9 +280,12 @@ public final class SDKUtil {
 	 */
 	public static Map<String, String> combineDefaultMap(
 			Map<String, String> receivedMap) {
-		Map<String, String> combinedMap = ConfigManager.getDefaultSDKMap();
-		combinedMap.putAll(receivedMap);
-		return combinedMap;
+		return combineMap(receivedMap, ConfigManager.getDefaultSDKMap());
+	}
+	
+	public static Map<String, String> combineMap(Map<String, String> highMap, Map<String, String> lowMap) {
+		 lowMap.putAll(highMap);
+		 return lowMap;
 	}
 
 }

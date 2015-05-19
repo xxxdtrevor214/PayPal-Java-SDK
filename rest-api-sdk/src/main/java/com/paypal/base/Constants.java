@@ -218,4 +218,26 @@ public final class Constants {
 
 	// SSLUtil Protocol
 	public static final String SSLUTIL_PROTOCOL = "sslutil.protocol";
+	
+	// PayPal webhook transmission ID HTTP request header
+    public static final String PAYPAL_HEADER_TRANSMISSION_ID = "Paypal-Transmission-Id";
+
+    // PayPal webhook transmission time HTTP request header
+    public static final String PAYPAL_HEADER_TRANSMISSION_TIME = "Paypal-Transmission-Time";
+
+    // PayPal webhook transmission signature HTTP request header
+    public static final String PAYPAL_HEADER_TRANSMISSION_SIG = "Paypal-Transmission-Sig";
+
+    // PayPal webhook certificate URL HTTP request header
+    public static final String PAYPAL_HEADER_CERT_URL = "Paypal-Cert-Url";
+
+    // PayPal webhook authentication algorithm HTTP request header
+    public static final String PAYPAL_HEADER_AUTH_ALGO = "Paypal-Auth-Algo";
+    
+    // Trust Certificate Location to be used to validate webhook certificates
+    public static final String PAYPAL_TRUST_CERT_URL = "webhook.trustCert";
+    
+    // Webhook Id to be set for validation purposes
+    public static final String PAYPAL_WEBHOOK_ID = "webhook.id";
+    
 }

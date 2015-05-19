@@ -1,9 +1,21 @@
 package com.paypal.api.payments;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+import java.security.cert.X509Certificate;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.paypal.base.ConfigManager;
 import com.paypal.base.Constants;
+import com.paypal.base.SDKUtil;
+import com.paypal.base.SSLUtil;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
 import com.paypal.base.rest.PayPalRESTException;
@@ -12,6 +24,8 @@ import com.paypal.base.rest.RESTUtil;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 
 public class Event  extends PayPalResource {
+	
+	private static final Logger log = LoggerFactory.getLogger(Event.class);
 
 	/**
 	 * Identifier of the Webhooks event resource.
@@ -290,6 +304,73 @@ public class Event  extends PayPalResource {
 		String payLoad = "";
 		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventList.class);
 	}
+	
+	public static boolean validateReceivedEvent(APIContext apiContext, Map<String, String> headers, String requestBody) throws PayPalRESTException, InvalidKeyException, NoSuchAlgorithmException, SignatureException  {
+		Map<String, String> cmap = new HashMap<String, String>();
+		Boolean isChainValid = false, isDataValid = false;
+		Collection<X509Certificate> trustCerts, clientCerts;
+		
+		// Load the configurations from all possible sources
+		cmap = getConfigurations(apiContext);
+		
+		// Fetch Certificate Locations
+		String clientCertificateLocation = validateAndGet(headers, Constants.PAYPAL_HEADER_CERT_URL);
+		String trustCertificateLocation = validateAndGet(cmap, Constants.PAYPAL_TRUST_CERT_URL);
+		
+		// Load certificates
+		clientCerts = SSLUtil.getCertificateFromStream(SSLUtil.downloadCertificateFromPath(clientCertificateLocation));
+		trustCerts = SSLUtil.getCertificateFromStream(Event.class.getClassLoader().getResourceAsStream(trustCertificateLocation));
+		
+		// Check if Chain Valid
+		isChainValid = SSLUtil.validateCertificateChain(clientCerts, trustCerts);
+		
+		log.debug("Is Chain Valid: " + isChainValid);
+		if (isChainValid) {
+			// If Chain Valid, check for data signature valid
+			// Lets check for data now
+			String webhookId = validateAndGet(cmap, Constants.PAYPAL_WEBHOOK_ID);
+			String actualSignatureEncoded = validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_SIG);
+			String authAlgo = validateAndGet(headers, Constants.PAYPAL_HEADER_AUTH_ALGO);
+			String transmissionId = validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_ID);
+			String transmissionTime = validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_TIME);
+			String expectedSignature = String.format("%s|%s|%s|%s", transmissionId, transmissionTime, webhookId, SSLUtil.crc32(requestBody));
+			
+			// Validate Data
+			isDataValid = SSLUtil.validateData(clientCerts, authAlgo, actualSignatureEncoded, expectedSignature, requestBody, webhookId);
+			
+			log.debug("Is Data Valid: " + isDataValid);
+			// Return true if both data and chain valid
+			return isDataValid;
+		}
+		
+		return false;
+		
+	}
+		
+	private static Map<String, String> getConfigurations(APIContext apiContext) {
+
+		Map<String, String> cmap = new HashMap<String, String>();
+		if (apiContext != null) {
+			if (apiContext.getConfigurationMap() == null) {
+				apiContext.setConfigurationMap(new HashMap<String, String>());
+			}
+			cmap = SDKUtil.combineMap(apiContext.getConfigurationMap(), PayPalResource.getConfigurations());
+		} else {
+			cmap = SDKUtil.combineDefaultMap(PayPalResource.getConfigurations());
+		}
+		return cmap;
+	}
 
 
+		private static String validateAndGet(Map<String, String> map, String key) throws PayPalRESTException {
+			if (map == null || key == null) {
+				throw new PayPalRESTException("Map or Key cannot be null");
+			}
+			String value = map.get(key);
+			if (value == null || value == "") {
+				throw new PayPalRESTException(key + " cannot be null");
+			}
+			return value;
+		}
+	
 }

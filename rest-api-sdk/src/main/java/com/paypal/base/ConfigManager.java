@@ -70,6 +70,7 @@ public final class ConfigManager {
 		DEFAULT_PROPERTIES.put(Constants.GOOGLE_APP_ENGINE, "false");
 		DEFAULT_PROPERTIES.put(Constants.SSLUTIL_JRE, "SunJSSE");
 		DEFAULT_PROPERTIES.put(Constants.SSLUTIL_PROTOCOL, "TLS");
+		DEFAULT_PROPERTIES.put(Constants.PAYPAL_TRUST_CERT_URL, "DigiCertSHA2ExtendedValidationServerCA.crt");
 		defaultMapView = new HashMap<String, String>();
 		for (Object object : DEFAULT_PROPERTIES.keySet()) {
 			defaultMapView.put(object.toString().trim(), DEFAULT_PROPERTIES
