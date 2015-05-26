@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+V1.2.3 (May 26, 2015)
+---------------------
+   * Fixed empty CVV2
+
 V1.2.2 (April 23, 2015)
 -----------------------
    * Fixed IPNmessage behind proxy settings
