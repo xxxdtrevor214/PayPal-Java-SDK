@@ -192,9 +192,14 @@ public class CreditCard  extends PayPalResource {
 
 	/**
 	 * Getter for cvv2
+	 * Returns -1 if <code>cvv2</code> is null
 	 */
 	public int getCvv2() {
-		return this.cvv2;
+		if (this.cvv2 == null) {
+			return -1;
+		} else {
+			return this.cvv2;
+		}
 	}
 
 
