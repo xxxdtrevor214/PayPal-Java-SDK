@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
+import com.paypal.base.rest.PayPalRESTException;
+
 /**
  * SDKUtil class holds utility methods for processing data transformation
  * 
@@ -284,8 +286,30 @@ public final class SDKUtil {
 	}
 	
 	public static Map<String, String> combineMap(Map<String, String> highMap, Map<String, String> lowMap) {
+		 lowMap = lowMap != null ? lowMap : new HashMap<String, String>();
+		 highMap = highMap != null ? highMap : new HashMap<String, String>();
 		 lowMap.putAll(highMap);
 		 return lowMap;
 	}
+	
+	/**
+	 * Utility method to validate if the key exists in the provided map, and returns string value of the object
+	 * 
+	 * @param map Map of String based key and values
+	 * @param key object to be found in the key
+	 * @return String value of the key
+	 * @throws PayPalRESTException
+	 */
+	public static String validateAndGet(Map<String, String> map, String key) throws PayPalRESTException {
+		if (map == null || key == null) {
+			throw new PayPalRESTException("Map or Key cannot be null");
+		}
+		String value = map.get(key);
+		if (value == null || value == "") {
+			throw new PayPalRESTException(key + " cannot be null");
+		}
+		return value;
+	}
+
 
 }

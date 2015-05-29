@@ -12,7 +12,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.paypal.base.ConfigManager;
 import com.paypal.base.Constants;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SSLUtil;
@@ -305,48 +304,72 @@ public class Event  extends PayPalResource {
 		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventList.class);
 	}
 	
+	/**
+	 * Validates received event received from PayPal to webhook endpoint set for particular webhook Id with PayPal trust source, to verify Data and Certificate integrity.
+	 * It validates both certificate chain, as well as data integrity. 
+	 * 
+	 * @param apiContext APIContext object
+	 * @param headers Map of Headers received in the event, from request
+	 * @param requestBody Request body received in the provided webhook
+	 * @return true if valid, false otherwise
+	 * @throws PayPalRESTException
+	 * @throws InvalidKeyException
+	 * @throws NoSuchAlgorithmException
+	 * @throws SignatureException
+	 */
 	public static boolean validateReceivedEvent(APIContext apiContext, Map<String, String> headers, String requestBody) throws PayPalRESTException, InvalidKeyException, NoSuchAlgorithmException, SignatureException  {
+
+		if (headers == null) {
+			throw new PayPalRESTException("Headers cannot be null");
+		}
+
 		Map<String, String> cmap = new HashMap<String, String>();
 		Boolean isChainValid = false, isDataValid = false;
 		Collection<X509Certificate> trustCerts, clientCerts;
-		
+
 		// Load the configurations from all possible sources
 		cmap = getConfigurations(apiContext);
-		
+
 		// Fetch Certificate Locations
-		String clientCertificateLocation = validateAndGet(headers, Constants.PAYPAL_HEADER_CERT_URL);
-		String trustCertificateLocation = validateAndGet(cmap, Constants.PAYPAL_TRUST_CERT_URL);
-		
+		String clientCertificateLocation = SDKUtil.validateAndGet(headers, Constants.PAYPAL_HEADER_CERT_URL);
+		String trustCertificateLocation = SDKUtil.validateAndGet(cmap, Constants.PAYPAL_TRUST_CERT_URL);
+
 		// Load certificates
 		clientCerts = SSLUtil.getCertificateFromStream(SSLUtil.downloadCertificateFromPath(clientCertificateLocation));
 		trustCerts = SSLUtil.getCertificateFromStream(Event.class.getClassLoader().getResourceAsStream(trustCertificateLocation));
-		
+
 		// Check if Chain Valid
 		isChainValid = SSLUtil.validateCertificateChain(clientCerts, trustCerts);
-		
+
 		log.debug("Is Chain Valid: " + isChainValid);
 		if (isChainValid) {
 			// If Chain Valid, check for data signature valid
 			// Lets check for data now
-			String webhookId = validateAndGet(cmap, Constants.PAYPAL_WEBHOOK_ID);
-			String actualSignatureEncoded = validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_SIG);
-			String authAlgo = validateAndGet(headers, Constants.PAYPAL_HEADER_AUTH_ALGO);
-			String transmissionId = validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_ID);
-			String transmissionTime = validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_TIME);
+			String webhookId = SDKUtil.validateAndGet(cmap, Constants.PAYPAL_WEBHOOK_ID);
+			String actualSignatureEncoded = SDKUtil.validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_SIG);
+			String authAlgo = SDKUtil.validateAndGet(headers, Constants.PAYPAL_HEADER_AUTH_ALGO);
+			String transmissionId = SDKUtil.validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_ID);
+			String transmissionTime = SDKUtil.validateAndGet(headers, Constants.PAYPAL_HEADER_TRANSMISSION_TIME);
 			String expectedSignature = String.format("%s|%s|%s|%s", transmissionId, transmissionTime, webhookId, SSLUtil.crc32(requestBody));
-			
+
 			// Validate Data
 			isDataValid = SSLUtil.validateData(clientCerts, authAlgo, actualSignatureEncoded, expectedSignature, requestBody, webhookId);
-			
+
 			log.debug("Is Data Valid: " + isDataValid);
 			// Return true if both data and chain valid
 			return isDataValid;
 		}
-		
+
 		return false;
-		
+
 	}
-		
+
+	/**
+	 * Returns configurations by merging apiContext configurations in Map format
+	 * 
+	 * @param apiContext
+	 * @return Map of configurations to be used for particular request
+	 */
 	private static Map<String, String> getConfigurations(APIContext apiContext) {
 
 		Map<String, String> cmap = new HashMap<String, String>();
@@ -362,15 +385,4 @@ public class Event  extends PayPalResource {
 	}
 
 
-		private static String validateAndGet(Map<String, String> map, String key) throws PayPalRESTException {
-			if (map == null || key == null) {
-				throw new PayPalRESTException("Map or Key cannot be null");
-			}
-			String value = map.get(key);
-			if (value == null || value == "") {
-				throw new PayPalRESTException(key + " cannot be null");
-			}
-			return value;
-		}
-	
 }
