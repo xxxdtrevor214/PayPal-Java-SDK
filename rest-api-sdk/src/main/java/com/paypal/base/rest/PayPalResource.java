@@ -181,6 +181,10 @@ public abstract class PayPalResource extends PayPalModel{
 	public static String getLastResponse() {
 		return LASTRESPONSE.get();
 	}
+	
+	public static Map<String, String> getConfigurations() {
+		return configurationMap;
+	}
 
 	/**
 	 * Configures and executes REST call: Supports JSON

@@ -1,22 +1,22 @@
 package com.paypal.base;
 
 public final class Constants {
-	
+
 	private Constants() {}
 
 	// General Constants
 	// UTF-8 Encoding format
 	public static final String ENCODING_FORMAT = "UTF-8";
-	
+
 	// Empty String
 	public static final String EMPTY_STRING = "";
-	
+
 	// Account prefix used in config properties file
 	public static final String ACCOUNT_PREFIX = "acct";
 
 	// SOAP Payload format
 	public static final String PAYLOAD_FORMAT_SOAP = "SOAP";
-	
+
 	// NVP Payload format
 	public static final String PAYLOAD_FORMAT_NVP = "NV";
 
@@ -59,13 +59,13 @@ public final class Constants {
 
 	// PayPal Device IP Address Header
 	public static final String PAYPAL_DEVICE_IPADDRESS_HEADER = "X-PAYPAL-DEVICE-IPADDRESS";
-	
+
 	// User Agent Header
 	public static final String USER_AGENT_HEADER = "User-Agent";
-	
+
 	// PayPal Request ID Header
 	public static final String PAYPAL_REQUEST_ID_HEADER = "PayPal-Request-Id";
-	
+
 	// Authorization Header
 	public static final String AUTHORIZATION_HEADER = "Authorization";
 
@@ -75,7 +75,7 @@ public final class Constants {
 	// Constants key defined for configuration options in application properties
 	// End point
 	public static final String ENDPOINT = "service.EndPoint";
-	
+
 	// OAuth End point
 	public static final String OAUTH_ENDPOINT = "oauth.EndPoint";
 
@@ -151,9 +151,9 @@ public final class Constants {
 
 	// HTTP Content Type JSON
 	public static final String HTTP_CONTENT_TYPE_JSON = "application/json";
-	
+
 	// HTTP Content Type Patch JSON
-        public static final String HTTP_CONTENT_TYPE_PATCH_JSON = "application/json-patch+json";
+	public static final String HTTP_CONTENT_TYPE_PATCH_JSON = "application/json-patch+json";
 	public static final String HTTP_CONTENT_TYPE_XML = "text/xml";
 
 	// IPN endpoint property name
@@ -203,7 +203,7 @@ public final class Constants {
 
 	// Open Id redirect URI Constant Live
 	public static final String OPENID_REDIRECT_URI_CONSTANT_LIVE = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
-	
+
 	// Open Id redirect URI Constant Sandbox
 	public static final String OPENID_REDIRECT_URI_CONSTANT_SANDBOX = "https://www.sandbox.paypal.com/webapps/auth/protocol/openidconnect";
 
@@ -218,4 +218,29 @@ public final class Constants {
 
 	// SSLUtil Protocol
 	public static final String SSLUTIL_PROTOCOL = "sslutil.protocol";
+
+	// PayPal webhook transmission ID HTTP request header
+	public static final String PAYPAL_HEADER_TRANSMISSION_ID = "Paypal-Transmission-Id";
+
+	// PayPal webhook transmission time HTTP request header
+	public static final String PAYPAL_HEADER_TRANSMISSION_TIME = "Paypal-Transmission-Time";
+
+	// PayPal webhook transmission signature HTTP request header
+	public static final String PAYPAL_HEADER_TRANSMISSION_SIG = "Paypal-Transmission-Sig";
+
+	// PayPal webhook certificate URL HTTP request header
+	public static final String PAYPAL_HEADER_CERT_URL = "Paypal-Cert-Url";
+
+	// PayPal webhook authentication algorithm HTTP request header
+	public static final String PAYPAL_HEADER_AUTH_ALGO = "Paypal-Auth-Algo";
+
+	// Trust Certificate Location to be used to validate webhook certificates
+	public static final String PAYPAL_TRUST_CERT_URL = "webhook.trustCert";
+
+	// Webhook Id to be set for validation purposes
+	public static final String PAYPAL_WEBHOOK_ID = "webhook.id";
+
+	// Webhook Id to be set for validation purposes
+	public static final String PAYPAL_WEBHOOK_CERTIFICATE_AUTHTYPE = "webhook.authType";
+
 }

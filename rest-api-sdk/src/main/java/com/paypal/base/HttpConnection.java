@@ -2,6 +2,7 @@ package com.paypal.base;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -9,11 +10,11 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
 
-
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.exception.InvalidResponseDataException;
 import com.paypal.base.exception.SSLConfigurationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +59,35 @@ public abstract class HttpConnection {
 			Map<String, String> headers) throws InvalidResponseDataException,
 			IOException, InterruptedException, HttpErrorException,
 			ClientActionRequiredException {
-		String successResponse = Constants.EMPTY_STRING, errorResponse = Constants.EMPTY_STRING;
+		
+		BufferedReader reader = null;
+		String successResponse = Constants.EMPTY_STRING;
+		InputStream result = executeWithStream(url, payload, headers);
+		reader = new BufferedReader(new InputStreamReader(result, Constants.ENCODING_FORMAT));
+		successResponse = read(reader);
+		
+		return successResponse;
+	}
+	
+	/**
+	 * Executes HTTP request
+	 * 
+	 * @param url
+	 * @param payload
+	 * @param headers
+	 * @return String response
+	 * @throws InvalidResponseDataException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws HttpErrorException
+	 * @throws ClientActionRequiredException
+	 */
+	public InputStream executeWithStream(String url, String payload,
+			Map<String, String> headers) throws InvalidResponseDataException,
+			IOException, InterruptedException, HttpErrorException,
+			ClientActionRequiredException {
+		InputStream successResponse = null;
+		String errorResponse = Constants.EMPTY_STRING;
 		int responsecode = -1;
 		BufferedReader reader = null;
 		OutputStreamWriter writer = null;
@@ -93,15 +122,11 @@ public abstract class HttpConnection {
 						writer.flush();
 					}
 					responsecode = connection.getResponseCode();
-					reader = new BufferedReader(new InputStreamReader(
-							connection.getInputStream(),
-							Constants.ENCODING_FORMAT));
 					if (responsecode >= 200 && responsecode < 300) {
-						successResponse = read(reader);
-						log.debug("Response : " + successResponse);
+						successResponse = connection.getInputStream();
 						break retryLoop;
 					} else {
-						successResponse = read(reader);
+						successResponse = connection.getInputStream();
 						throw new ClientActionRequiredException(
 								"Response Code : " + responsecode
 										+ " with response : " + successResponse);
@@ -142,7 +167,7 @@ public abstract class HttpConnection {
 					Thread.sleep(this.config.getRetryDelay());
 				}
 			} while (retry < this.config.getMaxRetry());
-			if (successResponse.trim().length() <= 0 && !(responsecode >= 200 && responsecode < 300)) {
+			if (successResponse == null || ( successResponse.available() <= 0 && !(responsecode >= 200 && responsecode < 300))) {
 				throw new HttpErrorException("retry fails..  check log for more information", lastException);
 			}
 		} finally {

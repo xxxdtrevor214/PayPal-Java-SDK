@@ -111,6 +111,21 @@ public class CreditCardTestCase {
 		Assert.assertEquals(creditCard.getValidUntil(), VALIDUNTIL);
 		Assert.assertEquals(creditCard.getLinks().size(), 1);
 	}
+	
+
+	@Test(groups = "unit")
+	public void testCvv2() {
+		logger.info("**** Test CreditCard CVV2 ****");
+		CreditCard creditCard = createDummyCreditCard();
+		
+		// empty CVV2
+		creditCard.setCvv2(null);
+		Assert.assertEquals(-1, creditCard.getCvv2());
+		
+		// valid CVV2
+		creditCard.setCvv2(123);
+		Assert.assertEquals(123, creditCard.getCvv2());
+	}
 
 	@Test(groups = "integration")
 	public void createCreditCardTest() throws PayPalRESTException {

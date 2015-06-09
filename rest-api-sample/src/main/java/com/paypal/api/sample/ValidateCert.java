@@ -1,4 +1,4 @@
-package com.paypal.base;
+package com.paypal.api.sample;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -6,41 +6,14 @@ import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.paypal.api.payments.Event;
-import com.paypal.base.exception.SSLConfigurationException;
+import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-public class SSLUtilTest {
+public class ValidateCert {
 
-	@Test
-	public void getSSLContextTest() throws SSLConfigurationException {
-		Assert.assertNotNull(SSLUtil.getSSLContext(null));
-	}
-
-	@Test
-	public void setupClientSSLTest() throws SSLConfigurationException {
-		Assert.assertNotNull(SSLUtil.setupClientSSL(
-				UnitTestConstants.CERT_PATH, UnitTestConstants.CERT_PASSWORD));
-	}
-
-	@Test(expectedExceptions = SSLConfigurationException.class)
-	public void setupClientSSLExceptionTest() throws Exception {
-		Assert.assertNotNull(SSLUtil.setupClientSSL("src/sdk_cert.p12",
-				UnitTestConstants.CERT_PASSWORD));
-	}
-
-	@Test(expectedExceptions = SSLConfigurationException.class)
-	public void setupClientSSLNoSuchKeyExceptionTest() throws Exception {
-		Assert.assertNotNull(SSLUtil.setupClientSSL("src/sdk_cert.p12",
-				null));
-	}
-	
-	@Test
-	public void testValidateWebhook() {
+	public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException, SignatureException {
 		Map<String, String> headers = new HashMap<String, String>();
 		APIContext apiContext = new APIContext();
 		Map<String, String> configs = new HashMap<String, String>();
@@ -56,18 +29,10 @@ public class SSLUtilTest {
 		String requestBody = "{\"id\":\"WH-2W7266712B616591M-36507203HX6402335\",\"create_time\":\"2015-05-12T18:14:14Z\",\"resource_type\":\"sale\",\"event_type\":\"PAYMENT.SALE.COMPLETED\",\"summary\":\"Payment completed for $ 20.0 USD\",\"resource\":{\"id\":\"7DW85331GX749735N\",\"create_time\":\"2015-05-12T18:13:18Z\",\"update_time\":\"2015-05-12T18:13:36Z\",\"amount\":{\"total\":\"20.00\",\"currency\":\"USD\"},\"payment_mode\":\"INSTANT_TRANSFER\",\"state\":\"completed\",\"protection_eligibility\":\"ELIGIBLE\",\"protection_eligibility_type\":\"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE\",\"parent_payment\":\"PAY-1A142943SV880364LKVJEFPQ\",\"transaction_fee\":{\"value\":\"0.88\",\"currency\":\"USD\"},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N/refund\",\"rel\":\"refund\",\"method\":\"POST\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/payment/PAY-1A142943SV880364LKVJEFPQ\",\"rel\":\"parent_payment\",\"method\":\"GET\"}]},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335/resend\",\"rel\":\"resend\",\"method\":\"POST\"}]}";
 		
 		try {
-			Boolean result = Event.validateReceivedEvent(apiContext, headers, requestBody);
+			System.out.println(Event.validateReceivedEvent(apiContext, headers, requestBody));
 		} catch (PayPalRESTException e) {
-			e.printStackTrace();
-		} catch (InvalidKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SignatureException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 }
