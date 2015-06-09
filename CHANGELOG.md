@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+V1.2.4 (June 9, 2015)
+---------------------
+   * Added webhooks validation
+
 V1.2.3 (May 26, 2015)
 ---------------------
    * Fixed empty CVV2
