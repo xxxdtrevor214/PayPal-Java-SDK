@@ -179,5 +179,13 @@
 		<servlet-name>GetCreditCardServlet</servlet-name>
 		<url-pattern>/getcreditcard</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ValidateWebhookServlet</servlet-name>
+		<servlet-class>com.paypal.api.payments.servlet.ValidateWebhookServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ValidateWebhookServlet</servlet-name>
+		<url-pattern>/validatewebhook</url-pattern>
+	</servlet-mapping>
 
 </web-app>
