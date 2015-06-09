@@ -339,7 +339,7 @@ public class Event  extends PayPalResource {
 		trustCerts = SSLUtil.getCertificateFromStream(Event.class.getClassLoader().getResourceAsStream(trustCertificateLocation));
 
 		// Check if Chain Valid
-		isChainValid = SSLUtil.validateCertificateChain(clientCerts, trustCerts);
+		isChainValid = SSLUtil.validateCertificateChain(clientCerts, trustCerts, SDKUtil.validateAndGet(cmap, Constants.PAYPAL_WEBHOOK_CERTIFICATE_AUTHTYPE));
 
 		log.debug("Is Chain Valid: " + isChainValid);
 		if (isChainValid) {
@@ -377,7 +377,8 @@ public class Event  extends PayPalResource {
 			if (apiContext.getConfigurationMap() == null) {
 				apiContext.setConfigurationMap(new HashMap<String, String>());
 			}
-			cmap = SDKUtil.combineMap(apiContext.getConfigurationMap(), PayPalResource.getConfigurations());
+			cmap = SDKUtil.combineDefaultMap(apiContext.getConfigurationMap());
+			cmap = SDKUtil.combineMap(cmap, PayPalResource.getConfigurations());
 		} else {
 			cmap = SDKUtil.combineDefaultMap(PayPalResource.getConfigurations());
 		}

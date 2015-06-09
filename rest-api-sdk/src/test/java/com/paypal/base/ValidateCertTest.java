@@ -30,7 +30,7 @@ public class ValidateCertTest {
 		configs = new HashMap<String, String>();
 		apiContext = new APIContext();
 		
-		configs.put(Constants.PAYPAL_TRUST_CERT_URL, "DigiCertSHA2ExtendedValidationServerCA.crt");
+		//configs.put(Constants.PAYPAL_TRUST_CERT_URL, "DigiCertSHA2ExtendedValidationServerCA.crt");
 		configs.put(Constants.PAYPAL_WEBHOOK_ID, "3RN13029J36659323");
 		apiContext.setConfigurationMap(configs);
 		
@@ -88,6 +88,13 @@ public class ValidateCertTest {
 	@Test(groups = "unit", expectedExceptions= PayPalRESTException.class, expectedExceptionsMessageRegExp="Certificate Not Found")
 	public void testInvalidTrustCertLocation() throws PayPalRESTException, InvalidKeyException, NoSuchAlgorithmException, SignatureException {
 		configs.put(Constants.PAYPAL_TRUST_CERT_URL, "InvalidCertLocation.crt");
+		apiContext.setConfigurationMap(configs);
+		Event.validateReceivedEvent(apiContext, headers, requestBody);
+	}
+	
+	@Test(groups = "unit")
+	public void testInvalidAuthType() throws PayPalRESTException, InvalidKeyException, NoSuchAlgorithmException, SignatureException {
+		configs.put(Constants.PAYPAL_WEBHOOK_CERTIFICATE_AUTHTYPE, "Invalid");
 		apiContext.setConfigurationMap(configs);
 		Event.validateReceivedEvent(apiContext, headers, requestBody);
 	}

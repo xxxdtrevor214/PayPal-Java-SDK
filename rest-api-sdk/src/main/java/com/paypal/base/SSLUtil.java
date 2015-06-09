@@ -161,14 +161,13 @@ public abstract class SSLUtil {
 	 * 
 	 * @param clientCerts Collection of X509Certificates provided in request
 	 * @param trustCerts Collection of X509Certificates trusted by application
+	 * @param authType Auth Type for Certificate
 	 * @return true if client and server are chained together, false otherwise
 	 * @throws PayPalRESTException
 	 */
-	public static boolean validateCertificateChain(Collection<X509Certificate> clientCerts, Collection<X509Certificate> trustCerts) throws PayPalRESTException  {
+	public static boolean validateCertificateChain(Collection<X509Certificate> clientCerts, Collection<X509Certificate> trustCerts, String authType) throws PayPalRESTException  {
 		TrustManager trustManagers[];
 		X509Certificate[] clientChain;
-
-		String authType = "RSA";
 		try {
 
 			clientChain = clientCerts.toArray(new X509Certificate[0]);
@@ -202,7 +201,7 @@ public abstract class SSLUtil {
 				X509TrustManager pkixTrustManager = (X509TrustManager) trustManager;
 				// Check the trust manager if server is trusted
 				try {
-					pkixTrustManager.checkClientTrusted(clientChain, authType);
+					pkixTrustManager.checkClientTrusted(clientChain, (authType == null || authType == "") ? "RSA" : authType);
 					// Checks that the certificate is currently valid. It is if the current date and time are within the validity period given in the certificate.
 					for (X509Certificate cert : clientChain) {
 						cert.checkValidity();
@@ -297,7 +296,7 @@ public abstract class SSLUtil {
 		if (data == null) { 
 			return -1;
 		}
-		
+
 		// get bytes from string
 		byte bytes[] = data.getBytes();
 		Checksum checksum = new CRC32();
