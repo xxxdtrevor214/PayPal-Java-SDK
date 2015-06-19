@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+V1.2.5 (June 19, 2015)
+----------------------
+   * Fixed dynamic config loading on GAE (#104)
+
 V1.2.4 (June 9, 2015)
 ---------------------
    * Added webhooks validation
