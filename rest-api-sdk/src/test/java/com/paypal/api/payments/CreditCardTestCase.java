@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.testng.Assert;
@@ -165,6 +167,35 @@ public class CreditCardTestCase {
 				+ retrievedCreditCard.getState());
 
 	}
+
+	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
+	public void testUpdateCreditCard() throws PayPalRESTException {
+		logger.info("**** Update CreditCard ****");
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+
+		// set up patch request
+		Address address = new Address();
+		address.setCity("Dallas");
+		address.setState("TX");
+		Patch patch = new Patch();
+		patch.setOp("replace");
+		patch.setPath("/billing_address");
+		patch.setValue(address);
+		List<Patch> patchRequest = new ArrayList<Patch>();
+		patchRequest.add(patch);
+		
+		// send patch request
+		CreditCard creditCard = new CreditCard();
+		creditCard.setId(createdCreditCardId);
+		CreditCard retrievedCreditCard = creditCard.update(TokenHolder.accessToken, patchRequest);
+		
+		logger.info("Request = " + CreditCard.getLastRequest());
+		logger.info("Response = " + CreditCard.getLastResponse());
+		Assert.assertEquals("Dallas", retrievedCreditCard.getBillingAddress().getCity());
+		Assert.assertEquals("TX", retrievedCreditCard.getBillingAddress().getState());
+
+	}
+	
 	
 	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
 	public void deleteCreditCard() throws PayPalRESTException {
@@ -178,6 +209,20 @@ public class CreditCardTestCase {
 		logger.info("Response = " + CreditCard.getLastResponse());
 	}
 
+	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
+	public void testListCreditCard() throws PayPalRESTException {
+		logger.info("**** List CreditCard ****");
+		logger.info("Generated Access Token = " + TokenHolder.accessToken);
+		
+		CreditCardHistory creditCards = CreditCard.list(
+				TokenHolder.accessToken);
+		logger.info("Request = " + CreditCard.getLastRequest());
+		logger.info("Response = " + CreditCard.getLastResponse());
+		logger.info("Retrieved list of credit cards = "
+				+ creditCards.getCreditCards());
+
+	}
+	
 	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
 	public void getCreditCardForNull() {
 		logger.info("**** Get CreditCard Null ****");

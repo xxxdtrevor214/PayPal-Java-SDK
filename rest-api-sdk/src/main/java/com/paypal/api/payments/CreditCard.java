@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.GsonBuilder;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
@@ -362,7 +363,7 @@ public class CreditCard  extends PayPalResource {
 		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
-		String resourcePath = "v1/vault/credit-card";
+		String resourcePath = "v1/vault/credit-cards";
 		String payLoad = this.toJSON();
 		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreditCard.class);
 	}
@@ -407,7 +408,7 @@ public class CreditCard  extends PayPalResource {
 			throw new IllegalArgumentException("creditCardId cannot be null");
 		}
 		Object[] parameters = new Object[] {creditCardId};
-		String pattern = "v1/vault/credit-card/{0}";
+		String pattern = "v1/vault/credit-cards/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCard.class);
@@ -450,7 +451,7 @@ public class CreditCard  extends PayPalResource {
 		}
 			apiContext.setMaskRequestId(true);
 		Object[] parameters = new Object[] {this.getId()};
-		String pattern = "v1/vault/credit-card/{0}";
+		String pattern = "v1/vault/credit-cards/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
@@ -462,22 +463,27 @@ public class CreditCard  extends PayPalResource {
 	 * Update information in a previously saved card. Only the modified fields need to be passed in the request.
 	 * @param accessToken
 	 *            Access Token used for the API call.
+	 * @param patchRequest
+	 *            List<Patch>
 	 * @return CreditCard
 	 * @throws PayPalRESTException
 	 */
-	public CreditCard update(String accessToken) throws PayPalRESTException {
+	public CreditCard update(String accessToken, List<Patch> patchRequest) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
-		return update(apiContext);
+		return update(apiContext, patchRequest);
 	}
+
 
 	/**
 	 * Update information in a previously saved card. Only the modified fields need to be passed in the request.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
+	 * @param patchRequest
+	 *            List<Patch>
 	 * @return CreditCard
 	 * @throws PayPalRESTException
 	 */
-	public CreditCard update(APIContext apiContext) throws PayPalRESTException {
+	public CreditCard update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
@@ -487,16 +493,19 @@ public class CreditCard  extends PayPalResource {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
+		if (patchRequest == null) {
+			throw new IllegalArgumentException("patchRequest cannot be null");
+		}
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
 		Object[] parameters = new Object[] {this.getId()};
-		String pattern = "v1/vault/credit-card/{0}";
+		String pattern = "v1/vault/credit-cards/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = this.toJSON();
-		return configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, CreditCard.class);
+		String payLoad = new GsonBuilder().create().toJson(patchRequest);
+		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, CreditCard.class);
 	}
 
 
@@ -505,7 +514,7 @@ public class CreditCard  extends PayPalResource {
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param containerMap
-	 *            Map<String, String>
+	 *            Map<String, String>. See https://developer.paypal.com/webapps/developer/docs/api/#list-credit-card-resources
 	 * @return CreditCardHistory
 	 * @throws PayPalRESTException
 	 */
@@ -519,7 +528,7 @@ public class CreditCard  extends PayPalResource {
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param containerMap
-	 *            Map<String, String>
+	 *            Map<String, String>. See https://developer.paypal.com/webapps/developer/docs/api/#list-credit-card-resources
 	 * @return CreditCardHistory
 	 * @throws PayPalRESTException
 	 */
@@ -539,11 +548,36 @@ public class CreditCard  extends PayPalResource {
 			throw new IllegalArgumentException("containerMap cannot be null");
 		}
 		Object[] parameters = new Object[] {containerMap};
-		String pattern = "v1/vault/credit-card?count={0}&start_id={1}&start_index={2}&start_time={3}&end_time={4}&payer_id={5}";
+		String pattern = "v1/vault/credit-cards?merchant_id={0}&external_card_id={1}&external_customer_id={2}&start_time={3}&end_time={4}&page={5}&page_size={6}&sort_order={7}&sort_by={8}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCardHistory.class);
 	}
 
+	/**
+	 * Retrieves a list of Credit Card resources. containerMap (filters) are set to defaults.
+	 * @param accessToken
+	 *            Access Token used for the API call.
+	 * @param containerMap
+	 *            Map<String, String>. See https://developer.paypal.com/webapps/developer/docs/api/#list-credit-card-resources
+	 * @return CreditCardHistory
+	 * @throws PayPalRESTException
+	 */
+	public static CreditCardHistory list(String accessToken) throws PayPalRESTException {
+		APIContext apiContext = new APIContext(accessToken);
+		
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("merchant_id", "");
+		parameters.put("external_card_id", "");
+		parameters.put("external_customer_id", "");
+		parameters.put("start_time", "");
+		parameters.put("end_time", "");
+		parameters.put("page", "1");
+		parameters.put("page_size", "10");
+		parameters.put("sort_order", "asc");
+		parameters.put("sort_by", "create_time");
+		
+		return list(apiContext, parameters);
+	}
 
 }
