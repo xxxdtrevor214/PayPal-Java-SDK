@@ -2,7 +2,9 @@ CHANGELOG
 =========
 V1.2.5 (June 19, 2015)
 ----------------------
-   * Fixed dynamic config loading on GAE (#104)
+   * Fixed dynamic config loading on GAE [#104](https://github.com/paypal/PayPal-Java-SDK/issues/104)
+   * Fixed CreditCard.update() [#106](https://github.com/paypal/PayPal-Java-SDK/issues/106)
+   * Fixed CreditCard.get() [#96](https://github.com/paypal/PayPal-Java-SDK/issues/96)
 
 V1.2.4 (June 9, 2015)
 ---------------------
