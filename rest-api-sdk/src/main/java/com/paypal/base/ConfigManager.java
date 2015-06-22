@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.AccessControlException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.paypal.base.util.ResourceLoader;
 
 /**
@@ -96,6 +98,8 @@ public final class ConfigManager {
 		} catch (IOException e) {
 			// We tried reading the config, but it seems like you dont have it. Skipping...
 			log.debug(Constants.DEFAULT_CONFIGURATION_FILE + " not present. Skipping...");
+		} catch (AccessControlException e) {
+			log.debug("Unable to read " + Constants.DEFAULT_CONFIGURATION_FILE + ". Skipping...");
 		} finally {
 			setPropertyLoaded(true);
 		}
