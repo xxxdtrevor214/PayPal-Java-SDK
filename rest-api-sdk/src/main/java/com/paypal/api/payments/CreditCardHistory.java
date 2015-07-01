@@ -68,12 +68,12 @@ public class CreditCardHistory  extends PayPalModel {
 	}
 
 
-	public List<String> getLinks() {
+	public List<Links> getLinks() {
 		return links;
 	}
 
 
-	public void setLinks(List<String> links) {
+	public void setLinks(List<Links> links) {
 		this.links = links;
 	}
 
