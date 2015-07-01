@@ -125,11 +125,14 @@ public abstract class HttpConnection {
 					if (responsecode >= 200 && responsecode < 300) {
 						successResponse = connection.getInputStream();
 						break retryLoop;
-					} else {
+					} else if (responsecode >= 300 && responsecode < 500) {
 						successResponse = connection.getInputStream();
 						throw new ClientActionRequiredException(
 								"Response Code : " + responsecode
-										+ " with response : " + successResponse);
+										+ " see PayPalResource.LASTRESPONSE for details.");
+					} else if (responsecode >= 500) {
+						throw new IOException(
+								"Response Code : " + responsecode);
 					}
 				} catch (IOException e) {
 					lastException = e;
