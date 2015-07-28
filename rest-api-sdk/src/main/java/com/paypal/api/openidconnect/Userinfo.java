@@ -394,18 +394,8 @@ public class Userinfo extends PayPalResource{
 	 */
 	public static Userinfo getUserinfo(String accessToken)
 			throws PayPalRESTException {
-		System.out.println("accessToken=" + accessToken);
-		String resourcePath = "v1/identity/openidconnect/userinfo?schema=openid";
-		String payLoad = "";
 		APIContext apiContext = new APIContext(accessToken);
-		HashMap<String, String> httpHeaders = new HashMap<String, String>();
-		if (!accessToken.startsWith("Bearer ")) {
-			accessToken = "Bearer " + accessToken;
-		}
-		httpHeaders.put(Constants.AUTHORIZATION_HEADER, accessToken);
-		apiContext.setHTTPHeaders(httpHeaders);
-		return configureAndExecute(apiContext, HttpMethod.GET,
-				resourcePath, payLoad, Userinfo.class);
+		return getUserinfo(apiContext);
 	}
 
 	/**
@@ -417,7 +407,17 @@ public class Userinfo extends PayPalResource{
 	 * @throws PayPalRESTException
 	 */
 	public static Userinfo getUserinfo(APIContext apiContext) throws PayPalRESTException {
-		return getUserinfo(apiContext.getAccessToken());
+		String resourcePath = "v1/identity/openidconnect/userinfo?schema=openid";
+		String payLoad = "";
+		String accessToken = apiContext.getAccessToken();
+		HashMap<String, String> httpHeaders = new HashMap<String, String>();
+		if (!accessToken.startsWith("Bearer ")) {
+			accessToken = "Bearer " + accessToken;
+		}
+		httpHeaders.put(Constants.AUTHORIZATION_HEADER, accessToken);
+		apiContext.setHTTPHeaders(httpHeaders);
+		return configureAndExecute(apiContext, HttpMethod.GET,
+				resourcePath, payLoad, Userinfo.class);
 	}
 
 }
