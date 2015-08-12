@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+V1.2.6
+------
+   * Fixed empty APIContext [#113](https://github.com/paypal/PayPal-Java-SDK/issues/113)
+
 V1.2.5 (June 19, 2015)
 ----------------------
    * Fixed dynamic config loading on GAE [#104](https://github.com/paypal/PayPal-Java-SDK/issues/104)
