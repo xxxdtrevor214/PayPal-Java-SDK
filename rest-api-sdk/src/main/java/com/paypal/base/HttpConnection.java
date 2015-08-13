@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.nio.charset.Charset;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.paypal.base.exception.ClientActionRequiredException;
@@ -40,6 +41,10 @@ public abstract class HttpConnection {
 
 	public HttpConnection() {
 
+	}
+	
+	public Map<String, List<String>> getResponseHeaderMap() {
+		return connection.getHeaderFields();
 	}
 
 	/**
@@ -93,18 +98,6 @@ public abstract class HttpConnection {
 		OutputStreamWriter writer = null;
 		connection.setRequestProperty("Content-Length", ""
 				+ payload.trim().length());
-		if (headers != null) {
-			log.debug("curl command: ");
-			log.debug("curl -v '" + connection.getURL().toString() + "' \\");
-			setHttpHeaders(headers);
-			Iterator<String> keyIter = headers.keySet().iterator();
-			while (keyIter.hasNext()) {
-				String key = keyIter.next();
-				String value = headers.get(key);
-				log.debug("-H \"" + key + ": " + value + "\" \\");
-			}
-			log.debug("-d '" + payload + "'");
-		}
 		try {
 			// This exception is used to make final log more explicit
 			Exception lastException = null;
