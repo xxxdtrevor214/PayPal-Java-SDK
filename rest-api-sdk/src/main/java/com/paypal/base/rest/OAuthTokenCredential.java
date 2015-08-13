@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.paypal.base.ConfigManager;
@@ -38,6 +41,8 @@ import com.paypal.base.util.UserAgentHeader;
  */
 public final class OAuthTokenCredential implements ICredential {
 
+	private static final Logger log = LoggerFactory.getLogger(OAuthTokenCredential.class);
+	
 	/**
 	 * OAuth URI path parameter
 	 */
@@ -208,7 +213,25 @@ public final class OAuthTokenCredential implements ICredential {
 					sdkVersion != null ? sdkVersion.getSDKVersion() : null);
 			headers.putAll(userAgentHeader.getHeader());
 			String postRequest = getRequestPayload();
+			
+			// log request
+			String mode = configurationMap.get(Constants.MODE);
+			if (Constants.LIVE.equalsIgnoreCase(mode) && log.isDebugEnabled()) {
+				log.warn("Log level cannot be set to DEBUG in " + Constants.LIVE + " mode. Skipping request/response logging...");
+			} 
+			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
+				log.debug("request header: " + headers.toString());
+				log.debug("request body: " + postRequest);
+			}
+			
+			// send request and get & log response
 			String jsonResponse = connection.execute("", postRequest, headers);
+			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
+				log.debug("response header: " + connection.getResponseHeaderMap().toString());
+				log.debug("response: " + jsonResponse.toString());
+			}
+			
+			// parse response as JSON object
 			JsonParser parser = new JsonParser();
 			JsonElement jsonElement = parser.parse(jsonResponse);
 			generatedToken = jsonElement.getAsJsonObject().get("token_type")
