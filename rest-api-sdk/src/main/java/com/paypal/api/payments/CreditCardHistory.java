@@ -9,17 +9,22 @@ public class CreditCardHistory  extends PayPalModel {
 	/**
 	 * A list of credit card resources
 	 */
-	private List<CreditCard> creditCards;
+	private List<CreditCard> items;
+	
+	/**
+	 * Total number of items.
+	 */
+	private int totalItems;
 
 	/**
-	 * Number of items returned in each range of results. Note that the last results range could have fewer items than the requested number of items.
+	 * Total number of pages.
 	 */
-	private int count;
-
+	private int totalPages;
+	
 	/**
-	 * Identifier of the next element to get the next range of results.
+	 * HATEOAS links related to this call. Value assigned by PayPal.
 	 */
-	private String nextId;
+	private List<Links> links;
 
 	/**
 	 * Default Constructor
@@ -31,48 +36,45 @@ public class CreditCardHistory  extends PayPalModel {
 	/**
 	 * Setter for creditCards
 	 */
-	public CreditCardHistory setCreditCards(List<CreditCard> creditCards) {
-		this.creditCards = creditCards;
+	public CreditCardHistory setItems(List<CreditCard> creditCards) {
+		this.items = creditCards;
 		return this;
 	}
 
 	/**
 	 * Getter for creditCards
 	 */
-	public List<CreditCard> getCreditCards() {
-		return this.creditCards;
+	public List<CreditCard> getItems() {
+		return this.items;
+	}
+	
+	public int getTotalItems() {
+		return totalItems;
 	}
 
 
-	/**
-	 * Setter for count
-	 */
-	public CreditCardHistory setCount(int count) {
-		this.count = count;
-		return this;
-	}
-
-	/**
-	 * Getter for count
-	 */
-	public int getCount() {
-		return this.count;
+	public void setTotalItems(int totalItems) {
+		this.totalItems = totalItems;
 	}
 
 
-	/**
-	 * Setter for nextId
-	 */
-	public CreditCardHistory setNextId(String nextId) {
-		this.nextId = nextId;
-		return this;
+	public int getTotalPages() {
+		return totalPages;
 	}
 
-	/**
-	 * Getter for nextId
-	 */
-	public String getNextId() {
-		return this.nextId;
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
+
+	public List<Links> getLinks() {
+		return links;
+	}
+
+
+	public void setLinks(List<Links> links) {
+		this.links = links;
 	}
 
 
