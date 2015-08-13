@@ -25,7 +25,8 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class HttpConnection {
 
-	private static final Logger log = LoggerFactory.getLogger(HttpConnection.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(HttpConnection.class);
 
 	/**
 	 * Subclasses must set the http configuration in the
@@ -42,7 +43,7 @@ public abstract class HttpConnection {
 	public HttpConnection() {
 
 	}
-	
+
 	public Map<String, List<String>> getResponseHeaderMap() {
 		return connection.getHeaderFields();
 	}
@@ -64,16 +65,17 @@ public abstract class HttpConnection {
 			Map<String, String> headers) throws InvalidResponseDataException,
 			IOException, InterruptedException, HttpErrorException,
 			ClientActionRequiredException {
-		
+
 		BufferedReader reader = null;
 		String successResponse = Constants.EMPTY_STRING;
 		InputStream result = executeWithStream(url, payload, headers);
-		reader = new BufferedReader(new InputStreamReader(result, Constants.ENCODING_FORMAT));
+		reader = new BufferedReader(new InputStreamReader(result,
+				Constants.ENCODING_FORMAT));
 		successResponse = read(reader);
-		
+
 		return successResponse;
 	}
-	
+
 	/**
 	 * Executes HTTP request
 	 * 
@@ -99,15 +101,32 @@ public abstract class HttpConnection {
 		connection.setRequestProperty("Content-Length", ""
 				+ payload.trim().length());
 		try {
+			String mode = ConfigManager.getInstance().getConfigurationMap()
+					.get(Constants.MODE);
+			if (headers != null && !Constants.LIVE.equalsIgnoreCase(mode)) {
+				String cmd = "curl command: \n";
+				cmd += "curl -v '" + connection.getURL().toString() + "' \\\n";
+				setHttpHeaders(headers);
+				Iterator<String> keyIter = headers.keySet().iterator();
+				while (keyIter.hasNext()) {
+					String key = keyIter.next();
+					String value = headers.get(key);
+					cmd += "-H \"" + key + ": " + value + "\" \\\n";
+				}
+				cmd += "-d '" + payload + "'";
+				log.debug(cmd);
+			}
+
 			// This exception is used to make final log more explicit
 			Exception lastException = null;
 			int retry = 0;
-			retryLoop:
-			do {
+			retryLoop: do {
 				try {
 					if ("POST".equalsIgnoreCase(connection.getRequestMethod())
-							||"PUT".equalsIgnoreCase(connection.getRequestMethod())
-							||"PATCH".equalsIgnoreCase(connection.getRequestMethod())) {
+							|| "PUT".equalsIgnoreCase(connection
+									.getRequestMethod())
+							|| "PATCH".equalsIgnoreCase(connection
+									.getRequestMethod())) {
 						writer = new OutputStreamWriter(
 								this.connection.getOutputStream(),
 								Charset.forName(Constants.ENCODING_FORMAT));
@@ -121,11 +140,11 @@ public abstract class HttpConnection {
 					} else if (responsecode >= 300 && responsecode < 500) {
 						successResponse = connection.getInputStream();
 						throw new ClientActionRequiredException(
-								"Response Code : " + responsecode
+								"Response Code : "
+										+ responsecode
 										+ " see PayPalResource.LASTRESPONSE for details.");
 					} else if (responsecode >= 500) {
-						throw new IOException(
-								"Response Code : " + responsecode);
+						throw new IOException("Response Code : " + responsecode);
 					}
 				} catch (IOException e) {
 					lastException = e;
@@ -137,7 +156,7 @@ public abstract class HttpConnection {
 									Constants.ENCODING_FORMAT));
 							errorResponse = read(reader);
 							log.error("Error code : " + responsecode
-											+ " with response : " + errorResponse);
+									+ " with response : " + errorResponse);
 						}
 						if ((errorResponse == null)
 								|| (errorResponse.length() == 0)) {
@@ -145,16 +164,18 @@ public abstract class HttpConnection {
 						}
 						if (responsecode <= 500) {
 							throw new HttpErrorException(responsecode,
-									errorResponse,
-									"Error code : "
-									+ responsecode + " with response : "
-									+ errorResponse, e);
+									errorResponse, "Error code : "
+											+ responsecode
+											+ " with response : "
+											+ errorResponse, e);
 						}
 					} catch (HttpErrorException ex) {
 						throw ex;
 					} catch (Exception ex) {
 						lastException = ex;
-						log.error("Caught exception while handling error response", ex);
+						log.error(
+								"Caught exception while handling error response",
+								ex);
 					}
 				}
 				retry++;
@@ -163,8 +184,11 @@ public abstract class HttpConnection {
 					Thread.sleep(this.config.getRetryDelay());
 				}
 			} while (retry < this.config.getMaxRetry());
-			if (successResponse == null || ( successResponse.available() <= 0 && !(responsecode >= 200 && responsecode < 300))) {
-				throw new HttpErrorException("retry fails..  check log for more information", lastException);
+			if (successResponse == null
+					|| (successResponse.available() <= 0 && !(responsecode >= 200 && responsecode < 300))) {
+				throw new HttpErrorException(
+						"retry fails..  check log for more information",
+						lastException);
 			}
 		} finally {
 			try {
