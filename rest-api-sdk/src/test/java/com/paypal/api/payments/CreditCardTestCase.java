@@ -151,7 +151,7 @@ public class CreditCardTestCase {
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
-	public void getCreditCard() throws PayPalRESTException {
+	public void testGetCreditCard() throws PayPalRESTException {
 		logger.info("**** Get CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 
@@ -168,19 +168,16 @@ public class CreditCardTestCase {
 
 	}
 
-	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
+	@Test(groups = "integration", dependsOnMethods = { "testGetCreditCard" })
 	public void testUpdateCreditCard() throws PayPalRESTException {
 		logger.info("**** Update CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 
 		// set up patch request
-		Address address = new Address();
-		address.setCity("Dallas");
-		address.setState("TX");
 		Patch patch = new Patch();
 		patch.setOp("replace");
-		patch.setPath("/billing_address");
-		patch.setValue(address);
+		patch.setPath("/expire_year");
+		patch.setValue(new Integer(2020));
 		List<Patch> patchRequest = new ArrayList<Patch>();
 		patchRequest.add(patch);
 		
@@ -191,13 +188,12 @@ public class CreditCardTestCase {
 		
 		logger.info("Request = " + CreditCard.getLastRequest());
 		logger.info("Response = " + CreditCard.getLastResponse());
-		Assert.assertEquals("Dallas", retrievedCreditCard.getBillingAddress().getCity());
-		Assert.assertEquals("TX", retrievedCreditCard.getBillingAddress().getState());
+		Assert.assertEquals(2020, retrievedCreditCard.getExpireYear());
 
 	}
 	
 	
-	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
+	@Test(groups = "integration", dependsOnMethods = { "testUpdateCreditCard" })
 	public void deleteCreditCard() throws PayPalRESTException {
 		logger.info("**** Delete CreditCard ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);
@@ -207,6 +203,12 @@ public class CreditCardTestCase {
 		retrievedCreditCard.delete(TokenHolder.accessToken);
 		logger.info("Request = " + CreditCard.getLastRequest());
 		logger.info("Response = " + CreditCard.getLastResponse());
+		try {
+			CreditCard creditCards = CreditCard.get(
+				TokenHolder.accessToken, createdCreditCardId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
@@ -219,11 +221,12 @@ public class CreditCardTestCase {
 		logger.info("Request = " + CreditCard.getLastRequest());
 		logger.info("Response = " + CreditCard.getLastResponse());
 		logger.info("Retrieved list of credit cards = "
-				+ creditCards.getCreditCards());
+				+ creditCards.getItems());
+		Assert.assertTrue(creditCards.getTotalItems() > 0);
 
 	}
 	
-	@Test(groups = "integration", dependsOnMethods = { "getCreditCard" })
+	@Test(groups = "integration", dependsOnMethods = { "testGetCreditCard" })
 	public void getCreditCardForNull() {
 		logger.info("**** Get CreditCard Null ****");
 		logger.info("Generated Access Token = " + TokenHolder.accessToken);

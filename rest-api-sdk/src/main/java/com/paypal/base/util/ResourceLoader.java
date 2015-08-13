@@ -62,7 +62,7 @@ public class ResourceLoader {
 
 	// Returns true if found
 	private boolean searchClasspath(String filename) {
-		String classpath = System.getProperty(CLASSPATH);
+		String classpath = System.getProperty(CLASSPATH, "");
 		String[] paths = classpath.split(File.pathSeparator);
 		file = searchDirectories(paths, filename);
 		return (file != null);
