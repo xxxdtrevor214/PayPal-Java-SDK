@@ -5,5 +5,5 @@ jdk:
 after_script: mvn test 
 notifications:
   recipients:
-    - DL-PP-JAVA-SDK@ebay.com
+    - DL-PP-JAVA-SDK@paypal.com
   on_success: change

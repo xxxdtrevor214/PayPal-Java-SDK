@@ -1,7 +1,12 @@
 CHANGELOG
 =========
-V1.2.6
+
+v1.2.6
 ------
+   * Version of com.paypal.sdk:rest-api-sdk updated
+   * Updated failure error message [#109](https://github.com/paypal/PayPal-Java-SDK/issues/109)
+   * Fixed NPE on GAE [#111](https://github.com/paypal/PayPal-Java-SDK/issues/111)
+   * Fixed CreditCard.list() [#112](https://github.com/paypal/PayPal-Java-SDK/issues/112)
    * Fixed empty APIContext [#113](https://github.com/paypal/PayPal-Java-SDK/issues/113)
 
 V1.2.5 (June 19, 2015)
