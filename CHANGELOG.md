@@ -1,5 +1,10 @@
 CHANGELOG
 =========
+v1.2.7
+------
+   * Enabled request/response logging only in non-live mode and log level set to DEBUG
+   * Added CURL command logging to easily test API behavior
+   * Added sample log4j2 configuration file.
 
 v1.2.6
 ------
