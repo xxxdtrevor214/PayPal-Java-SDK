@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-
 import com.paypal.base.APICallPreHandler;
 import com.paypal.base.ConfigManager;
 import com.paypal.base.ConnectionManager;
@@ -18,8 +17,10 @@ import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.paypal.base.exception.HttpErrorException;
 
 /**
@@ -402,11 +403,27 @@ public abstract class PayPalResource extends PayPalModel{
 			connectionManager = ConnectionManager.getInstance();
 			httpConnection = connectionManager.getConnection(httpConfiguration);
 			httpConnection.createAndconfigureHttpConnection(httpConfiguration);
-
+			
+			// capture request and log if conditions are met
 			LASTREQUEST.set(apiCallPreHandler.getPayLoad());
+			String mode = configurationMap.get(Constants.MODE);
+			if (Constants.LIVE.equalsIgnoreCase(mode) && log.isDebugEnabled()) {
+				log.warn("Log level cannot be set to DEBUG in " + Constants.LIVE + " mode. Skipping request/response logging...");
+			} 
+			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
+				log.debug("request header: " + headers.toString());
+				log.debug("request body: " + LASTREQUEST.get());
+			}
+			
+			// send request and receive response
 			responseString = httpConnection.execute(null,
 					apiCallPreHandler.getPayLoad(), headers);
+			
+			// capture response and log if conditions are met
 			LASTRESPONSE.set(responseString);
+			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
+				log.debug("response: " + LASTRESPONSE.get());
+			}
 			if (clazz != null) {
 				t = JSONFormatter.fromJSON(responseString, clazz);
 			}
