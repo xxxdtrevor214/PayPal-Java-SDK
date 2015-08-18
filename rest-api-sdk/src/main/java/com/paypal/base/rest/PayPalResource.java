@@ -406,7 +406,12 @@ public abstract class PayPalResource extends PayPalModel{
 			
 			// capture request and log if conditions are met
 			LASTREQUEST.set(apiCallPreHandler.getPayLoad());
-			String mode = configurationMap.get(Constants.MODE);
+			String mode = "";
+			if (configurationMap != null) {
+				mode = configurationMap.get(Constants.MODE);
+			} else if (apiCallPreHandler.getConfigurationMap() != null) {
+				mode = apiCallPreHandler.getConfigurationMap().get(Constants.MODE);
+			}
 			if (Constants.LIVE.equalsIgnoreCase(mode) && log.isDebugEnabled()) {
 				log.warn("Log level cannot be set to DEBUG in " + Constants.LIVE + " mode. Skipping request/response logging...");
 			} 
