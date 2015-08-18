@@ -56,5 +56,14 @@ public interface APICallPreHandler {
 	 * @throws ClientActionRequiredException
 	 */
 	void validate() throws ClientActionRequiredException;
+	
+
+	
+	/**
+	 * Return configurationMap
+	 * 
+	 * @return configurationMap in this call pre-handler
+	 */
+	public Map<String, String> getConfigurationMap();
 
 }
