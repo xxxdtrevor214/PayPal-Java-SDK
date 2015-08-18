@@ -142,10 +142,10 @@ public abstract class HttpConnection {
 						throw new ClientActionRequiredException(
 								"Response Code : "
 										+ responsecode
-										+ " change log level to DEBUG or see PayPalResource.LASTRESPONSE for details.");
+										+ " change log level to DEBUG for details.");
 					} else if (responsecode >= 500) {
 						throw new IOException("Response Code : " + responsecode
-								+ " change log level to DEBUG or see PayPalResource.LASTRESPONSE for details.");
+								+ " change log level to DEBUG for details.");
 					}
 				} catch (IOException e) {
 					lastException = e;
