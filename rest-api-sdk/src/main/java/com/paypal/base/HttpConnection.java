@@ -138,13 +138,14 @@ public abstract class HttpConnection {
 						successResponse = connection.getInputStream();
 						break retryLoop;
 					} else if (responsecode >= 300 && responsecode < 500) {
-						successResponse = connection.getInputStream();
+						successResponse = connection.getErrorStream();
 						throw new ClientActionRequiredException(
 								"Response Code : "
 										+ responsecode
-										+ " see PayPalResource.LASTRESPONSE for details.");
+										+ " change log level to DEBUG or see PayPalResource.LASTRESPONSE for details.");
 					} else if (responsecode >= 500) {
-						throw new IOException("Response Code : " + responsecode);
+						throw new IOException("Response Code : " + responsecode
+								+ " change log level to DEBUG or see PayPalResource.LASTRESPONSE for details.");
 					}
 				} catch (IOException e) {
 					lastException = e;
