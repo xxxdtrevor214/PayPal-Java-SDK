@@ -133,9 +133,15 @@ public abstract class HttpConnection {
 						writer.write(payload);
 						writer.flush();
 					}
+
 					responsecode = connection.getResponseCode();
+					
 					if (responsecode >= 200 && responsecode < 300) {
-						successResponse = connection.getInputStream();
+						try {
+							successResponse = connection.getInputStream();
+						} catch (IOException e) {
+							successResponse = connection.getErrorStream();
+						}
 						break retryLoop;
 					} else if (responsecode >= 300 && responsecode < 500) {
 						successResponse = connection.getErrorStream();
