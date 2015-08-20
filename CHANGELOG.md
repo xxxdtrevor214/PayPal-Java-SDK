@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+v1.2.9
+------
+   * Updated rest-api-sdk version on sample project
+
 v1.2.8
 ------
    * Updated error handling and messages for error response [#118](https://github.com/paypal/PayPal-Java-SDK/issues/118)
