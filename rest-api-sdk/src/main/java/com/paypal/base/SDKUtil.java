@@ -2,8 +2,11 @@ package com.paypal.base;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.paypal.base.rest.PayPalRESTException;
@@ -305,8 +308,18 @@ public final class SDKUtil {
 			throw new PayPalRESTException("Map or Key cannot be null");
 		}
 		String value = map.get(key);
-		if (value == null || value == "") {
-			throw new PayPalRESTException(key + " cannot be null");
+		if (value == null || value.equals("")) {
+			for (Iterator<Entry<String, String>> itemIter = map.entrySet().iterator(); itemIter.hasNext();) {
+				Entry<String, String> entry = itemIter.next();
+				if (entry.getKey().equalsIgnoreCase(key)) {
+					value = entry.getValue();
+					break;
+				}
+			}
+			
+			if (value == null || value.equals("")) {
+				throw new PayPalRESTException(key + " cannot be null");
+			}
 		}
 		return value;
 	}

@@ -363,5 +363,14 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 		 */
 		return payLoad;
 	}
+	
+	/**
+	 * Return configurationMap
+	 * 
+	 * @return configurationMap in this call pre-handler
+	 */
+	public Map<String, String> getConfigurationMap() {
+		return this.configurationMap;
+	}
 
 }

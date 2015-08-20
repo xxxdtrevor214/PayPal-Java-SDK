@@ -133,18 +133,25 @@ public abstract class HttpConnection {
 						writer.write(payload);
 						writer.flush();
 					}
+
 					responsecode = connection.getResponseCode();
+					
 					if (responsecode >= 200 && responsecode < 300) {
-						successResponse = connection.getInputStream();
+						try {
+							successResponse = connection.getInputStream();
+						} catch (IOException e) {
+							successResponse = connection.getErrorStream();
+						}
 						break retryLoop;
 					} else if (responsecode >= 300 && responsecode < 500) {
-						successResponse = connection.getInputStream();
+						successResponse = connection.getErrorStream();
 						throw new ClientActionRequiredException(
 								"Response Code : "
 										+ responsecode
-										+ " see PayPalResource.LASTRESPONSE for details.");
+										+ " change log level to DEBUG for details.");
 					} else if (responsecode >= 500) {
-						throw new IOException("Response Code : " + responsecode);
+						throw new IOException("Response Code : " + responsecode
+								+ " change log level to DEBUG for details.");
 					}
 				} catch (IOException e) {
 					lastException = e;
