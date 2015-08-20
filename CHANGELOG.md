@@ -1,5 +1,11 @@
 CHANGELOG
 =========
+v1.2.8
+------
+   * Updated error handling and messages for error response [#118](https://github.com/paypal/PayPal-Java-SDK/issues/118)
+   * Added failover for mode in case configurationMap is null [#120](https://github.com/paypal/PayPal-Java-SDK/issues/120)
+   * Added HTTP header case-insensitivity check to webhook validation
+
 v1.2.7
 ------
    * Enabled request/response logging only in non-live mode and log level set to DEBUG
