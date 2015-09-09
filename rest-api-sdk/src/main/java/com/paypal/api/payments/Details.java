@@ -36,6 +36,16 @@ public class Details  extends PayPalModel {
 	private String giftWrap;
 
 	/**
+	 * Amount being charged for the insurance fee.
+	 */
+	private String insurance;
+	
+	/**
+	 * Amount being discounted for the shipping fee.
+	 */
+	private String shippingDiscount;
+
+	/**
 	 * Default Constructor
 	 */
 	public Details() {
@@ -137,5 +147,32 @@ public class Details  extends PayPalModel {
 		return this.giftWrap;
 	}
 
+	/**
+	 * Getter for insurance
+	 */
+	public String getInsurance() {
+		return insurance;
+	}
+
+	/**
+	 * Setter for insurance
+	 */
+	public void setInsurance(String insurance) {
+		this.insurance = insurance;
+	}
+
+	/**
+	 * Getter for shipping discount
+	 */
+	public String getShippingDiscount() {
+		return shippingDiscount;
+	}
+
+	/**
+	 * Setter for shipping discount
+	 */
+	public void setShippingDiscount(String shippingDiscount) {
+		this.shippingDiscount = shippingDiscount;
+	}
 
 }
