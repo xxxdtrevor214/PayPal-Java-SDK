@@ -1,23 +1,18 @@
 package com.paypal.base;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import com.paypal.base.exception.ClientActionRequiredException;
+import com.paypal.base.exception.HttpErrorException;
+import com.paypal.base.exception.InvalidResponseDataException;
+import com.paypal.base.exception.SSLConfigurationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.paypal.base.exception.ClientActionRequiredException;
-import com.paypal.base.exception.HttpErrorException;
-import com.paypal.base.exception.InvalidResponseDataException;
-import com.paypal.base.exception.SSLConfigurationException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Base HttpConnection class
@@ -144,14 +139,21 @@ public abstract class HttpConnection {
 						}
 						break retryLoop;
 					} else if (responsecode >= 300 && responsecode < 500) {
-						successResponse = connection.getErrorStream();
+						reader = new BufferedReader(new InputStreamReader(
+								connection.getErrorStream(),
+								Constants.ENCODING_FORMAT));
+						errorResponse = read(reader);
 						throw new ClientActionRequiredException(
 								"Response Code : "
 										+ responsecode
-										+ " change log level to DEBUG for details.");
+										+ " with response : " + errorResponse + ", change log level to DEBUG for details.");
 					} else if (responsecode >= 500) {
+						reader = new BufferedReader(new InputStreamReader(
+								connection.getErrorStream(),
+								Constants.ENCODING_FORMAT));
+						errorResponse = read(reader);
 						throw new IOException("Response Code : " + responsecode
-								+ " change log level to DEBUG for details.");
+								+ " with response : " + errorResponse + ", change log level to DEBUG for details.");
 					}
 				} catch (IOException e) {
 					lastException = e;
@@ -227,7 +229,6 @@ public abstract class HttpConnection {
 	 * create and configure HttpsURLConnection object
 	 * 
 	 * @param clientConfiguration
-	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
 	public abstract void createAndconfigureHttpConnection(
