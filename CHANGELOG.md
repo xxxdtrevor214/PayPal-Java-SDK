@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+v1.2.10
+-------
+   * Added `insurance` and `shipping_discount` to `Details` [#125](https://github.com/paypal/PayPal-Java-SDK/issues/125)
+
 v1.2.9
 ------
    * Updated rest-api-sdk version on sample project
