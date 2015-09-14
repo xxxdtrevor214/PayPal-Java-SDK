@@ -436,7 +436,12 @@ public class Plan  extends PayPalResource {
 		String pattern = "v1/payments/billing-plans?page_size={0}&status={1}&page={2}&total_required={3}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PlanList.class);
+		PlanList plans = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PlanList.class);
+		if (plans == null) {
+			plans = new PlanList();
+		}
+		
+		return plans;
 	}
 
 }

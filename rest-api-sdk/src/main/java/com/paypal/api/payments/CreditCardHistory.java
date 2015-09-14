@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.paypal.base.rest.PayPalModel;
@@ -30,6 +31,8 @@ public class CreditCardHistory  extends PayPalModel {
 	 * Default Constructor
 	 */
 	public CreditCardHistory() {
+		items = new ArrayList<CreditCard>();
+		links = new ArrayList<Links>();
 	}
 
 

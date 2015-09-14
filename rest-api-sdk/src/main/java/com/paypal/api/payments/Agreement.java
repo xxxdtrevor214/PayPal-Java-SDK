@@ -851,6 +851,11 @@ public class Agreement  extends PayPalResource {
 		String pattern = "v1/payments/billing-agreements/{0}/transactions?start_date={1}&end_date={2}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, AgreementTransactions.class);
+		AgreementTransactions transactions = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, AgreementTransactions.class);
+		if (transactions == null) {
+			transactions = new AgreementTransactions();
+		}
+		
+		return transactions;
 	}
 }
