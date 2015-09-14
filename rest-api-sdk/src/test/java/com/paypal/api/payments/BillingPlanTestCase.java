@@ -89,6 +89,21 @@ public class BillingPlanTestCase {
 	}
 	
 	@Test(groups = "integration", dependsOnMethods = {"testRetrievePlan"})
+	public void testEmptyListPlan() throws PayPalRESTException {
+		// store all required parameters in Map
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("page_size", "3");
+		parameters.put("status", "INACTIVE");
+		parameters.put("page", "2");
+		parameters.put("total_required", "yes");
+		
+		// retrieve plans that match the specified criteria
+		PlanList planList = Plan.list(TokenHolder.accessToken, parameters);
+		List<Plan> plans = planList.getPlans();
+		Assert.assertEquals(plans.size(), 0);
+	}
+	
+	@Test(groups = "integration", dependsOnMethods = {"testRetrievePlan"})
 	public void testListPlan() throws PayPalRESTException {
 		// store all required parameters in Map
 		Map<String, String> parameters = new HashMap<String, String>();
