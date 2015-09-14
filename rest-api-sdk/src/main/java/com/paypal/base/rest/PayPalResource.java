@@ -21,6 +21,7 @@ import com.paypal.base.SDKVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 
 /**
@@ -432,6 +433,8 @@ public abstract class PayPalResource extends PayPalModel{
 			if (clazz != null) {
 				t = JSONFormatter.fromJSON(responseString, clazz);
 			}
+		} catch (ClientActionRequiredException e) {
+			throw PayPalRESTException.createFromHttpErrorException(e);
 		} catch (HttpErrorException e) {
 			throw PayPalRESTException.createFromHttpErrorException(e);
 		} catch (Exception e) {
