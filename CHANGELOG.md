@@ -4,6 +4,7 @@ v1.2.10
 -------
    * Added `insurance` and `shipping_discount` to `Details` [#125](https://github.com/paypal/PayPal-Java-SDK/issues/125)
    * Merged [#123](https://github.com/paypal/PayPal-Java-SDK/issues/123) for improved error details
+   * Improved ClientActionRequireException capture to make error details programmatically accessible
 
 v1.2.9
 ------
