@@ -6,6 +6,7 @@ v1.2.10
    * Merged [#123](https://github.com/paypal/PayPal-Java-SDK/issues/123) for improved error details
    * Improved ClientActionRequireException capture to make error details programmatically accessible
    * Return empty list when HTTP 204 (no content) is returned [#124](https://github.com/paypal/PayPal-Java-SDK/issues/124)
+   * Code clean-up
 
 v1.2.9
 ------
