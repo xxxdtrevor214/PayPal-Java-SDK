@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.paypal.base.rest.PayPalModel;
@@ -15,6 +16,7 @@ public class AgreementTransactions  extends PayPalModel {
 	 * Default Constructor
 	 */
 	public AgreementTransactions() {
+		agreementTransactionList = new ArrayList<AgreementTransaction>();
 	}
 
 

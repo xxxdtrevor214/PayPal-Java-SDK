@@ -1,5 +1,14 @@
 CHANGELOG
 =========
+v1.2.10
+-------
+   * Added `insurance` and `shipping_discount` to `Details` [#125](https://github.com/paypal/PayPal-Java-SDK/issues/125)
+   * Merged [#123](https://github.com/paypal/PayPal-Java-SDK/issues/123) for improved error details
+   * Improved ClientActionRequireException capture to make error details programmatically accessible
+   * Return empty list when HTTP 204 (no content) is returned [#124](https://github.com/paypal/PayPal-Java-SDK/issues/124)
+   * Fixed URL parameter formatting for refresh token exchange [#131](https://github.com/paypal/PayPal-Java-SDK/issues/131)
+   * Code clean-up
+
 v1.2.9
 ------
    * Updated rest-api-sdk version on sample project

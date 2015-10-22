@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Transaction extends TransactionBase {
@@ -13,6 +14,7 @@ public class Transaction extends TransactionBase {
 	 * Default Constructor
 	 */
 	public Transaction() {
+		transactions = new ArrayList<Transaction>();
 	}
 
 

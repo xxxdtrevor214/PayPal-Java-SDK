@@ -110,7 +110,12 @@ public class EventType  extends PayPalResource {
 		String pattern = "v1/notifications/webhooks/{0}/event-types";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
+		EventTypeList eventTypeList =  configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
+		if (eventTypeList == null) {
+			eventTypeList = new EventTypeList();
+		}
+		
+		return eventTypeList;
 	}
 
 
@@ -147,7 +152,12 @@ public class EventType  extends PayPalResource {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/notifications/webhooks-event-types";
 		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
+		EventTypeList eventTypeList = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
+		if (eventTypeList == null) {
+			eventTypeList = new EventTypeList();
+		}
+		
+		return eventTypeList;
 	}
 
 

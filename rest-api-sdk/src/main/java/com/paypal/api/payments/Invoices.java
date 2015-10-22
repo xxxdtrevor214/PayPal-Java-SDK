@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.paypal.base.rest.PayPalModel;
@@ -20,6 +21,7 @@ public class Invoices  extends PayPalModel {
 	 * Default Constructor
 	 */
 	public Invoices() {
+		invoices = new ArrayList<Invoice>();
 	}
 
 

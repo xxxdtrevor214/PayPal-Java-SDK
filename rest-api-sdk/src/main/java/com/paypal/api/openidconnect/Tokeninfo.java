@@ -338,7 +338,7 @@ public class Tokeninfo extends PayPalResource {
 		if (getRefreshToken() == null || getRefreshToken().equals("")) {
 			throw new PayPalRESTException("refresh token is empty");
 		}
-		String pattern = "v1/oauth2/token?grant_type=refresh_token&refresh_token={0}";
+		String pattern = "v1/oauth2/token?refresh_token={0}&grant_type=refresh_token";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		try {
 			paramsMap.put("refresh_token", URLEncoder.encode(getRefreshToken(),

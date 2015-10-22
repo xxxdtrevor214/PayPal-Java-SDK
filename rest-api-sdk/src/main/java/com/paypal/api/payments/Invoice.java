@@ -913,7 +913,12 @@ public class Invoice extends PayPalResource {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/invoicing/invoices";
 		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Invoices.class);
+		Invoices invoices = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Invoices.class);
+		if (invoices == null) {
+			invoices = new Invoices();
+		}
+		
+		return invoices;
 	}
 
 

@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class WebhookList  extends PayPalResource {
 	 * Default Constructor
 	 */
 	public WebhookList() {
+		webhooks = new ArrayList<Webhook>();
 	}
 
 

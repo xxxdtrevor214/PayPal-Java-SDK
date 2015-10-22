@@ -2,6 +2,7 @@ package com.paypal.api.payments;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -400,7 +401,12 @@ public class WebProfile  {
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
+		List<WebProfile> webProfiles = PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
+		if (webProfiles == null) {
+			webProfiles = new ArrayList<WebProfile>();
+		}
+		
+		return webProfiles;
 	}
 
 
