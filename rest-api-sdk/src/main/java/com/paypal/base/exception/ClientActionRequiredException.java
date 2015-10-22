@@ -5,7 +5,7 @@ package com.paypal.base.exception;
  * take actions based or errors in API call.
  * 
  */
-public class ClientActionRequiredException extends BaseException {
+public class ClientActionRequiredException extends HttpErrorException {
 
 	/**
 	 * Serial version UID
@@ -18,5 +18,10 @@ public class ClientActionRequiredException extends BaseException {
 
 	public ClientActionRequiredException(String message, Throwable exception) {
 		super(message, exception);
+	}
+	
+	public String toString() {
+		return "HTTP response code: " + this.getResponsecode() + "\n"
+				+ "error message: " + this.getErrorResponse();
 	}
 }

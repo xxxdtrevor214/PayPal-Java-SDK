@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.paypal.base.rest.PayPalModel;
@@ -30,6 +31,8 @@ public class PlanList  extends PayPalModel {
 	 * Default Constructor
 	 */
 	public PlanList() {
+		plans = new ArrayList<Plan>();
+		links = new ArrayList<Links>();
 	}
 
 
