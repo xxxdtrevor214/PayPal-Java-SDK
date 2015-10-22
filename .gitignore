@@ -15,7 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
-testng.xml
+rest-api-sdk/src/test/resources/testng.xml
 
 # External tool builders
 .externalToolBuilders/
