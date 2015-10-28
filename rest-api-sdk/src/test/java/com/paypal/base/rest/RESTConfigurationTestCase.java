@@ -35,7 +35,7 @@ public class RESTConfigurationTestCase {
 			String header = headers.get("User-Agent");
 			String[] hdrs = header.split("\\(");
 			hdrs = hdrs[1].split(";");
-			Assert.assertEquals(hdrs.length == 4, true);
+			Assert.assertEquals(hdrs.length > 4, true);
 	}
 
 	@Test(dependsOnMethods = { "testRESTHeaderConfiguration" })
