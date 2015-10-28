@@ -52,6 +52,10 @@ public class UserAgentHeader {
 			javaVersion.append(";v=")
 					.append(System.getProperty("java.version"));
 		}
+		if (System.getProperty("java.vendor") != null
+				&& System.getProperty("java.vendor").length() > 0) {
+			javaVersion.append("; vendor=" + System.getProperty("java.vendor"));
+		}
 		if (System.getProperty("java.vm.name") != null
 				&& System.getProperty("java.vm.name").length() > 0) {
 			javaVersion.append(";bit=");
