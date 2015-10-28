@@ -437,9 +437,9 @@ public class Plan  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		PlanList plans = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PlanList.class);
-		if (plans == null) {
-			plans = new PlanList();
-		}
+//		if (plans == null) {
+//			plans = new PlanList();
+//		}
 		
 		return plans;
 	}
