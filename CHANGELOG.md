@@ -1,5 +1,11 @@
 CHANGELOG
 =========
+v1.2.11
+-------
+   * Reverted empty list behavior when HTTP 204 (no content) is returned [#124](https://github.com/paypal/PayPal-Java-SDK/issues/124) for backward compatibility.
+   * Updated SSL protocol to TLS 1.2
+   * Added Java vendor to user-agent
+
 v1.2.10
 -------
    * Added `insurance` and `shipping_discount` to `Details` [#125](https://github.com/paypal/PayPal-Java-SDK/issues/125)
