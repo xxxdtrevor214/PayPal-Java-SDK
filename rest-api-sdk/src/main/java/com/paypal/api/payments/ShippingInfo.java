@@ -23,7 +23,7 @@ public class ShippingInfo  extends PayPalModel {
 	/**
 	 * Address of the invoice recipient.
 	 */
-	private Address address;
+	private InvoiceAddress address;
 
 	/**
 	 * Default Constructor
@@ -83,7 +83,7 @@ public class ShippingInfo  extends PayPalModel {
 	/**
 	 * Setter for address
 	 */
-	public ShippingInfo setAddress(Address address) {
+	public ShippingInfo setAddress(InvoiceAddress address) {
 		this.address = address;
 		return this;
 	}
@@ -91,7 +91,7 @@ public class ShippingInfo  extends PayPalModel {
 	/**
 	 * Getter for address
 	 */
-	public Address getAddress() {
+	public InvoiceAddress getAddress() {
 		return this.address;
 	}
 
