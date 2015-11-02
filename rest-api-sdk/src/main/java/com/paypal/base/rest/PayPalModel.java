@@ -1,6 +1,9 @@
 package com.paypal.base.rest;
 
-public class PayPalModel {
+import java.io.Serializable;
+
+public class PayPalModel implements Serializable {
+	// private static final long serialVersionUID = -870239909411700476L;
 	
 	/**
 	 * Returns a JSON string corresponding to object state
