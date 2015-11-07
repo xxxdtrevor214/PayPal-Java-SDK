@@ -1,6 +1,8 @@
 package com.paypal.base.rest;
 
-import com.paypal.base.HttpStatusCodes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.paypal.base.exception.HttpErrorException;
 import com.paypal.api.payments.Error;
 
@@ -9,6 +11,10 @@ import com.paypal.api.payments.Error;
  */
 public class PayPalRESTException extends Exception {
 
+
+	private static final Logger log = LoggerFactory
+			.getLogger(PayPalRESTException.class);
+	
 	/**
 	 * Serial Version ID
 	 */
@@ -65,11 +71,12 @@ public class PayPalRESTException extends Exception {
 	protected static PayPalRESTException createFromHttpErrorException(HttpErrorException httpErrorException){
 		PayPalRESTException ppre = new PayPalRESTException(httpErrorException.getMessage(), httpErrorException);
 		ppre.setResponsecode(httpErrorException.getResponsecode());
-		if( HttpStatusCodes.BAD_REQUEST == httpErrorException.getResponsecode() &&  httpErrorException.getErrorResponse()!=null){
+		if( httpErrorException.getResponsecode() >= 400 &&  httpErrorException.getErrorResponse()!=null){
 			try{
 				Error details = JSONFormatter.fromJSON(httpErrorException.getErrorResponse(), Error.class);	
 				ppre.setDetails(details);
 			} catch(Exception e){
+				log.error("Exception thrown while parsing error response: " + httpErrorException.getErrorResponse() , e);
 			}
 		}
 		return ppre;
