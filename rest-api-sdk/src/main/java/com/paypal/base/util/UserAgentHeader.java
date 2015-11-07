@@ -49,7 +49,7 @@ public class UserAgentHeader {
 		StringBuilder javaVersion = new StringBuilder();
 		if (System.getProperty("java.version") != null
 				&& System.getProperty("java.version").length() > 0) {
-			javaVersion.append("; v=")
+			javaVersion.append("v=")
 					.append(System.getProperty("java.version"));
 		}
 		if (System.getProperty("java.vendor") != null
