@@ -81,5 +81,9 @@ public class PayPalRESTException extends Exception {
 		}
 		return ppre;
 	}
+	
+	public String toString() {
+		return "response-code: " + this.responsecode + "\tdetails: " + this.details;
+	}
 
 }
