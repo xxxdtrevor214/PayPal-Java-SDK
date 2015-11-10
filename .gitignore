@@ -16,6 +16,7 @@ local.properties
 .settings/
 .loadpath
 rest-api-sdk/src/test/resources/testng.xml
+.recommenders
 
 # External tool builders
 .externalToolBuilders/
