@@ -144,14 +144,14 @@ public abstract class HttpConnection {
 								connection.getErrorStream(),
 								Constants.ENCODING_FORMAT));
 						errorResponse = read(reader);
-						String msg = "Response code: " + responsecode;
+						String msg = "Response code: " + responsecode + "\tError response: " + errorResponse;
 						throw new ClientActionRequiredException(responsecode, errorResponse, msg, new IOException(msg));
 					} else if (responsecode >= 500) {
 						reader = new BufferedReader(new InputStreamReader(
 								connection.getErrorStream(),
 								Constants.ENCODING_FORMAT));
 						errorResponse = read(reader);
-						String msg = "Response code: " + responsecode;
+						String msg = "Response code: " + responsecode + "\tError response: " + errorResponse;
 						throw new HttpErrorException(responsecode, errorResponse, msg, new IOException(msg));
 					}
 				} catch (IOException e) {
