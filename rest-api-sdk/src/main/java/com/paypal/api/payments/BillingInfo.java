@@ -28,7 +28,7 @@ public class BillingInfo  extends PayPalModel {
 	/**
 	 * Address of the invoice recipient.
 	 */
-	private Address address;
+	private InvoiceAddress address;
 
 	/**
 	 * Language of the email sent to the payer. Will only be used if payer doesn't have a PayPal account.
@@ -121,7 +121,7 @@ public class BillingInfo  extends PayPalModel {
 	/**
 	 * Setter for address
 	 */
-	public BillingInfo setAddress(Address address) {
+	public BillingInfo setAddress(InvoiceAddress address) {
 		this.address = address;
 		return this;
 	}
@@ -129,7 +129,7 @@ public class BillingInfo  extends PayPalModel {
 	/**
 	 * Getter for address
 	 */
-	public Address getAddress() {
+	public InvoiceAddress getAddress() {
 		return this.address;
 	}
 

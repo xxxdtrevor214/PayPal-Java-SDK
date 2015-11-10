@@ -326,6 +326,8 @@ public class PaymentTestCase {
 			Assert.assertTrue(e != null,
 					"Illegal Argument Exception not thrown for null arguments");
 		} catch (PayPalRESTException e) {
+			logger.error("response code: " + e.getResponsecode());
+			logger.error("message: " + e.getMessage());
 			Assert.fail();
 		}
 	}
@@ -366,11 +368,17 @@ public class PaymentTestCase {
 		List<Patch> patchRequest = new ArrayList<Patch>();
 		patchRequest.add(patch);
 		
-		Payment payment = Payment.get(TokenHolder.accessToken, ID);
-		payment.update(TokenHolder.accessToken, patchRequest);
-		logger.info("Request = " + Payment.getLastRequest());
-		logger.info("Response = " + Payment.getLastResponse());
-		logger.info("updated payment ID = " + createdPaymentID);
+		try {
+			Payment payment = Payment.get(TokenHolder.accessToken, ID);
+			payment.update(TokenHolder.accessToken, patchRequest);
+			logger.info("Request = " + Payment.getLastRequest());
+			logger.info("Response = " + Payment.getLastResponse());
+			logger.info("updated payment ID = " + createdPaymentID);
+		} catch (PayPalRESTException e) {
+			logger.error("response code: " + e.getResponsecode());
+			logger.error("message: " + e.getMessage());
+			Assert.fail();
+		}
 	}
 
 	@Test(groups = "unit")

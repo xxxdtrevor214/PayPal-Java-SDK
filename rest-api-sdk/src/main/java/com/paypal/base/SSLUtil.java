@@ -31,9 +31,13 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.paypal.base.codec.binary.Base64;
 import com.paypal.base.exception.SSLConfigurationException;
 import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 /**
  * Class SSLUtil
@@ -41,6 +45,8 @@ import com.paypal.base.rest.PayPalRESTException;
  */
 public abstract class SSLUtil {
 
+	private static final Logger log = LoggerFactory.getLogger(SSLUtil.class);
+	
 	/**
 	 * KeyManagerFactory used for {@link SSLContext} {@link KeyManager}
 	 */
@@ -80,7 +86,14 @@ public abstract class SSLUtil {
 	public static SSLContext getSSLContext(KeyManager[] keymanagers)
 			throws SSLConfigurationException {
 		try {
-			SSLContext ctx = SSLContext.getInstance(CONFIG_MAP.get(Constants.SSLUTIL_PROTOCOL)); // TLS, SSLv3, SSL
+			SSLContext ctx = null;
+			String protocol = CONFIG_MAP.get(Constants.SSLUTIL_PROTOCOL);
+			try {
+				ctx = SSLContext.getInstance("TLSv1.2");
+			} catch (NoSuchAlgorithmException e) {
+				log.warn("SECURITY WARNING: TLSv1.2 is not supported on this system. Please update your Java runtime to a version that supports TLSv1.2.");
+				ctx = SSLContext.getInstance(protocol);
+			}
 			ctx.init(keymanagers, null, null);
 			return ctx;
 		} catch (Exception e) {

@@ -496,9 +496,9 @@ public class Payment  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		PaymentHistory paymentHistory = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
-		if (paymentHistory == null) {
-			paymentHistory = new PaymentHistory();
-		}
+//		if (paymentHistory == null) {
+//			paymentHistory = new PaymentHistory();
+//		}
 		
 		return paymentHistory;
 	}
