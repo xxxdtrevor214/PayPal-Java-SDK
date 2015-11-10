@@ -552,9 +552,9 @@ public class CreditCard  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		CreditCardHistory creditCardHistory = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCardHistory.class);
-		if (creditCardHistory == null) {
-			creditCardHistory = new CreditCardHistory();
-		}
+//		if (creditCardHistory == null) {
+//			creditCardHistory = new CreditCardHistory();
+//		}
 		
 		return creditCardHistory;
 	}

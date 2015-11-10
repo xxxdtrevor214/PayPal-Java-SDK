@@ -852,9 +852,9 @@ public class Agreement  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		AgreementTransactions transactions = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, AgreementTransactions.class);
-		if (transactions == null) {
-			transactions = new AgreementTransactions();
-		}
+//		if (transactions == null) {
+//			transactions = new AgreementTransactions();
+//		}
 		
 		return transactions;
 	}

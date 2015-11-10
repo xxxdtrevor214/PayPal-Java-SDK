@@ -153,9 +153,9 @@ public class EventType  extends PayPalResource {
 		String resourcePath = "v1/notifications/webhooks-event-types";
 		String payLoad = "";
 		EventTypeList eventTypeList = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
-		if (eventTypeList == null) {
-			eventTypeList = new EventTypeList();
-		}
+//		if (eventTypeList == null) {
+//			eventTypeList = new EventTypeList();
+//		}
 		
 		return eventTypeList;
 	}

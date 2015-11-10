@@ -23,7 +23,7 @@ public class MerchantInfo  extends PayPalModel {
 	/**
 	 * Address of the merchant.
 	 */
-	private Address address;
+	private InvoiceAddress address;
 
 	/**
 	 * Company business name of the merchant. 100 characters max.
@@ -120,7 +120,7 @@ public class MerchantInfo  extends PayPalModel {
 	/**
 	 * Setter for address
 	 */
-	public MerchantInfo setAddress(Address address) {
+	public MerchantInfo setAddress(InvoiceAddress address) {
 		this.address = address;
 		return this;
 	}
@@ -128,7 +128,7 @@ public class MerchantInfo  extends PayPalModel {
 	/**
 	 * Getter for address
 	 */
-	public Address getAddress() {
+	public InvoiceAddress getAddress() {
 		return this.address;
 	}
 

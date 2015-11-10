@@ -402,9 +402,9 @@ public class WebProfile  {
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = "";
 		List<WebProfile> webProfiles = PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
-		if (webProfiles == null) {
-			webProfiles = new ArrayList<WebProfile>();
-		}
+//		if (webProfiles == null) {
+//			webProfiles = new ArrayList<WebProfile>();
+//		}
 		
 		return webProfiles;
 	}

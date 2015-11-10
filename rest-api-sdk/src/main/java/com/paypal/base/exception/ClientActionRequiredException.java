@@ -19,6 +19,10 @@ public class ClientActionRequiredException extends HttpErrorException {
 	public ClientActionRequiredException(String message, Throwable exception) {
 		super(message, exception);
 	}
+
+	public ClientActionRequiredException(int responsecode, String errorResponse, String msg, Throwable exception) {
+		super(responsecode, errorResponse, msg, exception);
+	}
 	
 	public String toString() {
 		return "HTTP response code: " + this.getResponsecode() + "\n"

@@ -154,5 +154,9 @@ public class Error  extends PayPalModel {
 		this.code = code;
 		return this;
 	}
+	
+	public String toString() {
+		return "name: " + this.name + "\tmessage: " + this.message + "\tdetails: " + this.details + "\tdebug-id: " + this.debugId + "\tinformation-link: " + this.informationLink;
+	}
 
 }

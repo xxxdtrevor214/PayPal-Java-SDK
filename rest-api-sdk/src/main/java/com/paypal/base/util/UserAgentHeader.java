@@ -46,15 +46,19 @@ public class UserAgentHeader {
 	static {
 
 		// Java Version computed statically
-		StringBuilder javaVersion = new StringBuilder("lang=Java");
+		StringBuilder javaVersion = new StringBuilder();
 		if (System.getProperty("java.version") != null
 				&& System.getProperty("java.version").length() > 0) {
-			javaVersion.append(";v=")
+			javaVersion.append("v=")
 					.append(System.getProperty("java.version"));
+		}
+		if (System.getProperty("java.vendor") != null
+				&& System.getProperty("java.vendor").length() > 0) {
+			javaVersion.append("; vendor=" + System.getProperty("java.vendor"));
 		}
 		if (System.getProperty("java.vm.name") != null
 				&& System.getProperty("java.vm.name").length() > 0) {
-			javaVersion.append(";bit=");
+			javaVersion.append("; bit=");
 			if (System.getProperty("java.vm.name").contains("Client")) {
 				javaVersion.append("32");
 			} else {
@@ -98,7 +102,7 @@ public class UserAgentHeader {
 		stringBuilder.append("(").append(JAVAHEADER);
 		String osVersion = OSHEADER;
 		if (osVersion.length() > 0) {
-			stringBuilder.append(";").append(osVersion);
+			stringBuilder.append("; ").append(osVersion);
 		}
 		stringBuilder.append(")");
 		header = stringBuilder.toString();

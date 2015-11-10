@@ -4,6 +4,7 @@ import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.exception.InvalidResponseDataException;
 import com.paypal.base.exception.SSLConfigurationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -143,17 +144,15 @@ public abstract class HttpConnection {
 								connection.getErrorStream(),
 								Constants.ENCODING_FORMAT));
 						errorResponse = read(reader);
-						throw new ClientActionRequiredException(
-								"Response Code : "
-										+ responsecode
-										+ " with response : " + errorResponse + ", change log level to DEBUG for details.");
+						String msg = "Response code: " + responsecode + "\tError response: " + errorResponse;
+						throw new ClientActionRequiredException(responsecode, errorResponse, msg, new IOException(msg));
 					} else if (responsecode >= 500) {
 						reader = new BufferedReader(new InputStreamReader(
 								connection.getErrorStream(),
 								Constants.ENCODING_FORMAT));
 						errorResponse = read(reader);
-						throw new IOException("Response Code : " + responsecode
-								+ " with response : " + errorResponse + ", change log level to DEBUG for details.");
+						String msg = "Response code: " + responsecode + "\tError response: " + errorResponse;
+						throw new HttpErrorException(responsecode, errorResponse, msg, new IOException(msg));
 					}
 				} catch (IOException e) {
 					lastException = e;
