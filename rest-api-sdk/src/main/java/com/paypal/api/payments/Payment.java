@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.GsonBuilder;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
+import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 import com.paypal.base.rest.RESTUtil;
@@ -447,7 +447,7 @@ public class Payment  extends PayPalResource {
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/payments/payment/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = new GsonBuilder().create().toJson(patchRequest);
+		String payLoad = JSONFormatter.toJSON(patchRequest);
 		PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
 		return;
 	}
