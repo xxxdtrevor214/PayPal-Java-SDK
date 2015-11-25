@@ -2,7 +2,7 @@ CHANGELOG
 =========
 v1.3.1
 ------
-   * Fix JSON formatting in update() for Payment, Agreement, Plan
+   * Fix JSON formatting in update() for Payment
 
 v1.3.0
 -------
