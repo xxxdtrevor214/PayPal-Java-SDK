@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+v1.3.1
+------
+   * Fix JSON formatting in update() for Payment
+
 v1.3.0
 -------
    * Reverted empty list behavior when HTTP 204 (no content) is returned [#124](https://github.com/paypal/PayPal-Java-SDK/issues/124) for backward compatibility.

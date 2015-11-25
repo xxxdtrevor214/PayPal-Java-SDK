@@ -104,7 +104,7 @@ public class PaymentTestCase {
 
 		Payment payment = new Payment();
 		payment.setIntent("sale");
-        payment.setExperienceProfileId(EXPERIENCEPROFILEID);
+        // payment.setExperienceProfileId(EXPERIENCEPROFILEID);
 		payment.setPayer(payer);
 		payment.setTransactions(transactions);
 		return payment;
@@ -357,6 +357,7 @@ public class PaymentTestCase {
 		Details details = new Details();
 		details.setSubtotal("13.37");
 		details.setShipping("5.00");
+		details.setHandlingFee("1.00");
 		Amount value = new Amount();
 		value.setTotal("18.37");
 		value.setCurrency("EUR");
@@ -369,13 +370,16 @@ public class PaymentTestCase {
 		patchRequest.add(patch);
 		
 		try {
-			Payment payment = Payment.get(TokenHolder.accessToken, ID);
+			Payment payment = Payment.get(TokenHolder.accessToken, createdPaymentID);
 			payment.update(TokenHolder.accessToken, patchRequest);
+			logger.info("Payment ID = " + createdPaymentID);
 			logger.info("Request = " + Payment.getLastRequest());
 			logger.info("Response = " + Payment.getLastResponse());
 			logger.info("updated payment ID = " + createdPaymentID);
 		} catch (PayPalRESTException e) {
+			logger.info("Payment ID = " + createdPaymentID);
 			logger.error("response code: " + e.getResponsecode());
+			logger.info("Request = " + Payment.getLastRequest());
 			logger.error("message: " + e.getMessage());
 			Assert.fail();
 		}
