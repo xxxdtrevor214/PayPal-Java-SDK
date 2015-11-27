@@ -375,6 +375,7 @@ public class PaymentTestCase {
 			logger.info("Response = " + Payment.getLastResponse());
 			logger.info("updated payment ID = " + createdPaymentID);
 		} catch (PayPalRESTException e) {
+			logger.info("Request = " + Payment.getLastRequest());
 			logger.error("response code: " + e.getResponsecode());
 			logger.error("message: " + e.getMessage());
 			Assert.fail();
