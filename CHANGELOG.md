@@ -3,7 +3,8 @@ CHANGELOG
 v1.4.0
 ------
    * Payment API update
-   
+   * Update TLS 1.2 warning message
+
 v1.3.1
 -------
    * Updated test cases
