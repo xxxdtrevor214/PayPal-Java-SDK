@@ -1,9 +1,15 @@
 CHANGELOG
 =========
-v1.3.1
+v1.4.0
 ------
-   * Fix JSON formatting in update() for Payment
+   * Payment API update
+   * Update TLS 1.2 warning message
 
+v1.3.1
+-------
+   * Updated test cases
+   * Disabled Java 8 doclint
+   
 v1.3.0
 -------
    * Reverted empty list behavior when HTTP 204 (no content) is returned [#124](https://github.com/paypal/PayPal-Java-SDK/issues/124) for backward compatibility.
