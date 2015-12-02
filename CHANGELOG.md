@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+v1.4.1
+------
+   * Fix webhook common name verification
+
 v1.4.0
 ------
    * Payment API update

@@ -220,7 +220,16 @@ public abstract class SSLUtil {
 						cert.checkValidity();
 						// Check for CN name matching
 						String dn = cert.getSubjectX500Principal().getName();
-						if (!dn.contains("CN=messageverificationcerts")) {
+						String[] tokens = dn.split(",");
+						boolean hasPaypalCn = false;
+						
+						for (String token: tokens) {
+							if (token.startsWith("CN=messageverificationcerts") && token.endsWith(".paypal.com")) {
+								hasPaypalCn = true;
+							}
+						}
+						
+						if (!hasPaypalCn) {
 							throw new PayPalRESTException("CN of client certificate does not match with trusted CN");
 						}
 					}
