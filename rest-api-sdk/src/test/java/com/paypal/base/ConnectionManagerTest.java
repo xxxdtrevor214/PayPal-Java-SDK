@@ -1,5 +1,7 @@
 package com.paypal.base;
 
+import javax.net.ssl.SSLContext;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -29,11 +31,16 @@ public class ConnectionManagerTest {
 	}
 
 	@Test
-	public void getConnectionWithHttpConfigurationForDefauktTest() {
+	public void getConnectionWithHttpConfigurationForDefauktTest() throws Exception {
 		HttpConfiguration httpConfig = new HttpConfiguration();
 
 		Assert.assertEquals(conn.getConnection(httpConfig).getClass(),
 				DefaultHttpConnection.class);
+		
+		conn.configureCustomSslContext(SSLContext.getDefault());
+		
+		Assert.assertEquals(conn.getConnection(httpConfig).getClass(),
+			DefaultHttpConnection.class);
 	}
 
 	@AfterClass
