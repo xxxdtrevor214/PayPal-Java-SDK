@@ -2,6 +2,8 @@ package com.paypal.base;
 
 import javax.net.ssl.SSLContext;
 
+import com.paypal.base.credential.CertificateCredential;
+
 /**
  * ConnectionManager acts as a interface to retrieve {@link HttpConnection}
  * objects used by API service
@@ -64,7 +66,10 @@ public final class ConnectionManager {
 	/**
 	 * 
 	 * @param sslContext an custom {@link SSLContext} to set to all new connections. 
-	 * 		If null, the default SSLContext will be recovered each new connection.
+	 * 		If null, the default SSLContext will be recovered each new connection.<br>
+	 *              Note: This custom SSLContext will be overwritten if you use a {@link CertificateCredential}
+	 *                    to authenticate the client rest
+	 *  
 	 */
 	public void configureCustomSslContext(SSLContext sslContext) {
 	        customSslContext = sslContext;
