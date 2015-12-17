@@ -68,10 +68,24 @@ public final class ConnectionManager {
 	 * @param sslContext an custom {@link SSLContext} to set to all new connections. 
 	 * 		If null, the default SSLContext will be recovered each new connection.<br>
 	 *              Note: This custom SSLContext will be overwritten if you use a {@link CertificateCredential}
-	 *                    to authenticate the client rest
+	 *                    to authenticate the client rest.
+	 *<pre>
+	 *	
+	 * {@literal // On application startup...}
+	 * public static void main({@link String}[] args) {
+	 * 	{@link SSLContext} sslContext = {@link SSLContext}.getDefault(); 
+	 * 	{@literal // Or provide your custom context.}
+	 * 
+	 * 	{@link ConnectionManager}.getInstance().configureCustomSslContext(sslContext); 
+	 * 	{@literal // Now all connections will use this ssl context except if the authentication method is with certificate credential.}
+	 * }
+	 * 
+	 *</pre>
+	 *  
+	 *  @see CertificateCredential
 	 *  
 	 */
 	public void configureCustomSslContext(SSLContext sslContext) {
-	        customSslContext = sslContext;
+		customSslContext = sslContext;
 	}
 }
