@@ -56,7 +56,9 @@ To make an API call:
 *	Alternatively, create `accesstoken` from `clientID` and `clientSecret` using `OAuthTokenCredential` 
 
 	```java
-	String accessToken = new OAuthTokenCredential(clientID, clientSecret).getAccessToken();
+	Map<String, String> map = new HashMap<String, String>();
+	map.put("mode", "sandbox");
+	String accessToken = new OAuthTokenCredential(clientID, clientSecret, map).getAccessToken();
 	```
 		
 *	Depending on the context of API calls, calling method may be static or non-static (For example, most `GET` http methods are created as `static` methods within the resource). In all API calls, we need to pass `accessToken` created above as argument as shown below,

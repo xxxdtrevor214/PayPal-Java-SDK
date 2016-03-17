@@ -1,5 +1,10 @@
 CHANGELOG
 =========
+
+v1.4.2
+------
+	* Fix null pointer exception. Fixes #150
+
 v1.4.1
 ------
    * Fix webhook common name verification
