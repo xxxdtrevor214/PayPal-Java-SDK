@@ -132,6 +132,14 @@ v0.11.2 (November 3, 2014)
 --------------------------
    * Deactivated maven coverage profile
 
+v0.11.1 (October 31, 2014)
+--------------------------
+   * Undocumented
+
+v0.11.0 (October 30, 2014)
+--------------------------
+   * Undocumented
+
 v0.10.0 (October 30, 2014)
 --------------------------
    * Added web profile support
