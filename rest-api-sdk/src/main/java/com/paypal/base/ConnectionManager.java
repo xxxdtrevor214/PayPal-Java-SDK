@@ -59,7 +59,7 @@ public final class ConnectionManager {
 		if (httpConfig.isGoogleAppEngine()) {
 			return new GoogleAppEngineHttpConnection();
 		} else {
-			return new DefaultHttpConnection();
+			return getConnection();
 		}
 	}
 	
