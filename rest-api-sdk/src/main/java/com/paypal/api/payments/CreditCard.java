@@ -76,16 +76,16 @@ public class CreditCard  extends PayPalResource {
 	private String validUntil;
 
 	/**
-	 * 
+	 *
 	 */
 	private List<Links> links;
-	
+
 	/**
 	 * Payer ID
 	 */
 	private String payerId;
 
-	
+
 	/**
 	 * Default Constructor
 	 */
@@ -555,7 +555,7 @@ public class CreditCard  extends PayPalResource {
 //		if (creditCardHistory == null) {
 //			creditCardHistory = new CreditCardHistory();
 //		}
-		
+
 		return creditCardHistory;
 	}
 
@@ -570,7 +570,7 @@ public class CreditCard  extends PayPalResource {
 	 */
 	public static CreditCardHistory list(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
-		
+
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("merchant_id", "");
 		parameters.put("external_card_id", "");
@@ -581,7 +581,8 @@ public class CreditCard  extends PayPalResource {
 		parameters.put("page_size", "10");
 		parameters.put("sort_order", "asc");
 		parameters.put("sort_by", "create_time");
-		
+		parameters.put("total_required", "true");
+
 		return list(apiContext, parameters);
 	}
 
