@@ -1,5 +1,8 @@
 CHANGELOG
 =========
+v1.5.0
+------
+   * Vault API update
 
 v1.4.2
 ------
