@@ -150,3 +150,9 @@ The SDK uses Java properties format configuration file. Sample of this file is a
 ```
 		
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/rest-api-sdk-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+## License
+Code released under [SDK LICENSE](LICENSE)  
+
+## Contributions 
+ Pull requests and new issues are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for details. 
