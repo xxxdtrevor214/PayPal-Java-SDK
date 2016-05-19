@@ -45,8 +45,8 @@ def validate_paths
 end
 
 def check_tokens
-  check_token("SONOTYPE_USERNAME")
-  check_token("SONOTYPE_PASSWORD")
+  check_token("SONATYPE_USERNAME")
+  check_token("SONATYPE_PASSWORD")
 end  
 
 configatron.custom_validation_methods = [
@@ -66,9 +66,9 @@ end
 configatron.build_method = method(:build_method)
 
 def publish_to_package_manager(version)
-  CommandProcessor.command("mvn gpg:sign-and-deploy-file -Durl=https://#{ENV["SONOTYPE_USERNAME"]}:#{ENV["SONOTYPE_PASSWORD"]}@oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=rest-api-sdk-#{version}.pom -Dfile=rest-api-sdk-#{version}.jar -Dgpg.passphrase=#{ENV["SONOTYPE_PASSWORD"]}", live_output=true)
-  CommandProcessor.command("mvn gpg:sign-and-deploy-file -Durl=https://#{ENV["SONOTYPE_USERNAME"]}:#{ENV["SONOTYPE_PASSWORD"]}@oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=rest-api-sdk-#{version}.pom -Dfile=rest-api-sdk-#{version}-sources.jar -Dclassifier=sources -Dgpg.passphrase=#{ENV["SONOTYPE_PASSWORD"]}", live_output=true)
-  CommandProcessor.command("mvn gpg:sign-and-deploy-file -Durl=https://#{ENV["SONOTYPE_USERNAME"]}:#{ENV["SONOTYPE_PASSWORD"]}@oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=rest-api-sdk-#{version}.pom -Dfile=rest-api-sdk-#{version}-javadoc.jar -Dclassifier=javadoc -Dgpg.passphrase=#{ENV["SONOTYPE_PASSWORD"]}", live_output=true)
+  CommandProcessor.command("mvn gpg:sign-and-deploy-file -Durl=https://#{ENV["SONATYPE_USERNAME"]}:#{ENV["SONATYPE_PASSWORD"]}@oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=#{pom_path}/com/paypal/sdk/#{parent_pom_version}/rest-api-sdkrest-api-sdk-#{parent_pom_version}.pom -Dfile=rest-api-sdk/target/rest-api-sdk-#{parent_pom_version}.jar -Dgpg.passphrase=#{ENV["SONATYPE_PASSWORD"]}", live_output=true)
+  CommandProcessor.command("mvn gpg:sign-and-deploy-file -Durl=https://#{ENV["SONATYPE_USERNAME"]}:#{ENV["SONATYPE_PASSWORD"]}@oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=#{pom_path}/com/paypal/sdk/#{parent_pom_version}/rest-api-sdkrest-api-sdk-#{parent_pom_version}.pom -Dfile=rest-api-sdk/target/rest-api-sdk-#{parent_pom_version}-sources.jar -Dclassifier=sources -Dgpg.passphrase=#{ENV["SONATYPE_PASSWORD"]}", live_output=true)
+  CommandProcessor.command("mvn gpg:sign-and-deploy-file -Durl=https://#{ENV["SONATYPE_USERNAME"]}:#{ENV["SONATYPE_PASSWORD"]}@oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=#{pom_path}/com/paypal/sdk/#{parent_pom_version}/rest-api-sdkrest-api-sdk-#{parent_pom_version}.pom -Dfile=rest-api-sdk/target/rest-api-sdk-#{parent_pom_version}-javadoc.jar -Dclassifier=javadoc -Dgpg.passphrase=#{ENV["SONATYPE_PASSWORD"]}", live_output=true)
 end
 
 # The method that publishes the sdk to the package manager.  Required.
@@ -148,9 +148,19 @@ def file_SDK_version()
 end
 
 def check_token(token_param)
-      if !ENV[token_param]
-        Printer.fail("#{token_param} environment variable required.  Please add this value to your environment file.")
-        abort()
-      end 
-        Printer.success("#{token_param} environment variable found.")  
+  if !ENV[token_param]
+    Printer.fail("#{token_param} environment variable required.  Please add this value to your environment file.")
+    abort()
+  end 
+    Printer.success("#{token_param} environment variable found.")  
+end
+
+def pom_path()
+  f=File.open(ENV['HOME']+'/.m2/settings.xml', 'r') do |f|
+    f.each_line do |line|
+      if line.match (/<\/localRepository>/)
+        return line.strip.split('>')[1].strip.split('<')[0]    
+      end
     end
+  end
+end
