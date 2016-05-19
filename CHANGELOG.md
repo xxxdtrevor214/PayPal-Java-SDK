@@ -3,7 +3,7 @@ CHANGELOG
 v1.5.0
 ------
    * Vault API update
-
+   
 v1.4.2
 ------
    * Fix null pointer exception. Fixes #150
