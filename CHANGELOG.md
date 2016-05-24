@@ -3,6 +3,7 @@ CHANGELOG
 v1.5.0
 ------
    * Vault API update
+   * Updaetd prerequisites
    
 v1.4.2
 ------
