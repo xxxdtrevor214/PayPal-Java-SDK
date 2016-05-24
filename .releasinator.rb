@@ -86,12 +86,12 @@ configatron.wait_for_package_manager_method = method(:wait_for_package_manager)
 configatron.release_to_github = true
 
 def parent_pom_version()
-  f=File.open("pom.xml", 'r') do |f|
+  File.open("pom.xml", 'r') do |f|
     f.each_line do |line|
       if line.match ("<artifactId>rest-api<\/artifactId>")
         line = f.gets 
         if line.match (/<version>\d*\.\d*\.\d*<\/version>/)
-            return line.strip.split('>')[1].strip.split('<')[0] 
+          return line.strip.split('>')[1].strip.split('<')[0] 
         end      
       end
     end
@@ -99,12 +99,12 @@ def parent_pom_version()
 end
 
 def sdk_pom_version()
-  f=File.open("rest-api-sdk/pom.xml", 'r') do |f|
+  File.open("rest-api-sdk/pom.xml", 'r') do |f|
     f.each_line do |line|
       if line.match ("<artifactId>rest-api-sdk<\/artifactId>")
         line = f.gets 
         if line.match (/<version>\d*\.\d*\.\d*<\/version>/)
-            return line.strip.split('>')[1].strip.split('<')[0] 
+          return line.strip.split('>')[1].strip.split('<')[0] 
         end      
       end
     end
@@ -112,12 +112,12 @@ def sdk_pom_version()
 end
 
 def sample_pom_version()
-  f=File.open("rest-api-sample/pom.xml", 'r') do |f|
+  File.open("rest-api-sample/pom.xml", 'r') do |f|
     f.each_line do |line|
       if line.match ("<name>REST API SAMPLE<\/name>")
         line = f.gets 
         if line.match (/<version>\d*\.\d*\.\d*<\/version>/)
-            return line.strip.split('>')[1].strip.split('<')[0] 
+          return line.strip.split('>')[1].strip.split('<')[0] 
         end      
       end
     end
@@ -125,12 +125,12 @@ def sample_pom_version()
 end
 
 def sample_dependency_pom_version()
-  f=File.open("rest-api-sample/pom.xml", 'r') do |f|
+  File.open("rest-api-sample/pom.xml", 'r') do |f|
     f.each_line do |line|
       if line.match ("<artifactId>rest-api-sdk<\/artifactId>")
         line = f.gets 
         if line.match (/<version>\d*\.\d*\.\d*<\/version>/)
-            return line.strip.split('>')[1].strip.split('<')[0] 
+          return line.strip.split('>')[1].strip.split('<')[0] 
         end      
       end
     end
@@ -156,7 +156,7 @@ def check_token(token_param)
 end
 
 def pom_path()
-  f=File.open(ENV['HOME']+'/.m2/settings.xml', 'r') do |f|
+  File.open(ENV['HOME']+'/.m2/settings.xml', 'r') do |f|
     f.each_line do |line|
       if line.match (/<\/localRepository>/)
         return line.strip.split('>')[1].strip.split('<')[0]    
