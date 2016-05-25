@@ -17,14 +17,6 @@ import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
 public class FuturePayment extends Payment {
-
-	
-	private Properties getCredential() throws FileNotFoundException, IOException {
-		Properties properties = new Properties();
-		properties.load(new FileReader(new File(".",
-				"src/main/resources/sdk_config.properties")));
-		return properties;
-	}
 	
 	/**
 	 * Creates a future payment using either authorization code or refresh token with correlation ID. <br>
@@ -69,11 +61,5 @@ public class FuturePayment extends Payment {
 		return info;
 	}
 	
-	public ClientCredentials getClientCredential() throws FileNotFoundException, IOException {
-		ClientCredentials credentials = new ClientCredentials();
-		Properties properties = getCredential();
-		credentials.setClientID(properties.getProperty(Constants.CLIENT_ID));
-		credentials.setClientSecret(properties.getProperty(Constants.CLIENT_SECRET));
-		return credentials;
-	}
+
 }
