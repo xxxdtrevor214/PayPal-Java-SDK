@@ -4,6 +4,7 @@ v1.5.0
 ------
    * Vault API update
    * Updaetd prerequisites
+   * Added custom-headers
    
 v1.4.2
 ------
