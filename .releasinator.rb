@@ -76,7 +76,7 @@ configatron.publish_to_package_manager_method = method(:publish_to_package_manag
 
 
 def wait_for_package_manager(version)
-  CommandProcessor.wait_for("wget -U \"non-empty-user-agent\" -qO- http://central.maven.org/maven2/com/paypal/sdk/rest-api-sdk/#{version}/rest-api-sdk-#{version}.pom | cat")
+  CommandProcessor.wait_for("wget -U \"non-empty-user-agent\" -qO- http://central.maven.org/maven2/com/paypal/sdk/rest-api-sdk/#{parent_pom_version}/rest-api-sdk-#{parent_pom_version}.pom | cat")
 end
 
 # The method that waits for the package manager to be done.  Required
