@@ -41,7 +41,7 @@ public class SampleBase<T> {
 		accessToken = GenerateAccessToken.getAccessToken();
 	}
 
-	protected <T> T load(String jsonFile, Class<T> clazz) {
+	protected <T> T load(String jsonFile, Class<T> clazz) throws IOException {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(new File(
@@ -55,9 +55,6 @@ public class SampleBase<T> {
 				line = br.readLine();
 			}
 			return (T)JSONFormatter.fromJSON(sb.toString(), clazz);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return (T)instance;
 		} finally {
 			if (br != null) {
 				try {

@@ -7,6 +7,7 @@ import com.paypal.api.payments.Plan;
 import com.paypal.base.rest.PayPalRESTException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class SubscriptionSample extends SampleBase<Plan> {
@@ -24,7 +25,7 @@ public class SubscriptionSample extends SampleBase<Plan> {
 	 * @return newly created Plan instance
 	 * @throws PayPalRESTException
 	 */
-	public Plan create() throws PayPalRESTException {
+	public Plan create() throws PayPalRESTException, IOException {
 		// populate Plan object that we are going to play with
 		super.instance = super.load("billingplan_create.json", instance.getClass());
 		super.instance = super.instance.create(accessToken);
@@ -39,7 +40,7 @@ public class SubscriptionSample extends SampleBase<Plan> {
 	 * @return updated Plan instance
 	 * @throws PayPalRESTException
 	 */
-	public Plan update() throws PayPalRESTException {
+	public Plan update() throws PayPalRESTException, IOException {
 		Patch[] patch = super.load("billingplan_update.json", Patch[].class);
 		super.instance.update(super.accessToken, Arrays.asList(patch));
 		return super.instance;
@@ -79,6 +80,8 @@ public class SubscriptionSample extends SampleBase<Plan> {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (PayPalRESTException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
