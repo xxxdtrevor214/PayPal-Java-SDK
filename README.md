@@ -4,8 +4,6 @@ This repository contains Java SDK and samples for REST API. For PayPal mobile(An
 Prerequisites:
 ---------------
 *	Java JDK 6 or higher
-*	Apache Maven 3 or higher
-*	Please refer http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html for any help in Maven.
 *	An environment which supports TLS 1.2 (see the [TLS-update site](https://github.com/paypal/TLS-update#java) for more information)
 
 SDK Integration:
@@ -23,7 +21,20 @@ For Maven Users:
 			<artifactId>rest-api-sdk</artifactId>
 			<version>LATEST</version>
 		</dependency>
-		
+
+For Gradle Users:
+-----------------
+
+* Add following dependency to your build.gradle
+	
+	```js
+	repositories {
+    	mavenCentral()
+	}
+	dependencies {
+	    compile 'com.paypal.sdk:rest-api-sdk:*'
+	}
+	```
 		
 To make an API call:
 --------------------
