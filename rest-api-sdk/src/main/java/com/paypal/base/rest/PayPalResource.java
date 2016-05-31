@@ -3,6 +3,7 @@ package com.paypal.base.rest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.paypal.base.APICallPreHandler;
+import com.paypal.base.ClientCredentials;
 import com.paypal.base.ConfigManager;
 import com.paypal.base.ConnectionManager;
 import com.paypal.base.Constants;
@@ -490,6 +492,22 @@ public abstract class PayPalResource extends PayPalModel{
 		httpConfiguration.setIpAddress(configurationMap
 				.get(Constants.DEVICE_IP_ADDRESS));
 		return httpConfiguration;
+	}
+	
+	public ClientCredentials getClientCredential() throws FileNotFoundException, IOException {
+		ClientCredentials credentials = new ClientCredentials();
+		Properties properties = getCredential();
+		credentials.setClientID(properties.getProperty(Constants.CLIENT_ID));
+		credentials.setClientSecret(properties.getProperty(Constants.CLIENT_SECRET));
+		return credentials;
+	}
+	
+	
+	private Properties getCredential() throws FileNotFoundException, IOException {
+		Properties properties = new Properties();
+		properties.load(new FileReader(new File(".",
+				"src/main/resources/sdk_config.properties")));
+		return properties;
 	}
 
 }
