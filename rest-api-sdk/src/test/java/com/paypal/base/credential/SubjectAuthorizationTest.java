@@ -6,6 +6,6 @@ public class SubjectAuthorizationTest {
 
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void illegalArgumentExceptionTest() {
-		SubjectAuthorization subjectAuth = new SubjectAuthorization(null);
+		new SubjectAuthorization(null);
 	}
 }

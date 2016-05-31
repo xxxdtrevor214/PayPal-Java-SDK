@@ -185,3 +185,6 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+#Output files 
+rest-api-sdk/test-output/
