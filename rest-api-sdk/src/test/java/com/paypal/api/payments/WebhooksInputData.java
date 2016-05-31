@@ -22,7 +22,7 @@ public class WebhooksInputData {
 	public static final String CLIENT_SECRET = "EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL";
 	public static final String EVENT_ID = "WH-SDK-1S115631EN580315E-9KH94552VF7913711";
 
-	public static final String LINK_HREF = "https://api.paypal.com/v1/notifications/webhooks-events/" + EVENT_ID;
+	public static final String LINK_HREF = "https://api.sandbox.paypal.com/v1/notifications/webhooks-events/" + EVENT_ID;
 	public static final String LINK_HREF_RESEND = LINK_HREF + "/resend";
 	public static final String LINK_REL_SELF = "self";
 	public static final String LINK_REL_RESEND = "resend";
