@@ -8,37 +8,33 @@ import java.io.IOException;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.paypal.api.payments.util.GenerateAccessToken;
 import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 
 public class SampleBase<T> {
 
-	protected T instance;
+	protected T instance = null;
 	protected String accessToken = null;
 
 	/**
 	 * Initialize sample base
 	 *
-	 * @param type
 	 * @throws PayPalRESTException
 	 * @throws JsonSyntaxException
 	 * @throws JsonIOException
 	 * @throws FileNotFoundException
 	 */
-	public SampleBase(T type) throws PayPalRESTException, JsonSyntaxException,
+	public SampleBase(T instance) throws PayPalRESTException, JsonSyntaxException,
 			JsonIOException, FileNotFoundException {
-
-		instance = type;
+		this.instance = instance;
 
 		// initialize sample credentials. User credentials must be stored
 		// in the file
-		PayPalResource.initConfig(new File(
+		OAuthTokenCredential tokenCredential = PayPalResource.initConfig(new File(
 				getClass().getClassLoader().getResource("sdk_config.properties").getFile()));
-
-		// get an access token
-		accessToken = GenerateAccessToken.getAccessToken();
+		this.accessToken = tokenCredential.getAccessToken();
 	}
 
 	protected <T> T load(String jsonFile, Class<T> clazz) throws IOException {
