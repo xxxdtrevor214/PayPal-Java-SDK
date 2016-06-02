@@ -149,8 +149,6 @@ The SDK uses Java properties format configuration file. Sample of this file is a
 
     info.createFromRefreshToken(apiContext, param);
 ```
-		
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/paypal/rest-api-sdk-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## License
 Code released under [SDK LICENSE](LICENSE)  
