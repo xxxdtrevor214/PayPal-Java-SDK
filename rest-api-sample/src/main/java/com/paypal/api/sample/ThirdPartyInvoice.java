@@ -1,11 +1,9 @@
 package com.paypal.api.sample;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
+import com.paypal.base.rest.PayPalResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,14 +14,11 @@ import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.api.payments.Invoice;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.ClientCredentials;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 
-public class ThirdPartyInvoice {
+public class ThirdPartyInvoice extends SampleBase<Invoice> {
 
-	private Invoice invoice = null;
 	private static final Logger log = LogManager.getLogger(ThirdPartyInvoice.class);
-	private String accessToken = null;
 
 	/**
 	 * Initialize and instantiate an Invoice object
@@ -34,31 +29,7 @@ public class ThirdPartyInvoice {
 	 * @throws FileNotFoundException
 	 */
 	public ThirdPartyInvoice() throws PayPalRESTException, JsonSyntaxException, JsonIOException, FileNotFoundException {
-
-		// initialize Invoice with credentials. User credentials must be stored
-		// in the file
-		Invoice.initConfig(new File(".", "src/main/resources/sdk_config.properties"));
-
-	}
-
-	private static Invoice loadInvoice(String jsonFile) {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("src/main/resources/" + jsonFile));
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-
-			while (line != null) {
-				sb.append(line);
-				sb.append(System.getProperty("line.separator"));
-				line = br.readLine();
-			}
-			br.close();
-			return JSONFormatter.fromJSON(sb.toString(), Invoice.class);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new Invoice();
-		}
+		super(new Invoice());
 	}
 
 	/**
@@ -72,12 +43,11 @@ public class ThirdPartyInvoice {
 	 */
 	public Invoice create(String refreshToken) throws PayPalRESTException, FileNotFoundException, IOException {
 		Tokeninfo tokeninfo = null;
-		invoice = new Invoice();
 		log.info("creating third party invoice using refresh token " + refreshToken);
 
 		// Setup the refresh token params. This will be used to get access token
 		// from refresh token
-		ClientCredentials credentials = invoice.getClientCredential();
+		ClientCredentials credentials = super.instance.getClientCredential();
 		CreateFromRefreshTokenParameters params = new CreateFromRefreshTokenParameters();
 		params.setClientID(credentials.getClientID());
 		params.setClientSecret(credentials.getClientSecret());
@@ -95,9 +65,9 @@ public class ThirdPartyInvoice {
 		System.out.println("Generated access token from auth code: " + tokeninfo.getAccessToken());
 
 		// populate Invoice object that we are going to play with
-		invoice = loadInvoice("invoice_create.json");
-		invoice = invoice.create(accessToken);
-		return invoice;
+		super.instance = load("invoice_create.json", Invoice.class);
+		super.instance = super.instance.create(accessToken);
+		return super.instance;
 	}
 
 	public Invoice send(Invoice invoice) throws PayPalRESTException {

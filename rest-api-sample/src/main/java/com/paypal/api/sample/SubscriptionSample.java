@@ -27,7 +27,7 @@ public class SubscriptionSample extends SampleBase<Plan> {
 	 */
 	public Plan create() throws PayPalRESTException, IOException {
 		// populate Plan object that we are going to play with
-		super.instance = super.load("billingplan_create.json", instance.getClass());
+		super.instance = super.load("billingplan_create.json", Plan.class);
 		super.instance = super.instance.create(accessToken);
 		return super.instance;
 	}
