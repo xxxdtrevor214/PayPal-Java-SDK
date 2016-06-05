@@ -3,7 +3,6 @@ package com.paypal.base.rest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -225,7 +224,7 @@ public abstract class PayPalResource extends PayPalModel{
 	 *            {@link APIContext} to be used for the call.
 	 * @param httpMethod
 	 *            Http Method verb
-	 * @param resource
+	 * @param resourcePath
 	 *            Resource URI path
 	 * @param payLoad
 	 *            Payload to Service
@@ -453,8 +452,6 @@ public abstract class PayPalResource extends PayPalModel{
 	 *            Configuration to base the construction upon.
 	 * @param httpMethod
 	 *            HTTP Method
-	 * @param contentType
-	 *            Content-Type header
 	 * @param apiCallPreHandler
 	 *            {@link APICallPreHandler} for retrieving EndPoint
 	 * @return
@@ -493,21 +490,17 @@ public abstract class PayPalResource extends PayPalModel{
 				.get(Constants.DEVICE_IP_ADDRESS));
 		return httpConfiguration;
 	}
-	
-	public ClientCredentials getClientCredential() throws FileNotFoundException, IOException {
+
+	/**
+	 * Returns ClientCredentials with client id and client secret from configuration Map
+	 *
+	 * @return Client credentials
+     */
+	public static ClientCredentials getClientCredential() {
 		ClientCredentials credentials = new ClientCredentials();
-		Properties properties = getCredential();
-		credentials.setClientID(properties.getProperty(Constants.CLIENT_ID));
-		credentials.setClientSecret(properties.getProperty(Constants.CLIENT_SECRET));
+		credentials.setClientID(configurationMap.get(Constants.CLIENT_ID));
+		credentials.setClientSecret(configurationMap.get(Constants.CLIENT_SECRET));
 		return credentials;
-	}
-	
-	
-	private Properties getCredential() throws FileNotFoundException, IOException {
-		Properties properties = new Properties();
-		properties.load(new FileReader(new File(".",
-				"src/main/resources/sdk_config.properties")));
-		return properties;
 	}
 
 }

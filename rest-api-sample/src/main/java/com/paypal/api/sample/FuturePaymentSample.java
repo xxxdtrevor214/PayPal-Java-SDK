@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.paypal.base.rest.PayPalResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,7 +76,7 @@ public class FuturePaymentSample {
 
 	public static void main(String[] args) {
 		try {
-			
+
 			String authorizationCode = "";
 			String correlationId = "";
 			for (int i = 0; i < args.length; ++i) {
@@ -88,7 +89,9 @@ public class FuturePaymentSample {
 			}
 
 			FuturePaymentSample fps = new FuturePaymentSample();
+			PayPalResource.initConfig(fps.getClass().getClassLoader().getResourceAsStream("sdk_config.properties"));
 			Payment payment = fps.create(correlationId, authorizationCode);
+			System.out.println(Payment.getLastResponse());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(Payment.getLastRequest());
