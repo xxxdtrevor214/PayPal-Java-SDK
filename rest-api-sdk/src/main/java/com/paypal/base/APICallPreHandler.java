@@ -8,12 +8,7 @@ import com.paypal.base.rest.OAuthTokenCredential;
 
 /**
  * <code>APICallPreHandler</code> defines a high level abstraction for call
- * specific operations. The calls may be divided as per formats as SOAP or NVP.
- * PayPal Merchant Services are provided by {@link MerchantAPICallPreHandler} which
- * is a decorator over the basic {@link DefaultSOAPAPICallHandler}. PayPal Platform
- * Services are provided by {@link PlatformAPICallPreHandler}. PayPal REST API is
- * provided by {@link RESTAPICallPreHandler}
- * 
+ * specific operations. PayPal REST API is provided by {@link com.paypal.base.rest.RESTAPICallPreHandler}
  */
 public interface APICallPreHandler {
 

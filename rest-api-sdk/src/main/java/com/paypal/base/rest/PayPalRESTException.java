@@ -67,7 +67,7 @@ public class PayPalRESTException extends Exception {
 	 * 
 	 * @param httpErrorException
 	 * 				{@link HttpErrorException} thrown from API call		
-	 * @return
+	 * @return PayPalRESTException
 	 */
 	protected static PayPalRESTException createFromHttpErrorException(HttpErrorException httpErrorException){
 		PayPalRESTException ppre = new PayPalRESTException(httpErrorException.getMessage(), httpErrorException);
