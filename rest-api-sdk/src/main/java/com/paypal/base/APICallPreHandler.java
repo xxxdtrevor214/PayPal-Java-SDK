@@ -2,9 +2,9 @@ package com.paypal.base;
 
 import java.util.Map;
 
-import com.paypal.base.credential.ICredential;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.OAuthException;
+import com.paypal.base.rest.OAuthTokenCredential;
 
 /**
  * <code>APICallPreHandler</code> defines a high level abstraction for call
@@ -44,11 +44,11 @@ public interface APICallPreHandler {
 	String getEndPoint();
 
 	/**
-	 * Returns {@link ICredential} configured for the api call
+	 * Returns {@link OAuthTokenCredential} configured for the api call
 	 * 
 	 * @return ICredential object
 	 */
-	ICredential getCredential();
+	OAuthTokenCredential getCredential();
 
 	/**
 	 * Validates settings and integrity before call

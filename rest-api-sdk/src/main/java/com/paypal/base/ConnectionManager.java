@@ -2,8 +2,6 @@ package com.paypal.base;
 
 import javax.net.ssl.SSLContext;
 
-import com.paypal.base.credential.CertificateCredential;
-
 /**
  * ConnectionManager acts as a interface to retrieve {@link HttpConnection}
  * objects used by API service
