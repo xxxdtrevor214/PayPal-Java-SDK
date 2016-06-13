@@ -3,6 +3,7 @@ package com.paypal.base.rest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -495,12 +496,36 @@ public abstract class PayPalResource extends PayPalModel{
 	 * Returns ClientCredentials with client id and client secret from configuration Map
 	 *
 	 * @return Client credentials
+	 * @throws IOException 
      */
-	public static ClientCredentials getClientCredential() {
+	public ClientCredentials getClientCredential() throws IOException {
 		ClientCredentials credentials = new ClientCredentials();
+		Properties configFileProperties = getConfigFileProperties();
+		mergeProperties(configFileProperties, configurationMap);
 		credentials.setClientID(configurationMap.get(Constants.CLIENT_ID));
 		credentials.setClientSecret(configurationMap.get(Constants.CLIENT_SECRET));
 		return credentials;
+	}
+
+	private Properties getConfigFileProperties() throws IOException {
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileReader(
+					new File(getClass().getClassLoader().getResource(Constants.DEFAULT_CONFIGURATION_FILE).getFile())));
+		} catch (FileNotFoundException e) {
+			return null;
+		}
+		return properties;
+	}
+
+	private void mergeProperties(Properties properties, Map<String, String> configurationMap) {
+		if (properties != null) {
+			for (final String name : properties.stringPropertyNames()) {
+				if (!configurationMap.containsKey(name)) {
+					configurationMap.put(name, properties.getProperty(name));
+				}
+			}	
+		}
 	}
 
 }

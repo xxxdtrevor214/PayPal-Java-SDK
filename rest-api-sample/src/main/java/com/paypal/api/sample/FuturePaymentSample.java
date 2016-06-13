@@ -89,7 +89,6 @@ public class FuturePaymentSample {
 			}
 
 			FuturePaymentSample fps = new FuturePaymentSample();
-			PayPalResource.initConfig(fps.getClass().getClassLoader().getResourceAsStream("sdk_config.properties"));
 			Payment payment = fps.create(correlationId, authorizationCode);
 			System.out.println(Payment.getLastResponse());
 		} catch (Exception e) {
