@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.paypal.base.rest.PayPalResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +20,7 @@ import com.paypal.api.payments.Transaction;
 import com.paypal.base.ClientCredentials;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class FuturePaymentSample {
 	
@@ -48,7 +48,7 @@ public class FuturePaymentSample {
 		if (authorizationCode != null && authorizationCode.trim().length() > 0) {
 			log.info("creating future payment with auth code: " + authorizationCode);
 			
-			ClientCredentials credentials = futurePayment.getClientCredential();
+			ClientCredentials credentials = FuturePayment.getClientCredential();
 			CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();
 			params.setClientID(credentials.getClientID());
 			params.setClientSecret(credentials.getClientSecret());

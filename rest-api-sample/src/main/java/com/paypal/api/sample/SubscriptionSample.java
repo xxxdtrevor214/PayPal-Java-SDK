@@ -1,14 +1,14 @@
 package com.paypal.api.sample;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Arrays;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.paypal.api.payments.Patch;
 import com.paypal.api.payments.Plan;
 import com.paypal.base.rest.PayPalRESTException;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Arrays;
 
 public class SubscriptionSample extends SampleBase<Plan> {
 

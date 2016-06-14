@@ -1,17 +1,13 @@
 package com.paypal.api.payments;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
 import com.paypal.api.openidconnect.CreateFromRefreshTokenParameters;
 import com.paypal.api.openidconnect.Tokeninfo;
-import com.paypal.base.ClientCredentials;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
