@@ -150,7 +150,7 @@ public final class OAuthTokenCredential implements ICredential {
 	 * @throws PayPalRESTException
 	 */
 	public String getAccessToken() throws PayPalRESTException {
-		if (accessToken == null) {
+		if (accessToken == null || expiresIn() <= 0) {
 			accessToken = generateAccessToken();
 		}
 		return accessToken;
