@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.paypal.api.payments.Payment;
 import com.paypal.base.ClientCredentials;
 import com.paypal.base.Constants;
 import org.testng.Assert;
@@ -65,7 +64,7 @@ public class PayPalResourceTestCase {
 			PayPalResource.initConfig(props);
 
 			// Check if ClientCredentials is constructed correctly
-			ClientCredentials clientCredentials = new Payment().getClientCredential();
+			ClientCredentials clientCredentials = PayPalResource.getCredential();
 			Assert.assertEquals(props.getProperty(Constants.CLIENT_ID), clientCredentials.getClientID());
 			Assert.assertEquals(props.getProperty(Constants.CLIENT_SECRET), clientCredentials.getClientSecret());
 		} catch (FileNotFoundException e) {

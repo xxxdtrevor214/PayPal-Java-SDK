@@ -48,7 +48,7 @@ public class FuturePaymentSample {
 		if (authorizationCode != null && authorizationCode.trim().length() > 0) {
 			log.info("creating future payment with auth code: " + authorizationCode);
 			
-			ClientCredentials credentials = futurePayment.getClientCredential();
+			ClientCredentials credentials = PayPalResource.getCredential();
 			CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();
 			params.setClientID(credentials.getClientID());
 			params.setClientSecret(credentials.getClientSecret());

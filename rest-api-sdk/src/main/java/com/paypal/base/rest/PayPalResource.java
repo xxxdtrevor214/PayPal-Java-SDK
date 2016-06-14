@@ -496,9 +496,8 @@ public abstract class PayPalResource extends PayPalModel{
 	 * Returns ClientCredentials with client id and client secret from configuration Map
 	 *
 	 * @return Client credentials
-	 * @throws IOException 
      */
-	public ClientCredentials getClientCredential() throws IOException {
+	public static ClientCredentials getCredential() {
 		ClientCredentials credentials = new ClientCredentials();
 		Properties configFileProperties = getConfigFileProperties();
 		mergeProperties(configFileProperties, configurationMap);
@@ -507,18 +506,42 @@ public abstract class PayPalResource extends PayPalModel{
 		return credentials;
 	}
 
-	private Properties getConfigFileProperties() throws IOException {
+	/**
+	 * @deprecated Please use static method `getCredential` instead.
+	 *
+	 * Returns ClientCredentials with client id and client secret from configuration Map.
+	 *
+	 * @return Client credentials
+	 */
+	public ClientCredentials getClientCredential() {
+		return PayPalResource.getCredential();
+	}
+	
+	/**
+	 * Fetches the properties from default configuration file.
+	 * 
+	 * @return {@link Properties}
+	 */
+	private static Properties getConfigFileProperties() {
 		Properties properties = new Properties();
 		try {
 			properties.load(new FileReader(
-					new File(getClass().getClassLoader().getResource(Constants.DEFAULT_CONFIGURATION_FILE).getFile())));
+					new File(PayPalResource.class.getClassLoader().getResource(Constants.DEFAULT_CONFIGURATION_FILE).getFile())));
 		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
 			return null;
 		}
 		return properties;
 	}
 
-	private void mergeProperties(Properties properties, Map<String, String> configurationMap) {
+	/**
+	 * Merges properties object with the configuration hash map. The configuration values are given higher priority.
+	 * 
+	 * @param properties
+	 * @param configurationMap
+	 */
+	private static void mergeProperties(Properties properties, Map<String, String> configurationMap) {
 		if (properties != null) {
 			for (final String name : properties.stringPropertyNames()) {
 				if (!configurationMap.containsKey(name)) {

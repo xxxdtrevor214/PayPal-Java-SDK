@@ -47,7 +47,7 @@ public class ThirdPartyInvoice extends SampleBase<Invoice> {
 
 		// Setup the refresh token params. This will be used to get access token
 		// from refresh token
-		ClientCredentials credentials = super.instance.getClientCredential();
+		ClientCredentials credentials = PayPalResource.getCredential();
 		CreateFromRefreshTokenParameters params = new CreateFromRefreshTokenParameters();
 		params.setClientID(credentials.getClientID());
 		params.setClientSecret(credentials.getClientSecret());
