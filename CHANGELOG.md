@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v1.7.0
+------
+   * Migrate to Gradle based project.
+
 v1.6.0
 ------
    * Fixed JSON syntax error.

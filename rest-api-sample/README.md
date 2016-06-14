@@ -16,9 +16,8 @@ Test Account
    
 Build and run the samples
 --------------------------
-	* Simply run `mvn install` to build war file.
-	* Run `mvn jetty:run` to run the war file using maven jetty.
-	* Access `http://localhost:<jetty-port>/rest-api-sample/` in your browser to play with the test pages, `<jetty-port>` is configurable in pom.xml.
+	* Simply run `./gradlew clean jettyRun` to using maven jetty.
+	* Access `http://localhost:<jetty-port>/rest-api-sample/` in your browser to play with the test pages.
 
 Samples
 ========
