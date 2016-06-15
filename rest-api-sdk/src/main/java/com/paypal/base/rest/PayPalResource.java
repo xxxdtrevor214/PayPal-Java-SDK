@@ -3,6 +3,7 @@ package com.paypal.base.rest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -495,11 +496,58 @@ public abstract class PayPalResource extends PayPalModel{
 	 *
 	 * @return Client credentials
      */
-	public static ClientCredentials getClientCredential() {
+	public static ClientCredentials getCredential() {
 		ClientCredentials credentials = new ClientCredentials();
+		Properties configFileProperties = getConfigFileProperties();
+		mergeProperties(configFileProperties, configurationMap);
 		credentials.setClientID(configurationMap.get(Constants.CLIENT_ID));
 		credentials.setClientSecret(configurationMap.get(Constants.CLIENT_SECRET));
 		return credentials;
+	}
+
+	/**
+	 * @deprecated Please use static method `getCredential` instead.
+	 *
+	 * Returns ClientCredentials with client id and client secret from configuration Map.
+	 *
+	 * @return Client credentials
+	 */
+	public ClientCredentials getClientCredential() {
+		return PayPalResource.getCredential();
+	}
+	
+	/**
+	 * Fetches the properties from default configuration file.
+	 * 
+	 * @return {@link Properties}
+	 */
+	private static Properties getConfigFileProperties() {
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileReader(
+					new File(PayPalResource.class.getClassLoader().getResource(Constants.DEFAULT_CONFIGURATION_FILE).getFile())));
+		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
+		return properties;
+	}
+
+	/**
+	 * Merges properties object with the configuration hash map. The configuration values are given higher priority.
+	 * 
+	 * @param properties
+	 * @param configurationMap
+	 */
+	private static void mergeProperties(Properties properties, Map<String, String> configurationMap) {
+		if (properties != null) {
+			for (final String name : properties.stringPropertyNames()) {
+				if (!configurationMap.containsKey(name)) {
+					configurationMap.put(name, properties.getProperty(name));
+				}
+			}	
+		}
 	}
 
 }

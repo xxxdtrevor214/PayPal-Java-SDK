@@ -65,7 +65,7 @@ public class PayPalResourceTestCase {
 			PayPalResource.initConfig(props);
 
 			// Check if ClientCredentials is constructed correctly
-			ClientCredentials clientCredentials = PayPalResource.getClientCredential();
+			ClientCredentials clientCredentials = PayPalResource.getCredential();
 			Assert.assertEquals(props.getProperty(Constants.CLIENT_ID), clientCredentials.getClientID());
 			Assert.assertEquals(props.getProperty(Constants.CLIENT_SECRET), clientCredentials.getClientSecret());
 		} catch (FileNotFoundException e) {

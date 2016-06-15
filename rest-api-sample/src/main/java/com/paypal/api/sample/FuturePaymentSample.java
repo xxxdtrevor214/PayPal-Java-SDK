@@ -48,7 +48,7 @@ public class FuturePaymentSample {
 		if (authorizationCode != null && authorizationCode.trim().length() > 0) {
 			log.info("creating future payment with auth code: " + authorizationCode);
 			
-			ClientCredentials credentials = FuturePayment.getClientCredential();
+			ClientCredentials credentials = PayPalResource.getCredential();
 			CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();
 			params.setClientID(credentials.getClientID());
 			params.setClientSecret(credentials.getClientSecret());
@@ -89,7 +89,6 @@ public class FuturePaymentSample {
 			}
 
 			FuturePaymentSample fps = new FuturePaymentSample();
-			PayPalResource.initConfig(fps.getClass().getClassLoader().getResourceAsStream("sdk_config.properties"));
 			Payment payment = fps.create(correlationId, authorizationCode);
 			System.out.println(Payment.getLastResponse());
 		} catch (Exception e) {

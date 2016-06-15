@@ -14,6 +14,7 @@ import com.paypal.api.payments.Invoice;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.ClientCredentials;
 import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class ThirdPartyInvoice extends SampleBase<Invoice> {
 
@@ -46,7 +47,7 @@ public class ThirdPartyInvoice extends SampleBase<Invoice> {
 
 		// Setup the refresh token params. This will be used to get access token
 		// from refresh token
-		ClientCredentials credentials = Invoice.getClientCredential();
+		ClientCredentials credentials = PayPalResource.getCredential();
 		CreateFromRefreshTokenParameters params = new CreateFromRefreshTokenParameters();
 		params.setClientID(credentials.getClientID());
 		params.setClientSecret(credentials.getClientSecret());
