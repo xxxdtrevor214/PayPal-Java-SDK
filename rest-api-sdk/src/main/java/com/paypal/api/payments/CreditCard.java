@@ -552,9 +552,6 @@ public class CreditCard  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		CreditCardHistory creditCardHistory = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCardHistory.class);
-//		if (creditCardHistory == null) {
-//			creditCardHistory = new CreditCardHistory();
-//		}
 
 		return creditCardHistory;
 	}
@@ -563,8 +560,6 @@ public class CreditCard  extends PayPalResource {
 	 * Retrieves a list of Credit Card resources. containerMap (filters) are set to defaults.
 	 * @param accessToken
 	 *            Access Token used for the API call.
-	 * @param containerMap
-	 *            Map<String, String>. See https://developer.paypal.com/webapps/developer/docs/api/#list-credit-card-resources
 	 * @return CreditCardHistory
 	 * @throws PayPalRESTException
 	 */

@@ -6,10 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.paypal.base.ClientCredentials;
-import com.paypal.base.Constants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.paypal.base.ClientCredentials;
+import com.paypal.base.Constants;
 
 public class PayPalResourceTestCase {
 

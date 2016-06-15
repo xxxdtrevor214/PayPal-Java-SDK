@@ -3,7 +3,6 @@ package com.paypal.api.sample;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.paypal.base.rest.PayPalResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +14,7 @@ import com.paypal.api.payments.Invoice;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.ClientCredentials;
 import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
 
 public class ThirdPartyInvoice extends SampleBase<Invoice> {
 

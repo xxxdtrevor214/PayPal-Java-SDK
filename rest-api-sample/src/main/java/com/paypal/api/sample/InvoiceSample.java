@@ -1,9 +1,6 @@
 package com.paypal.api.sample;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 import com.google.gson.JsonIOException;
@@ -13,8 +10,6 @@ import com.paypal.api.payments.Invoice;
 import com.paypal.api.payments.Invoices;
 import com.paypal.api.payments.Notification;
 import com.paypal.api.payments.Search;
-import com.paypal.api.payments.util.GenerateAccessToken;
-import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
 
 /**

@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.paypal.base.APICallPreHandler;
 import com.paypal.base.ClientCredentials;
 import com.paypal.base.ConfigManager;
@@ -19,10 +22,6 @@ import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 
@@ -357,7 +356,7 @@ public abstract class PayPalResource extends PayPalModel{
 	 *            PayPal Request Id
 	 * @param sdkVersion
 	 *            {@link SDKVersion} instance
-	 * @return
+	 * @return APICallPreHandler
 	 */
 	public static APICallPreHandler createAPICallPreHandler(
 			Map<String, String> configurationMap, String payLoad,

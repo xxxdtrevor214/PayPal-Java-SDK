@@ -37,7 +37,7 @@ public class SampleBase<T> {
 		this.accessToken = tokenCredential.getAccessToken();
 	}
 
-	protected <T> T load(String jsonFile, Class<T> clazz) throws IOException {
+	protected <C> C load(String jsonFile, Class<C> clazz) throws IOException {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(new File(
@@ -50,7 +50,7 @@ public class SampleBase<T> {
 				sb.append(System.getProperty("line.separator"));
 				line = br.readLine();
 			}
-			return (T)JSONFormatter.fromJSON(sb.toString(), clazz);
+			return (C)JSONFormatter.fromJSON(sb.toString(), clazz);
 		} finally {
 			if (br != null) {
 				try {

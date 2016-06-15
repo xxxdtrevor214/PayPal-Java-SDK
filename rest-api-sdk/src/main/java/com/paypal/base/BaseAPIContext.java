@@ -3,15 +3,11 @@ package com.paypal.base;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.paypal.base.message.XMLMessageSerializer;
-
 public class BaseAPIContext {
 	
 	private Map<String, String> HTTPHeaders;
 	
 	private Map<String, String> configurationMap;
-	
-	private XMLMessageSerializer SOAPHeader;
 	
 	public BaseAPIContext() {
 		
@@ -56,20 +52,6 @@ public class BaseAPIContext {
 	 */
 	public void setConfigurationMap(Map<String, String> configurationMap) {
 		this.configurationMap = configurationMap;
-	}
-
-	/**
-	 * @return the sOAPHeader
-	 */
-	public XMLMessageSerializer getSOAPHeader() {
-		return SOAPHeader;
-	}
-
-	/**
-	 * @param soapHeader the soapHeader to set
-	 */
-	public void setSOAPHeader(XMLMessageSerializer soapHeader) {
-		SOAPHeader = soapHeader;
 	}
 	
 }
