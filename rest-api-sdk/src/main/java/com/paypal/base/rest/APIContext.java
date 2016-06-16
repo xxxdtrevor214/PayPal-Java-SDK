@@ -1,9 +1,12 @@
 package com.paypal.base.rest;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import com.paypal.base.BaseAPIContext;
+import com.paypal.base.Constants;
 import com.paypal.base.SDKVersion;
 
 /**
@@ -18,7 +21,17 @@ import com.paypal.base.SDKVersion;
  * @author kjayakumar
  * 
  */
-public class APIContext extends BaseAPIContext {
+public class APIContext {
+
+	/**
+	 * HTTP Headers
+	 */
+	private Map<String, String> HTTPHeaders;
+
+	/**
+	 * Configurations
+	 */
+	private Map<String, String> configurationMap;
 
 	/**
 	 * OAuth Token
@@ -34,17 +47,79 @@ public class APIContext extends BaseAPIContext {
 	 * Parameter to mask RequestId
 	 */
 	private boolean maskRequestId;
-	
+
 	/**
 	 * {@link SDKVersion} instance
 	 */
 	private SDKVersion sdkVersion;
 
 	/**
+	 * {@link OAuthTokenCredential} credential instance
+	 */
+	private OAuthTokenCredential credential;
+
+	/**
 	 * Default Constructor
 	 */
 	public APIContext() {
 		super();
+	}
+
+	/**
+	 * Pass the clientID, secret and mode. The easiest, and most widely used
+	 * option.
+	 * 
+	 * @param clientID
+	 * @param clientSecret
+	 * @param mode
+	 */
+	public APIContext(String clientID, String clientSecret, String mode) {
+		this(clientID, clientSecret, mode, null);
+	}
+
+	/**
+	 * Pass the clientID, secret and mode along with additional configurations.
+	 * 
+	 * @param clientID
+	 * @param clientSecret
+	 * @param mode
+	 * @param configurations
+	 */
+	public APIContext(String clientID, String clientSecret, String mode, Map<String, String> configurations) {
+		if (this.configurationMap == null) {
+			this.configurationMap = new HashMap<String, String>();
+		}
+
+		if (configurations != null && configurations.size() > 0) {
+			this.configurationMap.putAll(configurations);
+		}
+
+		this.configurationMap.put(Constants.MODE, mode);
+		this.credential = new OAuthTokenCredential(clientID, clientSecret, this.configurationMap);
+	}
+
+	/**
+	 * Constructor that takes in the property file as the input.
+	 * 
+	 * @param configurationFile
+	 * @throws PayPalRESTException
+	 */
+	public APIContext(File configurationFile) throws PayPalRESTException {
+		super();
+		this.credential = PayPalResource.initConfig(configurationFile);
+		this.addConfigurations(PayPalResource.getConfigurations());
+	}
+
+	/**
+	 * Constructor that takes in the input stream of configurations
+	 * 
+	 * @param configurations
+	 * @throws PayPalRESTException
+	 */
+	public APIContext(InputStream configurations) throws PayPalRESTException {
+		super();
+		this.credential = PayPalResource.initConfig(configurations);
+		this.addConfigurations(PayPalResource.getConfigurations());
 	}
 
 	/**
@@ -85,12 +160,87 @@ public class APIContext extends BaseAPIContext {
 		this.requestId = requestId;
 	}
 
+	public APIContext setRefreshToken(String refreshToken) {
+		if (this.credential == null) {
+			throw new IllegalArgumentException(
+					"ClientID and Secret are required. Please use APIContext(String clientID, String clientSecret, String mode)");
+		}
+		this.credential.setRefreshToken(refreshToken);
+		return this;
+	}
+
+	/**
+	 * @return the hTTPHeaders
+	 */
+	public Map<String, String> getHTTPHeaders() {
+		return HTTPHeaders;
+	}
+
+	/**
+	 * @param httpHeaders
+	 *            the httpHeaders to set
+	 */
+	public void setHTTPHeaders(Map<String, String> httpHeaders) {
+		HTTPHeaders = httpHeaders;
+	}
+
+	/**
+	 * @param httpHeaders
+	 *            the httpHeaders to set
+	 */
+	public void addHTTPHeaders(Map<String, String> httpHeaders) {
+		if (HTTPHeaders == null) {
+			HTTPHeaders = new HashMap<String, String>();
+		}
+		for (Map.Entry<String, String> entry : httpHeaders.entrySet()) {
+			HTTPHeaders.put(entry.getKey(), entry.getValue());
+		}
+	}
+
+	/**
+	 * Returns Configuration Map
+	 * 
+	 * @return {@link Map} of configurations
+	 */
+	public Map<String, String> getConfigurationMap() {
+		return configurationMap;
+	}
+
+	/**
+	 * Replaces the existing configurations with provided one
+	 * 
+	 * @param configurationMap
+	 *            the configurationMap to set
+	 */
+	public void setConfigurationMap(Map<String, String> configurationMap) {
+		this.configurationMap = configurationMap;
+	}
+
+	/**
+	 * Adds configurations
+	 * 
+	 * @param configurations
+	 */
+	public void addConfigurations(Map<String, String> configurations) {
+		if (this.configurationMap == null) {
+			this.configurationMap = new HashMap<String, String>();
+		}
+		this.configurationMap.putAll(configurations);
+	}
+
 	/**
 	 * Returns the Access Token
 	 * 
 	 * @return Access Token
 	 */
 	public String getAccessToken() {
+		if (accessToken == null && this.credential != null) {
+			try {
+				accessToken = this.credential.getAccessToken();
+			} catch (PayPalRESTException e) {
+				accessToken = null;
+			}
+		}
 		return accessToken;
 	}
 
@@ -127,7 +277,8 @@ public class APIContext extends BaseAPIContext {
 	}
 
 	/**
-	 * @param sdkVersion the sdkVersion to set
+	 * @param sdkVersion
+	 *            the sdkVersion to set
 	 */
 	public void setSdkVersion(SDKVersion sdkVersion) {
 		this.sdkVersion = sdkVersion;
@@ -138,7 +289,7 @@ public class APIContext extends BaseAPIContext {
 	 * @return the headersMap
 	 */
 	public Map<String, String> getHeadersMap() {
-		return super.getHTTPHeaders();
+		return this.getHTTPHeaders();
 	}
 
 	/**
@@ -147,7 +298,7 @@ public class APIContext extends BaseAPIContext {
 	 *            the headersMap to set
 	 */
 	public void setHeadersMap(Map<String, String> headersMap) {
-		super.setHTTPHeaders(headersMap);
+		this.setHTTPHeaders(headersMap);
 	}
 
 }

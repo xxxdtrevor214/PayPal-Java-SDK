@@ -41,7 +41,7 @@ import com.paypal.base.util.UserAgentHeader;
 public final class OAuthTokenCredential {
 
 	private static final Logger log = LoggerFactory.getLogger(OAuthTokenCredential.class);
-	
+
 	/**
 	 * OAuth URI path parameter
 	 */
@@ -61,7 +61,7 @@ public final class OAuthTokenCredential {
 	 * Access Token that is generated
 	 */
 	private String accessToken;
-	
+
 	/**
 	 * Headers
 	 */
@@ -71,6 +71,8 @@ public final class OAuthTokenCredential {
 	 * Lifetime in seconds of the access token
 	 */
 	private long expires = 0;
+
+	private String refreshToken;
 
 	/**
 	 * Map used for dynamic configuration
@@ -103,8 +105,7 @@ public final class OAuthTokenCredential {
 		super();
 		this.clientID = clientID;
 		this.clientSecret = clientSecret;
-		this.configurationMap = SDKUtil.combineDefaultMap(ConfigManager
-				.getInstance().getConfigurationMap());
+		this.configurationMap = SDKUtil.combineDefaultMap(ConfigManager.getInstance().getConfigurationMap());
 		this.sdkVersion = new SDKVersionImpl();
 	}
 
@@ -121,15 +122,20 @@ public final class OAuthTokenCredential {
 	 *            present then there should be entry for 'mode' with values
 	 *            sandbox/live, wherein PayPals endpoints are used.
 	 */
-	public OAuthTokenCredential(String clientID, String clientSecret,
-			Map<String, String> configurationMap) {
+	public OAuthTokenCredential(String clientID, String clientSecret, Map<String, String> configurationMap) {
 		super();
 		this.clientID = clientID;
 		this.clientSecret = clientSecret;
 		this.configurationMap = SDKUtil.combineDefaultMap(configurationMap);
 		this.sdkVersion = new SDKVersionImpl();
 	}
-	
+
+	public OAuthTokenCredential setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+		this.resetAccessToken();
+		return this;
+	}
+
 	/**
 	 * Sets Headers to Oauth Calls
 	 * 
@@ -163,8 +169,7 @@ public final class OAuthTokenCredential {
 	 * @throws PayPalRESTException
 	 */
 	public String getAuthorizationHeader() throws PayPalRESTException {
-		String base64EncodedString = generateBase64String(clientID + ":"
-				+ clientSecret);
+		String base64EncodedString = generateBase64String(clientID + ":" + clientSecret);
 		return "Basic " + base64EncodedString;
 	}
 
@@ -178,10 +183,17 @@ public final class OAuthTokenCredential {
 		return expires - new java.util.Date().getTime() / 1000;
 	}
 
+	/**
+	 * Resets Access Token
+	 */
+	private void resetAccessToken() {
+		this.accessToken = null;
+		this.expires = -1;
+	}
+
 	private String generateAccessToken() throws PayPalRESTException {
 		String generatedToken = null;
-		String base64ClientID = generateBase64String(clientID + ":"
-				+ clientSecret);
+		String base64ClientID = generateBase64String(clientID + ":" + clientSecret);
 		generatedToken = generateOAuthToken(base64ClientID);
 		return generatedToken;
 	}
@@ -189,8 +201,7 @@ public final class OAuthTokenCredential {
 	/*
 	 * Generate a Base64 encoded String from clientID & clientSecret
 	 */
-	private String generateBase64String(String clientCredentials)
-			throws PayPalRESTException {
+	private String generateBase64String(String clientCredentials) throws PayPalRESTException {
 		String base64ClientID = null;
 		byte[] encoded = null;
 		try {
@@ -205,8 +216,7 @@ public final class OAuthTokenCredential {
 	/*
 	 * Generate OAuth type token from Base64Client ID
 	 */
-	private String generateOAuthToken(String base64ClientID)
-			throws PayPalRESTException {
+	private String generateOAuthToken(String base64ClientID) throws PayPalRESTException {
 		HttpConnection connection = null;
 		HttpConfiguration httpConfiguration = null;
 		String generatedToken = null;
@@ -217,48 +227,41 @@ public final class OAuthTokenCredential {
 			if (this.headers == null) {
 				this.headers = new HashMap<String, String>();
 			}
-			this.headers.put(Constants.AUTHORIZATION_HEADER, "Basic "
-					+ base64ClientID);
+			this.headers.put(Constants.AUTHORIZATION_HEADER, "Basic " + base64ClientID);
 
 			// Accept only json output
-			this.headers.put(Constants.HTTP_ACCEPT_HEADER,
-					Constants.HTTP_CONTENT_TYPE_JSON);
-			this.headers.put(Constants.HTTP_CONTENT_TYPE_HEADER,
-					Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
-			UserAgentHeader userAgentHeader = new UserAgentHeader(
-					sdkVersion != null ? sdkVersion.getSDKId() : null,
+			this.headers.put(Constants.HTTP_ACCEPT_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+			this.headers.put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
+			UserAgentHeader userAgentHeader = new UserAgentHeader(sdkVersion != null ? sdkVersion.getSDKId() : null,
 					sdkVersion != null ? sdkVersion.getSDKVersion() : null);
 			this.headers.putAll(userAgentHeader.getHeader());
 			String postRequest = getRequestPayload();
-			
+
 			// log request
 			String mode = configurationMap.get(Constants.MODE);
 			if (Constants.LIVE.equalsIgnoreCase(mode) && log.isDebugEnabled()) {
-				log.warn("Log level cannot be set to DEBUG in " + Constants.LIVE + " mode. Skipping request/response logging...");
-			} 
+				log.warn("Log level cannot be set to DEBUG in " + Constants.LIVE
+						+ " mode. Skipping request/response logging...");
+			}
 			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
 				log.debug("request header: " + this.headers.toString());
 				log.debug("request body: " + postRequest);
 			}
-			
+
 			// send request and get & log response
 			String jsonResponse = connection.execute("", postRequest, this.headers);
 			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
 				log.debug("response header: " + connection.getResponseHeaderMap().toString());
 				log.debug("response: " + jsonResponse.toString());
 			}
-			
+
 			// parse response as JSON object
 			JsonParser parser = new JsonParser();
 			JsonElement jsonElement = parser.parse(jsonResponse);
-			generatedToken = jsonElement.getAsJsonObject().get("token_type")
-					.getAsString()
-					+ " "
-					+ jsonElement.getAsJsonObject().get("access_token")
-							.getAsString();
+			generatedToken = jsonElement.getAsJsonObject().get("token_type").getAsString() + " "
+					+ jsonElement.getAsJsonObject().get("access_token").getAsString();
 			// Save expiry date
-			long tokenLifeTime = jsonElement.getAsJsonObject()
-					.get("expires_in").getAsLong();
+			long tokenLifeTime = jsonElement.getAsJsonObject().get("expires_in").getAsLong();
 			expires = new Date().getTime() / 1000 + tokenLifeTime;
 		} catch (Exception e) {
 			throw new PayPalRESTException(e.getMessage(), e);
@@ -273,7 +276,11 @@ public final class OAuthTokenCredential {
 	 * @return Payload as String
 	 */
 	protected String getRequestPayload() {
-		return "grant_type=client_credentials";
+		if (this.refreshToken != null) {
+			return String.format("grant_type=refresh_token&refresh_token=%s", this.refreshToken);
+		} else {
+			return "grant_type=client_credentials";
+		}
 	}
 
 	/*
@@ -322,7 +329,5 @@ public final class OAuthTokenCredential {
 						.get(Constants.GOOGLE_APP_ENGINE)));
 		return httpConfiguration;
 	}
-
-	
 
 }

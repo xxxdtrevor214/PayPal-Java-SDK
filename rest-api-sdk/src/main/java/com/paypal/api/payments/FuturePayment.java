@@ -13,42 +13,80 @@ import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
 public class FuturePayment extends Payment {
-	
+
 	/**
-	 * Creates a future payment using either authorization code or refresh token with correlation ID. <br>
-	 * https://developer.paypal.com/webapps/developer/docs/integration/mobile/make-future-payment/
+	 * Creates a future payment using either authorization code or refresh token
+	 * with correlation ID. <br>
+	 * https://developer.paypal.com/webapps/developer/docs/integration/mobile/
+	 * make-future-payment/
 	 * 
-	 * @param authorizationCode	an authorization code
-	 * @param accessToken		an access token
-	 * @param correlationId		paypal application correlation ID
-	 * @return	a <code>Payment</code> object
+	 * @param authorizationCode
+	 *            an authorization code
+	 * @param accessToken
+	 *            an access token
+	 * @param correlationId
+	 *            paypal application correlation ID
+	 * @return a <code>Payment</code> object
 	 * @throws PayPalRESTException
-	 * @throws IOException thrown when config file cannot be read properly
-	 * @throws FileNotFoundException thrown when config file does not exist
+	 * @throws IOException
+	 *             thrown when config file cannot be read properly
+	 * @throws FileNotFoundException
+	 *             thrown when config file does not exist
 	 */
-	public Payment create(String accessToken, String correlationId) throws PayPalRESTException, FileNotFoundException, IOException {
+	public Payment create(String accessToken, String correlationId)
+			throws PayPalRESTException, FileNotFoundException, IOException {
 		if (correlationId == null || correlationId.equals("")) {
 			throw new IllegalArgumentException("correlation ID cannot be null or empty");
 		}
-		
+
 		APIContext apiContext = new APIContext(accessToken);
 		apiContext.setHTTPHeaders(new HashMap<String, String>());
 		apiContext.getHTTPHeaders().put("PAYPAL-CLIENT-METADATA-ID", correlationId);
 		return this.create(apiContext);
 	}
-	
+
+	/**
+	 * Creates a future payment using either authorization code or refresh token
+	 * with correlation ID. <br>
+	 * https://developer.paypal.com/webapps/developer/docs/integration/mobile/
+	 * make-future-payment/
+	 * 
+	 * @param authorizationCode
+	 *            an authorization code
+	 * @param accessToken
+	 *            an access token
+	 * @param correlationId
+	 *            paypal application correlation ID
+	 * @return a <code>Payment</code> object
+	 * @throws PayPalRESTException
+	 * @throws IOException
+	 *             thrown when config file cannot be read properly
+	 * @throws FileNotFoundException
+	 *             thrown when config file does not exist
+	 */
+	public Payment create(APIContext apiContext, String correlationId)
+			throws PayPalRESTException, FileNotFoundException, IOException {
+		if (correlationId == null || correlationId.equals("")) {
+			throw new IllegalArgumentException("correlation ID cannot be null or empty");
+		}
+
+		apiContext.setHTTPHeaders(new HashMap<String, String>());
+		apiContext.getHTTPHeaders().put("PAYPAL-CLIENT-METADATA-ID", correlationId);
+		return this.create(apiContext);
+	}
+
 	public Tokeninfo getTokeninfo(CreateFromAuthorizationCodeParameters params) throws PayPalRESTException {
 		Map<String, String> configurationMap = new HashMap<String, String>();
-	    configurationMap.put(Constants.CLIENT_ID, params.getClientID());
-	    configurationMap.put(Constants.CLIENT_SECRET, params.getClientSecret());
-	    configurationMap.put("response_type", "token");
+		configurationMap.put(Constants.CLIENT_ID, params.getClientID());
+		configurationMap.put(Constants.CLIENT_SECRET, params.getClientSecret());
+		configurationMap.put("response_type", "token");
 		APIContext apiContext = new APIContext();
 		apiContext.setConfigurationMap(configurationMap);
-	    params.setRedirectURI("urn:ietf:wg:oauth:2.0:oob");
+		params.setRedirectURI("urn:ietf:wg:oauth:2.0:oob");
 		Tokeninfo info = Tokeninfo.createFromAuthorizationCodeForFpp(apiContext, params);
 		return info;
 	}
-	
+
 	public Tokeninfo getTokeninfo(CreateFromRefreshTokenParameters params, Tokeninfo info) throws PayPalRESTException {
 		Map<String, String> configurationMap = new HashMap<String, String>();
 		APIContext apiContext = new APIContext();
@@ -56,6 +94,5 @@ public class FuturePayment extends Payment {
 		info = info.createFromRefreshToken(apiContext, params);
 		return info;
 	}
-	
 
 }
