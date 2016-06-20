@@ -1,13 +1,13 @@
 REST API Samples
 ===================
 
-This project contains a set of samples that you can explore to understand what the REST APIs can do for you. The sample comes pre-configured with a test account but in case you need to try them against your account, you must Obtain your client id and client secret from the developer portal.
+This project contains a set of samples that you can explore to understand what the REST APIs can do for you. The sample comes pre-configured with a test account but in case you need to try them against your account, you must obtain your client id and client secret from the developer portal.
 
 Build and run the samples
 --------------------------
 
-  * Simply run `./gradlew clean jettyRun` to using maven jetty.
-  * Access `http://localhost:<jetty-port>/rest-api-sample/` in your browser to play with the test pages.
+  * Simply run `./gradlew clean jettyRun` to start jetty server.
+  * Access `http://localhost:<jetty-port>/rest-api-sample/` in your browser to view samples.
 
 Test Account
 ------------
