@@ -499,7 +499,7 @@ public abstract class PayPalResource extends PayPalModel{
 	public static ClientCredentials getCredential() {
 		ClientCredentials credentials = new ClientCredentials();
 		Properties configFileProperties = getConfigFileProperties();
-		mergeProperties(configFileProperties, configurationMap);
+		addConfigurations(configFileProperties);
 		credentials.setClientID(configurationMap.get(Constants.CLIENT_ID));
 		credentials.setClientSecret(configurationMap.get(Constants.CLIENT_SECRET));
 		return credentials;
@@ -538,9 +538,11 @@ public abstract class PayPalResource extends PayPalModel{
 	 * Merges properties object with the configuration hash map. The configuration values are given higher priority.
 	 * 
 	 * @param properties
-	 * @param configurationMap
 	 */
-	private static void mergeProperties(Properties properties, Map<String, String> configurationMap) {
+	private static void addConfigurations(Properties properties) {
+		if (configurationMap == null) {
+			configurationMap = new HashMap<String, String>();
+		}
 		if (properties != null) {
 			for (final String name : properties.stringPropertyNames()) {
 				if (!configurationMap.containsKey(name)) {
@@ -549,5 +551,4 @@ public abstract class PayPalResource extends PayPalModel{
 			}	
 		}
 	}
-
 }
