@@ -3,7 +3,11 @@ CHANGELOG
 
 v1.7.0
 ------
-   * Migrate to Gradle based project.
+   * Updated README.md documentations [#190](https://github.com/paypal/PayPal-Java-SDK/pull/190).
+   * Major code cleanup [#187](https://github.com/paypal/PayPal-Java-SDK/pull/187).
+   * Added logic to re-generate token automatically [#186](https://github.com/paypal/PayPal-Java-SDK/pull/186).
+   * Removed dependency to load hardcoded configuration file [#182](https://github.com/paypal/PayPal-Java-SDK/pull/182).
+   * Migrate to Gradle based project [#181](https://github.com/paypal/PayPal-Java-SDK/pull/181).
 
 v1.6.0
 ------

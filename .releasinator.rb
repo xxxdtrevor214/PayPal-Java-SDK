@@ -6,9 +6,7 @@ SDK_VERSION_JAVA_FILE = "rest-api-sdk/src/main/java/com/paypal/base/sdk/info/SDK
 
 # List of items to confirm from the person releasing.  Required, but empty list is ok.
 configatron.prerelease_checklist_items = [  
-  "Sanity check the master branch.", 
-  "Unit tests passed.",
-  "Functional tests passed."
+  "Sanity check the master branch."
 ]
 
 def validate_version_match()
@@ -51,7 +49,7 @@ configatron.publish_to_package_manager_method = method(:publish_to_package_manag
 
 
 def wait_for_package_manager(version)
-  CommandProcessor.wait_for("wget -U \"non-empty-user-agent\" -qO- http://central.maven.org/maven2/com/paypal/sdk/rest-api-sdk/#{parent_pom_version}/rest-api-sdk-#{parent_pom_version}.pom | cat")
+  CommandProcessor.wait_for("wget -U \"non-empty-user-agent\" -qO- http://central.maven.org/maven2/com/paypal/sdk/rest-api-sdk/#{package_version}/rest-api-sdk-#{package_version}.pom | cat")
 end
 
 # The method that waits for the package manager to be done.  Required
