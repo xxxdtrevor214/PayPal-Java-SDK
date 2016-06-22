@@ -172,6 +172,14 @@ public final class OAuthTokenCredential {
 		String base64EncodedString = generateBase64String(clientID + ":" + clientSecret);
 		return "Basic " + base64EncodedString;
 	}
+	
+	public String getClientID() {
+		return this.clientID;
+	}
+
+	public String getClientSecret() {
+		return this.clientSecret;
+	}
 
 	/**
 	 * Specifies how long this token can be used for placing API calls. The

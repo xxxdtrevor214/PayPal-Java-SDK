@@ -75,6 +75,13 @@ public class FuturePayment extends Payment {
 		return this.create(apiContext);
 	}
 
+	/**
+	 * @deprecated Please use fetchRefreshToken instead.
+	 * 
+	 * @param params
+	 * @return {@link Tokeninfo}
+	 * @throws PayPalRESTException
+	 */
 	public Tokeninfo getTokeninfo(CreateFromAuthorizationCodeParameters params) throws PayPalRESTException {
 		Map<String, String> configurationMap = new HashMap<String, String>();
 		configurationMap.put(Constants.CLIENT_ID, params.getClientID());
@@ -87,12 +94,36 @@ public class FuturePayment extends Payment {
 		return info;
 	}
 
+	/**
+	 * @deprecated Please use fetchRefreshToken instead.
+	 * 
+	 * @param params
+	 * @return {@link Tokeninfo}
+	 * @throws PayPalRESTException
+	 */
 	public Tokeninfo getTokeninfo(CreateFromRefreshTokenParameters params, Tokeninfo info) throws PayPalRESTException {
 		Map<String, String> configurationMap = new HashMap<String, String>();
 		APIContext apiContext = new APIContext();
 		apiContext.setConfigurationMap(configurationMap);
 		info = info.createFromRefreshToken(apiContext, params);
 		return info;
+	}
+
+	/**
+	 * Fetches long lived refresh token from authorization code, for future payment use. 
+	 * 
+	 * @param context
+	 * @param authorizationCode
+	 * @return
+	 * @throws PayPalRESTException
+	 */
+	public static String fetchRefreshToken(APIContext context, String authorizationCode) throws PayPalRESTException {
+		CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();
+		params.setClientID(context.getClientID());
+		params.setClientSecret(context.getClientSecret());
+		params.setCode(authorizationCode);
+		Tokeninfo info = Tokeninfo.createFromAuthorizationCodeForFpp(context, params);
+		return info.getRefreshToken();
 	}
 
 }

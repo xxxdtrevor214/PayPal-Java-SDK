@@ -3,6 +3,8 @@ package com.paypal.api.payments;
 import java.util.HashMap;
 import java.util.List;
 
+import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
+import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
@@ -537,9 +539,7 @@ public class Invoice extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
+		apiContext.setHTTPHeaders(new HashMap<String, String>());
 		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/invoicing/invoices";
@@ -1004,5 +1004,23 @@ public class Invoice extends PayPalResource {
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 		return;
+	}
+
+	/**
+	 * Fetches long lived refresh token from authorization code, for third party merchant invoicing use. 
+	 * 
+	 * @param context
+	 * @param authorizationCode
+	 * @return {@link String} Refresh Token
+	 * @throws PayPalRESTException
+	 */
+	public static String fetchRefreshToken(APIContext context, String authorizationCode) throws PayPalRESTException {
+		CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();
+		params.setClientID(context.getClientID());
+		params.setClientSecret(context.getClientSecret());
+		params.setCode(authorizationCode);
+		params.setGrantType("authorization_code");
+		Tokeninfo info = Tokeninfo.createFromAuthorizationCode(context, params);
+		return info.getRefreshToken();
 	}
 }

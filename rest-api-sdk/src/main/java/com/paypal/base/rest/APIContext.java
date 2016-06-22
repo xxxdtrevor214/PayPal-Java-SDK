@@ -86,6 +86,9 @@ public class APIContext {
 	 * @param configurations
 	 */
 	public APIContext(String clientID, String clientSecret, String mode, Map<String, String> configurations) {
+		if (mode == null || !(mode.equals(Constants.LIVE) || mode.equals(Constants.SANDBOX))) {
+			throw new IllegalArgumentException("Mode needs to be either `sandbox` or `live`.");
+		}
 		if (this.configurationMap == null) {
 			this.configurationMap = new HashMap<String, String>();
 		}
@@ -165,6 +168,7 @@ public class APIContext {
 			throw new IllegalArgumentException(
 					"ClientID and Secret are required. Please use APIContext(String clientID, String clientSecret, String mode)");
 		}
+		this.accessToken = null;
 		this.credential.setRefreshToken(refreshToken);
 		return this;
 	}
@@ -299,6 +303,22 @@ public class APIContext {
 	 */
 	public void setHeadersMap(Map<String, String> headersMap) {
 		this.setHTTPHeaders(headersMap);
+	}
+
+	public String getClientID() {
+		if (this.credential == null) {
+			throw new IllegalArgumentException(
+					"ClientID and Secret are required. Please use APIContext(String clientID, String clientSecret, String mode)");
+		}
+		return this.credential.getClientID();
+	}
+
+	public String getClientSecret() {
+		if (this.credential == null) {
+			throw new IllegalArgumentException(
+					"ClientID and Secret are required. Please use APIContext(String clientID, String clientSecret, String mode)");
+		}
+		return this.credential.getClientSecret();
 	}
 
 }

@@ -266,6 +266,7 @@ public abstract class PayPalResource extends PayPalModel{
 			HttpConfiguration httpConfiguration = createHttpConfiguration(cMap,
 					httpMethod, apiCallPreHandler);
 			t = execute(apiCallPreHandler, httpConfiguration, clazz);
+			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
 		return t;
 	}
