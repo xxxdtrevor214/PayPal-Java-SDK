@@ -42,7 +42,7 @@ project(':rest-api-sdk') {
     apply plugin: 'signing'
 
     nexusStaging {
-        packageGroup = "com.paypal.sdk"
+        packageGroup = "com.paypal"
         username = getRepositoryUsername()
         password = getRepositoryPassword()
     }
