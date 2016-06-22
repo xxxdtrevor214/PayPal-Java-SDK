@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+
+apply plugin: 'io.codearte.nexus-staging'
+
 allprojects {
     apply plugin: 'maven'
     apply plugin: 'java'
@@ -29,6 +40,13 @@ ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 // ## REST API SDK
 project(':rest-api-sdk') {
     apply plugin: 'signing'
+
+    nexusStaging {
+        packageGroup = "com.paypal.sdk"
+        username = getRepositoryUsername()
+        password = getRepositoryPassword()
+    }
+
     dependencies {
         // General
         compile 'com.google.code.gson:gson:2.2.2'
