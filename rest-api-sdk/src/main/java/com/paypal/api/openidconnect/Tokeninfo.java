@@ -52,7 +52,7 @@ public class Tokeninfo extends PayPalResource {
 	 * APP ID associated with this token
 	 */
 	private String appId;
-	
+
 	/**
 	 * Default Constructor
 	 */
@@ -95,7 +95,7 @@ public class Tokeninfo extends PayPalResource {
 	public String getAccessToken() {
 		return this.accessToken;
 	}
-	
+
 	/**
 	 * Getter for accessToken with token type (e.g., "Bearer: EEwJ6tF9x5WCIZDYzyZGaz6Khbw7raYRIBV_WxVvgmsG")
 	 */
@@ -169,7 +169,7 @@ public class Tokeninfo extends PayPalResource {
 	 */
 	public static Tokeninfo createFromAuthorizationCode(
 			CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
-			throws PayPalRESTException {
+					throws PayPalRESTException {
 		return createFromAuthorizationCode(null,
 				createFromAuthorizationCodeParameters);
 	}
@@ -187,7 +187,7 @@ public class Tokeninfo extends PayPalResource {
 	public static Tokeninfo createFromAuthorizationCode(
 			APIContext apiContext,
 			CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
-			throws PayPalRESTException {
+					throws PayPalRESTException {
 		String pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
 		Object[] parameters = new Object[] { createFromAuthorizationCodeParameters };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
@@ -207,21 +207,19 @@ public class Tokeninfo extends PayPalResource {
 	public static Tokeninfo createFromAuthorizationCodeForFpp(
 			APIContext apiContext,
 			CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
-			throws PayPalRESTException {
+					throws PayPalRESTException {
 		String pattern = "v1/oauth2/token?grant_type=authorization_code&response_type=token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code={0}";
 		Object[] parameters = new Object[] { createFromAuthorizationCodeParameters.getContainerMap().get("code") };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
 		return createFromAuthorizationCodeParameters(apiContext, createFromAuthorizationCodeParameters, resourcePath);
 	}
-	
+
 	private static Tokeninfo createFromAuthorizationCodeParameters(
 			APIContext apiContext,
 			CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters,
 			String resourcePath)
-			throws PayPalRESTException {
+					throws PayPalRESTException {
+		String authorizationHeader;
 		String payLoad = resourcePath.substring(resourcePath.indexOf('?') + 1);
 		resourcePath = resourcePath.substring(0, resourcePath.indexOf('?'));
 		Map<String, String> headersMap = new HashMap<String, String>();
@@ -231,30 +229,30 @@ public class Tokeninfo extends PayPalResource {
 		apiContext.setMaskRequestId(true);
 		if (createFromAuthorizationCodeParameters.getClientID() == null
 				|| createFromAuthorizationCodeParameters.getClientID().trim()
-						.length() <= 0
+				.length() <= 0
 				|| createFromAuthorizationCodeParameters.getClientSecret() == null
 				|| createFromAuthorizationCodeParameters.getClientSecret()
-						.trim().length() <= 0) {
+				.trim().length() <= 0) {
 			throw new PayPalRESTException(
 					"ClientID and ClientSecret not set in CreateFromAuthorizationCodeParameters");
-		} else {
-			OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(
-					createFromAuthorizationCodeParameters.getClientID(),
-					createFromAuthorizationCodeParameters.getClientSecret(),
-					apiContext.getConfigurationMap());
-			String authorizationHeader = oauthTokenCredential
-					.getAuthorizationHeader();
-			headersMap.put(Constants.AUTHORIZATION_HEADER, authorizationHeader);
 		}
+
+		OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(
+				createFromAuthorizationCodeParameters.getClientID(),
+				createFromAuthorizationCodeParameters.getClientSecret(),
+				apiContext.getConfigurationMap());
+		authorizationHeader = oauthTokenCredential
+				.getAuthorizationHeader();
+		headersMap.put(Constants.AUTHORIZATION_HEADER, authorizationHeader);
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 		headersMap.put(Constants.HTTP_ACCEPT_HEADER,
 				Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setHTTPHeaders(headersMap);
+		apiContext.addHTTPHeaders(headersMap);
 		return configureAndExecute(apiContext, HttpMethod.POST,
-				resourcePath, payLoad, Tokeninfo.class);
+				resourcePath, payLoad, Tokeninfo.class, authorizationHeader);
 	}
-	
+
 	/**
 	 * Creates an Access Token from an Refresh Token.
 	 * 
@@ -265,7 +263,7 @@ public class Tokeninfo extends PayPalResource {
 	 */
 	public Tokeninfo createFromRefreshToken(
 			CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
-			throws PayPalRESTException {
+					throws PayPalRESTException {
 		return createFromRefreshToken(null, createFromRefreshTokenParameters);
 	}
 
@@ -281,7 +279,7 @@ public class Tokeninfo extends PayPalResource {
 	 */
 	public Tokeninfo createFromRefreshToken(APIContext apiContext,
 			CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
-			throws PayPalRESTException {
+					throws PayPalRESTException {
 		String pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.putAll(createFromRefreshTokenParameters.getContainerMap());
@@ -302,27 +300,26 @@ public class Tokeninfo extends PayPalResource {
 		Map<String, String> headersMap = new HashMap<String, String>();
 		if (createFromRefreshTokenParameters.getClientID() == null
 				|| createFromRefreshTokenParameters.getClientID().trim()
-						.length() <= 0
+				.length() <= 0
 				|| createFromRefreshTokenParameters.getClientSecret() == null
 				|| createFromRefreshTokenParameters.getClientSecret()
-						.trim().length() <= 0) {
+				.trim().length() <= 0) {
 			throw new PayPalRESTException(
 					"ClientID and ClientSecret not set in CreateFromRefreshTokenParameters");
-		} else {
-			OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(
-					createFromRefreshTokenParameters.getClientID(),
-					createFromRefreshTokenParameters.getClientSecret(),
-					apiContext.getConfigurationMap());
-			String authorizationHeader = oauthTokenCredential
-					.getAuthorizationHeader();
-			headersMap.put(Constants.AUTHORIZATION_HEADER, authorizationHeader);
 		}
+		OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(
+				createFromRefreshTokenParameters.getClientID(),
+				createFromRefreshTokenParameters.getClientSecret(),
+				apiContext.getConfigurationMap());
+		String authorizationHeader = oauthTokenCredential
+				.getAuthorizationHeader();
+		headersMap.put(Constants.AUTHORIZATION_HEADER, authorizationHeader);
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
-		
+
 		apiContext.setHTTPHeaders(headersMap);
 		return configureAndExecute(apiContext, HttpMethod.POST,
-				resourcePath, payLoad, Tokeninfo.class);
+				resourcePath, payLoad, Tokeninfo.class, authorizationHeader);
 	}
 
 	/**
@@ -357,7 +354,7 @@ public class Tokeninfo extends PayPalResource {
 		Map<String, String> headersMap = new HashMap<String, String>();
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
-		
+
 		apiContext.setHTTPHeaders(headersMap);
 		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);

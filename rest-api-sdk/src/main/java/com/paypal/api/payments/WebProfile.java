@@ -215,10 +215,7 @@ public class WebProfile  {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = this.toJSON();
@@ -256,7 +253,7 @@ public class WebProfile  {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -304,7 +301,7 @@ public class WebProfile  {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -354,7 +351,7 @@ public class WebProfile  {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (profileId == null) {
 			throw new IllegalArgumentException("profileId cannot be null");
@@ -396,7 +393,7 @@ public class WebProfile  {
 		if (apiContext.getHTTPHeaders() == null) {
 			apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = "";
@@ -436,10 +433,7 @@ public class WebProfile  {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");

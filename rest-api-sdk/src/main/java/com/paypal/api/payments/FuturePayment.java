@@ -41,7 +41,7 @@ public class FuturePayment extends Payment {
 
 		APIContext apiContext = new APIContext(accessToken);
 		apiContext.setHTTPHeaders(new HashMap<String, String>());
-		apiContext.getHTTPHeaders().put("PAYPAL-CLIENT-METADATA-ID", correlationId);
+		apiContext.addHTTPHeader("PAYPAL-CLIENT-METADATA-ID", correlationId);
 		return this.create(apiContext);
 	}
 
@@ -71,7 +71,7 @@ public class FuturePayment extends Payment {
 		}
 
 		apiContext.setHTTPHeaders(new HashMap<String, String>());
-		apiContext.getHTTPHeaders().put("PAYPAL-CLIENT-METADATA-ID", correlationId);
+		apiContext.addHTTPHeader("PAYPAL-CLIENT-METADATA-ID", correlationId);
 		return this.create(apiContext);
 	}
 

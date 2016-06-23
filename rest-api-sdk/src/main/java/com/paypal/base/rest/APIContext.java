@@ -2,7 +2,6 @@ package com.paypal.base.rest;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,21 +21,6 @@ import com.paypal.base.SDKVersion;
  * 
  */
 public class APIContext {
-
-	/**
-	 * HTTP Headers
-	 */
-	private Map<String, String> HTTPHeaders;
-
-	/**
-	 * Configurations
-	 */
-	private Map<String, String> configurationMap;
-
-	/**
-	 * OAuth Token
-	 */
-	private String accessToken;
 
 	/**
 	 * Request Id
@@ -63,6 +47,7 @@ public class APIContext {
 	 */
 	public APIContext() {
 		super();
+		this.credential = new OAuthTokenCredential(null);
 	}
 
 	/**
@@ -89,16 +74,12 @@ public class APIContext {
 		if (mode == null || !(mode.equals(Constants.LIVE) || mode.equals(Constants.SANDBOX))) {
 			throw new IllegalArgumentException("Mode needs to be either `sandbox` or `live`.");
 		}
-		if (this.configurationMap == null) {
-			this.configurationMap = new HashMap<String, String>();
-		}
 
+		this.credential = new OAuthTokenCredential(clientID, clientSecret);
 		if (configurations != null && configurations.size() > 0) {
-			this.configurationMap.putAll(configurations);
+			this.credential.addConfigurations(configurations);
 		}
-
-		this.configurationMap.put(Constants.MODE, mode);
-		this.credential = new OAuthTokenCredential(clientID, clientSecret, this.configurationMap);
+		this.credential.addConfiguration(Constants.MODE, mode);
 	}
 
 	/**
@@ -139,7 +120,7 @@ public class APIContext {
 		if (accessToken == null || accessToken.length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null");
 		}
-		this.accessToken = accessToken;
+		this.credential = new OAuthTokenCredential(accessToken);
 	}
 
 	/**
@@ -164,41 +145,56 @@ public class APIContext {
 	}
 
 	public APIContext setRefreshToken(String refreshToken) {
-		if (this.credential == null) {
+		if (this.credential != null && this.credential.hasCredentials()) {
+			this.credential.setRefreshToken(refreshToken);
+		} else {
 			throw new IllegalArgumentException(
 					"ClientID and Secret are required. Please use APIContext(String clientID, String clientSecret, String mode)");
 		}
-		this.accessToken = null;
-		this.credential.setRefreshToken(refreshToken);
 		return this;
 	}
 
 	/**
+	 * Returns HTTP Headers.
+	 * 
 	 * @return the hTTPHeaders
 	 */
 	public Map<String, String> getHTTPHeaders() {
-		return HTTPHeaders;
+		return this.credential.getHeaders();
 	}
 
 	/**
+	 * Replaces existing headers with provided one.
+	 * 
 	 * @param httpHeaders
 	 *            the httpHeaders to set
 	 */
-	public void setHTTPHeaders(Map<String, String> httpHeaders) {
-		HTTPHeaders = httpHeaders;
+	public APIContext setHTTPHeaders(Map<String, String> httpHeaders) {
+		this.credential.setHeaders(httpHeaders);
+		return this;
 	}
 
 	/**
+	 * Adds HTTP Headers to existing list
+	 * 
 	 * @param httpHeaders
 	 *            the httpHeaders to set
 	 */
-	public void addHTTPHeaders(Map<String, String> httpHeaders) {
-		if (HTTPHeaders == null) {
-			HTTPHeaders = new HashMap<String, String>();
-		}
-		for (Map.Entry<String, String> entry : httpHeaders.entrySet()) {
-			HTTPHeaders.put(entry.getKey(), entry.getValue());
-		}
+	public APIContext addHTTPHeaders(Map<String, String> httpHeaders) {
+		this.credential.addHeaders(httpHeaders);
+		return this;
+	}
+	
+
+	/**
+	 * Adds HTTP Header to existing list
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public APIContext addHTTPHeader(String key, String value) {
+		this.credential.addHeader(key, value);
+		return this;
 	}
 
 	/**
@@ -207,7 +203,7 @@ public class APIContext {
 	 * @return {@link Map} of configurations
 	 */
 	public Map<String, String> getConfigurationMap() {
-		return configurationMap;
+		return this.credential.getConfigurations();
 	}
 
 	/**
@@ -217,7 +213,7 @@ public class APIContext {
 	 *            the configurationMap to set
 	 */
 	public void setConfigurationMap(Map<String, String> configurationMap) {
-		this.configurationMap = configurationMap;
+		this.credential.setConfigurations(configurationMap);
 	}
 
 	/**
@@ -226,10 +222,7 @@ public class APIContext {
 	 * @param configurations
 	 */
 	public void addConfigurations(Map<String, String> configurations) {
-		if (this.configurationMap == null) {
-			this.configurationMap = new HashMap<String, String>();
-		}
-		this.configurationMap.putAll(configurations);
+		this.credential.addConfigurations(configurations);
 	}
 
 	/**
@@ -238,7 +231,8 @@ public class APIContext {
 	 * @return Access Token
 	 */
 	public String getAccessToken() {
-		if (accessToken == null && this.credential != null) {
+		String accessToken = null;
+		if (this.credential != null) {
 			try {
 				accessToken = this.credential.getAccessToken();
 			} catch (PayPalRESTException e) {

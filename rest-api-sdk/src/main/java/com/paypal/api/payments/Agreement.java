@@ -380,10 +380,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payments/billing-agreements";
 		String payLoad = this.toJSON();
@@ -446,10 +443,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		Object[] parameters = new Object[] { token };
 		String pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
@@ -489,10 +483,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (agreementId == null) {
 			throw new IllegalArgumentException("agreementId cannot be null");
@@ -535,10 +526,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -583,10 +571,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -632,10 +617,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -681,10 +663,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -730,10 +709,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -780,10 +756,7 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
@@ -830,16 +803,13 @@ public class Agreement  extends PayPalResource {
 		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
 		if (startDate == null) {
 			throw new IllegalArgumentException("startDate cannot be null");
 		}
 		if (endDate == null) {
 			throw new IllegalArgumentException("endDate cannot be null");
 		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (agreementId == null) {
 			throw new IllegalArgumentException("agreementId cannot be null");

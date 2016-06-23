@@ -214,6 +214,12 @@ public abstract class PayPalResource extends PayPalModel{
 		return configureAndExecute(null, accessToken, httpMethod, resourcePath,
 				null, payLoad, null, clazz);
 	}
+	
+	public static <T> T configureAndExecute(APIContext apiContext,
+			HttpMethod httpMethod, String resourcePath, String payLoad,
+			Class<T> clazz) throws PayPalRESTException {
+		return configureAndExecute(apiContext, httpMethod, resourcePath, payLoad, clazz, null);
+	}
 
 	/**
 	 * Configures and executes REST call: Supports JSON
@@ -235,10 +241,9 @@ public abstract class PayPalResource extends PayPalModel{
 	 */
 	public static <T> T configureAndExecute(APIContext apiContext,
 			HttpMethod httpMethod, String resourcePath, String payLoad,
-			Class<T> clazz) throws PayPalRESTException {
+			Class<T> clazz, String accessToken) throws PayPalRESTException {
 		T t = null;
 		Map<String, String> cMap = null;
-		String accessToken = null;
 		String requestId = null;
 		Map<String, String> headersMap = null;
 		if (apiContext != null) {
@@ -257,7 +262,9 @@ public abstract class PayPalResource extends PayPalModel{
 						configurationMap);
 			}
 			headersMap = apiContext.getHTTPHeaders();
-			accessToken = apiContext.getAccessToken();
+			if (accessToken == null) {
+				accessToken = apiContext.getAccessToken();
+			}
 			requestId = apiContext.getRequestId();
 
 			APICallPreHandler apiCallPreHandler = createAPICallPreHandler(cMap,
@@ -266,7 +273,8 @@ public abstract class PayPalResource extends PayPalModel{
 			HttpConfiguration httpConfiguration = createHttpConfiguration(cMap,
 					httpMethod, apiCallPreHandler);
 			t = execute(apiCallPreHandler, httpConfiguration, clazz);
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
+			// Clean up HTTPHeaders of previous calls.
+			// apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
 		return t;
 	}

@@ -307,6 +307,11 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 		 * used after a Base64 encoding.
 		 */
 		Map<String, String> headers = new HashMap<String, String>();
+		// Add any custom headers
+		if (headersMap != null && headersMap.size() > 0) {
+			headers.putAll(headersMap);
+		}
+		
 		if (authorizationToken != null
 				&& authorizationToken.trim().length() > 0) {
 			headers.put(Constants.AUTHORIZATION_HEADER, authorizationToken);
@@ -333,11 +338,6 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 		 * Add User-Agent header for tracking in PayPal system
 		 */
 		headers.putAll(formUserAgentHeader());
-
-		// Add any custom headers
-		if (headersMap != null && headersMap.size() > 0) {
-			headers.putAll(headersMap);
-		}
 
 		// Add application/json as the default Content-Type
 		// backward compatibility for PayPal rest sdks which

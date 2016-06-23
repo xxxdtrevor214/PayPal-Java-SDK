@@ -65,7 +65,7 @@ public final class OAuthTokenCredential {
 	/**
 	 * Headers
 	 */
-	private Map<String, String> headers;
+	private Map<String, String> headers = new HashMap<String, String>();
 
 	/**
 	 * Lifetime in seconds of the access token
@@ -93,6 +93,15 @@ public final class OAuthTokenCredential {
 	 */
 	public static void setOAUTH_TOKEN_PATH(String oauthTokenPath) {
 		OAUTH_TOKEN_PATH = oauthTokenPath;
+	}
+	
+	/**
+	 * Constructor that takes in Access Token. Only used internally. Please do not use for external integrations.
+	 * 
+	 * @param accessToken
+	 */
+	OAuthTokenCredential(String accessToken) {
+		this.accessToken = accessToken;
 	}
 
 	/**
@@ -131,13 +140,25 @@ public final class OAuthTokenCredential {
 	}
 
 	public OAuthTokenCredential setRefreshToken(String refreshToken) {
+		if (!this.hasCredentials()) {
+			throw new IllegalArgumentException("ClientID and Secret are required. Please use OAuthTokenCredential(String clientID, String clientSecret)");
+		}
 		this.refreshToken = refreshToken;
 		this.resetAccessToken();
 		return this;
 	}
 
 	/**
-	 * Sets Headers to Oauth Calls
+	 * Checks if clientID and secret are set.
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean hasCredentials() {
+		return (this.clientID != null) && (this.clientSecret != null);
+	}
+
+	/**
+	 * Sets Headers for every calls.
 	 * 
 	 * @param headers
 	 * @return {@link OAuthTokenCredential}
@@ -145,6 +166,38 @@ public final class OAuthTokenCredential {
 	public OAuthTokenCredential setHeaders(Map<String, String> headers) {
 		this.headers = headers;
 		return this;
+	}
+	
+	/**
+	 * Adds headers.
+	 * 
+	 * @param headers
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addHeaders(Map<String, String> headers) {
+		this.headers.putAll(headers);
+		return this;
+	}
+	
+	/**
+	 * Adds header to existing list of headers.
+	 * 
+	 * @param key
+	 * @param value
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addHeader(String key, String value) {
+		this.headers.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * Returns the list of headers
+	 * 
+	 * @return {@link Map} of headers
+	 */
+	public Map<String, String> getHeaders() {
+		return this.headers;
 	}
 
 	/**
@@ -173,10 +226,20 @@ public final class OAuthTokenCredential {
 		return "Basic " + base64EncodedString;
 	}
 	
+	/**
+	 * Returns clientID
+	 * 
+	 * @return {@link String} containing clientID
+	 */
 	public String getClientID() {
 		return this.clientID;
 	}
 
+	/**
+	 * Returns clientSecret
+	 * 
+	 * @return {@link String} containing clientSecret
+	 */
 	public String getClientSecret() {
 		return this.clientSecret;
 	}
@@ -189,6 +252,54 @@ public final class OAuthTokenCredential {
 	 */
 	public long expiresIn() {
 		return expires - new java.util.Date().getTime() / 1000;
+	}
+	
+	/**
+	 * Adds configuration to list of configurations.
+	 * 
+	 * @param key
+	 * @param value
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addConfiguration(String key, String value) {
+		if (this.configurationMap == null) {
+			this.configurationMap = new HashMap<String, String>();
+		}
+		this.configurationMap.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * Adds configurations to list of configurations.
+	 * @param configurations
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addConfigurations(Map<String, String> configurations) {
+		if (this.configurationMap == null) {
+			this.configurationMap = new HashMap<String, String>();
+		}
+		this.configurationMap.putAll(configurations);
+		return this;
+	}
+	
+	/**
+	 * Replaces existing configurations with provided map of configurations.
+	 * 
+	 * @param configurations
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential setConfigurations(Map<String, String> configurations) {
+		this.configurationMap = configurations;
+		return this;
+	}
+	
+	/**
+	 * Returns list of configurations.
+	 * 
+	 * @return {@link Map} of configurations
+	 */
+	public Map<String, String> getConfigurations() {
+		return this.configurationMap;
 	}
 
 	/**
@@ -232,9 +343,6 @@ public final class OAuthTokenCredential {
 			connection = ConnectionManager.getInstance().getConnection();
 			httpConfiguration = getOAuthHttpConfiguration();
 			connection.createAndconfigureHttpConnection(httpConfiguration);
-			if (this.headers == null) {
-				this.headers = new HashMap<String, String>();
-			}
 			this.headers.put(Constants.AUTHORIZATION_HEADER, "Basic " + base64ClientID);
 
 			// Accept only json output

@@ -165,10 +165,7 @@ public class Payout extends PayPalResource {
 			parameters = new HashMap<String, String>();
 		}
 		Object[] parametersObj = new Object[] {parameters};
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER,
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		String pattern = "v1/payments/payouts?sync_mode={0}";
@@ -218,10 +215,7 @@ public class Payout extends PayPalResource {
 			throw new IllegalArgumentException(
 					"AccessToken cannot be null or empty");
 		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.getHTTPHeaders().put(Constants.HTTP_CONTENT_TYPE_HEADER,
+		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (payoutBatchId == null) {
