@@ -296,7 +296,7 @@ public class Refund  extends PayPalResource {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
 		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);

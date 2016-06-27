@@ -22,6 +22,7 @@ import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
+import com.paypal.base.exception.BaseException;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 
@@ -263,7 +264,7 @@ public abstract class PayPalResource extends PayPalModel{
 			}
 			headersMap = apiContext.getHTTPHeaders();
 			if (accessToken == null) {
-				accessToken = apiContext.getAccessToken();
+				accessToken = apiContext.fetchAccessToken();
 			}
 			requestId = apiContext.getRequestId();
 
@@ -308,7 +309,7 @@ public abstract class PayPalResource extends PayPalModel{
 		String requestId = null;
 		if (apiContext != null) {
 			cMap = apiContext.getConfigurationMap();
-			accessToken = apiContext.getAccessToken();
+			accessToken = apiContext.fetchAccessToken();
 			requestId = apiContext.getRequestId();
 		}
 		return configureAndExecute(cMap, accessToken, httpMethod, resourcePath,
@@ -464,12 +465,18 @@ public abstract class PayPalResource extends PayPalModel{
 	 * @param apiCallPreHandler
 	 *            {@link APICallPreHandler} for retrieving EndPoint
 	 * @return
+	 * @throws BaseException 
+	 * @throws PayPalRESTException 
 	 */
 	private static HttpConfiguration createHttpConfiguration(
 			Map<String, String> configurationMap, HttpMethod httpMethod,
-			APICallPreHandler apiCallPreHandler) {
+			APICallPreHandler apiCallPreHandler) throws PayPalRESTException {
 		HttpConfiguration httpConfiguration = new HttpConfiguration();
 		httpConfiguration.setHttpMethod(httpMethod.toString());
+		String endpoint = apiCallPreHandler.getEndPoint();
+		if (endpoint == null || endpoint.isEmpty()) {
+			throw new PayPalRESTException("The endpoint could not be fetched properly. You may be missing `mode` in your configuration.");
+		}
 		httpConfiguration.setEndPointUrl(apiCallPreHandler.getEndPoint());
 		httpConfiguration
 				.setGoogleAppEngine(Boolean.parseBoolean(configurationMap

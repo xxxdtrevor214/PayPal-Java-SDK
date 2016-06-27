@@ -159,7 +159,20 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 	}
 
 	public String getEndPoint() {
-		return getProcessedEndPoint();
+		/*
+		 * Process the EndPoint to append the resourcePath sent as a part of the
+		 * method call with the base endPoint retrieved from configuration
+		 * system
+		 */
+		String endPoint = null;
+		try {
+			endPoint = getBaseURL().toURI().resolve(resourcePath).toString();
+		} catch (MalformedURLException e) {
+			//
+		} catch (URISyntaxException e) {
+			//
+		}
+		return endPoint;
 	}
 
 	public OAuthTokenCredential getCredential() {
@@ -181,23 +194,22 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 	public URL getBaseURL() throws MalformedURLException {
 
 		/*
-		 * Check for property 'service.EndPoint' in the configuration, if not
-		 * found, check for 'mode' property in the configuration and default
+		 * Check for property 'mode' property in the configuration, if not
+		 * found, check for 'service.EndPoint' property in the configuration and default
 		 * endpoint to PayPal sandbox or live endpoints. Throw exception if the
 		 * above rules fail
 		 */
 		if (url == null) {
+			String mode = this.configurationMap.get(Constants.MODE);
+			// Default to Endpoint param.
 			String urlString = this.configurationMap.get(Constants.ENDPOINT);
-			if (urlString == null || urlString.length() <= 0) {
-				String mode = this.configurationMap.get(Constants.MODE);
-				if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
-					urlString = Constants.REST_SANDBOX_ENDPOINT;
-				} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
-					urlString = Constants.REST_LIVE_ENDPOINT;
-				} else {
-					throw new MalformedURLException(
-							"service.EndPoint not set (OR) mode not configured to sandbox/live ");
-				}
+			if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
+				urlString = Constants.REST_SANDBOX_ENDPOINT;
+			} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
+				urlString = Constants.REST_LIVE_ENDPOINT;
+			} else if (urlString == null || urlString.length() <= 0) {
+				throw new MalformedURLException(
+						"service.EndPoint not set (OR) mode not configured to sandbox/live ");
 			}
 			if (!urlString.endsWith("/")) {
 				urlString += "/";
@@ -267,29 +279,6 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 		encoded = Base64.encodeBase64(clientID.getBytes("UTF-8"));
 		base64ClientID = new String(encoded, "UTF-8");
 		return base64ClientID;
-	}
-
-	/**
-	 * Override this method to process EndPoint
-	 * 
-	 * @return Endpoint as String
-	 */
-	protected String getProcessedEndPoint() {
-
-		/*
-		 * Process the EndPoint to append the resourcePath sent as a part of the
-		 * method call with the base endPoint retrieved from configuration
-		 * system
-		 */
-		String endPoint = null;
-		try {
-			endPoint = getBaseURL().toURI().resolve(resourcePath).toString();
-		} catch (MalformedURLException e) {
-			//
-		} catch (URISyntaxException e) {
-			//
-		}
-		return endPoint;
 	}
 
 	/**

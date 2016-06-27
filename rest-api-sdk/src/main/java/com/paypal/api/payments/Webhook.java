@@ -138,7 +138,7 @@ public class Webhook  extends PayPalResource {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
 		if (webhook == null) {
@@ -183,7 +183,7 @@ public class Webhook  extends PayPalResource {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
 		if (webhookId == null) {
@@ -228,7 +228,7 @@ public class Webhook  extends PayPalResource {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
 		if (webhookId == null) {
@@ -272,7 +272,7 @@ public class Webhook  extends PayPalResource {
 		if (apiContext == null) {
 			throw new IllegalArgumentException("APIContext cannot be null");
 		}
-		if (apiContext.getAccessToken() == null || apiContext.getAccessToken().trim().length() <= 0) {
+		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
 			throw new IllegalArgumentException("AccessToken cannot be null or empty");
 		}
 		if (webhookId == null) {

@@ -1,7 +1,5 @@
 package com.paypal.base.rest;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.Map;
 import java.util.UUID;
 
@@ -44,6 +42,7 @@ public class APIContext {
 
 	/**
 	 * Default Constructor
+	 * @deprecated Please use `APIContext(String clientID, String clientSecret, String mode)` instead. 
 	 */
 	public APIContext() {
 		super();
@@ -71,39 +70,11 @@ public class APIContext {
 	 * @param configurations
 	 */
 	public APIContext(String clientID, String clientSecret, String mode, Map<String, String> configurations) {
-		if (mode == null || !(mode.equals(Constants.LIVE) || mode.equals(Constants.SANDBOX))) {
-			throw new IllegalArgumentException("Mode needs to be either `sandbox` or `live`.");
-		}
-
 		this.credential = new OAuthTokenCredential(clientID, clientSecret);
 		if (configurations != null && configurations.size() > 0) {
 			this.credential.addConfigurations(configurations);
 		}
-		this.credential.addConfiguration(Constants.MODE, mode);
-	}
-
-	/**
-	 * Constructor that takes in the property file as the input.
-	 * 
-	 * @param configurationFile
-	 * @throws PayPalRESTException
-	 */
-	public APIContext(File configurationFile) throws PayPalRESTException {
-		super();
-		this.credential = PayPalResource.initConfig(configurationFile);
-		this.addConfigurations(PayPalResource.getConfigurations());
-	}
-
-	/**
-	 * Constructor that takes in the input stream of configurations
-	 * 
-	 * @param configurations
-	 * @throws PayPalRESTException
-	 */
-	public APIContext(InputStream configurations) throws PayPalRESTException {
-		super();
-		this.credential = PayPalResource.initConfig(configurations);
-		this.addConfigurations(PayPalResource.getConfigurations());
+		this.setMode(mode);
 	}
 
 	/**
@@ -144,6 +115,13 @@ public class APIContext {
 		this.requestId = requestId;
 	}
 
+	/**
+	 * Sets refresh token to be used for third party OAuth operations. This is commonly used for 
+	 * third party invoicing and future payments.
+	 * 
+	 * @param refreshToken
+	 * @return {@link APIContext}
+	 */
 	public APIContext setRefreshToken(String refreshToken) {
 		if (this.credential != null && this.credential.hasCredentials()) {
 			this.credential.setRefreshToken(refreshToken);
@@ -151,6 +129,19 @@ public class APIContext {
 			throw new IllegalArgumentException(
 					"ClientID and Secret are required. Please use APIContext(String clientID, String clientSecret, String mode)");
 		}
+		return this;
+	}
+	
+	/**
+	 * Sets mode to either `live` or `sandbox`.
+	 * @param mode
+	 * @return {@link APIContext}
+	 */
+	public APIContext setMode(String mode) {
+		if (mode == null || !(mode.equals(Constants.LIVE) || mode.equals(Constants.SANDBOX))) {
+			throw new IllegalArgumentException("Mode needs to be either `sandbox` or `live`.");
+		}
+		this.credential.addConfiguration(Constants.MODE, mode);
 		return this;
 	}
 
@@ -211,9 +202,11 @@ public class APIContext {
 	 * 
 	 * @param configurationMap
 	 *            the configurationMap to set
+	 * @return {@link APIContext}
 	 */
-	public void setConfigurationMap(Map<String, String> configurationMap) {
+	public APIContext setConfigurationMap(Map<String, String> configurationMap) {
 		this.credential.setConfigurations(configurationMap);
+		return this;
 	}
 
 	/**
@@ -226,18 +219,31 @@ public class APIContext {
 	}
 
 	/**
-	 * Returns the Access Token
+	 * @deprecated Please use {@link #fetchAccessToken()} instead.
+	 * Previously, this was a dumb getter method. However, we enabled the feature to re-generate the access Token if null, or expired.
+	 * This required us to throw proper PayPalRESTException, with error information on failure.
 	 * 
 	 * @return Access Token
 	 */
 	public String getAccessToken() {
+		try {
+			return fetchAccessToken();
+		} catch (PayPalRESTException ex) {
+			// we should be throwing proper exception here.
+			return null;
+		}
+	}
+	
+	/**
+	 * Returns the access Token. Regenerates if null or expired.
+	 * 
+	 * @return {@link String} of AccessToken
+	 * @throws PayPalRESTException
+	 */
+	public String fetchAccessToken() throws PayPalRESTException {
 		String accessToken = null;
 		if (this.credential != null) {
-			try {
-				accessToken = this.credential.getAccessToken();
-			} catch (PayPalRESTException e) {
-				accessToken = null;
-			}
+			accessToken = this.credential.getAccessToken();
 		}
 		return accessToken;
 	}

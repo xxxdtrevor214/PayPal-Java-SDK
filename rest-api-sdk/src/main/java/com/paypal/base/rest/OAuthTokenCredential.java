@@ -1,6 +1,7 @@
 package com.paypal.base.rest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -208,7 +209,7 @@ public final class OAuthTokenCredential {
 	 * @throws PayPalRESTException
 	 */
 	public String getAccessToken() throws PayPalRESTException {
-		if (accessToken == null || expiresIn() <= 0) {
+		if (accessToken == null || (hasCredentials() && expiresIn() <= 0)) {
 			accessToken = generateAccessToken();
 		}
 		return accessToken;
@@ -402,22 +403,34 @@ public final class OAuthTokenCredential {
 	/*
 	 * Get HttpConfiguration object for OAuth server
 	 */
-	private HttpConfiguration getOAuthHttpConfiguration() {
+	private HttpConfiguration getOAuthHttpConfiguration() throws MalformedURLException {
 		HttpConfiguration httpConfiguration = new HttpConfiguration();
 		httpConfiguration
 				.setHttpMethod(Constants.HTTP_CONFIG_DEFAULT_HTTP_METHOD);
-		String endPointUrl = (configurationMap.get(Constants.OAUTH_ENDPOINT) != null && configurationMap
-				.get(Constants.OAUTH_ENDPOINT).trim().length() >= 0) ? configurationMap
-				.get(Constants.OAUTH_ENDPOINT) : configurationMap
-				.get(Constants.ENDPOINT);
-		if (endPointUrl == null || endPointUrl.trim().length() <= 0) {
-			String mode = configurationMap.get(Constants.MODE);
-			if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
-				endPointUrl = Constants.REST_SANDBOX_ENDPOINT;
-			} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
-				endPointUrl = Constants.REST_LIVE_ENDPOINT;
-			}
+		
+		/*
+		 * Check for property 'mode' property in the configuration, if not
+		 * found, check for 'oauth.EndPoint' property in the configuration and default
+		 * endpoint to PayPal sandbox or live endpoints. Throw exception if the
+		 * above rules fail
+		 */
+		String mode = this.configurationMap.get(Constants.MODE);
+		// Default to Endpoint param.
+		String endPointUrl = this.configurationMap.get(Constants.OAUTH_ENDPOINT);
+		if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
+			endPointUrl = Constants.REST_SANDBOX_ENDPOINT;
+		} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
+			endPointUrl = Constants.REST_LIVE_ENDPOINT;
+		} else if (endPointUrl == null || endPointUrl.length() <= 0) {
+			// Default to Normal endpoint
+			endPointUrl = this.configurationMap.get(Constants.ENDPOINT);
+		} 
+		// If none of the option works, throw exception.
+		if (endPointUrl == null || endPointUrl.length() <= 0) {
+			throw new MalformedURLException(
+					"service.EndPoint not set (OR) mode not configured to sandbox/live ");
 		}
+		
 		if (Boolean
 				.parseBoolean(configurationMap.get(Constants.USE_HTTP_PROXY))) {
 			httpConfiguration.setProxySet(true);
