@@ -74,13 +74,13 @@ public class PaymentWithCreditCardServlet extends HttpServlet {
 		// used to fund a payment.
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
-		creditCard.setCvv2(111);
+		creditCard.setCvv2(012);
 		creditCard.setExpireMonth(11);
 		creditCard.setExpireYear(2018);
 		creditCard.setFirstName("Joe");
 		creditCard.setLastName("Shopper");
-		creditCard.setNumber("5500005555555559");
-		creditCard.setType("mastercard");
+		creditCard.setNumber("4669424246660779");
+		creditCard.setType("visa");
 
 		// ###Details
 		// Let's you specify details of a payment amount.

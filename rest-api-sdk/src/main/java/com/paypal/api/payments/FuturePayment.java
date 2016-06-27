@@ -76,7 +76,9 @@ public class FuturePayment extends Payment {
 	}
 
 	/**
-	 * @deprecated Please use fetchRefreshToken instead.
+	 * @deprecated Please use {@link #fetchRefreshToken(APIContext, String)} instead.
+	 * In this method, we need to pass clientID, secret information that is already known to apiContext. The newer method allows for better
+	 * code readability, and make it less error prone.
 	 * 
 	 * @param params
 	 * @return {@link Tokeninfo}
@@ -95,7 +97,9 @@ public class FuturePayment extends Payment {
 	}
 
 	/**
-	 * @deprecated Please use fetchRefreshToken instead.
+	 * @deprecated Please use {@link #fetchRefreshToken(APIContext, String)} instead.
+	 * In this method, we need to pass clientID, secret information that is already known to apiContext. The newer method allows for better
+	 * code readability, and make it less error prone.
 	 * 
 	 * @param params
 	 * @return {@link Tokeninfo}

@@ -51,7 +51,8 @@ public class CreateCreditCardServlet extends HttpServlet {
 		CreditCard creditCard = new CreditCard();
 		creditCard.setExpireMonth(11);
 		creditCard.setExpireYear(2018);
-		creditCard.setNumber("4417119669820331");
+		creditCard.setNumber("4669424246660779");
+		creditCard.setCvv2(0123);
 		creditCard.setType("visa");
 
 		try {
