@@ -19,6 +19,8 @@ import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
 import com.paypal.base.codec.binary.Base64;
+import com.paypal.base.exception.ClientActionRequiredException;
+import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 import com.paypal.base.util.UserAgentHeader;
 
@@ -302,6 +304,19 @@ public final class OAuthTokenCredential {
 	public Map<String, String> getConfigurations() {
 		return this.configurationMap;
 	}
+	
+	/**
+	 * Returns specific configuration.
+	 * 
+	 * @param key
+	 * @return {@link String} value of configuration
+	 */
+	public String getConfiguration(String key) {
+		if (this.configurationMap != null) {
+			return this.configurationMap.get(key);
+		}
+		return null;
+	}
 
 	/**
 	 * Resets Access Token
@@ -380,6 +395,10 @@ public final class OAuthTokenCredential {
 			// Save expiry date
 			long tokenLifeTime = jsonElement.getAsJsonObject().get("expires_in").getAsLong();
 			expires = new Date().getTime() / 1000 + tokenLifeTime;
+		} catch (ClientActionRequiredException e) {
+			throw PayPalRESTException.createFromHttpErrorException(e);
+		} catch (HttpErrorException e) {
+			throw PayPalRESTException.createFromHttpErrorException(e);
 		} catch (Exception e) {
 			throw new PayPalRESTException(e.getMessage(), e);
 		}

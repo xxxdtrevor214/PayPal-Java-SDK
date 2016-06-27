@@ -144,7 +144,17 @@ public class APIContext {
 		this.credential.addConfiguration(Constants.MODE, mode);
 		return this;
 	}
-
+	
+	/**
+	 * Enables settings for Google App Engine. Please set to `true` if using SDK in Google App Engine.
+	 * 
+	 * @param usingGoogleAppEngine
+	 * @return {@link APIContext}
+	 */
+	public APIContext usingGoogleAppEngine(boolean usingGoogleAppEngine) {
+		return this.addConfiguration(Constants.GOOGLE_APP_ENGINE, String.valueOf(usingGoogleAppEngine));
+	}
+	
 	/**
 	 * Returns HTTP Headers.
 	 * 
@@ -213,9 +223,32 @@ public class APIContext {
 	 * Adds configurations
 	 * 
 	 * @param configurations
+	 * @return {@link APIContext}
 	 */
-	public void addConfigurations(Map<String, String> configurations) {
+	public APIContext addConfigurations(Map<String, String> configurations) {
 		this.credential.addConfigurations(configurations);
+		return this;
+	}
+	
+	/**
+	 * Adds configuration
+	 * 
+	 * @param configurations
+	 * @return {@link APIContext}
+	 */
+	public APIContext addConfiguration(String key, String value) {
+		this.credential.addConfiguration(key, value);
+		return this;
+	}
+	
+	/**
+	 * Returns string value of specific configuration.
+	 * 
+	 * @param key
+	 * @return {@link String} value of specific configuration.
+	 */
+	public String getConfiguration(String key) {
+		return this.credential.getConfiguration(key);
 	}
 
 	/**
@@ -263,6 +296,18 @@ public class APIContext {
 			reqId = requestId;
 		}
 		return reqId;
+	}
+	
+	/**
+	 * Sets the requestId to be sent on each request. Used for idempotency purposes.
+	 * requestId is auto generated if not passed explicitly.
+	 * 
+	 * @param requestId
+	 * @return
+	 */
+	public APIContext setRequestId(String requestId) {
+		this.requestId = requestId;
+		return this;
 	}
 
 	/**
