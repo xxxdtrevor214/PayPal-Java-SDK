@@ -13,7 +13,7 @@ SDK Integration:
 ----------------
 
 #### Maven
-```
+```xml
 <dependency>
 	<groupId>com.paypal.sdk</groupId>
 	<artifactId>rest-api-sdk</artifactId>
@@ -21,7 +21,7 @@ SDK Integration:
 </dependency>
 ```
 #### Gradle
-```js
+```gradle
 repositories {
 	mavenCentral()
 }
