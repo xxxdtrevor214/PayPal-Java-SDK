@@ -103,24 +103,6 @@ public class Payment  extends PayPalResource {
 	private List<Links> links;
 
 	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
 	 * Default Constructor
 	 */
 	public Payment() {
@@ -441,6 +423,7 @@ public class Payment  extends PayPalResource {
 
 	/**
 	 * Creates (and processes) a new Payment Resource.
+	 * @deprecated Please use {@link #create(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Payment
@@ -468,6 +451,7 @@ public class Payment  extends PayPalResource {
 
 	/**
 	 * Obtain the Payment resource for the given identifier.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param paymentId
@@ -503,6 +487,7 @@ public class Payment  extends PayPalResource {
 
 	/**
 	 * Executes the payment (after approved by the Payer) associated with this resource when the payment method is PayPal.
+	 * @deprecated Please use {@link #execute(APIContext, PaymentExecution)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param paymentExecution
@@ -541,6 +526,8 @@ public class Payment  extends PayPalResource {
 	
 	/**
 	 * Partially update a payment resource by by passing the payment_id in the request URI. In addition, pass a patch_request_object in the body of the request JSON that specifies the operation to perform, path of the target location, and new value to apply. Please note that it is not possible to use patch after execute has been called.
+	 * @deprecated Please use {@link #update(APIContext, List)} instad.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param patchRequest
@@ -582,6 +569,8 @@ public class Payment  extends PayPalResource {
 
 	/**
 	 * Retrieves a list of Payment resources.
+	 * @deprecated Please use {@link #list(APIContext, Map)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param containerMap
@@ -596,6 +585,7 @@ public class Payment  extends PayPalResource {
 
 	/**
 	 * Retrieves a list of Payment resources.
+	 *
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param containerMap
@@ -613,9 +603,6 @@ public class Payment  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		PaymentHistory paymentHistory = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
-//		if (paymentHistory == null) {
-//			paymentHistory = new PaymentHistory();
-//		}
 		
 		return paymentHistory;
 	}

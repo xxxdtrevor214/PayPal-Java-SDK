@@ -75,24 +75,6 @@ public class Order  extends PayPalResource {
 	 * 
 	 */
 	private List<Links> links;
-
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
 	
 	/**
 	 * Default Constructor
@@ -334,6 +316,7 @@ public class Order  extends PayPalResource {
 
 	/**
 	 * Obtain the Order resource for the given identifier.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param orderId
@@ -370,6 +353,7 @@ public class Order  extends PayPalResource {
 
 	/**
 	 * Creates (and processes) a new Capture Transaction added as a related resource.
+	 * @deprecated Please use {@link #capture(APIContext, Capture)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param capture
@@ -409,6 +393,7 @@ public class Order  extends PayPalResource {
 
 	/**
 	 * Voids (cancels) an Order.
+	 * @deprecated Please use {@link #doVoid(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Order
@@ -441,6 +426,7 @@ public class Order  extends PayPalResource {
 
 	/**
 	 * Creates an authorization on an order
+	 * @deprecated Please use {@link #authorize(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Authorization

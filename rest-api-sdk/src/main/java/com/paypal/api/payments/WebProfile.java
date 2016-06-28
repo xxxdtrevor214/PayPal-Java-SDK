@@ -127,6 +127,8 @@ public class WebProfile extends PayPalResource {
 
 	/**
 	 * Create a web experience profile by passing the name of the profile and other profile details in the request JSON to the request URI.
+	 * @deprecated Please use {@link #create(APIContext)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return CreateProfileResponse
@@ -153,6 +155,8 @@ public class WebProfile extends PayPalResource {
 
 	/**
 	 * Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
+	 * @deprecated Please use {@link #update(APIContext)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return 
@@ -186,6 +190,8 @@ public class WebProfile extends PayPalResource {
 
 	/**
 	 * Partially update an existing web experience profile by passing the ID of the profile to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, path of the profile location to update, and a new value if needed to complete the operation.
+	 * @deprecated Please use {@link #partialUpdate(APIContext, PatchRequest)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param patchRequest
@@ -226,6 +232,8 @@ public class WebProfile extends PayPalResource {
 
 	/**
 	 * Retrieve the details of a particular web experience profile by passing the ID of the profile to the request URI.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param profileId
@@ -261,6 +269,8 @@ public class WebProfile extends PayPalResource {
 
 	/**
 	 * Lists all web experience profiles that exist for a merchant (or subject).
+	 * @deprecated Please use {@link #getList(APIContext)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return WebProfileList
@@ -289,6 +299,8 @@ public class WebProfile extends PayPalResource {
 
 	/**
 	 * Delete an existing web experience profile by passing the profile ID to the request URI.
+	 * @deprecated Please use {@link #delete(APIContext)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return 

@@ -345,6 +345,8 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Create a new billing agreement by passing the details for the agreement, including the name, description, start date, payer, and billing plan in the request JSON.
+	 * @deprecated Please use {@link #create(APIContext)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Agreement
@@ -400,9 +402,9 @@ public class Agreement  extends PayPalResource {
 	    return queryPairs;
 	}
 
-
 	/**
 	 * Execute a billing agreement after buyer approval by passing the payment token to the request URI.
+	 * @deprecated Please use {@link #execute(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Agreement
@@ -423,7 +425,6 @@ public class Agreement  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static Agreement execute(APIContext apiContext, String token) throws PayPalRESTException {
-
 		Object[] parameters = new Object[] { token };
 		String pattern = "v1/payments/billing-agreements/{0}/agreement-execute";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
@@ -434,6 +435,8 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Retrieve details for a particular billing agreement by passing the ID of the agreement to the request URI.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param agreementId
@@ -470,6 +473,7 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Update details of a billing agreement, such as the description, shipping address, and start date, by passing the ID of the agreement to the request URI.
+	 * @deprecated Please use {@link #update(APIContext, List)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param patchRequest
@@ -509,6 +513,7 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Suspend a particular billing agreement by passing the ID of the agreement to the request URI.
+	 * @deprecated Please use {@link #suspend(APIContext, AgreementStateDescriptor)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
@@ -548,6 +553,7 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+	 * @deprecated Please use {@link @reActivate(apiContext, agreementStateDescriptor)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
@@ -587,6 +593,7 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Cancel a billing agreement by passing the ID of the agreement to the request URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+	 * @deprecated Please use {@link #cancel(APIContext, AgreementStateDescriptor)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
@@ -626,6 +633,7 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Bill an outstanding amount for an agreement by passing the ID of the agreement to the request URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
+	 * @deprecated Please use {@link #billBalance(APIContext, AgreementStateDescriptor)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor
@@ -665,6 +673,7 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Set the balance for an agreement by passing the ID of the agreement to the request URI. In addition, pass a common_currency object in the request JSON that specifies the currency type and value of the balance.
+	 * @deprecated  Please use {@link #setBalance(APIContext, Currency)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param currency
@@ -702,9 +711,9 @@ public class Agreement  extends PayPalResource {
 		return;
 	}
 
-
 	/**
 	 * List transactions for a billing agreement by passing the ID of the agreement, as well as the start and end dates of the range of transactions to list, to the request URI.
+	 * @deprecated Please use {@link #transactions(APIContext, String, Date, Date)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param agreementId
@@ -745,9 +754,6 @@ public class Agreement  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		AgreementTransactions transactions = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, AgreementTransactions.class);
-//		if (transactions == null) {
-//			transactions = new AgreementTransactions();
-//		}
 		
 		return transactions;
 	}

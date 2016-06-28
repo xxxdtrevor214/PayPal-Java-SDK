@@ -1,16 +1,13 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalModel;
-import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
-public class PaymentInstruction extends PayPalModel {
+/**
+ * @deprecated PaymentInstruction object is not available for public use.
+ */
+public class PaymentInstruction extends PayPalResource {
 
 	/**
 	 * ID of payment instruction
@@ -46,64 +43,6 @@ public class PaymentInstruction extends PayPalModel {
 	 * 
 	 */
 	private List<Links> links;
-
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 *
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
-		return PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 *
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
-		return PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 *
-	 * @param properties
-	 *            Properties object
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(Properties properties) {
-		return PayPalResource.initConfig(properties);
-	}
-	/**
-	 * Default Constructor
-	 */
-	public PaymentInstruction() {
-	}
 
 	/**
 	 * Parameterized Constructor

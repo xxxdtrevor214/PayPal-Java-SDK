@@ -128,6 +128,7 @@ public class PayoutItem extends PayPalResource {
 	/**
 	 * Obtain the status of a payout item by passing the item ID to the request
 	 * URI.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * 
 	 * @param accessToken
 	 *            Access Token used for the API call.
@@ -171,6 +172,7 @@ public class PayoutItem extends PayPalResource {
 	 * URI. If an unclaimed item is not claimed within 30 days, the funds will
 	 * be automatically returned to the sender. This call can be used to cancel
 	 * the unclaimed item prior to the automatic 30-day return.
+	 * @deprecated Please use {@link #cancel(APIContext, String)} instead.
 	 * 
 	 * @param accessToken
 	 *            Access Token used for the API call.

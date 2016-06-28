@@ -386,6 +386,7 @@ public class Userinfo extends PayPalResource{
 	
 	/**
 	 * Returns user details
+	 * @deprecated Please use {@link #getUserinfo(APIContext)} instead.
 	 * 
 	 * @param accessToken
 	 *            access token

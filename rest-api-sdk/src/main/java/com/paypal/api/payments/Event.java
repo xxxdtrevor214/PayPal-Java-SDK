@@ -176,6 +176,7 @@ public class Event  extends PayPalResource {
 
 	/**
 	 * Retrieves the Webhooks event resource identified by event_id. Can be used to retrieve the payload for an event.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param eventId
@@ -212,6 +213,7 @@ public class Event  extends PayPalResource {
 
 	/**
 	 * Resends the Webhooks event resource identified by event_id.
+	 * @deprecated Please use {@link #resend(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Event
@@ -244,6 +246,7 @@ public class Event  extends PayPalResource {
 
 	/**
 	 * Retrieves the list of Webhooks events resources for the application associated with token. The developers can use it to see list of past webhooks events.
+	 * @deprecated Please use {@link #list(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return EventList

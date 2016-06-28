@@ -86,6 +86,7 @@ public class Payout extends PayPalResource {
 
 	/**
 	 * You can submit a payout with a synchronous API call, which immediately returns the results of a PayPal payment.
+	 * @deprecated Please use {@link #createSynchronous(APIContext)} instead.
 	 * 
 	 * @param accessToken
 	 *            Access Token used for the API call.
@@ -120,6 +121,7 @@ public class Payout extends PayPalResource {
 	 * items array to the request URI. The sender_batch_header contains payout
 	 * parameters that describe the handling of a batch resource while the items
 	 * array conatins payout items.
+	 * @deprecated Please use {@link #create(APIContext, Map)} instead.
 	 * 
 	 * @param accessToken
 	 *            Access Token used for the API call.
@@ -162,6 +164,7 @@ public class Payout extends PayPalResource {
 	 * Obtain the status of a specific batch resource by passing the payout
 	 * batch ID to the request URI. You can issue this call multiple times to
 	 * get the current status.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * 
 	 * @param accessToken
 	 *            Access Token used for the API call.

@@ -256,6 +256,8 @@ public class Plan  extends PayPalResource {
 
 	/**
 	 * Retrieve the details for a particular billing plan by passing the billing plan ID to the request URI.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param planId
@@ -292,6 +294,8 @@ public class Plan  extends PayPalResource {
 
 	/**
 	 * Create a new billing plan by passing the details for the plan, including the plan name, description, and type, to the request URI.
+	 * @deprecated Please use {@link #create(APIContext)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Plan
@@ -319,6 +323,8 @@ public class Plan  extends PayPalResource {
 
 	/**
 	 * Replace specific fields within a billing plan by passing the ID of the billing plan to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, field to update, and new value for each update.
+	 * @deprecated Please use {@link #update(APIContext, List)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param patchRequest
@@ -358,6 +364,8 @@ public class Plan  extends PayPalResource {
 
 	/**
 	 * List billing plans according to optional query string parameters specified.
+	 * @deprecated Please use {@link #list(APIContext, Map)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param containerMap

@@ -173,8 +173,6 @@ public class DefaultHttpConnection extends HttpConnection {
 	/**
 	 * Private class for password based authentication
 	 * 
-	 * @author kjayakumar
-	 * 
 	 */
 	private static class DefaultPasswordAuthenticator extends Authenticator {
 

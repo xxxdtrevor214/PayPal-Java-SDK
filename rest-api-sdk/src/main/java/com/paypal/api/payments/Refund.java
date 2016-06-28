@@ -62,24 +62,6 @@ public class Refund  extends PayPalResource {
 	private List<Links> links;
 
 	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
 	 * Default Constructor
 	 */
 	public Refund() {
@@ -264,6 +246,8 @@ public class Refund  extends PayPalResource {
 
 	/**
 	 * Obtain the Refund transaction resource for the given identifier.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param refundId

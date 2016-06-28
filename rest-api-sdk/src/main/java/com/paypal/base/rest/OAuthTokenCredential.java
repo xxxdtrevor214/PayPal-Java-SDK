@@ -37,9 +37,6 @@ import com.paypal.base.util.UserAgentHeader;
  * for the OAuth Service. If either are not present the configuration should
  * have a entry by the name "mode" with values sandbox or live wherein the
  * corresponding endpoints are default to PayPal endpoints.
- * 
- * @author kjayakumar
- * 
  */
 public final class OAuthTokenCredential {
 

@@ -106,6 +106,8 @@ public class Webhook  extends PayPalResource {
 	
 	/**
 	 * Creates the Webhook for the application associated with the access token.
+	 * @deprecated Please use {@link #create(APIContext, Webhook)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.	
 	 * @param webhook
@@ -141,6 +143,8 @@ public class Webhook  extends PayPalResource {
 	
 	/**
 	 * Retrieves the Webhook identified by webhook_id for the application associated with access token.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param webhookId
@@ -178,6 +182,7 @@ public class Webhook  extends PayPalResource {
 
 	/**
 	 * Updates the Webhook identified by webhook_id for the application associated with access token.
+	 * @deprecated Please use {@link #update(APIContext, String, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param webhookId
@@ -218,6 +223,7 @@ public class Webhook  extends PayPalResource {
 	
 	/**
 	 * Deletes the Webhook identified by webhook_id for the application associated with access token.
+	 * @deprecated Please use {@link #delete(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param webhookId

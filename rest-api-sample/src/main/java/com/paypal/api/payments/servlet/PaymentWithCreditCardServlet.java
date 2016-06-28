@@ -10,13 +10,16 @@ import static com.paypal.api.payments.util.SampleConstants.mode;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.paypal.base.rest.OAuthTokenCredential;
 import org.apache.log4j.Logger;
 
 import com.paypal.api.payments.Address;
@@ -31,10 +34,7 @@ import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-/**
- * @author lvairamani
- * 
- */
+
 public class PaymentWithCreditCardServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

@@ -328,6 +328,7 @@ public class CreditCard  extends PayPalResource {
 
 	/**
 	 * Creates a new Credit Card Resource (aka Tokenize).
+	 * @deprecated Please use {@link #create(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return CreditCard
@@ -355,6 +356,7 @@ public class CreditCard  extends PayPalResource {
 
 	/**
 	 * Obtain the Credit Card resource for the given identifier.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param creditCardId
@@ -391,6 +393,7 @@ public class CreditCard  extends PayPalResource {
 
 	/**
 	 * Delete the Credit Card resource for the given identifier.
+	 * @deprecated Please use {@link #delete(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 
@@ -425,6 +428,7 @@ public class CreditCard  extends PayPalResource {
 
 	/**
 	 * Update information in a previously saved card. Only the modified fields need to be passed in the request.
+	 * @deprecated Please use {@link #update(APIContext, List)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param patchRequest
@@ -464,6 +468,7 @@ public class CreditCard  extends PayPalResource {
 
 	/**
 	 * Retrieves a list of Credit Card resources.
+	 * @deprecated Please use {@link #list(APIContext, Map)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param containerMap
@@ -501,6 +506,7 @@ public class CreditCard  extends PayPalResource {
 
 	/**
 	 * Retrieves a list of Credit Card resources. containerMap (filters) are set to defaults.
+	 * @deprecated Please use {@link #list(APIContext, Map)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return CreditCardHistory

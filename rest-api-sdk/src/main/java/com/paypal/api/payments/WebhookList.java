@@ -37,6 +37,8 @@ public class WebhookList  extends PayPalResource {
 	
 	/**
 	 * Retrieves all Webhooks for the application associated with access token.
+	 * @deprecated Please use {@link #getAll(APIContext)} instead.
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return WebhookList

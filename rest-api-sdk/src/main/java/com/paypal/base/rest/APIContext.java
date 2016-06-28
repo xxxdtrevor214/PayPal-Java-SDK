@@ -14,9 +14,6 @@ import com.paypal.base.SDKVersion;
  * {@link OAuthTokenCredential}. The Application Header property may be used by
  * clients to access application level headers. The clients are responsible to
  * cast the Application Header property to appropriate type.
- * 
- * @author kjayakumar
- * 
  */
 public class APIContext {
 

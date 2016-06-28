@@ -23,10 +23,7 @@ import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-/**
- * @author lvairamani
- * 
- */
+
 public class SaleRefundServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

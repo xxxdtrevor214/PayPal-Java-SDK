@@ -508,6 +508,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Creates a new invoice Resource.
+	 * @deprecated Please use {@link #create(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Invoice
@@ -536,6 +537,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Search for invoice resources.
+	 * @deprecated Please use {@link #search(APIContext, Search)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param search
@@ -572,6 +574,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Sends a legitimate invoice to the payer.
+	 * @deprecated Please use {@link #send(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @throws PayPalRESTException
@@ -604,6 +607,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Reminds the payer to pay the invoice.
+	 * @deprecated Please use {@link #remind(APIContext, Notification)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param notification
@@ -644,6 +648,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Cancels an invoice.
+	 * @deprecated Please use {@link #cancel(APIContext, CancelNotification)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param cancelNotification
@@ -684,6 +689,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Mark the status of the invoice as paid.
+	 * @deprecated Please use {@link #recordPayment(APIContext, PaymentDetail)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param paymentDetail
@@ -723,6 +729,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Mark the status of the invoice as refunded.
+	 * @deprecated Please use {@link #recordRefund(APIContext, RefundDetail)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param refundDetail
@@ -762,6 +769,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Get the invoice resource for the given identifier.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param invoiceId
@@ -798,6 +806,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Get all invoices of a merchant.
+	 * @deprecated Please use {@link #getAll(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Invoices
@@ -827,6 +836,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Full update of the invoice resource for the given identifier.
+	 * @deprecated Please use {@link #update(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Invoice
@@ -859,6 +869,7 @@ public class Invoice extends PayPalResource {
 
 	/**
 	 * Delete invoice resource for the given identifier.
+	 * @deprecated Please use {@link #delete(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @throws PayPalRESTException

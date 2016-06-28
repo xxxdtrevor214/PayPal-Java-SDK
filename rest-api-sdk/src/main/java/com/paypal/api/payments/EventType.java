@@ -62,6 +62,7 @@ public class EventType  extends PayPalResource {
 
 	/**
 	 * Retrieves the list of events-types subscribed by the given Webhook.
+	 * @deprecated Please use {@link #subscribedEventTypes(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param webhookId
@@ -103,6 +104,7 @@ public class EventType  extends PayPalResource {
 
 	/**
 	 * Retrieves the master list of available Webhooks events-types resources for any webhook to subscribe to.
+	 * @deprecated Please use {@link #availableEventTypes(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return EventTypeList
@@ -125,10 +127,6 @@ public class EventType  extends PayPalResource {
 		String resourcePath = "v1/notifications/webhooks-event-types";
 		String payLoad = "";
 		EventTypeList eventTypeList = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
-//		if (eventTypeList == null) {
-//			eventTypeList = new EventTypeList();
-//		}
-		
 		return eventTypeList;
 	}
 

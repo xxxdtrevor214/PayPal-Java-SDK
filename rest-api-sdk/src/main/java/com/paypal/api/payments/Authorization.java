@@ -77,24 +77,6 @@ public class Authorization  extends PayPalResource {
 	private List<Links> links;
 
 	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
 	 * Default Constructor
 	 */
 	public Authorization() {
@@ -335,6 +317,7 @@ public class Authorization  extends PayPalResource {
 
 	/**
 	 * Obtain the Authorization transaction resource for the given identifier.
+	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param authorizationId
@@ -371,6 +354,7 @@ public class Authorization  extends PayPalResource {
 
 	/**
 	 * Creates (and processes) a new Capture Transaction added as a related resource.
+	 * @deprecated Please use {@link #capture(APIContext, Capture)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param capture
@@ -410,6 +394,7 @@ public class Authorization  extends PayPalResource {
 
 	/**
 	 * Voids (cancels) an Authorization.
+	 * @deprecated Please use {@link #doVoid(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Authorization
@@ -442,6 +427,7 @@ public class Authorization  extends PayPalResource {
 
 	/**
 	 * Reauthorizes an expired Authorization.
+	 * @deprecated Please use {@link #reauthorize(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return Authorization
