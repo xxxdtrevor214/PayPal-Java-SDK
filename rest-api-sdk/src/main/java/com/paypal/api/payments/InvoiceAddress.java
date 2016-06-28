@@ -1,15 +1,11 @@
 package com.paypal.api.payments;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@Data
+@Accessors(chain = true)
 public class InvoiceAddress extends BaseAddress {
 	
 	private Phone phone;
-	
-	public InvoiceAddress setPhone(Phone phone) {
-		this.phone = phone;
-		return this;
-	}
-	
-	public Phone getPhone() {
-		return this.phone;
-	}
 }

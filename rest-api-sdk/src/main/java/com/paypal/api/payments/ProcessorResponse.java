@@ -1,5 +1,10 @@
 package com.paypal.api.payments;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@Data
+@Accessors(chain = true)
 public class ProcessorResponse  {
 
 	/**
@@ -44,101 +49,4 @@ public class ProcessorResponse  {
 	public ProcessorResponse(String responseCode) {
 		this.responseCode = responseCode;
 	}
-
-
-	/**
-	 * Setter for responseCode
-	 */
-	public ProcessorResponse setResponseCode(String responseCode) {
-		this.responseCode = responseCode;
-		return this;
-	}
-
-	/**
-	 * Getter for responseCode
-	 */
-	public String getResponseCode() {
-		return this.responseCode;
-	}
-
-
-	/**
-	 * Setter for avsCode
-	 */
-	public ProcessorResponse setAvsCode(String avsCode) {
-		this.avsCode = avsCode;
-		return this;
-	}
-
-	/**
-	 * Getter for avsCode
-	 */
-	public String getAvsCode() {
-		return this.avsCode;
-	}
-
-
-	/**
-	 * Setter for cvvCode
-	 */
-	public ProcessorResponse setCvvCode(String cvvCode) {
-		this.cvvCode = cvvCode;
-		return this;
-	}
-
-	/**
-	 * Getter for cvvCode
-	 */
-	public String getCvvCode() {
-		return this.cvvCode;
-	}
-
-
-	/**
-	 * Setter for adviceCode
-	 */
-	public ProcessorResponse setAdviceCode(String adviceCode) {
-		this.adviceCode = adviceCode;
-		return this;
-	}
-
-	/**
-	 * Getter for adviceCode
-	 */
-	public String getAdviceCode() {
-		return this.adviceCode;
-	}
-
-
-	/**
-	 * Setter for eciSubmitted
-	 */
-	public ProcessorResponse setEciSubmitted(String eciSubmitted) {
-		this.eciSubmitted = eciSubmitted;
-		return this;
-	}
-
-	/**
-	 * Getter for eciSubmitted
-	 */
-	public String getEciSubmitted() {
-		return this.eciSubmitted;
-	}
-
-
-	/**
-	 * Setter for vpas
-	 */
-	public ProcessorResponse setVpas(String vpas) {
-		this.vpas = vpas;
-		return this;
-	}
-
-	/**
-	 * Getter for vpas
-	 */
-	public String getVpas() {
-		return this.vpas;
-	}
-
 }

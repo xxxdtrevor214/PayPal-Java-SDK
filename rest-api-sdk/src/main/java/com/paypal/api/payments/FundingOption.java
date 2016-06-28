@@ -1,7 +1,12 @@
 package com.paypal.api.payments;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class FundingOption  {
 
 	/**
@@ -47,101 +52,4 @@ public class FundingOption  {
 		this.id = id;
 		this.fundingSources = fundingSources;
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public FundingOption setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for fundingSources
-	 */
-	public FundingOption setFundingSources(List<FundingSource> fundingSources) {
-		this.fundingSources = fundingSources;
-		return this;
-	}
-
-	/**
-	 * Getter for fundingSources
-	 */
-	public List<FundingSource> getFundingSources() {
-		return this.fundingSources;
-	}
-
-
-	/**
-	 * Setter for backupFundingInstrument
-	 */
-	public FundingOption setBackupFundingInstrument(FundingInstrument backupFundingInstrument) {
-		this.backupFundingInstrument = backupFundingInstrument;
-		return this;
-	}
-
-	/**
-	 * Getter for backupFundingInstrument
-	 */
-	public FundingInstrument getBackupFundingInstrument() {
-		return this.backupFundingInstrument;
-	}
-
-
-	/**
-	 * Setter for currencyConversion
-	 */
-	public FundingOption setCurrencyConversion(CurrencyConversion currencyConversion) {
-		this.currencyConversion = currencyConversion;
-		return this;
-	}
-
-	/**
-	 * Getter for currencyConversion
-	 */
-	public CurrencyConversion getCurrencyConversion() {
-		return this.currencyConversion;
-	}
-
-
-	/**
-	 * Setter for installmentInfo
-	 */
-	public FundingOption setInstallmentInfo(InstallmentInfo installmentInfo) {
-		this.installmentInfo = installmentInfo;
-		return this;
-	}
-
-	/**
-	 * Getter for installmentInfo
-	 */
-	public InstallmentInfo getInstallmentInfo() {
-		return this.installmentInfo;
-	}
-
-
-	/**
-	 * Setter for links
-	 */
-	public FundingOption setLinks(List<DefinitionsLinkdescription> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<DefinitionsLinkdescription> getLinks() {
-		return this.links;
-	}
-
 }

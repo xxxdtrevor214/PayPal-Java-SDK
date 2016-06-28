@@ -1,5 +1,10 @@
 package com.paypal.api.payments;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@Data
+@Accessors(chain = true)
 public class FundingDetail  {
 
 	/**
@@ -27,69 +32,4 @@ public class FundingDetail  {
 	 */
 	public FundingDetail() {
 	}
-
-
-	/**
-	 * Setter for clearingTime
-	 */
-	public FundingDetail setClearingTime(String clearingTime) {
-		this.clearingTime = clearingTime;
-		return this;
-	}
-
-	/**
-	 * Getter for clearingTime
-	 */
-	public String getClearingTime() {
-		return this.clearingTime;
-	}
-
-
-	/**
-	 * Setter for paymentHoldDate
-	 */
-	public FundingDetail setPaymentHoldDate(String paymentHoldDate) {
-		this.paymentHoldDate = paymentHoldDate;
-		return this;
-	}
-
-	/**
-	 * Getter for paymentHoldDate
-	 */
-	public String getPaymentHoldDate() {
-		return this.paymentHoldDate;
-	}
-
-
-	/**
-	 * Setter for paymentDebitDate
-	 */
-	public FundingDetail setPaymentDebitDate(String paymentDebitDate) {
-		this.paymentDebitDate = paymentDebitDate;
-		return this;
-	}
-
-	/**
-	 * Getter for paymentDebitDate
-	 */
-	public String getPaymentDebitDate() {
-		return this.paymentDebitDate;
-	}
-
-
-	/**
-	 * Setter for processingType
-	 */
-	public FundingDetail setProcessingType(String processingType) {
-		this.processingType = processingType;
-		return this;
-	}
-
-	/**
-	 * Getter for processingType
-	 */
-	public String getProcessingType() {
-		return this.processingType;
-	}
-
 }

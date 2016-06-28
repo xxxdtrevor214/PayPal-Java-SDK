@@ -1,9 +1,13 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class Capture  extends PayPalResource {
 
 	/**
@@ -56,151 +60,6 @@ public class Capture  extends PayPalResource {
 	 */
 	public Capture() {
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public Capture setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for amount
-	 */
-	public Capture setAmount(Amount amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Getter for amount
-	 */
-	public Amount getAmount() {
-		return this.amount;
-	}
-
-
-	/**
-	 * Setter for isFinalCapture
-	 */
-	public Capture setIsFinalCapture(Boolean isFinalCapture) {
-		this.isFinalCapture = isFinalCapture;
-		return this;
-	}
-
-	/**
-	 * Getter for isFinalCapture
-	 */
-	public Boolean getIsFinalCapture() {
-		return this.isFinalCapture;
-	}
-
-
-	/**
-	 * Setter for state
-	 */
-	public Capture setState(String state) {
-		this.state = state;
-		return this;
-	}
-
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return this.state;
-	}
-
-
-	/**
-	 * Setter for parentPayment
-	 */
-	public Capture setParentPayment(String parentPayment) {
-		this.parentPayment = parentPayment;
-		return this;
-	}
-
-	/**
-	 * Getter for parentPayment
-	 */
-	public String getParentPayment() {
-		return this.parentPayment;
-	}
-
-
-	/**
-	 * Setter for transactionFee
-	 */
-	public Capture setTransactionFee(Currency transactionFee) {
-		this.transactionFee = transactionFee;
-		return this;
-	}
-
-	/**
-	 * Getter for transactionFee
-	 */
-	public Currency getTransactionFee() {
-		return this.transactionFee;
-	}
-
-
-	/**
-	 * Setter for createTime
-	 */
-	public Capture setCreateTime(String createTime) {
-		this.createTime = createTime;
-		return this;
-	}
-
-	/**
-	 * Getter for createTime
-	 */
-	public String getCreateTime() {
-		return this.createTime;
-	}
-
-
-	/**
-	 * Setter for updateTime
-	 */
-	public Capture setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-		return this;
-	}
-
-	/**
-	 * Getter for updateTime
-	 */
-	public String getUpdateTime() {
-		return this.updateTime;
-	}
-
-
-	/**
-	 * Setter for links
-	 */
-	public Capture setLinks(List<Links> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<Links> getLinks() {
-		return this.links;
-	}
-
 
 	/**
 	 * Obtain the Capture transaction resource for the given identifier.

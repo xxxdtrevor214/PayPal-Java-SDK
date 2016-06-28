@@ -1,5 +1,10 @@
 package com.paypal.api.payments;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@Data
+@Accessors(chain = true)
 public class CreditFinancingOffered  {
 
 	/**
@@ -48,101 +53,4 @@ public class CreditFinancingOffered  {
 		this.totalInterest = totalInterest;
 		this.payerAcceptance = payerAcceptance;
 	}
-
-
-	/**
-	 * Setter for totalCost
-	 */
-	public CreditFinancingOffered setTotalCost(Currency totalCost) {
-		this.totalCost = totalCost;
-		return this;
-	}
-
-	/**
-	 * Getter for totalCost
-	 */
-	public Currency getTotalCost() {
-		return this.totalCost;
-	}
-
-
-	/**
-	 * Setter for term
-	 */
-	public CreditFinancingOffered setTerm(float term) {
-		this.term = term;
-		return this;
-	}
-
-	/**
-	 * Getter for term
-	 */
-	public float getTerm() {
-		return this.term;
-	}
-
-
-	/**
-	 * Setter for monthlyPayment
-	 */
-	public CreditFinancingOffered setMonthlyPayment(Currency monthlyPayment) {
-		this.monthlyPayment = monthlyPayment;
-		return this;
-	}
-
-	/**
-	 * Getter for monthlyPayment
-	 */
-	public Currency getMonthlyPayment() {
-		return this.monthlyPayment;
-	}
-
-
-	/**
-	 * Setter for totalInterest
-	 */
-	public CreditFinancingOffered setTotalInterest(Currency totalInterest) {
-		this.totalInterest = totalInterest;
-		return this;
-	}
-
-	/**
-	 * Getter for totalInterest
-	 */
-	public Currency getTotalInterest() {
-		return this.totalInterest;
-	}
-
-
-	/**
-	 * Setter for payerAcceptance
-	 */
-	public CreditFinancingOffered setPayerAcceptance(Boolean payerAcceptance) {
-		this.payerAcceptance = payerAcceptance;
-		return this;
-	}
-
-	/**
-	 * Getter for payerAcceptance
-	 */
-	public Boolean getPayerAcceptance() {
-		return this.payerAcceptance;
-	}
-
-
-	/**
-	 * Setter for cartAmountImmutable
-	 */
-	public CreditFinancingOffered setCartAmountImmutable(Boolean cartAmountImmutable) {
-		this.cartAmountImmutable = cartAmountImmutable;
-		return this;
-	}
-
-	/**
-	 * Getter for cartAmountImmutable
-	 */
-	public Boolean getCartAmountImmutable() {
-		return this.cartAmountImmutable;
-	}
-
 }

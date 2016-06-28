@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class Currency  extends PayPalModel {
 
 	/**
@@ -28,37 +31,4 @@ public class Currency  extends PayPalModel {
 		this.currency = currency;
 		this.value = value;
 	}
-
-
-	/**
-	 * Setter for currency
-	 */
-	public Currency setCurrency(String currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Getter for currency
-	 */
-	public String getCurrency() {
-		return this.currency;
-	}
-
-
-	/**
-	 * Setter for value
-	 */
-	public Currency setValue(String value) {
-		this.value = value;
-		return this;
-	}
-
-	/**
-	 * Getter for value
-	 */
-	public String getValue() {
-		return this.value;
-	}
-	
 }

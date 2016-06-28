@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class ErrorDetails  extends PayPalModel {
 
 	/**
@@ -39,56 +42,4 @@ public class ErrorDetails  extends PayPalModel {
 		this.field = field;
 		this.issue = issue;
 	}
-
-
-	/**
-	 * Setter for field
-	 */
-	public ErrorDetails setField(String field) {
-		this.field = field;
-		return this;
-	}
-
-	/**
-	 * Getter for field
-	 */
-	public String getField() {
-		return this.field;
-	}
-
-
-	/**
-	 * Setter for issue
-	 */
-	public ErrorDetails setIssue(String issue) {
-		this.issue = issue;
-		return this;
-	}
-
-	/**
-	 * Getter for issue
-	 */
-	public String getIssue() {
-		return this.issue;
-	}
-
-
-	public String getPurchaseUnitReferenceId() {
-		return purchaseUnitReferenceId;
-	}
-
-	public ErrorDetails setPurchaseUnitReferenceId(String purchaseUnitReferenceId) {
-		this.purchaseUnitReferenceId = purchaseUnitReferenceId;
-		return this;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public ErrorDetails setCode(String code) {
-		this.code = code;
-		return this;
-	}
-	
 }

@@ -1,10 +1,14 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.Map;
 
+@Data
+@Accessors(chain = true)
 public class Plan  extends PayPalResource {
 
 	/**
@@ -76,183 +80,6 @@ public class Plan  extends PayPalResource {
 		this.description = description;
 		this.type = type;
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public Plan setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for name
-	 */
-	public Plan setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * Getter for name
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-
-	/**
-	 * Setter for description
-	 */
-	public Plan setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Getter for description
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
-
-	/**
-	 * Setter for type
-	 */
-	public Plan setType(String type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * Getter for type
-	 */
-	public String getType() {
-		return this.type;
-	}
-
-
-	/**
-	 * Setter for state
-	 */
-	public Plan setState(String state) {
-		this.state = state;
-		return this;
-	}
-
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return this.state;
-	}
-
-
-	/**
-	 * Setter for createTime
-	 */
-	public Plan setCreateTime(String createTime) {
-		this.createTime = createTime;
-		return this;
-	}
-
-	/**
-	 * Getter for createTime
-	 */
-	public String getCreateTime() {
-		return this.createTime;
-	}
-
-
-	/**
-	 * Setter for updateTime
-	 */
-	public Plan setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-		return this;
-	}
-
-	/**
-	 * Getter for updateTime
-	 */
-	public String getUpdateTime() {
-		return this.updateTime;
-	}
-
-
-	/**
-	 * Setter for paymentDefinitions
-	 */
-	public Plan setPaymentDefinitions(List<PaymentDefinition> paymentDefinitions) {
-		this.paymentDefinitions = paymentDefinitions;
-		return this;
-	}
-
-	/**
-	 * Getter for paymentDefinitions
-	 */
-	public List<PaymentDefinition> getPaymentDefinitions() {
-		return this.paymentDefinitions;
-	}
-
-
-	/**
-	 * Setter for terms
-	 */
-	public Plan setTerms(List<Terms> terms) {
-		this.terms = terms;
-		return this;
-	}
-
-	/**
-	 * Getter for terms
-	 */
-	public List<Terms> getTerms() {
-		return this.terms;
-	}
-
-
-	/**
-	 * Setter for merchantPreferences
-	 */
-	public Plan setMerchantPreferences(MerchantPreferences merchantPreferences) {
-		this.merchantPreferences = merchantPreferences;
-		return this;
-	}
-
-	/**
-	 * Getter for merchantPreferences
-	 */
-	public MerchantPreferences getMerchantPreferences() {
-		return this.merchantPreferences;
-	}
-
-
-	/**
-	 * Setter for links
-	 */
-	public Plan setLinks(List<Links> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<Links> getLinks() {
-		return this.links;
-	}
-
 
 	/**
 	 * Retrieve the details for a particular billing plan by passing the billing plan ID to the request URI.

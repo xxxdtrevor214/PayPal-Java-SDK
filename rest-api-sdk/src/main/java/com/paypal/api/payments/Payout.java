@@ -1,11 +1,15 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Data
+@Accessors(chain = true)
 public class Payout extends PayPalResource {
 
 	/**
@@ -37,51 +41,6 @@ public class Payout extends PayPalResource {
 			List<PayoutItem> items) {
 		this.senderBatchHeader = senderBatchHeader;
 		this.items = items;
-	}
-
-	/**
-	 * Setter for senderBatchHeader
-	 */
-	public Payout setSenderBatchHeader(PayoutSenderBatchHeader senderBatchHeader) {
-		this.senderBatchHeader = senderBatchHeader;
-		return this;
-	}
-
-	/**
-	 * Getter for senderBatchHeader
-	 */
-	public PayoutSenderBatchHeader getSenderBatchHeader() {
-		return this.senderBatchHeader;
-	}
-
-	/**
-	 * Setter for items
-	 */
-	public Payout setItems(List<PayoutItem> items) {
-		this.items = items;
-		return this;
-	}
-
-	/**
-	 * Getter for items
-	 */
-	public List<PayoutItem> getItems() {
-		return this.items;
-	}
-	
-	/**
-	 * Setter for links
-	 */
-	public Payout setLinks(List<Links> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<Links> getLinks() {
-		return this.links;
 	}
 
 	/**

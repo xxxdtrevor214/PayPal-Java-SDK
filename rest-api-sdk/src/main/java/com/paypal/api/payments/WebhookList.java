@@ -1,10 +1,14 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class WebhookList  extends PayPalResource {
 
 	/**
@@ -17,22 +21,6 @@ public class WebhookList  extends PayPalResource {
 	 */
 	public WebhookList() {
 		webhooks = new ArrayList<Webhook>();
-	}
-
-
-	/**
-	 * Setter for webhooks
-	 */
-	public WebhookList setWebhooks(List<Webhook> webhooks) {
-		this.webhooks = webhooks;
-		return this;
-	}
-
-	/**
-	 * Getter for webhooks
-	 */
-	public List<Webhook> getWebhooks() {
-		return this.webhooks;
 	}
 	
 	/**

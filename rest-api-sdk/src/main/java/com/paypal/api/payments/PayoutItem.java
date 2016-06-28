@@ -1,7 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Data
+@Accessors(chain = true)
 public class PayoutItem extends PayPalResource {
 
 	/**
@@ -48,81 +52,6 @@ public class PayoutItem extends PayPalResource {
 	public PayoutItem(Currency amount, String receiver) {
 		this.amount = amount;
 		this.receiver = receiver;
-	}
-
-	/**
-	 * Setter for recipientType
-	 */
-	public PayoutItem setRecipientType(String recipientType) {
-		this.recipientType = recipientType;
-		return this;
-	}
-
-	/**
-	 * Getter for recipientType
-	 */
-	public String getRecipientType() {
-		return this.recipientType;
-	}
-
-	/**
-	 * Setter for amount
-	 */
-	public PayoutItem setAmount(Currency amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Getter for amount
-	 */
-	public Currency getAmount() {
-		return this.amount;
-	}
-
-	/**
-	 * Setter for note
-	 */
-	public PayoutItem setNote(String note) {
-		this.note = note;
-		return this;
-	}
-
-	/**
-	 * Getter for note
-	 */
-	public String getNote() {
-		return this.note;
-	}
-
-	/**
-	 * Setter for receiver
-	 */
-	public PayoutItem setReceiver(String receiver) {
-		this.receiver = receiver;
-		return this;
-	}
-
-	/**
-	 * Getter for receiver
-	 */
-	public String getReceiver() {
-		return this.receiver;
-	}
-
-	/**
-	 * Setter for senderItemId
-	 */
-	public PayoutItem setSenderItemId(String senderItemId) {
-		this.senderItemId = senderItemId;
-		return this;
-	}
-
-	/**
-	 * Getter for senderItemId
-	 */
-	public String getSenderItemId() {
-		return this.senderItemId;
 	}
 
 	/**

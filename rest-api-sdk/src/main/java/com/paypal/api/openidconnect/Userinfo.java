@@ -1,13 +1,12 @@
 package com.paypal.api.openidconnect;
 
-import java.util.HashMap;
-
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.HttpMethod;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
+
+import java.util.HashMap;
 
 /**
  * Class Userinfo

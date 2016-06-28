@@ -1,28 +1,21 @@
 package com.paypal.base.rest;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.paypal.base.ConfigManager;
-import com.paypal.base.ConnectionManager;
-import com.paypal.base.Constants;
-import com.paypal.base.HttpConfiguration;
-import com.paypal.base.HttpConnection;
-import com.paypal.base.SDKUtil;
-import com.paypal.base.SDKVersion;
+import com.paypal.base.*;
 import com.paypal.base.codec.binary.Base64;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 import com.paypal.base.util.UserAgentHeader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * OAuthTokenCredential is used for generation of OAuth Token used by PayPal

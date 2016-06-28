@@ -1,7 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Data
+@Accessors(chain = true)
 public class CarrierAccountToken extends PayPalModel {
 
 	/**
@@ -27,37 +31,4 @@ public class CarrierAccountToken extends PayPalModel {
 		this.carrierAccountId = carrierAccountId;
 		this.externalCustomerId = externalCustomerId;
 	}
-
-
-	/**
-	 * Setter for carrierAccountId
-	 */
-	public CarrierAccountToken setCarrierAccountId(String carrierAccountId) {
-		this.carrierAccountId = carrierAccountId;
-		return this;
-	}
-
-	/**
-	 * Getter for carrierAccountId
-	 */
-	public String getCarrierAccountId() {
-		return this.carrierAccountId;
-	}
-
-
-	/**
-	 * Setter for externalCustomerId
-	 */
-	public CarrierAccountToken setExternalCustomerId(String externalCustomerId) {
-		this.externalCustomerId = externalCustomerId;
-		return this;
-	}
-
-	/**
-	 * Getter for externalCustomerId
-	 */
-	public String getExternalCustomerId() {
-		return this.externalCustomerId;
-	}
-
 }

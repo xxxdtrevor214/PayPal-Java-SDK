@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class Tax  extends PayPalModel {
 
 	/**
@@ -38,70 +41,4 @@ public class Tax  extends PayPalModel {
 		this.name = name;
 		this.percent = percent;
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public Tax setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for name
-	 */
-	public Tax setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * Getter for name
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-
-	/**
-	 * Setter for percent
-	 */
-	public Tax setPercent(float percent) {
-		this.percent = percent;
-		return this;
-	}
-
-	/**
-	 * Getter for percent
-	 */
-	public float getPercent() {
-		return this.percent;
-	}
-
-
-	/**
-	 * Setter for amount
-	 */
-	public Tax setAmount(Currency amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Getter for amount
-	 */
-	public Currency getAmount() {
-		return this.amount;
-	}
-
-
 }

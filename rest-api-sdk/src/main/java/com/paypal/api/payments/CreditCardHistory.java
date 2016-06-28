@@ -1,10 +1,14 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class CreditCardHistory  extends PayPalModel {
 
 	/**
@@ -34,51 +38,4 @@ public class CreditCardHistory  extends PayPalModel {
 		items = new ArrayList<CreditCard>();
 		links = new ArrayList<Links>();
 	}
-
-
-	/**
-	 * Setter for creditCards
-	 */
-	public CreditCardHistory setItems(List<CreditCard> creditCards) {
-		this.items = creditCards;
-		return this;
-	}
-
-	/**
-	 * Getter for creditCards
-	 */
-	public List<CreditCard> getItems() {
-		return this.items;
-	}
-	
-	public int getTotalItems() {
-		return totalItems;
-	}
-
-
-	public void setTotalItems(int totalItems) {
-		this.totalItems = totalItems;
-	}
-
-
-	public int getTotalPages() {
-		return totalPages;
-	}
-
-
-	public void setTotalPages(int totalPages) {
-		this.totalPages = totalPages;
-	}
-
-
-	public List<Links> getLinks() {
-		return links;
-	}
-
-
-	public void setLinks(List<Links> links) {
-		this.links = links;
-	}
-
-
 }

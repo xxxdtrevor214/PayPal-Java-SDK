@@ -1,9 +1,13 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class PayoutBatch extends PayPalModel  {
 
 	/**
@@ -33,52 +37,5 @@ public class PayoutBatch extends PayPalModel  {
 	public PayoutBatch(PayoutBatchHeader batchHeader, List<PayoutItemDetails> items) {
 		this.batchHeader = batchHeader;
 		this.items = items;
-	}
-
-
-	/**
-	 * Setter for batchHeader
-	 */
-	public PayoutBatch setBatchHeader(PayoutBatchHeader batchHeader) {
-		this.batchHeader = batchHeader;
-		return this;
-	}
-
-	/**
-	 * Getter for batchHeader
-	 */
-	public PayoutBatchHeader getBatchHeader() {
-		return this.batchHeader;
-	}
-
-
-	/**
-	 * Setter for items
-	 */
-	public PayoutBatch setItems(List<PayoutItemDetails> items) {
-		this.items = items;
-		return this;
-	}
-
-	/**
-	 * Getter for items
-	 */
-	public List<PayoutItemDetails> getItems() {
-		return this.items;
-	}
-	
-	/**
-	 * Setter for links
-	 */
-	public PayoutBatch setLinks(List<Links> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<Links> getLinks() {
-		return this.links;
 	}
 }

@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class InvoicingNotification  extends PayPalModel {
 
 	/**
@@ -25,54 +28,4 @@ public class InvoicingNotification  extends PayPalModel {
 	 */
 	public InvoicingNotification() {
 	}
-
-
-	/**
-	 * Setter for subject
-	 */
-	public InvoicingNotification setSubject(String subject) {
-		this.subject = subject;
-		return this;
-	}
-
-	/**
-	 * Getter for subject
-	 */
-	public String getSubject() {
-		return this.subject;
-	}
-
-
-	/**
-	 * Setter for note
-	 */
-	public InvoicingNotification setNote(String note) {
-		this.note = note;
-		return this;
-	}
-
-	/**
-	 * Getter for note
-	 */
-	public String getNote() {
-		return this.note;
-	}
-
-
-	/**
-	 * Setter for sendToMerchant
-	 */
-	public InvoicingNotification setSendToMerchant(Boolean sendToMerchant) {
-		this.sendToMerchant = sendToMerchant;
-		return this;
-	}
-
-	/**
-	 * Getter for sendToMerchant
-	 */
-	public Boolean getSendToMerchant() {
-		return this.sendToMerchant;
-	}
-
-
 }

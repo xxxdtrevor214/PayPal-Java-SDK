@@ -2,11 +2,17 @@ package com.paypal.api.payments;
 
 import com.google.gson.GsonBuilder;
 import com.paypal.base.rest.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Data
+@Accessors(chain = true)
 public class CreditCard  extends PayPalResource {
 
 	/**
@@ -37,6 +43,7 @@ public class CreditCard  extends PayPalResource {
 	/**
 	 * Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
 	 */
+	@Getter(AccessLevel.NONE)
 	private Integer cvv2;
 
 	/**
@@ -87,107 +94,9 @@ public class CreditCard  extends PayPalResource {
 	}
 
 	/**
-	 * Parameterized Constructor
-	 */
-	public CreditCard(String number, String type, int expireMonth, int expireYear) {
-		this.number = number;
-		this.type = type;
-		this.expireMonth = expireMonth;
-		this.expireYear = expireYear;
-	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public CreditCard setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for number
-	 */
-	public CreditCard setNumber(String number) {
-		this.number = number;
-		return this;
-	}
-
-	/**
-	 * Getter for number
-	 */
-	public String getNumber() {
-		return this.number;
-	}
-
-
-	/**
-	 * Setter for type
-	 */
-	public CreditCard setType(String type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * Getter for type
-	 */
-	public String getType() {
-		return this.type;
-	}
-
-
-	/**
-	 * Setter for expireMonth
-	 */
-	public CreditCard setExpireMonth(int expireMonth) {
-		this.expireMonth = expireMonth;
-		return this;
-	}
-
-	/**
-	 * Getter for expireMonth
-	 */
-	public int getExpireMonth() {
-		return this.expireMonth;
-	}
-
-
-	/**
-	 * Setter for expireYear
-	 */
-	public CreditCard setExpireYear(int expireYear) {
-		this.expireYear = expireYear;
-		return this;
-	}
-
-	/**
-	 * Getter for expireYear
-	 */
-	public int getExpireYear() {
-		return this.expireYear;
-	}
-
-
-	/**
-	 * Setter for cvv2
-	 */
-	public CreditCard setCvv2(Integer cvv2) {
-		this.cvv2 = cvv2;
-		return this;
-	}
-
-	/**
 	 * Getter for cvv2
-	 * Returns -1 if <code>cvv2</code> is null
+	 * Returns -1 if <code>cvv2</code> is null.
+	 * Not autogenerating using lombok as it includes logic to return -1 on null.
 	 */
 	public int getCvv2() {
 		if (this.cvv2 == null) {
@@ -196,136 +105,17 @@ public class CreditCard  extends PayPalResource {
 			return this.cvv2;
 		}
 	}
-
-
+	
 	/**
-	 * Setter for firstName
+	 * Parameterized Constructor
 	 */
-	public CreditCard setFirstName(String firstName) {
-		this.firstName = firstName;
-		return this;
+	public CreditCard(String number, String type, int expireMonth, int expireYear) {
+		this.number = number;
+		this.type = type;
+		this.expireMonth = expireMonth;
+		this.expireYear = expireYear;
 	}
-
-	/**
-	 * Getter for firstName
-	 */
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-
-	/**
-	 * Setter for lastName
-	 */
-	public CreditCard setLastName(String lastName) {
-		this.lastName = lastName;
-		return this;
-	}
-
-	/**
-	 * Getter for lastName
-	 */
-	public String getLastName() {
-		return this.lastName;
-	}
-
-
-	/**
-	 * Setter for billingAddress
-	 */
-	public CreditCard setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
-		return this;
-	}
-
-	/**
-	 * Getter for billingAddress
-	 */
-	public Address getBillingAddress() {
-		return this.billingAddress;
-	}
-
-
-	/**
-	 * Setter for externalCustomerId
-	 */
-	public CreditCard setExternalCustomerId(String externalCustomerId) {
-		this.externalCustomerId = externalCustomerId;
-		return this;
-	}
-
-	/**
-	 * Getter for externalCustomerId
-	 */
-	public String getExternalCustomerId() {
-		return this.externalCustomerId;
-	}
-
-
-	/**
-	 * Setter for state
-	 */
-	public CreditCard setState(String state) {
-		this.state = state;
-		return this;
-	}
-
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return this.state;
-	}
-
-
-	/**
-	 * Setter for validUntil
-	 */
-	public CreditCard setValidUntil(String validUntil) {
-		this.validUntil = validUntil;
-		return this;
-	}
-
-	/**
-	 * Getter for validUntil
-	 */
-	public String getValidUntil() {
-		return this.validUntil;
-	}
-
-
-	/**
-	 * Setter for links
-	 */
-	public CreditCard setLinks(List<Links> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<Links> getLinks() {
-		return this.links;
-	}
-
-
-	/**
-	 * Setter for payer ID
-	 */
-	public CreditCard setPayerId(String payerId) {
-		this.payerId = payerId;
-		return this;
-	}
-
-	/**
-	 * Getter for payer ID
-	 */
-	public String getpayerId() {
-		return this.payerId;
-	}
-
-
+	
 	/**
 	 * Creates a new Credit Card Resource (aka Tokenize).
 	 * @deprecated Please use {@link #create(APIContext)} instead.

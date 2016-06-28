@@ -155,7 +155,6 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 					+ req.getContextPath() + "/paymentwithpaypal?guid=" + guid);
 			payment.setRedirectUrls(redirectUrls);
 
-			
 			// Create a payment by posting to the APIService
 			// using a valid AccessToken
 			// The return object contains the status;

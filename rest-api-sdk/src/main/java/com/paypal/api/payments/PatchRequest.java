@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class PatchRequest  extends PayPalModel {
 
 	/**
@@ -28,37 +31,4 @@ public class PatchRequest  extends PayPalModel {
 		this.op = op;
 		this.path = path;
 	}
-
-
-	/**
-	 * Setter for op
-	 */
-	public PatchRequest setOp(String op) {
-		this.op = op;
-		return this;
-	}
-
-	/**
-	 * Getter for op
-	 */
-	public String getOp() {
-		return this.op;
-	}
-
-
-	/**
-	 * Setter for path
-	 */
-	public PatchRequest setPath(String path) {
-		this.path = path;
-		return this;
-	}
-
-	/**
-	 * Getter for path
-	 */
-	public String getPath() {
-		return this.path;
-	}
-	
 }

@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class CancelNotification  extends PayPalModel {
 
 	/**
@@ -30,70 +33,4 @@ public class CancelNotification  extends PayPalModel {
 	 */
 	public CancelNotification() {
 	}
-
-
-	/**
-	 * Setter for subject
-	 */
-	public CancelNotification setSubject(String subject) {
-		this.subject = subject;
-		return this;
-	}
-
-	/**
-	 * Getter for subject
-	 */
-	public String getSubject() {
-		return this.subject;
-	}
-
-
-	/**
-	 * Setter for note
-	 */
-	public CancelNotification setNote(String note) {
-		this.note = note;
-		return this;
-	}
-
-	/**
-	 * Getter for note
-	 */
-	public String getNote() {
-		return this.note;
-	}
-
-
-	/**
-	 * Setter for sendToMerchant
-	 */
-	public CancelNotification setSendToMerchant(Boolean sendToMerchant) {
-		this.sendToMerchant = sendToMerchant;
-		return this;
-	}
-
-	/**
-	 * Getter for sendToMerchant
-	 */
-	public Boolean getSendToMerchant() {
-		return this.sendToMerchant;
-	}
-
-
-	/**
-	 * Setter for sendToPayer
-	 */
-	public CancelNotification setSendToPayer(Boolean sendToPayer) {
-		this.sendToPayer = sendToPayer;
-		return this;
-	}
-
-	/**
-	 * Getter for sendToPayer
-	 */
-	public Boolean getSendToPayer() {
-		return this.sendToPayer;
-	}
-
-
 }

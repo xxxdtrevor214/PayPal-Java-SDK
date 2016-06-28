@@ -1,10 +1,10 @@
 package com.paypal.base.rest;
 
-import java.util.Map;
-import java.util.UUID;
-
 import com.paypal.base.Constants;
 import com.paypal.base.SDKVersion;
+
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * <code>APIContext</code> wraps wire-level parameters for the API call.

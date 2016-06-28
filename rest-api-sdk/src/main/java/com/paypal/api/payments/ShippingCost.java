@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class ShippingCost  extends PayPalModel {
 
 	/**
@@ -20,38 +23,4 @@ public class ShippingCost  extends PayPalModel {
 	 */
 	public ShippingCost() {
 	}
-
-
-	/**
-	 * Setter for amount
-	 */
-	public ShippingCost setAmount(Currency amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Getter for amount
-	 */
-	public Currency getAmount() {
-		return this.amount;
-	}
-
-
-	/**
-	 * Setter for tax
-	 */
-	public ShippingCost setTax(Tax tax) {
-		this.tax = tax;
-		return this;
-	}
-
-	/**
-	 * Getter for tax
-	 */
-	public Tax getTax() {
-		return this.tax;
-	}
-
-
 }

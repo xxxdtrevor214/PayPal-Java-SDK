@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class BankToken  extends PayPalModel {
 
 	/**
@@ -33,54 +36,4 @@ public class BankToken  extends PayPalModel {
 		this.bankId = bankId;
 		this.externalCustomerId = externalCustomerId;
 	}
-
-
-	/**
-	 * Setter for bankId
-	 */
-	public BankToken setBankId(String bankId) {
-		this.bankId = bankId;
-		return this;
-	}
-
-	/**
-	 * Getter for bankId
-	 */
-	public String getBankId() {
-		return this.bankId;
-	}
-
-
-	/**
-	 * Setter for externalCustomerId
-	 */
-	public BankToken setExternalCustomerId(String externalCustomerId) {
-		this.externalCustomerId = externalCustomerId;
-		return this;
-	}
-
-	/**
-	 * Getter for externalCustomerId
-	 */
-	public String getExternalCustomerId() {
-		return this.externalCustomerId;
-	}
-
-
-	/**
-	 * Setter for mandateReferenceNumber
-	 */
-	public BankToken setMandateReferenceNumber(String mandateReferenceNumber) {
-		this.mandateReferenceNumber = mandateReferenceNumber;
-		return this;
-	}
-
-	/**
-	 * Getter for mandateReferenceNumber
-	 */
-	public String getMandateReferenceNumber() {
-		return this.mandateReferenceNumber;
-	}
-
-
 }

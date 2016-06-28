@@ -1,9 +1,13 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class WebProfile extends PayPalResource {
 
 	/**
@@ -43,88 +47,7 @@ public class WebProfile extends PayPalResource {
 	public WebProfile(String name) {
 		this.name = name;
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public WebProfile setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for name
-	 */
-	public WebProfile setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * Getter for name
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-
-	/**
-	 * Setter for flowConfig
-	 */
-	public WebProfile setFlowConfig(FlowConfig flowConfig) {
-		this.flowConfig = flowConfig;
-		return this;
-	}
-
-	/**
-	 * Getter for flowConfig
-	 */
-	public FlowConfig getFlowConfig() {
-		return this.flowConfig;
-	}
-
-
-	/**
-	 * Setter for inputFields
-	 */
-	public WebProfile setInputFields(InputFields inputFields) {
-		this.inputFields = inputFields;
-		return this;
-	}
-
-	/**
-	 * Getter for inputFields
-	 */
-	public InputFields getInputFields() {
-		return this.inputFields;
-	}
-
-
-	/**
-	 * Setter for presentation
-	 */
-	public WebProfile setPresentation(Presentation presentation) {
-		this.presentation = presentation;
-		return this;
-	}
-
-	/**
-	 * Getter for presentation
-	 */
-	public Presentation getPresentation() {
-		return this.presentation;
-	}
-
-
+	
 	/**
 	 * Create a web experience profile by passing the name of the profile and other profile details in the request JSON to the request URI.
 	 * @deprecated Please use {@link #create(APIContext)} instead.

@@ -1,7 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Data
+@Accessors(chain = true)
 public class CarrierAccount extends PayPalModel{
 
 	/**
@@ -42,85 +46,4 @@ public class CarrierAccount extends PayPalModel{
 		this.externalCustomerId = externalCustomerId;
 		this.countryCode = countryCode;
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public CarrierAccount setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for phoneNumber
-	 */
-	public CarrierAccount setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-		return this;
-	}
-
-	/**
-	 * Getter for phoneNumber
-	 */
-	public String getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-
-	/**
-	 * Setter for externalCustomerId
-	 */
-	public CarrierAccount setExternalCustomerId(String externalCustomerId) {
-		this.externalCustomerId = externalCustomerId;
-		return this;
-	}
-
-	/**
-	 * Getter for externalCustomerId
-	 */
-	public String getExternalCustomerId() {
-		return this.externalCustomerId;
-	}
-
-
-	/**
-	 * Setter for phoneSource
-	 */
-	public CarrierAccount setPhoneSource(String phoneSource) {
-		this.phoneSource = phoneSource;
-		return this;
-	}
-
-	/**
-	 * Getter for phoneSource
-	 */
-	public String getPhoneSource() {
-		return this.phoneSource;
-	}
-
-
-	/**
-	 * Setter for countryCode
-	 */
-	public CarrierAccount setCountryCode(CountryCode countryCode) {
-		this.countryCode = countryCode;
-		return this;
-	}
-
-	/**
-	 * Getter for countryCode
-	 */
-	public CountryCode getCountryCode() {
-		return this.countryCode;
-	}
-
 }

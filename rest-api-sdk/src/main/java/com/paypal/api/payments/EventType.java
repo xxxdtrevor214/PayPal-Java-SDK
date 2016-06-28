@@ -1,7 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Data
+@Accessors(chain = true)
 public class EventType  extends PayPalResource {
 
 	/**
@@ -26,39 +30,6 @@ public class EventType  extends PayPalResource {
 	public EventType(String name) {
 		this.name = name;
 	}
-
-
-	/**
-	 * Setter for name
-	 */
-	public EventType setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * Getter for name
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-
-	/**
-	 * Setter for description
-	 */
-	public EventType setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Getter for description
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
 
 	/**
 	 * Retrieves the list of events-types subscribed by the given Webhook.

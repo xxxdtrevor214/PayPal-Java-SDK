@@ -4,6 +4,8 @@ import com.paypal.base.Constants;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SSLUtil;
 import com.paypal.base.rest.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Data
+@Accessors(chain = true)
 public class Event  extends PayPalResource {
 	
 	private static final Logger log = LoggerFactory.getLogger(Event.class);
@@ -60,119 +64,6 @@ public class Event  extends PayPalResource {
 	 */
 	public Event() {
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public Event setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-
-
-	/**
-	 * Setter for createTime
-	 */
-	public Event setCreateTime(String createTime) {
-		this.createTime = createTime;
-		return this;
-	}
-
-	/**
-	 * Getter for createTime
-	 */
-	public String getCreateTime() {
-		return this.createTime;
-	}
-
-
-	/**
-	 * Setter for resourceType
-	 */
-	public Event setResourceType(String resourceType) {
-		this.resourceType = resourceType;
-		return this;
-	}
-
-	/**
-	 * Getter for resourceType
-	 */
-	public String getResourceType() {
-		return this.resourceType;
-	}
-
-
-	/**
-	 * Setter for eventType
-	 */
-	public Event setEventType(String eventType) {
-		this.eventType = eventType;
-		return this;
-	}
-
-	/**
-	 * Getter for eventType
-	 */
-	public String getEventType() {
-		return this.eventType;
-	}
-
-
-	/**
-	 * Setter for summary
-	 */
-	public Event setSummary(String summary) {
-		this.summary = summary;
-		return this;
-	}
-
-	/**
-	 * Getter for summary
-	 */
-	public String getSummary() {
-		return this.summary;
-	}
-
-
-	/**
-	 * Setter for resource
-	 */
-	public Event setResource(Object resource) {
-		this.resource = resource;
-		return this;
-	}
-
-	/**
-	 * Getter for resource
-	 */
-	public Object getResource() {
-		return this.resource;
-	}
-
-
-	/**
-	 * Setter for links
-	 */
-	public Event setLinks(List<Links> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<Links> getLinks() {
-		return this.links;
-	}
-
 
 	/**
 	 * Retrieves the Webhooks event resource identified by event_id. Can be used to retrieve the payload for an event.

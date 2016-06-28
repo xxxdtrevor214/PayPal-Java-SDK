@@ -1,31 +1,17 @@
 package com.paypal.base.rest;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
+import com.paypal.base.*;
+import com.paypal.base.exception.BaseException;
+import com.paypal.base.exception.ClientActionRequiredException;
+import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.paypal.base.APICallPreHandler;
-import com.paypal.base.ClientCredentials;
-import com.paypal.base.ConfigManager;
-import com.paypal.base.ConnectionManager;
-import com.paypal.base.Constants;
-import com.paypal.base.HttpConfiguration;
-import com.paypal.base.HttpConnection;
-import com.paypal.base.SDKUtil;
-import com.paypal.base.SDKVersion;
-import com.paypal.base.exception.BaseException;
-import com.paypal.base.exception.ClientActionRequiredException;
-import com.paypal.base.exception.HttpErrorException;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * PayPalResource acts as a base class for REST enabled resources.
