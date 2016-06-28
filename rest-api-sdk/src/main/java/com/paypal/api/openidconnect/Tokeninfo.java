@@ -317,7 +317,7 @@ public class Tokeninfo extends PayPalResource {
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 
-		apiContext.setHTTPHeaders(headersMap);
+		apiContext.addHTTPHeaders(headersMap);
 		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class, authorizationHeader);
 	}
@@ -355,7 +355,7 @@ public class Tokeninfo extends PayPalResource {
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 
-		apiContext.setHTTPHeaders(headersMap);
+		apiContext.addHTTPHeaders(headersMap);
 		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);
 	}

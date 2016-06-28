@@ -1,16 +1,16 @@
 package com.paypal.api.payments;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
 import com.paypal.api.openidconnect.CreateFromRefreshTokenParameters;
 import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FuturePayment extends Payment {
 
@@ -40,7 +40,6 @@ public class FuturePayment extends Payment {
 		}
 
 		APIContext apiContext = new APIContext(accessToken);
-		apiContext.setHTTPHeaders(new HashMap<String, String>());
 		apiContext.addHTTPHeader("PAYPAL-CLIENT-METADATA-ID", correlationId);
 		return this.create(apiContext);
 	}
@@ -70,7 +69,6 @@ public class FuturePayment extends Payment {
 			throw new IllegalArgumentException("correlation ID cannot be null or empty");
 		}
 
-		apiContext.setHTTPHeaders(new HashMap<String, String>());
 		apiContext.addHTTPHeader("PAYPAL-CLIENT-METADATA-ID", correlationId);
 		return this.create(apiContext);
 	}

@@ -214,6 +214,15 @@ public final class OAuthTokenCredential {
 	}
 
 	/**
+	 * Returns the header value
+	 *
+	 * @return {@link String} value of header
+	 */
+	public String getHeader(String key) {
+		return this.headers.get(key);
+	}
+
+	/**
 	 * Computes Access Token by placing a call to OAuth server using ClientID
 	 * and ClientSecret. The token is appended to the token type (Bearer).
 	 * 

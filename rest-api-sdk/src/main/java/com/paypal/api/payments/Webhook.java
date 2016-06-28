@@ -1,15 +1,8 @@
 package com.paypal.api.payments;
 
-import java.util.HashMap;
-import java.util.List;
+import com.paypal.base.rest.*;
 
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
+import java.util.List;
 
 public class Webhook  extends PayPalResource {
 
@@ -135,17 +128,9 @@ public class Webhook  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Webhook create(APIContext apiContext, Webhook webhook) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
 		if (webhook == null) {
 			throw new IllegalArgumentException("webhook cannot be null");
 		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 
 		Object[] parameters = new Object[] {};
 		String pattern = "v1/notifications/webhooks";
@@ -180,17 +165,9 @@ public class Webhook  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Webhook get(APIContext apiContext, String webhookId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
 		if (webhookId == null) {
 			throw new IllegalArgumentException("webhookId cannot be null");
 		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 
 		Object[] parameters = new Object[] {webhookId};
 		String pattern = "v1/notifications/webhooks/{0}";
@@ -225,20 +202,12 @@ public class Webhook  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Webhook update(APIContext apiContext, String webhookId, String patchRequest) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
 		if (webhookId == null) {
 			throw new IllegalArgumentException("webhookId cannot be null");
 		}
 		if (patchRequest == null) {
 			throw new IllegalArgumentException("patchRequest cannot be null");
 		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 
 		Object[] parameters = new Object[] {webhookId};
 		String pattern = "v1/notifications/webhooks/{0}";
@@ -269,17 +238,9 @@ public class Webhook  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext, String webhookId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
 		if (webhookId == null) {
 			throw new IllegalArgumentException("webhookId cannot be null");
 		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 
 		Object[] parameters = new Object[] {webhookId};
 		String pattern = "v1/notifications/webhooks/{0}";

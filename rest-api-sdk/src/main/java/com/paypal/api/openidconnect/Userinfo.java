@@ -415,7 +415,7 @@ public class Userinfo extends PayPalResource{
 			accessToken = "Bearer " + accessToken;
 		}
 		httpHeaders.put(Constants.AUTHORIZATION_HEADER, accessToken);
-		apiContext.setHTTPHeaders(httpHeaders);
+		apiContext.addHTTPHeaders(httpHeaders);
 		return configureAndExecute(apiContext, HttpMethod.GET,
 				resourcePath, payLoad, Userinfo.class);
 	}

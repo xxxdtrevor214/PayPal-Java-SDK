@@ -1,17 +1,9 @@
 package com.paypal.api.payments;
 
-import java.util.HashMap;
+import com.paypal.base.rest.*;
+
 import java.util.List;
 import java.util.Map;
-
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
 
 public class Payment  extends PayPalResource {
 
@@ -467,14 +459,7 @@ public class Payment  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Payment create(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		String resourcePath = "v1/payments/payment";
 		String payLoad = this.toJSON();
 		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, Payment.class);
@@ -505,14 +490,6 @@ public class Payment  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static Payment get(APIContext apiContext, String paymentId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (paymentId == null) {
 			throw new IllegalArgumentException("paymentId cannot be null");
 		}
@@ -548,14 +525,7 @@ public class Payment  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Payment execute(APIContext apiContext, PaymentExecution paymentExecution) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -594,14 +564,7 @@ public class Payment  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public void update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -641,14 +604,7 @@ public class Payment  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static PaymentHistory list(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (containerMap == null) {
 			throw new IllegalArgumentException("containerMap cannot be null");
 		}

@@ -1,14 +1,14 @@
 package com.paypal.api.payments;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Properties;
-
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalModel;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
+
+import java.io.File;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Properties;
 
 public class PaymentInstruction extends PayPalModel {
 

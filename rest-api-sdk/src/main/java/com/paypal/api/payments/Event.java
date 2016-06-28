@@ -1,5 +1,12 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.Constants;
+import com.paypal.base.SDKUtil;
+import com.paypal.base.SSLUtil;
+import com.paypal.base.rest.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
@@ -8,19 +15,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.paypal.base.Constants;
-import com.paypal.base.SDKUtil;
-import com.paypal.base.SSLUtil;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
 
 public class Event  extends PayPalResource {
 	
@@ -204,14 +198,7 @@ public class Event  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static Event get(APIContext apiContext, String eventId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (eventId == null) {
 			throw new IllegalArgumentException("eventId cannot be null");
 		}
@@ -243,14 +230,7 @@ public class Event  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Event resend(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -282,14 +262,7 @@ public class Event  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static EventList list(APIContext apiContext, String queryParams) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		String resourcePath = "v1/notifications/webhooks-events" + queryParams;
 		String payLoad = "";
 		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventList.class);

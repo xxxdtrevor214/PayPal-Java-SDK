@@ -1,8 +1,8 @@
 package com.paypal.api.payments;
 
-import java.util.List;
-
 import com.paypal.base.rest.PayPalModel;
+
+import java.util.List;
 
 public class PayoutBatch extends PayPalModel  {
 

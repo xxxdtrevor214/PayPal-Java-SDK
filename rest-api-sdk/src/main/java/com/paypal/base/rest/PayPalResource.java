@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.paypal.base.sdk.info.SDKVersionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -244,10 +245,18 @@ public abstract class PayPalResource extends PayPalModel{
 			HttpMethod httpMethod, String resourcePath, String payLoad,
 			Class<T> clazz, String accessToken) throws PayPalRESTException {
 		T t = null;
-		Map<String, String> cMap = null;
-		String requestId = null;
-		Map<String, String> headersMap = null;
+		Map<String, String> cMap;
+		String requestId;
+		Map<String, String> headersMap;
 		if (apiContext != null) {
+			validateAPIContext(apiContext);
+			if (apiContext.getHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER) != null) {
+				apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+			}
+			if (apiContext.getSdkVersion() != null) {
+				apiContext.setSdkVersion(new SDKVersionImpl());
+			}
+
 			if (apiContext.getConfigurationMap() != null) {
 				cMap = SDKUtil.combineDefaultMap(apiContext
 						.getConfigurationMap());
@@ -274,10 +283,17 @@ public abstract class PayPalResource extends PayPalModel{
 			HttpConfiguration httpConfiguration = createHttpConfiguration(cMap,
 					httpMethod, apiCallPreHandler);
 			t = execute(apiCallPreHandler, httpConfiguration, clazz);
-			// Clean up HTTPHeaders of previous calls.
-			// apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
 		return t;
+	}
+
+	public static void validateAPIContext(APIContext context) throws PayPalRESTException {
+		if (context == null) {
+			throw new IllegalArgumentException("APIContext cannot be null");
+		}
+		if (context.fetchAccessToken() == null || context.fetchAccessToken().trim().length() <= 0) {
+			throw new IllegalArgumentException("AccessToken cannot be null or empty");
+		}
 	}
 
 	/**

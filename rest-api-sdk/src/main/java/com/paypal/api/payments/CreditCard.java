@@ -1,17 +1,11 @@
 package com.paypal.api.payments;
 
+import com.google.gson.GsonBuilder;
+import com.paypal.base.rest.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.GsonBuilder;
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
 
 public class CreditCard  extends PayPalResource {
 
@@ -352,14 +346,7 @@ public class CreditCard  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public CreditCard create(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		String resourcePath = "v1/vault/credit-cards";
 		String payLoad = this.toJSON();
 		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreditCard.class);
@@ -390,14 +377,7 @@ public class CreditCard  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static CreditCard get(APIContext apiContext, String creditCardId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (creditCardId == null) {
 			throw new IllegalArgumentException("creditCardId cannot be null");
 		}
@@ -429,14 +409,7 @@ public class CreditCard  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -475,17 +448,9 @@ public class CreditCard  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public CreditCard update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
 		if (patchRequest == null) {
 			throw new IllegalArgumentException("patchRequest cannot be null");
 		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -493,7 +458,7 @@ public class CreditCard  extends PayPalResource {
 		String pattern = "v1/vault/credit-cards/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = new GsonBuilder().create().toJson(patchRequest);
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, CreditCard.class);
+		return configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, CreditCard.class);
 	}
 
 
@@ -521,14 +486,7 @@ public class CreditCard  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static CreditCardHistory list(APIContext apiContext, Map<String, String> containerMap) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (containerMap == null) {
 			throw new IllegalArgumentException("containerMap cannot be null");
 		}

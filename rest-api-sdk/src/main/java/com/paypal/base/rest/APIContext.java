@@ -187,6 +187,10 @@ public class APIContext {
 		return this.credential.getHeaders();
 	}
 
+
+	public String getHTTPHeader(String key) {
+		return this.credential.getHeader(key);
+	}
 	/**
 	 * Replaces existing headers with provided one.
 	 * 
@@ -365,7 +369,8 @@ public class APIContext {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated Please use {@link #setHTTPHeaders(Map)} or {@link #addHTTPHeaders(Map)} instead.
+	 *
 	 * @param headersMap
 	 *            the headersMap to set
 	 */
@@ -388,5 +393,4 @@ public class APIContext {
 		}
 		return this.credential.getClientSecret();
 	}
-
 }

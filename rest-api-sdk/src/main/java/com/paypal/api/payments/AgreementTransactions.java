@@ -1,9 +1,9 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.paypal.base.rest.PayPalModel;
 
 public class AgreementTransactions  extends PayPalModel {
 

@@ -1,16 +1,10 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
 
 public class Payout extends PayPalResource {
 
@@ -153,21 +147,10 @@ public class Payout extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public PayoutBatch create(APIContext apiContext, Map<String, String> parameters) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null
-				|| apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException(
-					"AccessToken cannot be null or empty");
-		}
 		if (parameters == null) {
 			parameters = new HashMap<String, String>();
 		}
 		Object[] parametersObj = new Object[] {parameters};
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER,
-				Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		String pattern = "v1/payments/payouts?sync_mode={0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parametersObj);
 		String payLoad = this.toJSON();
@@ -207,17 +190,6 @@ public class Payout extends PayPalResource {
 	 */
 	public static PayoutBatch get(APIContext apiContext, String payoutBatchId)
 			throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null
-				|| apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException(
-					"AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER,
-				Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (payoutBatchId == null) {
 			throw new IllegalArgumentException("payoutBatchId cannot be null");
 		}

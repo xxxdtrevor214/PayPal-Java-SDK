@@ -1,15 +1,8 @@
 package com.paypal.api.payments;
 
-import java.util.HashMap;
-import java.util.List;
+import com.paypal.base.rest.*;
 
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
+import java.util.List;
 
 public class Refund  extends PayPalResource {
 
@@ -293,14 +286,7 @@ public class Refund  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static Refund get(APIContext apiContext, String refundId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (refundId == null) {
 			throw new IllegalArgumentException("refundId cannot be null");
 		}

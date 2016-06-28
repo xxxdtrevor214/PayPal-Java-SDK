@@ -1,22 +1,10 @@
 package com.paypal.api.payments;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
+import com.paypal.base.rest.*;
+
 import java.util.List;
-import java.util.Properties;
 
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
-
-public class WebProfile  {
+public class WebProfile extends PayPalResource {
 
 	/**
 	 * Unique ID of the web experience profile.
@@ -43,58 +31,6 @@ public class WebProfile  {
 	 */
 	private Presentation presentation;
 
-	/**
-	 * Returns the last request sent to the Service
-	 *
-	 * @return Last request sent to the server
-	 */
-	public static String getLastRequest() {
-		return PayPalResource.getLastRequest();
-	}
-
-	/**
-	 * Returns the last response returned by the Service
-	 *
-	 * @return Last response got from the Service
-	 */
-	public static String getLastResponse() {
-		return PayPalResource.getLastResponse();
-	}
-
-	/**
-	 * Initialize using InputStream(of a Properties file)
-	 *
-	 * @param is
-	 *            InputStream
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(InputStream is) throws PayPalRESTException {
-		return PayPalResource.initConfig(is);
-	}
-
-	/**
-	 * Initialize using a File(Properties file)
-	 *
-	 * @param file
-	 *            File object of a properties entity
-	 * @throws PayPalRESTException
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(File file) throws PayPalRESTException {
-		return PayPalResource.initConfig(file);
-	}
-
-	/**
-	 * Initialize using Properties
-	 *
-	 * @param properties
-	 *            Properties object
-	 * @return OAuthTokenCredential instance using client ID and client secret loaded from configuration.
-	 */
-	public static OAuthTokenCredential initConfig(Properties properties) {
-		return PayPalResource.initConfig(properties);
-	}
 	/**
 	 * Default Constructor
 	 */
@@ -209,17 +145,9 @@ public class WebProfile  {
 	 * @throws PayPalRESTException
 	 */
 	public CreateProfileResponse create(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = this.toJSON();
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreateProfileResponse.class);
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, CreateProfileResponse.class);
 	}
 
 
@@ -244,17 +172,6 @@ public class WebProfile  {
 	 * @throws PayPalRESTException
 	 */
 	public void update(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -262,7 +179,7 @@ public class WebProfile  {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = this.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -292,17 +209,6 @@ public class WebProfile  {
 	 * @throws PayPalRESTException
 	 */
 	public void partialUpdate(APIContext apiContext, PatchRequest patchRequest) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -313,7 +219,7 @@ public class WebProfile  {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = patchRequest.toJSON();
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
 		return;
 	}
 
@@ -342,17 +248,6 @@ public class WebProfile  {
 	 * @throws PayPalRESTException
 	 */
 	public static WebProfile get(APIContext apiContext, String profileId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		if (profileId == null) {
 			throw new IllegalArgumentException("profileId cannot be null");
 		}
@@ -360,7 +255,7 @@ public class WebProfile  {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		return PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfile.class);
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfile.class);
 	}
 
 
@@ -384,23 +279,9 @@ public class WebProfile  {
 	 * @throws PayPalRESTException
 	 */
 	public static List<WebProfile> getList(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		if (apiContext.getHTTPHeaders() == null) {
-			apiContext.setHTTPHeaders(new HashMap<String, String>());
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = "";
-		List<WebProfile> webProfiles = PayPalResource.configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
-//		if (webProfiles == null) {
-//			webProfiles = new ArrayList<WebProfile>();
-//		}
+		List<WebProfile> webProfiles = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
 		
 		return webProfiles;
 	}
@@ -427,14 +308,7 @@ public class WebProfile  {
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
@@ -443,21 +317,7 @@ public class WebProfile  {
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
-		PayPalResource.configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 		return;
-	}
-
-	/**
-	 * Returns a JSON string corresponding to object state
-	 *
-	 * @return JSON representation
-	 */
-	public String toJSON() {
-		return JSONFormatter.toJSON(this);
-	}
-
-	@Override
-	public String toString() {
-		return toJSON();
 	}
 }

@@ -1,15 +1,8 @@
 package com.paypal.api.payments;
 
-import java.util.HashMap;
-import java.util.List;
+import com.paypal.base.rest.*;
 
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
+import java.util.List;
 
 public class Sale  extends PayPalResource {
 
@@ -535,14 +528,7 @@ public class Sale  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static Sale get(APIContext apiContext, String saleId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (saleId == null) {
 			throw new IllegalArgumentException("saleId cannot be null");
 		}
@@ -578,14 +564,7 @@ public class Sale  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Refund refund(APIContext apiContext, Refund refund) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}

@@ -1,14 +1,6 @@
 package com.paypal.api.payments;
 
-import java.util.HashMap;
-
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
-import com.paypal.base.sdk.info.SDKVersionImpl;
+import com.paypal.base.rest.*;
 
 public class EventType  extends PayPalResource {
 
@@ -92,14 +84,7 @@ public class EventType  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static EventTypeList subscribedEventTypes(APIContext apiContext, String webhookId) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		if (webhookId == null) {
 			throw new IllegalArgumentException("webhookId cannot be null");
 		}
@@ -136,14 +121,7 @@ public class EventType  extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static EventTypeList availableEventTypes(APIContext apiContext) throws PayPalRESTException {
-		if (apiContext == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (apiContext.fetchAccessToken() == null || apiContext.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
-		apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
-		apiContext.setSdkVersion(new SDKVersionImpl());
+
 		String resourcePath = "v1/notifications/webhooks-event-types";
 		String payLoad = "";
 		EventTypeList eventTypeList = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, EventTypeList.class);
