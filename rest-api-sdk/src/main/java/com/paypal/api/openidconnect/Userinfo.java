@@ -409,7 +409,7 @@ public class Userinfo extends PayPalResource{
 	public static Userinfo getUserinfo(APIContext apiContext) throws PayPalRESTException {
 		String resourcePath = "v1/identity/openidconnect/userinfo?schema=openid";
 		String payLoad = "";
-		String accessToken = apiContext.getAccessToken();
+		String accessToken = apiContext.fetchAccessToken();
 		HashMap<String, String> httpHeaders = new HashMap<String, String>();
 		if (!accessToken.startsWith("Bearer ")) {
 			accessToken = "Bearer " + accessToken;

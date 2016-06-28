@@ -1,6 +1,7 @@
 package com.paypal.base.rest;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,8 @@ import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
 import com.paypal.base.codec.binary.Base64;
+import com.paypal.base.exception.ClientActionRequiredException;
+import com.paypal.base.exception.HttpErrorException;
 import com.paypal.base.sdk.info.SDKVersionImpl;
 import com.paypal.base.util.UserAgentHeader;
 
@@ -41,7 +44,7 @@ import com.paypal.base.util.UserAgentHeader;
 public final class OAuthTokenCredential {
 
 	private static final Logger log = LoggerFactory.getLogger(OAuthTokenCredential.class);
-	
+
 	/**
 	 * OAuth URI path parameter
 	 */
@@ -61,16 +64,18 @@ public final class OAuthTokenCredential {
 	 * Access Token that is generated
 	 */
 	private String accessToken;
-	
+
 	/**
 	 * Headers
 	 */
-	private Map<String, String> headers;
+	private Map<String, String> headers = new HashMap<String, String>();
 
 	/**
 	 * Lifetime in seconds of the access token
 	 */
 	private long expires = 0;
+
+	private String refreshToken;
 
 	/**
 	 * Map used for dynamic configuration
@@ -92,8 +97,19 @@ public final class OAuthTokenCredential {
 	public static void setOAUTH_TOKEN_PATH(String oauthTokenPath) {
 		OAUTH_TOKEN_PATH = oauthTokenPath;
 	}
+	
+	/**
+	 * Constructor that takes in Access Token. Only used internally. Please do not use for external integrations.
+	 * 
+	 * @param accessToken
+	 */
+	OAuthTokenCredential(String accessToken) {
+		this.accessToken = accessToken;
+	}
 
 	/**
+	 * Pass clientId and secret to OAuthTokenCredential. 
+	 * 
 	 * @param clientID
 	 *            Client ID for the OAuth
 	 * @param clientSecret
@@ -103,8 +119,7 @@ public final class OAuthTokenCredential {
 		super();
 		this.clientID = clientID;
 		this.clientSecret = clientSecret;
-		this.configurationMap = SDKUtil.combineDefaultMap(ConfigManager
-				.getInstance().getConfigurationMap());
+		this.configurationMap = SDKUtil.combineDefaultMap(ConfigManager.getInstance().getConfigurationMap());
 		this.sdkVersion = new SDKVersionImpl();
 	}
 
@@ -121,17 +136,42 @@ public final class OAuthTokenCredential {
 	 *            present then there should be entry for 'mode' with values
 	 *            sandbox/live, wherein PayPals endpoints are used.
 	 */
-	public OAuthTokenCredential(String clientID, String clientSecret,
-			Map<String, String> configurationMap) {
+	public OAuthTokenCredential(String clientID, String clientSecret, Map<String, String> configurationMap) {
 		super();
 		this.clientID = clientID;
 		this.clientSecret = clientSecret;
 		this.configurationMap = SDKUtil.combineDefaultMap(configurationMap);
 		this.sdkVersion = new SDKVersionImpl();
 	}
-	
+
 	/**
-	 * Sets Headers to Oauth Calls
+	 * Sets refresh token to be used for third party OAuth operations. This is commonly used for 
+	 * third party invoicing and future payments. 
+	 * This method is for internal use only. Please use {@link APIContext#setRefreshToken(String)} for your integration needs.
+	 * 
+	 * @param refreshToken
+	 * @return {@link OAuthTokenCredential}
+	 */
+	OAuthTokenCredential setRefreshToken(String refreshToken) {
+		if (!this.hasCredentials()) {
+			throw new IllegalArgumentException("ClientID and Secret are required. Please use OAuthTokenCredential(String clientID, String clientSecret)");
+		}
+		this.refreshToken = refreshToken;
+		this.resetAccessToken();
+		return this;
+	}
+
+	/**
+	 * Checks if clientID and secret are set.
+	 * 
+	 * @return {@link Boolean}
+	 */
+	public boolean hasCredentials() {
+		return (this.clientID != null) && (this.clientSecret != null);
+	}
+
+	/**
+	 * Sets Headers for every calls.
 	 * 
 	 * @param headers
 	 * @return {@link OAuthTokenCredential}
@@ -139,6 +179,38 @@ public final class OAuthTokenCredential {
 	public OAuthTokenCredential setHeaders(Map<String, String> headers) {
 		this.headers = headers;
 		return this;
+	}
+	
+	/**
+	 * Adds headers.
+	 * 
+	 * @param headers
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addHeaders(Map<String, String> headers) {
+		this.headers.putAll(headers);
+		return this;
+	}
+	
+	/**
+	 * Adds header to existing list of headers.
+	 * 
+	 * @param key
+	 * @param value
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addHeader(String key, String value) {
+		this.headers.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * Returns the list of headers
+	 * 
+	 * @return {@link Map} of headers
+	 */
+	public Map<String, String> getHeaders() {
+		return this.headers;
 	}
 
 	/**
@@ -149,7 +221,7 @@ public final class OAuthTokenCredential {
 	 * @throws PayPalRESTException
 	 */
 	public String getAccessToken() throws PayPalRESTException {
-		if (accessToken == null || expiresIn() <= 0) {
+		if (accessToken == null || (hasCredentials() && expiresIn() <= 0)) {
 			accessToken = generateAccessToken();
 		}
 		return accessToken;
@@ -163,9 +235,26 @@ public final class OAuthTokenCredential {
 	 * @throws PayPalRESTException
 	 */
 	public String getAuthorizationHeader() throws PayPalRESTException {
-		String base64EncodedString = generateBase64String(clientID + ":"
-				+ clientSecret);
+		String base64EncodedString = generateBase64String(clientID + ":" + clientSecret);
 		return "Basic " + base64EncodedString;
+	}
+	
+	/**
+	 * Returns clientID
+	 * 
+	 * @return {@link String} containing clientID
+	 */
+	public String getClientID() {
+		return this.clientID;
+	}
+
+	/**
+	 * Returns clientSecret
+	 * 
+	 * @return {@link String} containing clientSecret
+	 */
+	public String getClientSecret() {
+		return this.clientSecret;
 	}
 
 	/**
@@ -177,11 +266,79 @@ public final class OAuthTokenCredential {
 	public long expiresIn() {
 		return expires - new java.util.Date().getTime() / 1000;
 	}
+	
+	/**
+	 * Adds configuration to list of configurations.
+	 * 
+	 * @param key
+	 * @param value
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addConfiguration(String key, String value) {
+		if (this.configurationMap == null) {
+			this.configurationMap = new HashMap<String, String>();
+		}
+		this.configurationMap.put(key, value);
+		return this;
+	}
+	
+	/**
+	 * Adds configurations to list of configurations.
+	 * @param configurations
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential addConfigurations(Map<String, String> configurations) {
+		if (this.configurationMap == null) {
+			this.configurationMap = new HashMap<String, String>();
+		}
+		this.configurationMap.putAll(configurations);
+		return this;
+	}
+	
+	/**
+	 * Replaces existing configurations with provided map of configurations.
+	 * 
+	 * @param configurations
+	 * @return {@link OAuthTokenCredential}
+	 */
+	public OAuthTokenCredential setConfigurations(Map<String, String> configurations) {
+		this.configurationMap = configurations;
+		return this;
+	}
+	
+	/**
+	 * Returns list of configurations.
+	 * 
+	 * @return {@link Map} of configurations
+	 */
+	public Map<String, String> getConfigurations() {
+		return this.configurationMap;
+	}
+	
+	/**
+	 * Returns specific configuration.
+	 * 
+	 * @param key
+	 * @return {@link String} value of configuration
+	 */
+	public String getConfiguration(String key) {
+		if (this.configurationMap != null) {
+			return this.configurationMap.get(key);
+		}
+		return null;
+	}
+
+	/**
+	 * Resets Access Token
+	 */
+	private void resetAccessToken() {
+		this.accessToken = null;
+		this.expires = -1;
+	}
 
 	private String generateAccessToken() throws PayPalRESTException {
 		String generatedToken = null;
-		String base64ClientID = generateBase64String(clientID + ":"
-				+ clientSecret);
+		String base64ClientID = generateBase64String(clientID + ":" + clientSecret);
 		generatedToken = generateOAuthToken(base64ClientID);
 		return generatedToken;
 	}
@@ -189,8 +346,7 @@ public final class OAuthTokenCredential {
 	/*
 	 * Generate a Base64 encoded String from clientID & clientSecret
 	 */
-	private String generateBase64String(String clientCredentials)
-			throws PayPalRESTException {
+	private String generateBase64String(String clientCredentials) throws PayPalRESTException {
 		String base64ClientID = null;
 		byte[] encoded = null;
 		try {
@@ -205,8 +361,7 @@ public final class OAuthTokenCredential {
 	/*
 	 * Generate OAuth type token from Base64Client ID
 	 */
-	private String generateOAuthToken(String base64ClientID)
-			throws PayPalRESTException {
+	private String generateOAuthToken(String base64ClientID) throws PayPalRESTException {
 		HttpConnection connection = null;
 		HttpConfiguration httpConfiguration = null;
 		String generatedToken = null;
@@ -214,52 +369,46 @@ public final class OAuthTokenCredential {
 			connection = ConnectionManager.getInstance().getConnection();
 			httpConfiguration = getOAuthHttpConfiguration();
 			connection.createAndconfigureHttpConnection(httpConfiguration);
-			if (this.headers == null) {
-				this.headers = new HashMap<String, String>();
-			}
-			this.headers.put(Constants.AUTHORIZATION_HEADER, "Basic "
-					+ base64ClientID);
+			this.headers.put(Constants.AUTHORIZATION_HEADER, "Basic " + base64ClientID);
 
 			// Accept only json output
-			this.headers.put(Constants.HTTP_ACCEPT_HEADER,
-					Constants.HTTP_CONTENT_TYPE_JSON);
-			this.headers.put(Constants.HTTP_CONTENT_TYPE_HEADER,
-					Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
-			UserAgentHeader userAgentHeader = new UserAgentHeader(
-					sdkVersion != null ? sdkVersion.getSDKId() : null,
+			this.headers.put(Constants.HTTP_ACCEPT_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
+			this.headers.put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
+			UserAgentHeader userAgentHeader = new UserAgentHeader(sdkVersion != null ? sdkVersion.getSDKId() : null,
 					sdkVersion != null ? sdkVersion.getSDKVersion() : null);
 			this.headers.putAll(userAgentHeader.getHeader());
 			String postRequest = getRequestPayload();
-			
+
 			// log request
 			String mode = configurationMap.get(Constants.MODE);
 			if (Constants.LIVE.equalsIgnoreCase(mode) && log.isDebugEnabled()) {
-				log.warn("Log level cannot be set to DEBUG in " + Constants.LIVE + " mode. Skipping request/response logging...");
-			} 
+				log.warn("Log level cannot be set to DEBUG in " + Constants.LIVE
+						+ " mode. Skipping request/response logging...");
+			}
 			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
 				log.debug("request header: " + this.headers.toString());
 				log.debug("request body: " + postRequest);
 			}
-			
+
 			// send request and get & log response
 			String jsonResponse = connection.execute("", postRequest, this.headers);
 			if (!Constants.LIVE.equalsIgnoreCase(mode)) {
 				log.debug("response header: " + connection.getResponseHeaderMap().toString());
 				log.debug("response: " + jsonResponse.toString());
 			}
-			
+
 			// parse response as JSON object
 			JsonParser parser = new JsonParser();
 			JsonElement jsonElement = parser.parse(jsonResponse);
-			generatedToken = jsonElement.getAsJsonObject().get("token_type")
-					.getAsString()
-					+ " "
-					+ jsonElement.getAsJsonObject().get("access_token")
-							.getAsString();
+			generatedToken = jsonElement.getAsJsonObject().get("token_type").getAsString() + " "
+					+ jsonElement.getAsJsonObject().get("access_token").getAsString();
 			// Save expiry date
-			long tokenLifeTime = jsonElement.getAsJsonObject()
-					.get("expires_in").getAsLong();
+			long tokenLifeTime = jsonElement.getAsJsonObject().get("expires_in").getAsLong();
 			expires = new Date().getTime() / 1000 + tokenLifeTime;
+		} catch (ClientActionRequiredException e) {
+			throw PayPalRESTException.createFromHttpErrorException(e);
+		} catch (HttpErrorException e) {
+			throw PayPalRESTException.createFromHttpErrorException(e);
 		} catch (Exception e) {
 			throw new PayPalRESTException(e.getMessage(), e);
 		}
@@ -273,28 +422,44 @@ public final class OAuthTokenCredential {
 	 * @return Payload as String
 	 */
 	protected String getRequestPayload() {
-		return "grant_type=client_credentials";
+		if (this.refreshToken != null) {
+			return String.format("grant_type=refresh_token&refresh_token=%s", this.refreshToken);
+		} else {
+			return "grant_type=client_credentials";
+		}
 	}
 
 	/*
 	 * Get HttpConfiguration object for OAuth server
 	 */
-	private HttpConfiguration getOAuthHttpConfiguration() {
+	private HttpConfiguration getOAuthHttpConfiguration() throws MalformedURLException {
 		HttpConfiguration httpConfiguration = new HttpConfiguration();
 		httpConfiguration
 				.setHttpMethod(Constants.HTTP_CONFIG_DEFAULT_HTTP_METHOD);
-		String endPointUrl = (configurationMap.get(Constants.OAUTH_ENDPOINT) != null && configurationMap
-				.get(Constants.OAUTH_ENDPOINT).trim().length() >= 0) ? configurationMap
-				.get(Constants.OAUTH_ENDPOINT) : configurationMap
-				.get(Constants.ENDPOINT);
-		if (endPointUrl == null || endPointUrl.trim().length() <= 0) {
-			String mode = configurationMap.get(Constants.MODE);
-			if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
-				endPointUrl = Constants.REST_SANDBOX_ENDPOINT;
-			} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
-				endPointUrl = Constants.REST_LIVE_ENDPOINT;
-			}
+		
+		/*
+		 * Check for property 'mode' property in the configuration, if not
+		 * found, check for 'oauth.EndPoint' property in the configuration and default
+		 * endpoint to PayPal sandbox or live endpoints. Throw exception if the
+		 * above rules fail
+		 */
+		String mode = this.configurationMap.get(Constants.MODE);
+		// Default to Endpoint param.
+		String endPointUrl = this.configurationMap.get(Constants.OAUTH_ENDPOINT);
+		if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
+			endPointUrl = Constants.REST_SANDBOX_ENDPOINT;
+		} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
+			endPointUrl = Constants.REST_LIVE_ENDPOINT;
+		} else if (endPointUrl == null || endPointUrl.length() <= 0) {
+			// Default to Normal endpoint
+			endPointUrl = this.configurationMap.get(Constants.ENDPOINT);
+		} 
+		// If none of the option works, throw exception.
+		if (endPointUrl == null || endPointUrl.length() <= 0) {
+			throw new MalformedURLException(
+					"service.EndPoint not set (OR) mode not configured to sandbox/live ");
 		}
+		
 		if (Boolean
 				.parseBoolean(configurationMap.get(Constants.USE_HTTP_PROXY))) {
 			httpConfiguration.setProxySet(true);
@@ -322,7 +487,5 @@ public final class OAuthTokenCredential {
 						.get(Constants.GOOGLE_APP_ENGINE)));
 		return httpConfiguration;
 	}
-
-	
 
 }

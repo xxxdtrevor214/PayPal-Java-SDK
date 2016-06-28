@@ -13,7 +13,7 @@ SDK Integration:
 ----------------
 
 #### Maven
-```
+```xml
 <dependency>
 	<groupId>com.paypal.sdk</groupId>
 	<artifactId>rest-api-sdk</artifactId>
@@ -21,7 +21,7 @@ SDK Integration:
 </dependency>
 ```
 #### Gradle
-```js
+```gradle
 repositories {
 	mavenCentral()
 }
@@ -41,27 +41,15 @@ To make an API call:
 	String clientId = "AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS";
 	String clientSecret = "EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL";
 	```
-2. Set the mode
+2. Create an `ApiContext`
 
 	```java
-	Map<String, String> map = new HashMap<String, String>();
-	map.put("mode", "sandbox");
+	APIContext context = new APIContext(clientId, clientSecret, "sandbox");
 	```
-3. Fetch the Access Token
+4. Fetch a Payment by ID
 
 	```java
-	String accessToken = new OAuthTokenCredential(clientId, clientSecret, map).getAccessToken();
-	```
-4. Create an `ApiContext`
-
-	```java
-	APIContext context = new APIContext(accessToken);
-	context.setConfigurationMap(map);
-	```
-5. Fetch a Payment by ID
-
-	```java
-	Payment payment = Payment.get(apiContext, "PAY-4T698276NC427425EK5QIV7Y");
+	Payment payment = Payment.get(context, "PAY-4T698276NC427425EK5QIV7Y");
 	System.out.println(payment);
 	```
 6. Visit [Developer Docs](https://developer.paypal.com/docs/api/) for more PayPal REST APIs.

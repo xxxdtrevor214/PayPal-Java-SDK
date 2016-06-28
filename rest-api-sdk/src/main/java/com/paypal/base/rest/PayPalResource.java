@@ -22,6 +22,7 @@ import com.paypal.base.HttpConfiguration;
 import com.paypal.base.HttpConnection;
 import com.paypal.base.SDKUtil;
 import com.paypal.base.SDKVersion;
+import com.paypal.base.exception.BaseException;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.exception.HttpErrorException;
 
@@ -214,6 +215,12 @@ public abstract class PayPalResource extends PayPalModel{
 		return configureAndExecute(null, accessToken, httpMethod, resourcePath,
 				null, payLoad, null, clazz);
 	}
+	
+	public static <T> T configureAndExecute(APIContext apiContext,
+			HttpMethod httpMethod, String resourcePath, String payLoad,
+			Class<T> clazz) throws PayPalRESTException {
+		return configureAndExecute(apiContext, httpMethod, resourcePath, payLoad, clazz, null);
+	}
 
 	/**
 	 * Configures and executes REST call: Supports JSON
@@ -235,10 +242,9 @@ public abstract class PayPalResource extends PayPalModel{
 	 */
 	public static <T> T configureAndExecute(APIContext apiContext,
 			HttpMethod httpMethod, String resourcePath, String payLoad,
-			Class<T> clazz) throws PayPalRESTException {
+			Class<T> clazz, String accessToken) throws PayPalRESTException {
 		T t = null;
 		Map<String, String> cMap = null;
-		String accessToken = null;
 		String requestId = null;
 		Map<String, String> headersMap = null;
 		if (apiContext != null) {
@@ -257,7 +263,9 @@ public abstract class PayPalResource extends PayPalModel{
 						configurationMap);
 			}
 			headersMap = apiContext.getHTTPHeaders();
-			accessToken = apiContext.getAccessToken();
+			if (accessToken == null) {
+				accessToken = apiContext.fetchAccessToken();
+			}
 			requestId = apiContext.getRequestId();
 
 			APICallPreHandler apiCallPreHandler = createAPICallPreHandler(cMap,
@@ -266,6 +274,8 @@ public abstract class PayPalResource extends PayPalModel{
 			HttpConfiguration httpConfiguration = createHttpConfiguration(cMap,
 					httpMethod, apiCallPreHandler);
 			t = execute(apiCallPreHandler, httpConfiguration, clazz);
+			// Clean up HTTPHeaders of previous calls.
+			// apiContext.setHTTPHeaders(new HashMap<String, String>());
 		}
 		return t;
 	}
@@ -299,7 +309,7 @@ public abstract class PayPalResource extends PayPalModel{
 		String requestId = null;
 		if (apiContext != null) {
 			cMap = apiContext.getConfigurationMap();
-			accessToken = apiContext.getAccessToken();
+			accessToken = apiContext.fetchAccessToken();
 			requestId = apiContext.getRequestId();
 		}
 		return configureAndExecute(cMap, accessToken, httpMethod, resourcePath,
@@ -455,12 +465,18 @@ public abstract class PayPalResource extends PayPalModel{
 	 * @param apiCallPreHandler
 	 *            {@link APICallPreHandler} for retrieving EndPoint
 	 * @return
+	 * @throws BaseException 
+	 * @throws PayPalRESTException 
 	 */
 	private static HttpConfiguration createHttpConfiguration(
 			Map<String, String> configurationMap, HttpMethod httpMethod,
-			APICallPreHandler apiCallPreHandler) {
+			APICallPreHandler apiCallPreHandler) throws PayPalRESTException {
 		HttpConfiguration httpConfiguration = new HttpConfiguration();
 		httpConfiguration.setHttpMethod(httpMethod.toString());
+		String endpoint = apiCallPreHandler.getEndPoint();
+		if (endpoint == null || endpoint.isEmpty()) {
+			throw new PayPalRESTException("The endpoint could not be fetched properly. You may be missing `mode` in your configuration.");
+		}
 		httpConfiguration.setEndPointUrl(apiCallPreHandler.getEndPoint());
 		httpConfiguration
 				.setGoogleAppEngine(Boolean.parseBoolean(configurationMap
