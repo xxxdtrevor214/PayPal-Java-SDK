@@ -101,12 +101,12 @@ public abstract class HttpConnection {
 		connection.setRequestProperty("Content-Length", ""
 				+ payload.trim().length());
 		try {
+			setHttpHeaders(headers);
 			String mode = ConfigManager.getInstance().getConfigurationMap()
 					.get(Constants.MODE);
 			if (headers != null && !Constants.LIVE.equalsIgnoreCase(mode)) {
 				String cmd = "curl command: \n";
 				cmd += "curl -v '" + connection.getURL().toString() + "' \\\n";
-				setHttpHeaders(headers);
 				Iterator<String> keyIter = headers.keySet().iterator();
 				while (keyIter.hasNext()) {
 					String key = keyIter.next();
@@ -252,12 +252,14 @@ public abstract class HttpConnection {
 	 * @param headers
 	 */
 	protected void setHttpHeaders(Map<String, String> headers) {
-		Iterator<Map.Entry<String, String>> itr = headers.entrySet().iterator();
-		while (itr.hasNext()) {
-			Map.Entry<String, String> pairs = itr.next();
-			String key = pairs.getKey();
-			String value = pairs.getValue();
-			this.connection.setRequestProperty(key, value);
+		if (headers != null && !headers.isEmpty()) {
+			Iterator<Map.Entry<String, String>> itr = headers.entrySet().iterator();
+			while (itr.hasNext()) {
+				Map.Entry<String, String> pairs = itr.next();
+				String key = pairs.getKey();
+				String value = pairs.getValue();
+				this.connection.setRequestProperty(key, value);
+			}
 		}
 	}
 
