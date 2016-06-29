@@ -159,7 +159,7 @@ public final class ConfigManager {
 	/**
 	 * Loads the internal properties with the passed {@link InputStream}
 	 * 
-	 * @deprecated 
+	 * @deprecated This code was used for older integrations. Not valid anymore. To be removed in the next major release.
 	 * @param is
 	 *            InputStream
 	 * 
@@ -177,7 +177,7 @@ public final class ConfigManager {
 	 * Initializes the internal properties with the passed {@link Properties}
 	 * instance
 	 * 
-	 * @deprecated 
+	 * @deprecated This code was used for older integrations. Not valid anymore. To be removed in the next major release.
 	 * @param properties
 	 *            Properties instance
 	 * 
@@ -218,7 +218,7 @@ public final class ConfigManager {
 	/**
 	 * Returns a value for the corresponding key
 	 * 
-	 * @deprecated
+	 * @deprecated This code was used for older integrations. Not valid anymore. To be removed in the next major release.
 	 * 
 	 * @param key
 	 *            String key
@@ -231,7 +231,7 @@ public final class ConfigManager {
 	/**
 	 * Mimics the call to {@link Properties}.getProperty(key, defaultValue)
 	 * 
-	 * @deprecated
+	 * @deprecated This code was used for older integrations. Not valid anymore. To be removed in the next major release.
 	 * 
 	 * @param key
 	 *            String key to search in properties file
@@ -247,7 +247,7 @@ public final class ConfigManager {
 	 * Gets all the values in the particular category in configuration (eg:
 	 * acct)
 	 * 
-	 * @deprecated
+	 * @deprecated This code was used for older integrations. Not valid anymore. To be removed in the next major release.
 	 * 
 	 * @param category
 	 * @return Map
@@ -267,7 +267,7 @@ public final class ConfigManager {
 	/**
 	 * Returns the key prefixes for all configured accounts
 	 * 
-	 * @deprecated
+	 * @deprecated This code is not used anymore. This was used for older sdk_config.properties parsing.
 	 * 
 	 * @return {@link Set} of Accounts
 	 */
@@ -288,7 +288,7 @@ public final class ConfigManager {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated This code was used for older integrations. Not valid anymore. To be removed in the next major release.
 	 * @return boolean
 	 */
 	public boolean isPropertyLoaded() {

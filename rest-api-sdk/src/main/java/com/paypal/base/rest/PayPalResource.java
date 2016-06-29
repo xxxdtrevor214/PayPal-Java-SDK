@@ -180,7 +180,9 @@ public abstract class PayPalResource extends PayPalModel{
 	/**
 	 * Configures and executes REST call: Supports JSON
 	 * 
-	 * @deprecated
+	 * @deprecated Please use {@link #configureAndExecute(APIContext, HttpMethod, String, String, Class)} instead.
+	 * Passing APIContext gives us better information than just raw access token.
+	 *
 	 * @param <T>
 	 *            Response Type for de-serialization
 	 * @param accessToken
@@ -199,10 +201,27 @@ public abstract class PayPalResource extends PayPalModel{
 	public static <T> T configureAndExecute(String accessToken,
 			HttpMethod httpMethod, String resourcePath, String payLoad,
 			Class<T> clazz) throws PayPalRESTException {
-		return configureAndExecute(null, accessToken, httpMethod, resourcePath,
-				null, payLoad, null, clazz);
+		return configureAndExecute(new APIContext(accessToken), httpMethod, resourcePath, payLoad, clazz);
 	}
-	
+
+	/**
+	 * Configures and executes REST call
+	 *
+	 * @param <T>
+	 *            Response Type for de-serialization
+	 * @param apiContext
+	 *            {@link APIContext} to be used for the call.
+	 * @param httpMethod
+	 *            Http Method verb
+	 * @param resourcePath
+	 *            Resource URI path
+	 * @param payLoad
+	 *            Payload to Service
+	 * @param clazz
+	 *            {@link Class} object used in De-serialization
+	 * @return T
+	 * @throws PayPalRESTException
+	 */
 	public static <T> T configureAndExecute(APIContext apiContext,
 			HttpMethod httpMethod, String resourcePath, String payLoad,
 			Class<T> clazz) throws PayPalRESTException {
@@ -224,6 +243,8 @@ public abstract class PayPalResource extends PayPalModel{
 	 *            Payload to Service
 	 * @param clazz
 	 *            {@link Class} object used in De-serialization
+	 * @param accessToken
+	 * 			  Access Token to be used instead of apiContext
 	 * @return T
 	 * @throws PayPalRESTException
 	 */
@@ -284,8 +305,10 @@ public abstract class PayPalResource extends PayPalModel{
 
 	/**
 	 * Configures and executes REST call: Supports JSON
-	 * 
-	 * @deprecated
+	 *
+	 * @deprecated Please use {@link #configureAndExecute(APIContext, HttpMethod, String, String, Class)} instead. Headers could be passed directly
+	 * to #APIContext itself.
+	 *
 	 * @param <T>
 	 * @param apiContext
 	 *            {@link APIContext} to be used for the call.
@@ -306,48 +329,10 @@ public abstract class PayPalResource extends PayPalModel{
 			HttpMethod httpMethod, String resourcePath,
 			Map<String, String> headersMap, String payLoad, Class<T> clazz)
 			throws PayPalRESTException {
-		Map<String, String> cMap = null;
-		String accessToken = null;
-		String requestId = null;
 		if (apiContext != null) {
-			cMap = apiContext.getConfigurationMap();
-			accessToken = apiContext.fetchAccessToken();
-			requestId = apiContext.getRequestId();
+			apiContext.addHTTPHeaders(headersMap);
 		}
-		return configureAndExecute(cMap, accessToken, httpMethod, resourcePath,
-				headersMap, payLoad, requestId, clazz);
-	}
-
-	private static <T> T configureAndExecute(
-			Map<String, String> configurationMap, String accessToken,
-			HttpMethod httpMethod, String resourcePath,
-			Map<String, String> headersMap, String payLoad, String requestId,
-			Class<T> clazz) throws PayPalRESTException {
-		T t = null;
-		Map<String, String> cMap = null;
-
-		/*
-		 * Check for null before combining with default
-		 */
-		if (configurationMap != null) {
-			cMap = SDKUtil.combineDefaultMap(configurationMap);
-		} else {
-			if (!configInitialized) {
-				initializeToDefault();
-			}
-
-			/*
-			 * The Map returned here is already combined with default values
-			 */
-			cMap = new HashMap<String, String>(configurationMap);
-		}
-
-		APICallPreHandler apiCallPreHandler = createAPICallPreHandler(cMap,
-				payLoad, resourcePath, headersMap, accessToken, requestId, null);
-		HttpConfiguration httpConfiguration = createHttpConfiguration(cMap,
-				httpMethod, apiCallPreHandler);
-		t = execute(apiCallPreHandler, httpConfiguration, clazz);
-		return t;
+		return configureAndExecute(apiContext, httpMethod, resourcePath, payLoad, clazz);
 	}
 
 	/**
