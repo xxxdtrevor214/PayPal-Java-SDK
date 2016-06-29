@@ -37,10 +37,7 @@ import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-/**
- * @author lvairamani
- * 
- */
+
 public class PaymentWithPayPalServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -158,7 +155,6 @@ public class PaymentWithPayPalServlet extends HttpServlet {
 					+ req.getContextPath() + "/paymentwithpaypal?guid=" + guid);
 			payment.setRedirectUrls(redirectUrls);
 
-			
 			// Create a payment by posting to the APIService
 			// using a valid AccessToken
 			// The return object contains the status;

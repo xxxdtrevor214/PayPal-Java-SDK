@@ -1,10 +1,10 @@
 package com.paypal.base.rest;
 
-import java.util.Map;
-import java.util.UUID;
-
 import com.paypal.base.Constants;
 import com.paypal.base.SDKVersion;
+
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * <code>APIContext</code> wraps wire-level parameters for the API call.
@@ -14,9 +14,6 @@ import com.paypal.base.SDKVersion;
  * {@link OAuthTokenCredential}. The Application Header property may be used by
  * clients to access application level headers. The clients are responsible to
  * cast the Application Header property to appropriate type.
- * 
- * @author kjayakumar
- * 
  */
 public class APIContext {
 
@@ -187,6 +184,10 @@ public class APIContext {
 		return this.credential.getHeaders();
 	}
 
+
+	public String getHTTPHeader(String key) {
+		return this.credential.getHeader(key);
+	}
 	/**
 	 * Replaces existing headers with provided one.
 	 * 
@@ -365,7 +366,8 @@ public class APIContext {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated Please use {@link #setHTTPHeaders(Map)} or {@link #addHTTPHeaders(Map)} instead.
+	 *
 	 * @param headersMap
 	 *            the headersMap to set
 	 */
@@ -388,5 +390,4 @@ public class APIContext {
 		}
 		return this.credential.getClientSecret();
 	}
-
 }

@@ -1,10 +1,14 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.paypal.base.rest.PayPalModel;
-
+@Data
+@Accessors(chain = true)
 public class PlanList  extends PayPalModel {
 
 	/**
@@ -34,70 +38,4 @@ public class PlanList  extends PayPalModel {
 		plans = new ArrayList<Plan>();
 		links = new ArrayList<Links>();
 	}
-
-
-	/**
-	 * Setter for plans
-	 */
-	public PlanList setPlans(List<Plan> plans) {
-		this.plans = plans;
-		return this;
-	}
-
-	/**
-	 * Getter for plans
-	 */
-	public List<Plan> getPlans() {
-		return this.plans;
-	}
-
-
-	/**
-	 * Setter for totalItems
-	 */
-	public PlanList setTotalItems(String totalItems) {
-		this.totalItems = totalItems;
-		return this;
-	}
-
-	/**
-	 * Getter for totalItems
-	 */
-	public String getTotalItems() {
-		return this.totalItems;
-	}
-
-
-	/**
-	 * Setter for totalPages
-	 */
-	public PlanList setTotalPages(String totalPages) {
-		this.totalPages = totalPages;
-		return this;
-	}
-
-	/**
-	 * Getter for totalPages
-	 */
-	public String getTotalPages() {
-		return this.totalPages;
-	}
-
-
-	/**
-	 * Setter for links
-	 */
-	public PlanList setLinks(List<Links> links) {
-		this.links = links;
-		return this;
-	}
-
-	/**
-	 * Getter for links
-	 */
-	public List<Links> getLinks() {
-		return this.links;
-	}
-
-
 }

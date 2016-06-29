@@ -1,7 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Data
+@Accessors(chain = true)
 public class BaseAddress extends PayPalModel {
 
 	/**
@@ -56,132 +60,5 @@ public class BaseAddress extends PayPalModel {
 	public BaseAddress(String line1, String countryCode) {
 		this.line1 = line1;
 		this.countryCode = countryCode;
-	}
-
-
-	/**
-	 * Setter for line1
-	 */
-	public BaseAddress setLine1(String line1) {
-		this.line1 = line1;
-		return this;
-	}
-
-	/**
-	 * Getter for line1
-	 */
-	public String getLine1() {
-		return this.line1;
-	}
-
-
-	/**
-	 * Setter for line2
-	 */
-	public BaseAddress setLine2(String line2) {
-		this.line2 = line2;
-		return this;
-	}
-
-	/**
-	 * Getter for line2
-	 */
-	public String getLine2() {
-		return this.line2;
-	}
-
-
-	/**
-	 * Setter for city
-	 */
-	public BaseAddress setCity(String city) {
-		this.city = city;
-		return this;
-	}
-
-	/**
-	 * Getter for city
-	 */
-	public String getCity() {
-		return this.city;
-	}
-
-
-	/**
-	 * Setter for countryCode
-	 */
-	public BaseAddress setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-		return this;
-	}
-
-	/**
-	 * Getter for countryCode
-	 */
-	public String getCountryCode() {
-		return this.countryCode;
-	}
-
-
-	/**
-	 * Setter for postalCode
-	 */
-	public BaseAddress setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-		return this;
-	}
-
-	/**
-	 * Getter for postalCode
-	 */
-	public String getPostalCode() {
-		return this.postalCode;
-	}
-
-
-	/**
-	 * Setter for state
-	 */
-	public BaseAddress setState(String state) {
-		this.state = state;
-		return this;
-	}
-
-	/**
-	 * Getter for state
-	 */
-	public String getState() {
-		return this.state;
-	}
-
-	/**
-	 * Setter for normalizationStatus
-	 */
-	public BaseAddress setNormalizationStatus(String normalizationStatus) {
-		this.normalizationStatus = normalizationStatus;
-		return this;
-	}
-
-	/**
-	 * Getter for normalizationStatus
-	 */
-	public String getNormalizationStatus() {
-		return this.normalizationStatus;
-	}
-
-
-	/**
-	 * Setter for status
-	 */
-	public BaseAddress setStatus(String status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Getter for status
-	 */
-	public String getStatus() {
-		return this.status;
 	}
 }

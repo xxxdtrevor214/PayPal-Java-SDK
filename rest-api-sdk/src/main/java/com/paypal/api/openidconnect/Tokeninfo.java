@@ -1,17 +1,12 @@
 package com.paypal.api.openidconnect;
 
+import com.paypal.base.Constants;
+import com.paypal.base.rest.*;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.HttpMethod;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
-import com.paypal.base.rest.RESTUtil;
 
 /**
  * Class Tokeninfo
@@ -317,7 +312,7 @@ public class Tokeninfo extends PayPalResource {
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 
-		apiContext.setHTTPHeaders(headersMap);
+		apiContext.addHTTPHeaders(headersMap);
 		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class, authorizationHeader);
 	}
@@ -355,7 +350,7 @@ public class Tokeninfo extends PayPalResource {
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 
-		apiContext.setHTTPHeaders(headersMap);
+		apiContext.addHTTPHeaders(headersMap);
 		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);
 	}

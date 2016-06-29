@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class InvoiceItem  extends PayPalModel {
 
 	/**
@@ -54,118 +57,4 @@ public class InvoiceItem  extends PayPalModel {
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
 	}
-
-
-	/**
-	 * Setter for name
-	 */
-	public InvoiceItem setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * Getter for name
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-
-	/**
-	 * Setter for description
-	 */
-	public InvoiceItem setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Getter for description
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
-
-	/**
-	 * Setter for quantity
-	 */
-	public InvoiceItem setQuantity(float quantity) {
-		this.quantity = quantity;
-		return this;
-	}
-
-	/**
-	 * Getter for quantity
-	 */
-	public float getQuantity() {
-		return this.quantity;
-	}
-
-
-	/**
-	 * Setter for unitPrice
-	 */
-	public InvoiceItem setUnitPrice(Currency unitPrice) {
-		this.unitPrice = unitPrice;
-		return this;
-	}
-
-	/**
-	 * Getter for unitPrice
-	 */
-	public Currency getUnitPrice() {
-		return this.unitPrice;
-	}
-
-
-	/**
-	 * Setter for tax
-	 */
-	public InvoiceItem setTax(Tax tax) {
-		this.tax = tax;
-		return this;
-	}
-
-	/**
-	 * Getter for tax
-	 */
-	public Tax getTax() {
-		return this.tax;
-	}
-
-
-	/**
-	 * Setter for date
-	 */
-	public InvoiceItem setDate(String date) {
-		this.date = date;
-		return this;
-	}
-
-	/**
-	 * Getter for date
-	 */
-	public String getDate() {
-		return this.date;
-	}
-
-
-	/**
-	 * Setter for discount
-	 */
-	public InvoiceItem setDiscount(Cost discount) {
-		this.discount = discount;
-		return this;
-	}
-
-	/**
-	 * Getter for discount
-	 */
-	public Cost getDiscount() {
-		return this.discount;
-	}
-
-
 }

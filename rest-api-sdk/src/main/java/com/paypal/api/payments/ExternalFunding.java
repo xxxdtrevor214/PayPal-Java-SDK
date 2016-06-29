@@ -1,5 +1,10 @@
 package com.paypal.api.payments;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@Data
+@Accessors(chain = true)
 public class ExternalFunding  {
 
 	/**
@@ -41,85 +46,4 @@ public class ExternalFunding  {
 		this.fundingAccountId = fundingAccountId;
 		this.amount = amount;
 	}
-
-
-	/**
-	 * Setter for referenceId
-	 */
-	public ExternalFunding setReferenceId(String referenceId) {
-		this.referenceId = referenceId;
-		return this;
-	}
-
-	/**
-	 * Getter for referenceId
-	 */
-	public String getReferenceId() {
-		return this.referenceId;
-	}
-
-
-	/**
-	 * Setter for code
-	 */
-	public ExternalFunding setCode(String code) {
-		this.code = code;
-		return this;
-	}
-
-	/**
-	 * Getter for code
-	 */
-	public String getCode() {
-		return this.code;
-	}
-
-
-	/**
-	 * Setter for fundingAccountId
-	 */
-	public ExternalFunding setFundingAccountId(String fundingAccountId) {
-		this.fundingAccountId = fundingAccountId;
-		return this;
-	}
-
-	/**
-	 * Getter for fundingAccountId
-	 */
-	public String getFundingAccountId() {
-		return this.fundingAccountId;
-	}
-
-
-	/**
-	 * Setter for displayText
-	 */
-	public ExternalFunding setDisplayText(String displayText) {
-		this.displayText = displayText;
-		return this;
-	}
-
-	/**
-	 * Getter for displayText
-	 */
-	public String getDisplayText() {
-		return this.displayText;
-	}
-
-
-	/**
-	 * Setter for amount
-	 */
-	public ExternalFunding setAmount(Amount amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	/**
-	 * Getter for amount
-	 */
-	public Amount getAmount() {
-		return this.amount;
-	}
-
 }

@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class PaymentCardToken  extends PayPalModel {
 
 	/**
@@ -49,102 +52,4 @@ public class PaymentCardToken  extends PayPalModel {
 		this.externalCustomerId = externalCustomerId;
 		this.type = type;
 	}
-
-
-	/**
-	 * Setter for paymentCardId
-	 */
-	public PaymentCardToken setPaymentCardId(String paymentCardId) {
-		this.paymentCardId = paymentCardId;
-		return this;
-	}
-
-	/**
-	 * Getter for paymentCardId
-	 */
-	public String getPaymentCardId() {
-		return this.paymentCardId;
-	}
-
-
-	/**
-	 * Setter for externalCustomerId
-	 */
-	public PaymentCardToken setExternalCustomerId(String externalCustomerId) {
-		this.externalCustomerId = externalCustomerId;
-		return this;
-	}
-
-	/**
-	 * Getter for externalCustomerId
-	 */
-	public String getExternalCustomerId() {
-		return this.externalCustomerId;
-	}
-
-
-	/**
-	 * Setter for last4
-	 */
-	public PaymentCardToken setLast4(String last4) {
-		this.last4 = last4;
-		return this;
-	}
-
-	/**
-	 * Getter for last4
-	 */
-	public String getLast4() {
-		return this.last4;
-	}
-
-
-	/**
-	 * Setter for type
-	 */
-	public PaymentCardToken setType(String type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * Getter for type
-	 */
-	public String getType() {
-		return this.type;
-	}
-
-
-	/**
-	 * Setter for expireMonth
-	 */
-	public PaymentCardToken setExpireMonth(int expireMonth) {
-		this.expireMonth = expireMonth;
-		return this;
-	}
-
-	/**
-	 * Getter for expireMonth
-	 */
-	public int getExpireMonth() {
-		return this.expireMonth;
-	}
-
-
-	/**
-	 * Setter for expireYear
-	 */
-	public PaymentCardToken setExpireYear(int expireYear) {
-		this.expireYear = expireYear;
-		return this;
-	}
-
-	/**
-	 * Getter for expireYear
-	 */
-	public int getExpireYear() {
-		return this.expireYear;
-	}
-
-
 }

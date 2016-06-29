@@ -1,13 +1,5 @@
 package com.paypal.base.rest;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.paypal.base.APICallPreHandler;
 import com.paypal.base.Constants;
 import com.paypal.base.SDKUtil;
@@ -15,6 +7,14 @@ import com.paypal.base.SDKVersion;
 import com.paypal.base.codec.binary.Base64;
 import com.paypal.base.exception.ClientActionRequiredException;
 import com.paypal.base.util.UserAgentHeader;
+
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * RESTApiCallPreHandler acts as a {@link APICallPreHandler} for REST API calls.

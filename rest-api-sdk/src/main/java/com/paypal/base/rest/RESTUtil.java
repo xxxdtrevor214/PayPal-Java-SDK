@@ -1,5 +1,10 @@
 package com.paypal.base.rest;
 
+import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
+import com.paypal.api.openidconnect.CreateFromRefreshTokenParameters;
+import com.paypal.api.openidconnect.UserinfoParameters;
+import com.paypal.base.Constants;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
@@ -8,16 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
-import com.paypal.api.openidconnect.CreateFromRefreshTokenParameters;
-import com.paypal.api.openidconnect.UserinfoParameters;
-import com.paypal.base.Constants;
-
 /**
  * <code>RESTUtil</code> acts as utility class used by REST API system
- * 
- * @author kjayakumar
- * 
  */
 public final class RESTUtil {
 

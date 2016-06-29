@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class Payee  extends PayPalModel {
 
 	/**
@@ -40,101 +43,4 @@ public class Payee  extends PayPalModel {
 	 */
 	public Payee() {
 	}
-
-
-	/**
-	 * Setter for email
-	 */
-	public Payee setEmail(String email) {
-		this.email = email;
-		return this;
-	}
-
-	/**
-	 * Getter for email
-	 */
-	public String getEmail() {
-		return this.email;
-	}
-
-
-	/**
-	 * Setter for merchantId
-	 */
-	public Payee setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
-		return this;
-	}
-
-	/**
-	 * Getter for merchantId
-	 */
-	public String getMerchantId() {
-		return this.merchantId;
-	}
-
-
-	/**
-	 * Setter for firstName
-	 */
-	public Payee setFirstName(String firstName) {
-		this.firstName = firstName;
-		return this;
-	}
-
-	/**
-	 * Getter for firstName
-	 */
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-
-	/**
-	 * Setter for lastName
-	 */
-	public Payee setLastName(String lastName) {
-		this.lastName = lastName;
-		return this;
-	}
-
-	/**
-	 * Getter for lastName
-	 */
-	public String getLastName() {
-		return this.lastName;
-	}
-
-
-	/**
-	 * Setter for accountNumber
-	 */
-	public Payee setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-		return this;
-	}
-
-	/**
-	 * Getter for accountNumber
-	 */
-	public String getAccountNumber() {
-		return this.accountNumber;
-	}
-
-
-	/**
-	 * Setter for phone
-	 */
-	public Payee setPhone(Phone phone) {
-		this.phone = phone;
-		return this;
-	}
-
-	/**
-	 * Getter for phone
-	 */
-	public Phone getPhone() {
-		return this.phone;
-	}
-
 }

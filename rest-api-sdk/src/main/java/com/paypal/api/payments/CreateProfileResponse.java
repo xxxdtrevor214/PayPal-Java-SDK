@@ -1,8 +1,11 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-
+@Data
+@Accessors(chain = true)
 public class CreateProfileResponse  extends PayPalModel {
 
 	/**
@@ -15,21 +18,4 @@ public class CreateProfileResponse  extends PayPalModel {
 	 */
 	public CreateProfileResponse() {
 	}
-
-
-	/**
-	 * Setter for id
-	 */
-	public CreateProfileResponse setId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Getter for id
-	 */
-	public String getId() {
-		return this.id;
-	}
-	
 }

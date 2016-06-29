@@ -1,20 +1,15 @@
 package com.paypal.base;
 
+import com.paypal.base.util.ResourceLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.AccessControlException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.paypal.base.util.ResourceLoader;
+import java.util.*;
 
 /**
  * <code>ConfigManager</code> loads configuration from 'sdk_config.properties'

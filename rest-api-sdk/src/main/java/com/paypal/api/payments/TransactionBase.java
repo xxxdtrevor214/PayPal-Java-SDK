@@ -1,7 +1,12 @@
 package com.paypal.api.payments;
 
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class TransactionBase extends CartBase {
 
 	/**
@@ -20,32 +25,4 @@ public class TransactionBase extends CartBase {
 	 */
 	public TransactionBase() {
 	}
-
-
-	/**
-	 * Setter for relatedResources
-	 */
-	public TransactionBase setRelatedResources(List<RelatedResources> relatedResources) {
-		this.relatedResources = relatedResources;
-		return this;
-	}
-
-	/**
-	 * Getter for relatedResources
-	 */
-	public List<RelatedResources> getRelatedResources() {
-		return this.relatedResources;
-	}
-	
-	public String getPurchaseUnitReferenceId() {
-		return purchaseUnitReferenceId;
-	}
-
-
-	public TransactionBase setPurchaseUnitReferenceId(String purchaseUnitReferenceId) {
-		this.purchaseUnitReferenceId = purchaseUnitReferenceId;
-		return this;
-	}
-
-
 }

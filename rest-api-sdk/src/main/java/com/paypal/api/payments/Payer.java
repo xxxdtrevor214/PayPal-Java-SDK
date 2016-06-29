@@ -1,9 +1,13 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.List;
 
-import com.paypal.base.rest.PayPalModel;
-
+@Data
+@Accessors(chain = true)
 public class Payer  extends PayPalModel {
 
 	/**
@@ -56,150 +60,4 @@ public class Payer  extends PayPalModel {
 	 */
 	public Payer() {
 	}
-
-
-	/**
-	 * Setter for paymentMethod
-	 */
-	public Payer setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-		return this;
-	}
-
-	/**
-	 * Getter for paymentMethod
-	 */
-	public String getPaymentMethod() {
-		return this.paymentMethod;
-	}
-
-
-	/**
-	 * Setter for status
-	 */
-	public Payer setStatus(String status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Getter for status
-	 */
-	public String getStatus() {
-		return this.status;
-	}
-
-
-	/**
-	 * Setter for accountType
-	 */
-	public Payer setAccountType(String accountType) {
-		this.accountType = accountType;
-		return this;
-	}
-
-	/**
-	 * Getter for accountType
-	 */
-	public String getAccountType() {
-		return this.accountType;
-	}
-
-
-	/**
-	 * Setter for accountAge
-	 */
-	public Payer setAccountAge(String accountAge) {
-		this.accountAge = accountAge;
-		return this;
-	}
-
-	/**
-	 * Getter for accountAge
-	 */
-	public String getAccountAge() {
-		return this.accountAge;
-	}
-
-
-	/**
-	 * Setter for fundingInstruments
-	 */
-	public Payer setFundingInstruments(List<FundingInstrument> fundingInstruments) {
-		this.fundingInstruments = fundingInstruments;
-		return this;
-	}
-
-	/**
-	 * Getter for fundingInstruments
-	 */
-	public List<FundingInstrument> getFundingInstruments() {
-		return this.fundingInstruments;
-	}
-
-
-	/**
-	 * Setter for fundingOptionId
-	 */
-	public Payer setFundingOptionId(String fundingOptionId) {
-		this.fundingOptionId = fundingOptionId;
-		return this;
-	}
-
-	/**
-	 * Getter for fundingOptionId
-	 */
-	public String getFundingOptionId() {
-		return this.fundingOptionId;
-	}
-
-
-	/**
-	 * Setter for fundingOption
-	 */
-	public Payer setFundingOption(FundingOption fundingOption) {
-		this.fundingOption = fundingOption;
-		return this;
-	}
-
-	/**
-	 * Getter for fundingOption
-	 */
-	public FundingOption getFundingOption() {
-		return this.fundingOption;
-	}
-
-
-	/**
-	 * Setter for relatedFundingOption
-	 */
-	public Payer setRelatedFundingOption(FundingOption relatedFundingOption) {
-		this.relatedFundingOption = relatedFundingOption;
-		return this;
-	}
-
-	/**
-	 * Getter for relatedFundingOption
-	 */
-	public FundingOption getRelatedFundingOption() {
-		return this.relatedFundingOption;
-	}
-
-
-	/**
-	 * Setter for payerInfo
-	 */
-	public Payer setPayerInfo(PayerInfo payerInfo) {
-		this.payerInfo = payerInfo;
-		return this;
-	}
-
-	/**
-	 * Getter for payerInfo
-	 */
-	public PayerInfo getPayerInfo() {
-		return this.payerInfo;
-	}
-
-
 }
