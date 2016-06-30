@@ -3,11 +3,11 @@ CHANGELOG
 
 v1.8.0
 ------
-    * Updated APIContext for ease of integration.
-    * General code improvements [#199](https://github.com/paypal/PayPal-Java-SDK/pull/199).
-    * Removed unused code, and minor refactoring.
-    * Removed the need for sdk_config.properties file.
-    * Set headers properly in HTTPConnection [#201](https://github.com/paypal/PayPal-Java-SDK/pull/201).
+   * Updated APIContext for ease of integration.
+   * General code improvements [#199](https://github.com/paypal/PayPal-Java-SDK/pull/199).
+   * Removed unused code, and minor refactoring.
+   * Removed the need for sdk_config.properties file.
+   * Set headers properly in HTTPConnection [#201](https://github.com/paypal/PayPal-Java-SDK/pull/201).
 
 v1.7.0
 ------
