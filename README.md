@@ -29,7 +29,7 @@ repositories {
 	mavenCentral()
 }
 dependencies {
-	compile 'com.paypal.sdk:rest-api-sdk:*'
+	compile 'com.paypal.sdk:rest-api-sdk:+'
 }
 ```
 #### Other
