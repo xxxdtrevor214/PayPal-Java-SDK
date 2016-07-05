@@ -2,6 +2,7 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.UnsupportedEncodingException;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Agreement  extends PayPalResource {
 
@@ -321,7 +323,7 @@ public class Agreement  extends PayPalResource {
 
 	/**
 	 * Reactivate a suspended billing agreement by passing the ID of the agreement to the appropriate URI. In addition, pass an agreement_state_descriptor object in the request JSON that includes a note about the reason for changing the state of the agreement and the amount and currency for the agreement.
-	 * @deprecated Please use {@link @reActivate(apiContext, agreementStateDescriptor)} instead.
+	 * @deprecated Please use {@link #reActivate(APIContext, AgreementStateDescriptor)}  instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param agreementStateDescriptor

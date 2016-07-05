@@ -246,7 +246,7 @@ public class APIContext {
 	/**
 	 * Adds configurations
 	 * 
-	 * @param configurations
+	 * @param configurations {@link Map} of configurations.
 	 * @return {@link APIContext}
 	 */
 	public APIContext addConfigurations(Map<String, String> configurations) {
@@ -257,7 +257,8 @@ public class APIContext {
 	/**
 	 * Adds configuration
 	 * 
-	 * @param configurations
+	 * @param key key
+	 * @param value value
 	 * @return {@link APIContext}
 	 */
 	public APIContext addConfiguration(String key, String value) {
@@ -268,7 +269,7 @@ public class APIContext {
 	/**
 	 * Returns string value of specific configuration.
 	 * 
-	 * @param key
+	 * @param key key
 	 * @return {@link String} value of specific configuration.
 	 */
 	public String getConfiguration(String key) {
@@ -326,8 +327,8 @@ public class APIContext {
 	 * Sets the requestId to be sent on each request. Used for idempotency purposes.
 	 * requestId is auto generated if not passed explicitly.
 	 * 
-	 * @param requestId
-	 * @return
+	 * @param requestId request Id
+	 * @return APIContext
 	 */
 	public APIContext setRequestId(String requestId) {
 		this.requestId = requestId;

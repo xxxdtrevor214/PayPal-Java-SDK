@@ -4,11 +4,13 @@ import com.paypal.api.openidconnect.CreateFromAuthorizationCodeParameters;
 import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.base.rest.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Invoice extends PayPalResource {
 
@@ -217,7 +219,6 @@ public class Invoice extends PayPalResource {
 	public void send(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		send(apiContext);
-		return;
 	}
 
 	/**
@@ -236,7 +237,6 @@ public class Invoice extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -247,13 +247,11 @@ public class Invoice extends PayPalResource {
 	 *            Access Token used for the API call.
 	 * @param notification
 	 *            Notification
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void remind(String accessToken, Notification notification) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		remind(apiContext, notification);
-		return;
 	}
 
 	/**
@@ -277,7 +275,6 @@ public class Invoice extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = notification.toJSON();
 		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -288,13 +285,11 @@ public class Invoice extends PayPalResource {
 	 *            Access Token used for the API call.
 	 * @param cancelNotification
 	 *            CancelNotification
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void cancel(String accessToken, CancelNotification cancelNotification) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		cancel(apiContext, cancelNotification);
-		return;
 	}
 
 	/**
@@ -318,7 +313,6 @@ public class Invoice extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = cancelNotification.toJSON();
 		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -334,7 +328,6 @@ public class Invoice extends PayPalResource {
 	public void recordPayment(String accessToken, PaymentDetail paymentDetail) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		recordPayment(apiContext, paymentDetail);
-		return;
 	}
 
 	/**
@@ -358,7 +351,6 @@ public class Invoice extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = paymentDetail.toJSON();
 		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -374,7 +366,6 @@ public class Invoice extends PayPalResource {
 	public void recordRefund(String accessToken, RefundDetail refundDetail) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		recordRefund(apiContext, refundDetail);
-		return;
 	}
 
 	/**
@@ -398,7 +389,6 @@ public class Invoice extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = refundDetail.toJSON();
 		configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -512,7 +502,6 @@ public class Invoice extends PayPalResource {
 	public void delete(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		delete(apiContext);
-		return;
 	}
 
 	/**
@@ -532,14 +521,13 @@ public class Invoice extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
-		return;
 	}
 
 	/**
 	 * Fetches long lived refresh token from authorization code, for third party merchant invoicing use. 
 	 * 
-	 * @param context
-	 * @param authorizationCode
+	 * @param context context
+	 * @param authorizationCode authorization code
 	 * @return {@link String} Refresh Token
 	 * @throws PayPalRESTException
 	 */

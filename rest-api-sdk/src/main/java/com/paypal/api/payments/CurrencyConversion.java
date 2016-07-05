@@ -1,13 +1,16 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class CurrencyConversion  {
+public class CurrencyConversion extends PayPalModel {
 
 	/**
 	 * Date of validity for the conversion rate.

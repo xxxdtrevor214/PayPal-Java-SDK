@@ -2,11 +2,13 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Webhook  extends PayPalResource {
 
@@ -103,8 +105,6 @@ public class Webhook  extends PayPalResource {
 	 *            {@link APIContext} used for the API call.
 	 * @param webhookId
 	 *            Identifier of the webhook
-	 * @param patchRequest
-	 *            patchRequest
 	 * @return Webhook
 	 * @throws PayPalRESTException
 	 */

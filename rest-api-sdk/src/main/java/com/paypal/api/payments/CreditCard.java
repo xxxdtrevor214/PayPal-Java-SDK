@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.paypal.base.rest.*;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class CreditCard  extends PayPalResource {
 
