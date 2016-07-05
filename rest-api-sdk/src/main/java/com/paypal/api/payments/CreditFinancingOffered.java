@@ -1,11 +1,14 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class CreditFinancingOffered  {
+public class CreditFinancingOffered extends PayPalModel {
 
 	/**
 	 * This is the estimated total payment amount including interest and fees the user will pay during the lifetime of the loan.

@@ -2,12 +2,14 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Plan  extends PayPalResource {
 

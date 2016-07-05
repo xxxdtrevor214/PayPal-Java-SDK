@@ -7,6 +7,7 @@ import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.FileNotFoundException;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class FuturePayment extends Payment {
 
@@ -23,9 +25,7 @@ public class FuturePayment extends Payment {
 	 * with correlation ID. <br>
 	 * https://developer.paypal.com/webapps/developer/docs/integration/mobile/
 	 * make-future-payment/
-	 * 
-	 * @param authorizationCode
-	 *            an authorization code
+	 *
 	 * @param accessToken
 	 *            an access token
 	 * @param correlationId
@@ -53,11 +53,8 @@ public class FuturePayment extends Payment {
 	 * with correlation ID. <br>
 	 * https://developer.paypal.com/webapps/developer/docs/integration/mobile/
 	 * make-future-payment/
-	 * 
-	 * @param authorizationCode
-	 *            an authorization code
-	 * @param accessToken
-	 *            an access token
+	 *
+	 * @param apiContext {@link APIContext}
 	 * @param correlationId
 	 *            paypal application correlation ID
 	 * @return a <code>Payment</code> object
@@ -82,7 +79,7 @@ public class FuturePayment extends Payment {
 	 * In this method, we need to pass clientID, secret information that is already known to apiContext. The newer method allows for better
 	 * code readability, and make it less error prone.
 	 * 
-	 * @param params
+	 * @param params Authorization code params
 	 * @return {@link Tokeninfo}
 	 * @throws PayPalRESTException
 	 */
@@ -103,7 +100,7 @@ public class FuturePayment extends Payment {
 	 * In this method, we need to pass clientID, secret information that is already known to apiContext. The newer method allows for better
 	 * code readability, and make it less error prone.
 	 * 
-	 * @param params
+	 * @param params parameters
 	 * @return {@link Tokeninfo}
 	 * @throws PayPalRESTException
 	 */
@@ -118,9 +115,9 @@ public class FuturePayment extends Payment {
 	/**
 	 * Fetches long lived refresh token from authorization code, for future payment use. 
 	 * 
-	 * @param context
-	 * @param authorizationCode
-	 * @return
+	 * @param context {@link APIContext}
+	 * @param authorizationCode code returned from mobile
+	 * @return String of refresh token
 	 * @throws PayPalRESTException
 	 */
 	public static String fetchRefreshToken(APIContext context, String authorizationCode) throws PayPalRESTException {

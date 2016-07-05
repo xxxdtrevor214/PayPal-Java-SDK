@@ -1,11 +1,14 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class DefinitionsLinkdescription  {
+public class DefinitionsLinkdescription extends PayPalModel {
 
 	/**
 	 * a URI template, as defined by RFC 6570, with the addition of the $, ( and ) characters for pre-processing

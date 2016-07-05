@@ -1,11 +1,14 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ProcessorResponse  {
+public class ProcessorResponse extends PayPalModel {
 
 	/**
 	 * Paypal normalized response code, generated from the processor's specific response code

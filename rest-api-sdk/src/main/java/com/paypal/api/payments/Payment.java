@@ -2,12 +2,14 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Payment  extends PayPalResource {
 
@@ -231,13 +233,11 @@ public class Payment  extends PayPalResource {
 	 *            Access Token used for the API call.
 	 * @param patchRequest
 	 *            List<Patch>
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void update(String accessToken, List<Patch> patchRequest) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		update(apiContext, patchRequest);
-		return;
 	}
 
 	/**
@@ -246,7 +246,6 @@ public class Payment  extends PayPalResource {
 	 *            {@link APIContext} used for the API call.
 	 * @param patchRequest
 	 *            List<Patch>
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void update(APIContext apiContext, List<Patch> patchRequest) throws PayPalRESTException {
@@ -262,7 +261,6 @@ public class Payment  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = JSONFormatter.toJSON(patchRequest);
 		PayPalResource.configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -302,7 +300,6 @@ public class Payment  extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		PaymentHistory paymentHistory = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, PaymentHistory.class);
-		
 		return paymentHistory;
 	}
 

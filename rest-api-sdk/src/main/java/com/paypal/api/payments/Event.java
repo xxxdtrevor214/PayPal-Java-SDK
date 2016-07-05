@@ -5,6 +5,7 @@ import com.paypal.base.SDKUtil;
 import com.paypal.base.SSLUtil;
 import com.paypal.base.rest.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Event  extends PayPalResource {
 	

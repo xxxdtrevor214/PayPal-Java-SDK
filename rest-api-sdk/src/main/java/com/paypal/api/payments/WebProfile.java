@@ -2,11 +2,13 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class WebProfile extends PayPalResource {
 
@@ -82,20 +84,17 @@ public class WebProfile extends PayPalResource {
 	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void update(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		update(apiContext);
-		return;
 	}
 
 	/**
 	 * Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void update(APIContext apiContext) throws PayPalRESTException {
@@ -107,7 +106,6 @@ public class WebProfile extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = this.toJSON();
 		configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -119,13 +117,11 @@ public class WebProfile extends PayPalResource {
 	 *            Access Token used for the API call.
 	 * @param patchRequest
 	 *            PatchRequest
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void partialUpdate(String accessToken, PatchRequest patchRequest) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		partialUpdate(apiContext, patchRequest);
-		return;
 	}
 
 	/**
@@ -134,7 +130,6 @@ public class WebProfile extends PayPalResource {
 	 *            {@link APIContext} used for the API call.
 	 * @param patchRequest
 	 *            PatchRequest
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void partialUpdate(APIContext apiContext, PatchRequest patchRequest) throws PayPalRESTException {
@@ -149,7 +144,6 @@ public class WebProfile extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = patchRequest.toJSON();
 		configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
-		return;
 	}
 
 
@@ -226,20 +220,17 @@ public class WebProfile extends PayPalResource {
 	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void delete(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		delete(apiContext);
-		return;
 	}
 
 	/**
 	 * Delete an existing web experience profile by passing the profile ID to the request URI.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
-	 * @return 
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
@@ -253,6 +244,5 @@ public class WebProfile extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
-		return;
 	}
 }
