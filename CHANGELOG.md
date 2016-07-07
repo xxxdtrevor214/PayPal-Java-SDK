@@ -1,5 +1,9 @@
 CHANGELOG
 =========
+v1.8.1
+------
+   * Improved OpenID integration[#209](https://github.com/paypal/PayPal-Java-SDK/pull/209).
+   * Fixed javadocs warnings [#206](https://github.com/paypal/PayPal-Java-SDK/pull/206).
 
 v1.8.0
 ------
