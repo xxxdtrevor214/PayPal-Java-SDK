@@ -23,6 +23,12 @@ public class Payer  extends PayPalModel {
 	private String status;
 
 	/**
+	 * Instrument type pre-selected by the user outside of PayPal and passed along the payment creation. This param is used in cases such as PayPal Credit Second Button.
+	 * Possible values: CREDIT, PAY_UPON_INVOICE.
+	 */
+	private String externalSelectedFundingInstrumentType;
+
+	/**
 	 * Type of account relationship payer has with PayPal.
 	 */
 	private String accountType;
