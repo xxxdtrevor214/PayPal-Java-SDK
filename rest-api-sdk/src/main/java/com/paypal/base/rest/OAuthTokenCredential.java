@@ -410,6 +410,9 @@ public final class OAuthTokenCredential {
 			throw PayPalRESTException.createFromHttpErrorException(e);
 		} catch (Exception e) {
 			throw new PayPalRESTException(e.getMessage(), e);
+		} finally {
+			// Replace the headers back to JSON for any future use.
+			this.headers.put(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 		}
 		return generatedToken;
 	}

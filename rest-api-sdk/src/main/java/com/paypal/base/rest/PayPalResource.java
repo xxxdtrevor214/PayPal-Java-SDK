@@ -256,8 +256,7 @@ public abstract class PayPalResource extends PayPalModel{
 		String requestId;
 		Map<String, String> headersMap;
 		if (apiContext != null) {
-			validateAPIContext(apiContext);
-			if (apiContext.getHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER) != null) {
+			if (apiContext.getHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER) == null) {
 				apiContext.addHTTPHeader(Constants.HTTP_CONTENT_TYPE_HEADER, Constants.HTTP_CONTENT_TYPE_JSON);
 			}
 			if (apiContext.getSdkVersion() != null) {
@@ -282,6 +281,10 @@ public abstract class PayPalResource extends PayPalModel{
 			if (accessToken == null) {
 				accessToken = apiContext.fetchAccessToken();
 			}
+			// If it is still null, throw the exception.
+			if (accessToken == null) {
+				throw new IllegalArgumentException("AccessToken cannot be null or empty");
+			}
 			requestId = apiContext.getRequestId();
 
 			APICallPreHandler apiCallPreHandler = createAPICallPreHandler(cMap,
@@ -292,15 +295,6 @@ public abstract class PayPalResource extends PayPalModel{
 			t = execute(apiCallPreHandler, httpConfiguration, clazz);
 		}
 		return t;
-	}
-
-	public static void validateAPIContext(APIContext context) throws PayPalRESTException {
-		if (context == null) {
-			throw new IllegalArgumentException("APIContext cannot be null");
-		}
-		if (context.fetchAccessToken() == null || context.fetchAccessToken().trim().length() <= 0) {
-			throw new IllegalArgumentException("AccessToken cannot be null or empty");
-		}
 	}
 
 	/**

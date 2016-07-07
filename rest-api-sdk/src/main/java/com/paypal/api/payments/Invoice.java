@@ -532,12 +532,6 @@ public class Invoice extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static String fetchRefreshToken(APIContext context, String authorizationCode) throws PayPalRESTException {
-		CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();
-		params.setClientID(context.getClientID());
-		params.setClientSecret(context.getClientSecret());
-		params.setCode(authorizationCode);
-		params.setGrantType("authorization_code");
-		Tokeninfo info = Tokeninfo.createFromAuthorizationCode(context, params);
-		return info.getRefreshToken();
+		return Tokeninfo.createFromAuthorizationCode(context, authorizationCode).getRefreshToken();
 	}
 }

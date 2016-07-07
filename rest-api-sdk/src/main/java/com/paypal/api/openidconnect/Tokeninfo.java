@@ -155,7 +155,8 @@ public class Tokeninfo extends PayPalResource {
 	}
 
 	/**
-	 * Creates an Access Token from an Authorization Code.
+	 * @deprecated Please use {@link #createFromAuthorizationCode(APIContext, String)} instead.
+	 * There is no more need for passing clientId and secret in the params object anymore.
 	 * 
 	 * @param createFromAuthorizationCodeParameters
 	 *            Query parameters used for API call
@@ -170,7 +171,8 @@ public class Tokeninfo extends PayPalResource {
 	}
 
 	/**
-	 * Creates an Access Token from an Authorization Code.
+	 * @deprecated Please use {@link #createFromAuthorizationCode(APIContext, String)} instead.
+	 * There is no more need for passing clientId and secret in the params object anymore.
 	 * 
 	 * @param apiContext
 	 *            {@link APIContext} to be used for the call.
@@ -187,6 +189,29 @@ public class Tokeninfo extends PayPalResource {
 		Object[] parameters = new Object[] { createFromAuthorizationCodeParameters };
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		return createFromAuthorizationCodeParameters(apiContext, createFromAuthorizationCodeParameters, resourcePath);
+	}
+
+	/**
+	 * Creates an Access Token from an Authorization Code.
+	 *
+	 * @param apiContext
+	 *            {@link APIContext} to be used for the call.
+	 * @param code
+	 *            Code returned from PayPal redirect.
+	 * @return Tokeninfo
+	 * @throws PayPalRESTException
+	 */
+	public static Tokeninfo createFromAuthorizationCode(
+			APIContext apiContext, String code)
+			throws PayPalRESTException {
+		String pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
+		CreateFromAuthorizationCodeParameters params = new CreateFromAuthorizationCodeParameters();
+		params.setClientID(apiContext.getClientID());
+		params.setClientSecret(apiContext.getClientSecret());
+		params.setCode(code);
+		Object[] parameters = new Object[] { params };
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		return createFromAuthorizationCodeParameters(apiContext, params, resourcePath);
 	}
 
 	/**
