@@ -1,10 +1,12 @@
 package com.paypal.api.payments;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Address extends BaseAddress {

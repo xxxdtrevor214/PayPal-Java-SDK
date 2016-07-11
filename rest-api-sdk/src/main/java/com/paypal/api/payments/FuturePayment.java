@@ -6,16 +6,16 @@ import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.base.Constants;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import lombok.Getter; import lombok.Setter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class FuturePayment extends Payment {
