@@ -65,6 +65,11 @@ public class Invoice extends PayPalResource {
 	private PaymentTerm paymentTerm;
 
 	/**
+	 * Reference data, such as PO number, to add to the invoice. Maximum length is 60 characters.
+	 */
+	private String reference;
+
+	/**
 	 * Invoice level discount in percent or amount.
 	 */
 	private Cost discount;
