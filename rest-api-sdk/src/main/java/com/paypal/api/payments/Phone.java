@@ -8,15 +8,15 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Phone  extends PayPalModel {
+public class Phone extends PayPalModel {
 
 	/**
-	 * Country code (from in E.164 format)
+	 * The country calling code (CC) as defined by E.164. The combined length of CC+national cannot be more than 15 digits. 
 	 */
 	private String countryCode;
 
 	/**
-	 * In-country phone number (from in E.164 format)
+	 * The national number as defined by E.164. The combined length of CC+national cannot be more than 15 digits. A national number consists of National Destination Code (NDC) and Subscriber Number (SN).
 	 */
 	private String nationalNumber;
 

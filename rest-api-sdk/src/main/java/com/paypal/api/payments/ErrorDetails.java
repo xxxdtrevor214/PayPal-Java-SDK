@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ErrorDetails  extends PayPalModel {
+public class ErrorDetails extends PayPalModel {
 
 	/**
 	 * Name of the field that caused the error.
@@ -24,12 +24,12 @@ public class ErrorDetails  extends PayPalModel {
 	 * Reference ID of the purchase_unit associated with this error
 	 */
 	private String purchaseUnitReferenceId;
-	
+
 	/**
 	 * PayPal internal error code.
 	 */
 	private String code;
-	
+
 
 	/**
 	 * Default Constructor

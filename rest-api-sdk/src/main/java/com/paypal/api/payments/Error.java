@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Error  extends PayPalModel {
+public class Error extends PayPalModel {
 
 	/**
 	 * Human readable, unique name of the error.
@@ -58,7 +58,7 @@ public class Error  extends PayPalModel {
 	private String debugId;
 
 	/**
-	 * 
+	 * Links
 	 */
 	private List<DefinitionsLinkdescription> links;
 
@@ -77,7 +77,7 @@ public class Error  extends PayPalModel {
 		this.informationLink = informationLink;
 		this.debugId = debugId;
 	}
-	
+
 	public String toString() {
 		return "name: " + this.name + "\tmessage: " + this.message + "\tdetails: " + this.details + "\tdebug-id: " + this.debugId + "\tinformation-link: " + this.informationLink;
 	}

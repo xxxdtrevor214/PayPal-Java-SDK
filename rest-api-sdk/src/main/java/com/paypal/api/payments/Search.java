@@ -8,106 +8,112 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Search  extends PayPalModel {
+public class Search extends PayPalModel {
 
 	/**
-	 * Initial letters of the email address.
+	 * The initial letters of the email address.
 	 */
 	private String email;
 
 	/**
-	 * Initial letters of the recipient's first name.
+	 * The initial letters of the recipient's first name.
 	 */
 	private String recipientFirstName;
 
 	/**
-	 * Initial letters of the recipient's last name.
+	 * The initial letters of the recipient's last name.
 	 */
 	private String recipientLastName;
 
 	/**
-	 * Initial letters of the recipient's business name.
+	 * The initial letters of the recipient's business name.
 	 */
 	private String recipientBusinessName;
 
 	/**
-	 * The invoice number that appears on the invoice.
+	 * The invoice number.
 	 */
 	private String number;
 
 	/**
-	 * Status of the invoice.
+	 * The invoice status.
 	 */
 	private String status;
 
 	/**
-	 * Lower limit of total amount.
+	 * The lower limit of the total amount.
 	 */
 	private Currency lowerTotalAmount;
 
 	/**
-	 * Upper limit of total amount.
+	 * The upper limit of total amount.
 	 */
 	private Currency upperTotalAmount;
 
 	/**
-	 * Start invoice date.
+	 * The start date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String startInvoiceDate;
 
 	/**
-	 * End invoice date.
+	 * The end date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String endInvoiceDate;
 
 	/**
-	 * Start invoice due date.
+	 * The start due date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String startDueDate;
 
 	/**
-	 * End invoice due date.
+	 * The end due date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String endDueDate;
 
 	/**
-	 * Start invoice payment date.
+	 * The start payment date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String startPaymentDate;
 
 	/**
-	 * End invoice payment date.
+	 * The end payment date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String endPaymentDate;
 
 	/**
-	 * Start invoice creation date.
+	 * The start creation date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String startCreationDate;
 
 	/**
-	 * End invoice creation date.
+	 * The end creation date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String endCreationDate;
 
 	/**
-	 * Offset of the search results.
+	 * The offset for the search results.
 	 */
 	private float page;
 
 	/**
-	 * Page size of the search results.
+	 * The page size for the search results.
 	 */
 	private float pageSize;
 
 	/**
-	 * A flag indicating whether total count is required in the response.
+	 * Indicates whether the total count appears in the response. Default is `false`.
 	 */
 	private Boolean totalCountRequired;
+
+	/**
+	 * A flag indicating whether search is on invoices archived by merchant. true - returns archived / false returns unarchived / null returns all.
+	 */
+	private Boolean archived;
 
 	/**
 	 * Default Constructor
 	 */
 	public Search() {
 	}
+
 }

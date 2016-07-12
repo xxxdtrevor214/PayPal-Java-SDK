@@ -8,42 +8,52 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class BillingInfo  extends PayPalModel {
+public class BillingInfo extends PayPalModel {
 
 	/**
-	 * Email address of the invoice recipient. 260 characters max.
+	 * The invoice recipient email address. Maximum length is 260 characters.
 	 */
 	private String email;
 
 	/**
-	 * First name of the invoice recipient. 30 characters max.
+	 * The invoice recipient first name. Maximum length is 30 characters.
 	 */
 	private String firstName;
 
 	/**
-	 * Last name of the invoice recipient. 30 characters max.
+	 * The invoice recipient last name. Maximum length is 30 characters.
 	 */
 	private String lastName;
 
 	/**
-	 * Company business name of the invoice recipient. 100 characters max.
+	 * The invoice recipient company business name. Maximum length is 100 characters.
 	 */
 	private String businessName;
 
 	/**
-	 * Address of the invoice recipient.
+	 * The invoice recipient address.
 	 */
 	private InvoiceAddress address;
 
 	/**
-	 * Language of the email sent to the payer. Will only be used if payer doesn't have a PayPal account.
+	 * The language in which the email was sent to the payer. Used only when the payer does not have a PayPal account.
 	 */
 	private String language;
 
 	/**
-	 * Option to display additional information such as business hours. 40 characters max.
+	 * Additional information, such as business hours. Maximum length is 40 characters.
 	 */
 	private String additionalInfo;
+
+	/**
+	 * Preferred notification channel of the payer. Email by default.
+	 */
+	private String notificationChannel;
+
+	/**
+	 * Mobile Phone number of the recipient to which SMS will be sent if notification_channel is SMS.
+	 */
+	private Phone phone;
 
 	/**
 	 * Default Constructor

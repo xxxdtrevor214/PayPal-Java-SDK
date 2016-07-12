@@ -3,7 +3,6 @@ package com.paypal.api.payments;
 import com.paypal.base.rest.PayPalModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 @Data
@@ -12,32 +11,32 @@ import lombok.experimental.Accessors;
 public class BaseAddress extends PayPalModel {
 
 	/**
-	 * Line 1 of the BaseAddress (e.g., Number, street, etc). 100 characters max.
+	 * Line 1 of the Address (eg. number, street, etc).
 	 */
 	private String line1;
 
 	/**
-	 * Line 2 of the BaseAddress (e.g., Suite, apt #, etc). 100 characters max.
+	 * Optional line 2 of the Address (eg. suite, apt #, etc.).
 	 */
 	private String line2;
 
 	/**
-	 * City name. 50 characters max.
+	 * City name.
 	 */
 	private String city;
 
 	/**
-	 * [2-letter country code](https://developer.paypal.com/docs/classic/api/country_codes/). 2 characters max.
+	 * 2 letter country code.
 	 */
 	private String countryCode;
 
 	/**
-	 * Zip code or equivalent is usually required for countries that have them. 20 characters max. **Required in certain countries.**
+	 * Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code.
 	 */
 	private String postalCode;
 
 	/**
-	 * 2-letter code for US states, and the equivalent for other countries. 100 characters max.
+	 * 2 letter code for US states, and the equivalent for other countries.
 	 */
 	private String state;
 

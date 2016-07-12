@@ -8,25 +8,25 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Tax  extends PayPalModel {
+public class Tax extends PayPalModel {
 
 	/**
-	 * Identifier of the resource.
+	 * The resource ID.
 	 */
 	private String id;
 
 	/**
-	 * Name of the tax. 10 characters max.
+	 * The tax name. Maximum length is 20 characters.
 	 */
 	private String name;
 
 	/**
-	 * Rate of the specified tax. Range of 0.001 to 99.999.
+	 * The rate of the specified tax. Valid range is from 0.001 to 99.999.
 	 */
 	private float percent;
 
 	/**
-	 * Tax in the form of money. Cannot be specified in a request.
+	 * The tax as a monetary amount. Cannot be specified in a request.
 	 */
 	private Currency amount;
 

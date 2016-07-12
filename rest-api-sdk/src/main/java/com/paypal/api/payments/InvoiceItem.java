@@ -8,10 +8,10 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class InvoiceItem  extends PayPalModel {
+public class InvoiceItem extends PayPalModel {
 
 	/**
-	 * Name of the item. 60 characters max.
+	 * Name of the item. 200 characters max.
 	 */
 	private String name;
 
@@ -21,12 +21,12 @@ public class InvoiceItem  extends PayPalModel {
 	private String description;
 
 	/**
-	 * Quantity of the item. Range of 0 to 9999.999.
+	 * Quantity of the item. Range of -10000 to 10000.
 	 */
 	private float quantity;
 
 	/**
-	 * Unit price of the item. Range of -999999.99 to 999999.99.
+	 * Unit price of the item. Range of -1,000,000 to 1,000,000.
 	 */
 	private Currency unitPrice;
 
@@ -36,14 +36,24 @@ public class InvoiceItem  extends PayPalModel {
 	private Tax tax;
 
 	/**
-	 * Date on which the item or service was provided. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
+	 * The date when the item or service was provided. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String date;
 
 	/**
-	 * Item discount in percent or amount.
+	 * The item discount, as a percent or an amount value.
 	 */
 	private Cost discount;
+
+	/**
+	 * The image URL. Maximum length is 4000 characters.
+	 */
+	private String imageUrl;
+
+	/**
+	 * The unit of measure of the item being invoiced.
+	 */
+	private String unitOfMeasure;
 
 	/**
 	 * Default Constructor

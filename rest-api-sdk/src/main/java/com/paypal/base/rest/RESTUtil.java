@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -97,14 +98,39 @@ public final class RESTUtil {
 	 */
 	public static String formatURIPath(String pattern,
 			Map<String, String> pathParameters) throws PayPalRESTException {
-		return formatURIPath(pattern, pathParameters, null);
+		return formatURIPath(pattern, pathParameters, new HashMap<String, String>());
 	}
 
 	/**
 	 * Formats the URI path for REST calls. Replaces any occurrences of the form
 	 * {name} in pattern with the corresponding value of key name in the passes
 	 * {@link Map}. Query parameters are appended to the end of the URI path
-	 * 
+	 *
+	 * @param pattern
+	 *            URI pattern with named place holders
+	 * @param queryParameters
+	 *            Query parameters {@link Map}
+	 * @param pathParameters
+	 *            Parameter {@link String...}
+	 * @return Processed URI path
+	 * @throws PayPalRESTException
+	 */
+	public static String formatURIPath(String pattern, Map<String, String> queryParameters, String... pathParameters)
+			throws PayPalRESTException {
+		Map<String, String> pathParams = new HashMap<String, String>();
+		if (pathParameters != null) {
+			for (int i = 0; i < pathParameters.length; i++) {
+				pathParams.put(String.valueOf(i), pathParameters[i]);
+			}
+		}
+		return formatURIPath(pattern, pathParams, queryParameters);
+	}
+
+	/**
+	 * Formats the URI path for REST calls. Replaces any occurrences of the form
+	 * {name} in pattern with the corresponding value of key name in the passes
+	 * {@link Map}. Query parameters are appended to the end of the URI path
+	 *
 	 * @param pattern
 	 *            URI pattern with named place holders
 	 * @param pathParameters

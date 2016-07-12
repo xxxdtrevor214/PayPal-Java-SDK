@@ -8,15 +8,15 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class PaymentTerm  extends PayPalModel {
+public class PaymentTerm extends PayPalModel {
 
 	/**
-	 * Terms by which the invoice payment is due.
+	 * The terms by which the invoice payment is due.
 	 */
 	private String termType;
 
 	/**
-	 * Date on which invoice payment is due. It must be always a future date. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST
+	 * The date when the invoice payment is due. This date must be a future date. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String dueDate;
 
