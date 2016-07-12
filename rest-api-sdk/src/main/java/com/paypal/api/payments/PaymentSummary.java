@@ -8,21 +8,22 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class CustomAmount extends PayPalModel {
+public class PaymentSummary extends PayPalModel {
 
 	/**
-	 * The custom amount label. Maximum length is 25 characters.
+	 * Total Amount paid/refunded via PayPal.
 	 */
-	private String label;
+	private Currency paypal;
 
 	/**
-	 * The custom amount value. Valid range is from -999999.99 to 999999.99.
+	 * Total Amount paid/refunded via other sources.
 	 */
-	private Currency amount;
+	private Currency other;
 
 	/**
 	 * Default Constructor
 	 */
-	public CustomAmount() {
+	public PaymentSummary() {
 	}
+
 }

@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -7,17 +8,17 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class InvoiceAddress extends BaseAddress {
+public class TemplateSettingsMetadata extends PayPalModel {
 
 	/**
-	 * Phone number in E.123 format.
+	 * Indicates whether this field should be hidden. default is false
 	 */
-	private Phone phone;
+	private Boolean hidden;
 
 	/**
 	 * Default Constructor
 	 */
-	public InvoiceAddress() {
+	public TemplateSettingsMetadata() {
 	}
 
 }

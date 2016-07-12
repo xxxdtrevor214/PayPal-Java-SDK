@@ -1,5 +1,6 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -7,17 +8,17 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class InvoiceAddress extends BaseAddress {
+public class InvoiceNumber extends PayPalModel {
 
 	/**
-	 * Phone number in E.123 format.
+	 * The next invoice number
 	 */
-	private Phone phone;
+	private String number;
 
 	/**
 	 * Default Constructor
 	 */
-	public InvoiceAddress() {
+	public InvoiceNumber() {
 	}
 
 }

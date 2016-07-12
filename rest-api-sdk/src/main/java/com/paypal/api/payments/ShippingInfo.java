@@ -8,30 +8,33 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ShippingInfo  extends PayPalModel {
+public class ShippingInfo extends PayPalModel {
 
 	/**
-	 * First name of the invoice recipient. 30 characters max.
+	 * The invoice recipient first name. Maximum length is 30 characters.
 	 */
 	private String firstName;
 
 	/**
-	 * Last name of the invoice recipient. 30 characters max.
+	 * The invoice recipient last name. Maximum length is 30 characters.
 	 */
 	private String lastName;
 
 	/**
-	 * Company business name of the invoice recipient. 100 characters max.
+	 * The invoice recipient company business name. Maximum length is 100 characters.
 	 */
 	private String businessName;
 
 	/**
-	 * Address of the invoice recipient.
+	 * The invoice recipient address.
 	 */
 	private InvoiceAddress address;
 
-	private String email;
-	
+	/**
+	 * The invoice recipient phone number.
+	 */
+	private Phone phone;
+
 	/**
 	 * Default Constructor
 	 */

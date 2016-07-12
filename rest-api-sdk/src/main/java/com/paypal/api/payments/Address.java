@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Address  extends BaseAddress {
+public class Address extends BaseAddress {
 
 	/**
 	 * Phone number in E.123 format.

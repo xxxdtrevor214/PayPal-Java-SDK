@@ -8,21 +8,22 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class CustomAmount extends PayPalModel {
+public class FileAttachment extends PayPalModel {
 
 	/**
-	 * The custom amount label. Maximum length is 25 characters.
+	 * Name of the file attached.
 	 */
-	private String label;
+	private String name;
 
 	/**
-	 * The custom amount value. Valid range is from -999999.99 to 999999.99.
+	 * URL of the attached file that can be downloaded.
 	 */
-	private Currency amount;
+	private String url;
 
 	/**
 	 * Default Constructor
 	 */
-	public CustomAmount() {
+	public FileAttachment() {
 	}
+
 }

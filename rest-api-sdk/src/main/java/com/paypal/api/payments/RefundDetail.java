@@ -8,15 +8,15 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class RefundDetail  extends PayPalModel {
+public class RefundDetail extends PayPalModel {
 
 	/**
-	 * PayPal refund type indicating whether refund was done in invoicing flow via PayPal or externally. In the case of the mark-as-refunded API, refund type is EXTERNAL and this is what is now supported. The PAYPAL value is provided for backward compatibility.
+	 * The PayPal refund type. Indicates whether refund was paid in invoicing flow through PayPal or externally. In the case of mark-as-refunded API, the supported refund type is `EXTERNAL`. For backward compatability, the `PAYPAL` refund type is still supported.
 	 */
 	private String type;
 
 	/**
-	 * Date when the invoice was marked as refunded. If no date is specified, the current date and time is used as the default. In addition, the date must be after the invoice payment date.
+	 * Date on which the invoice was refunded. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
 	 */
 	private String date;
 
@@ -24,6 +24,11 @@ public class RefundDetail  extends PayPalModel {
 	 * Optional note associated with the refund.
 	 */
 	private String note;
+
+	/**
+	 * Amount to be recorded as refund against invoice. If this field is not passed, the total invoice paid amount is recorded as refund.
+	 */
+	private Currency amount;
 
 	/**
 	 * Default Constructor

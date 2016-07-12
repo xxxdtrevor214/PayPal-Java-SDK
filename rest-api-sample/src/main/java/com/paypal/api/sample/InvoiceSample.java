@@ -2,15 +2,13 @@ package com.paypal.api.sample;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.paypal.api.payments.CancelNotification;
-import com.paypal.api.payments.Invoice;
-import com.paypal.api.payments.Invoices;
-import com.paypal.api.payments.Notification;
-import com.paypal.api.payments.Search;
+import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -103,7 +101,11 @@ public class InvoiceSample extends SampleBase<Invoice> {
 	 * @throws PayPalRESTException
 	 */
 	public Invoices getMerchantInvoices(APIContext context) throws PayPalRESTException {
-		return Invoice.getAll(context);
+		// Lets add some options.
+		Map<String, String> options = new HashMap<String, String>() {{
+			put("total_count_required", "true");
+		}};
+		return Invoice.getAll(context, options);
 	}
 
 	/**
@@ -166,6 +168,28 @@ public class InvoiceSample extends SampleBase<Invoice> {
 		Invoice newInvoice = this.create(context);
 		newInvoice.delete(context);
 	}
+
+	/**
+	 * Gets a QR Code Image object.
+	 * @param context {@link APIContext}
+	 * @return Image
+	 * @throws PayPalRESTException
+	 * @throws IOException
+     */
+	public Image getQRCode(APIContext context) throws PayPalRESTException, IOException {
+
+		//Lets add some options. These are optional, but added for demo purposes.
+		Map<String, String> options = new HashMap<String, String>() {{
+			put("width", "400");
+			put("height", "350");
+		}};
+		// Replace the given Id with your invoice Id.
+		Image image = Invoice.qrCode(context, super.instance.getId(), options);
+
+		// You can also save the image to file as shown here.
+		image.saveToFile("invoice.png");
+		return image;
+	}
 	
 	/**
 	 * Main method that calls all methods above in a flow.
@@ -177,13 +201,14 @@ public class InvoiceSample extends SampleBase<Invoice> {
 			InvoiceSample invoiceSample = new InvoiceSample();
 			
 			APIContext context = new APIContext(clientID, clientSecret, "sandbox");
-			
+
 			Invoice invoice = invoiceSample.create(context);
 			System.out.println("create response:\n" + Invoice.getLastResponse());
 			invoice = invoiceSample.update(context);
 			System.out.println("update response:\n" + Invoice.getLastResponse());
 			invoiceSample.send(context);
 			System.out.println("send response:\n" + Invoice.getLastResponse());
+			invoiceSample.getQRCode(context);
 			invoice = invoiceSample.retrieve(context);
 			System.out.println("retrieve response:\n" + Invoice.getLastResponse());
 			Invoices invoices = invoiceSample.getMerchantInvoices(context);

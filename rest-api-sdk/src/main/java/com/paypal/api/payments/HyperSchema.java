@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class HyperSchema  extends PayPalModel {
+public class HyperSchema extends PayPalModel {
 
 	/**
 	 * 

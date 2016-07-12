@@ -8,55 +8,60 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class MerchantInfo  extends PayPalModel {
+public class MerchantInfo extends PayPalModel {
 
 	/**
-	 * Email address of the merchant. 260 characters max.
+	 * The merchant email address. Maximum length is 260 characters.
 	 */
 	private String email;
 
 	/**
-	 * First name of the merchant. 30 characters max.
+	 * The merchant first name. Maximum length is 30 characters.
 	 */
 	private String firstName;
 
 	/**
-	 * Last name of the merchant. 30 characters max.
+	 * The merchant last name. Maximum length is 30 characters.
 	 */
 	private String lastName;
 
 	/**
-	 * Address of the merchant.
+	 * The merchant address.
 	 */
 	private InvoiceAddress address;
 
 	/**
-	 * Company business name of the merchant. 100 characters max.
+	 * The merchant company business name. Maximum length is 100 characters.
 	 */
 	private String businessName;
 
 	/**
-	 * Phone number of the merchant.
+	 * The merchant phone number.
 	 */
 	private Phone phone;
 
 	/**
-	 * Fax number of the merchant.
+	 * The merchant fax number.
 	 */
 	private Phone fax;
 
 	/**
-	 * Website of the merchant. 2048 characters max.
+	 * The merchant website. Maximum length is 2048 characters.
 	 */
 	private String website;
 
 	/**
-	 * Tax ID of the merchant. 100 characters max.
+	 * The merchant tax ID. Maximum length is 100 characters.
 	 */
 	private String taxId;
 
 	/**
-	 * Option to display additional information such as business hours. 40 characters max.
+	 * Option to provide a label to the additional_info field. 40 characters max.
+	 */
+	private String additionalInfoLabel;
+
+	/**
+	 * Additional information, such as business hours. Maximum length is 40 characters.
 	 */
 	private String additionalInfo;
 

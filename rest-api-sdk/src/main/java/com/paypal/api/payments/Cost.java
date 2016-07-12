@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Cost  extends PayPalModel {
+public class Cost extends PayPalModel {
 
 	/**
 	 * Cost in percent. Range of 0 to 100.
@@ -16,7 +16,7 @@ public class Cost  extends PayPalModel {
 	private float percent;
 
 	/**
-	 * Cost in amount. Range of 0 to 999999.99.
+	 * The cost, as an amount. Valid range is from 0 to 1,000,000.
 	 */
 	private Currency amount;
 

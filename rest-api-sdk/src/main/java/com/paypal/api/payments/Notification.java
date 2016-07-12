@@ -5,10 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Notification  extends PayPalModel {
+public class Notification extends PayPalModel {
 
 	/**
 	 * Subject of the notification.
@@ -21,13 +23,19 @@ public class Notification  extends PayPalModel {
 	private String note;
 
 	/**
-	 * A flag indicating whether a copy of the email has to be sent to the merchant.
+	 * Indicates whether to send a copy of the email to the merchant.
 	 */
 	private Boolean sendToMerchant;
+
+	/**
+	 * Applicable for invoices created with Cc emails. If this field is not in the body, all the cc email addresses added as part of the invoice shall be notified else this field can be used to limit the list of email addresses. Note: additional email addresses are not supported.
+	 */
+	private List<String> ccEmails;
 
 	/**
 	 * Default Constructor
 	 */
 	public Notification() {
 	}
+
 }
