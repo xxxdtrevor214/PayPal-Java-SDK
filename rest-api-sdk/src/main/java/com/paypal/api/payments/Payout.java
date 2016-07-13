@@ -1,15 +1,15 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import lombok.Getter; import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Payout extends PayPalResource {

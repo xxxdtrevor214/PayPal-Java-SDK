@@ -2,14 +2,14 @@ package com.paypal.api.payments;
 
 import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.base.rest.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import lombok.Getter; import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Invoice extends PayPalResource {
