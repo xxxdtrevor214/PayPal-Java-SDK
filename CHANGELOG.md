@@ -3,8 +3,8 @@ CHANGELOG
 
 v1.9.0
 ------
-   * Updated Invoicing APIs. [#215](https://github.com/paypal/PayPal-Java-SDK/pull/215)
-   * `toString` now returns a JSON response. [#213](https://github.com/paypal/PayPal-Java-SDK/pull/213)
+   * Updated Invoicing APIs [#215](https://github.com/paypal/PayPal-Java-SDK/pull/215).
+   * `toString` now returns a JSON response [#213](https://github.com/paypal/PayPal-Java-SDK/pull/213).
 
 v1.8.1
 ------
