@@ -1,9 +1,9 @@
 CHANGELOG
 =========
 
-TODO
+v1.9.1
 ----
-   * Use UTF-8 as the character set when generating CRC32 checksum
+   * Use UTF-8 as the character set when generating CRC32 checksum [#218](https://github.com/paypal/PayPal-Java-SDK/pull/218).
 
 v1.9.0
 ------
