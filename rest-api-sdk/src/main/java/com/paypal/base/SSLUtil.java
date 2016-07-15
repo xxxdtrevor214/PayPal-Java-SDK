@@ -10,6 +10,7 @@ import javax.net.ssl.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -293,19 +294,24 @@ public abstract class SSLUtil {
 	 * 
 	 * @param data
 	 * @return long crc32 value of input. -1 if string is null
+	 * @throws RuntimeException if UTF-8 is not a supported character set
 	 */
 	public static long crc32(String data) {
 		if (data == null) { 
 			return -1;
 		}
 
-		// get bytes from string
-		byte bytes[] = data.getBytes();
-		Checksum checksum = new CRC32();
-		// update the current checksum with the specified array of bytes
-		checksum.update(bytes, 0, bytes.length);
-		// get the current checksum value
-		return checksum.getValue();
+		try {
+			// get bytes from string
+			byte bytes[] = data.getBytes("UTF-8");
+			Checksum checksum = new CRC32();
+			// update the current checksum with the specified array of bytes
+			checksum.update(bytes, 0, bytes.length);
+			// get the current checksum value
+			return checksum.getValue();
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
