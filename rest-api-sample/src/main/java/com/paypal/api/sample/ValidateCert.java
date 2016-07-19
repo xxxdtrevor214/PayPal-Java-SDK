@@ -1,27 +1,30 @@
 package com.paypal.api.sample;
 
+import com.paypal.api.payments.Event;
+import com.paypal.base.Constants;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.paypal.api.payments.Event;
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.PayPalRESTException;
+import static com.paypal.api.payments.util.SampleConstants.*;
 
 public class ValidateCert {
 
 	public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException, SignatureException {
+
+		// ### Api Context
+		APIContext apiContext = new APIContext(clientID, clientSecret, mode);
+		// Set the webhook Id you were given back when you created the webhook for these events.
+		apiContext.addConfiguration(Constants.PAYPAL_WEBHOOK_ID, "3RN13029J36659323");
+
+		// THIS IS MOCK DATA. All the below informatio would be retrieved originally from the webhook. This is a data for sample purpose only.
 		Map<String, String> headers = new HashMap<String, String>();
-		APIContext apiContext = new APIContext();
-		Map<String, String> configs = new HashMap<String, String>();
-		configs.put(Constants.PAYPAL_TRUST_CERT_URL, "DigiCertSHA2ExtendedValidationServerCA.crt");
-		configs.put(Constants.PAYPAL_WEBHOOK_ID, "3RN13029J36659323");
-		apiContext.setConfigurationMap(configs);
-		//headers.put(Constants.PAYPAL_CERT_URL_HEADER, "https://api.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-df8cd2d5");
-		headers.put(Constants.PAYPAL_HEADER_CERT_URL.toUpperCase(), "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-a5cafa77");
+		headers.put(Constants.PAYPAL_HEADER_CERT_URL, "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-a5cafa77");
 		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_ID, "b2384410-f8d2-11e4-8bf3-77339302725b");
 		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_TIME, "2015-05-12T18:14:14Z");
 		headers.put(Constants.PAYPAL_HEADER_AUTH_ALGO, "SHA256withRSA");

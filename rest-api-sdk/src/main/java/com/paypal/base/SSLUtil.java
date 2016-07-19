@@ -27,7 +27,7 @@ import java.util.zip.Checksum;
 public abstract class SSLUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(SSLUtil.class);
-	
+
 	/**
 	 * KeyManagerFactory used for {@link SSLContext} {@link KeyManager}
 	 */
@@ -58,7 +58,7 @@ public abstract class SSLUtil {
 
 	/**
 	 * Returns a SSLContext
-	 * 
+	 *
 	 * @param keymanagers
 	 *            KeyManager[] The key managers
 	 * @return SSLContext with proper client certificate
@@ -85,7 +85,7 @@ public abstract class SSLUtil {
 	/**
 	 * Retrieves keyStore from the cached {@link Map}, if not present loads
 	 * certificate into java keyStore and caches it for further references
-	 * 
+	 *
 	 * @param p12Path
 	 *            Path to the client certificate
 	 * @param password
@@ -120,7 +120,7 @@ public abstract class SSLUtil {
 
 	/**
 	 * Create a SSLContext with provided client certificate
-	 * 
+	 *
 	 * @param certPath
 	 * @param certPassword
 	 * @return SSLContext
@@ -152,7 +152,7 @@ public abstract class SSLUtil {
 	/**
 	 * Performs Certificate Chain Validation on provided certificates. The method verifies if the client certificates provided are generated from root certificates
 	 * trusted by application.
-	 * 
+	 *
 	 * @param clientCerts Collection of X509Certificates provided in request
 	 * @param trustCerts Collection of X509Certificates trusted by application
 	 * @param authType Auth Type for Certificate
@@ -203,13 +203,13 @@ public abstract class SSLUtil {
 						String dn = cert.getSubjectX500Principal().getName();
 						String[] tokens = dn.split(",");
 						boolean hasPaypalCn = false;
-						
+
 						for (String token: tokens) {
 							if (token.startsWith("CN=messageverificationcerts") && token.endsWith(".paypal.com")) {
 								hasPaypalCn = true;
 							}
 						}
-						
+
 						if (!hasPaypalCn) {
 							throw new PayPalRESTException("CN of client certificate does not match with trusted CN");
 						}
@@ -229,12 +229,25 @@ public abstract class SSLUtil {
 
 	/**
 	 * Downloads Certificate from URL
-	 * 
+	 * @deprecated Please use {@link #downloadCertificateFromPath(String, Map)} instead.
+	 *
 	 * @param urlPath
 	 * @return InputStream containing certificate data
 	 * @throws PayPalRESTException
 	 */
 	public static InputStream downloadCertificateFromPath(String urlPath) throws PayPalRESTException {
+		return downloadCertificateFromPath(urlPath, ConfigManager.getDefaultSDKMap());
+	}
+
+	/**
+	 * Downloads Certificate from URL
+	 *
+	 * @param urlPath
+	 * @param configurations Map of configurations.
+	 * @return InputStream containing certificate data
+	 * @throws PayPalRESTException
+	 */
+	public static InputStream downloadCertificateFromPath(String urlPath, Map<String, String> configurations) throws PayPalRESTException {
 		if (urlPath == null || urlPath.trim() == "") {
 			throw new PayPalRESTException("Certificate Path cannot be empty");
 		}
@@ -243,24 +256,18 @@ public abstract class SSLUtil {
 			HttpConfiguration httpConfiguration = new HttpConfiguration();
 			httpConfiguration.setEndPointUrl(urlPath);
 			httpConfiguration.setConnectionTimeout(Integer
-					.parseInt(ConfigManager.getInstance().getConfigurationMap()
-							.get(Constants.HTTP_CONNECTION_TIMEOUT)));
-			httpConfiguration.setMaxRetry(Integer.parseInt(ConfigManager.getInstance().getConfigurationMap()
-					.get(Constants.HTTP_CONNECTION_RETRY)));
-			httpConfiguration.setReadTimeout(Integer.parseInt(ConfigManager.getInstance().getConfigurationMap()
-					.get(Constants.HTTP_CONNECTION_READ_TIMEOUT)));
+					.parseInt(configurations.get(Constants.HTTP_CONNECTION_TIMEOUT)));
+			httpConfiguration.setMaxRetry(Integer.parseInt(configurations.get(Constants.HTTP_CONNECTION_RETRY)));
+			httpConfiguration.setReadTimeout(Integer.parseInt(configurations.get(Constants.HTTP_CONNECTION_READ_TIMEOUT)));
 			httpConfiguration.setMaxHttpConnection(Integer
-					.parseInt(ConfigManager.getInstance().getConfigurationMap()
-							.get(Constants.HTTP_CONNECTION_MAX_CONNECTION)));
+					.parseInt(configurations.get(Constants.HTTP_CONNECTION_MAX_CONNECTION)));
 			httpConfiguration.setHttpMethod("GET");
-			URL url = null;
 			HttpConnection connection = ConnectionManager.getInstance()
 					.getConnection();
 			connection.createAndconfigureHttpConnection(httpConfiguration);
-			url = new URL(urlPath);
+			URL url = new URL(urlPath);
 			headerMap.put("Host", url.getHost());
-			InputStream stream =  connection.executeWithStream(url.toString(), "", headerMap);
-			return stream;
+			return connection.executeWithStream(url.toString(), "", headerMap);
 		} catch (Exception ex) {
 			throw new PayPalRESTException(ex);
 		}
@@ -268,7 +275,7 @@ public abstract class SSLUtil {
 
 	/**
 	 * Generate Collection of Certificate from Input Stream
-	 * 
+	 *
 	 * @param stream InputStream of Certificate data
 	 * @return Collection<X509Certificate>
 	 * @throws PayPalRESTException
@@ -291,13 +298,13 @@ public abstract class SSLUtil {
 
 	/**
 	 * Generates a CRC 32 Value of String passed
-	 * 
+	 *
 	 * @param data
 	 * @return long crc32 value of input. -1 if string is null
 	 * @throws RuntimeException if UTF-8 is not a supported character set
 	 */
 	public static long crc32(String data) {
-		if (data == null) { 
+		if (data == null) {
 			return -1;
 		}
 
@@ -317,7 +324,7 @@ public abstract class SSLUtil {
 	/**
 	 * Validates Webhook Signature validation based on https://developer.paypal.com/docs/integration/direct/rest-webhooks-overview/#event-signature
 	 * Returns true if signature is valid
-	 * 
+	 *
 	 * @param clientCerts Client Certificates
 	 * @param algo Algorithm used for signature creation by server
 	 * @param actualSignatureEncoded  Paypal-Transmission-Sig header value passed by server
@@ -325,7 +332,7 @@ public abstract class SSLUtil {
 	 * @param requestBody Request body from server
 	 * @param webhookId Id for PayPal Webhook created for receiving the data
 	 * @return true if signature is valid, false otherwise
-	 * 
+	 *
 	 * @throws NoSuchAlgorithmException
 	 * @throws SignatureException
 	 * @throws InvalidKeyException
