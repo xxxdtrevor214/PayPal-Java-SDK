@@ -183,7 +183,7 @@ public class Event  extends PayPalResource {
 			throw new PayPalRESTException("Headers cannot be null");
 		}
 
-		Map<String, String> cmap = new HashMap<String, String>();
+		Map<String, String> cmap;
 		Boolean isChainValid = false, isDataValid = false;
 		Collection<X509Certificate> trustCerts, clientCerts;
 
@@ -192,10 +192,14 @@ public class Event  extends PayPalResource {
 
 		// Fetch Certificate Locations
 		String clientCertificateLocation = SDKUtil.validateAndGet(headers, Constants.PAYPAL_HEADER_CERT_URL);
+		// Default to `DigiCertSHA2ExtendedValidationServerCA` if none provided
+		if (cmap != null && !cmap.containsKey(Constants.PAYPAL_TRUST_CERT_URL)) {
+			cmap.put(Constants.PAYPAL_TRUST_CERT_URL, Constants.PAYPAL_TRUST_DEFAULT_CERT);
+		}
 		String trustCertificateLocation = SDKUtil.validateAndGet(cmap, Constants.PAYPAL_TRUST_CERT_URL);
 
 		// Load certificates
-		clientCerts = SSLUtil.getCertificateFromStream(SSLUtil.downloadCertificateFromPath(clientCertificateLocation));
+		clientCerts = SSLUtil.getCertificateFromStream(SSLUtil.downloadCertificateFromPath(clientCertificateLocation, cmap));
 		trustCerts = SSLUtil.getCertificateFromStream(Event.class.getClassLoader().getResourceAsStream(trustCertificateLocation));
 
 		// Check if Chain Valid

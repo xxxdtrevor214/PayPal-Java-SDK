@@ -9,10 +9,18 @@
 // API used: POST /v1/vault/credit-card
 package com.paypal.api.payments.servlet;
 
-import static com.paypal.api.payments.util.SampleConstants.clientID;
-import static com.paypal.api.payments.util.SampleConstants.clientSecret;
-import static com.paypal.api.payments.util.SampleConstants.mode;
+import com.paypal.api.payments.CreditCard;
+import com.paypal.api.payments.Event;
+import com.paypal.api.payments.util.ResultPrinter;
+import com.paypal.base.Constants;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,19 +32,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-
-import com.paypal.api.payments.CreditCard;
-import com.paypal.api.payments.Event;
-import com.paypal.api.payments.util.ResultPrinter;
-import com.paypal.base.Constants;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.PayPalRESTException;
+import static com.paypal.api.payments.util.SampleConstants.*;
 
 public class ValidateWebhookServlet extends HttpServlet {
 
@@ -54,7 +50,6 @@ public class ValidateWebhookServlet extends HttpServlet {
 	}
 
 	// ##Create
-	// Sample showing how to create a CreditCard.
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -65,10 +60,7 @@ public class ValidateWebhookServlet extends HttpServlet {
 			// (that ensures idempotency). The SDK generates
 			// a request id if you do not pass one explicitly.
 			APIContext apiContext = new APIContext(clientID, clientSecret, mode);
-			
-			Map<String, String> map = apiContext.getConfigurationMap() != null ? apiContext.getConfigurationMap() : new HashMap<String, String>();
-			map.put(Constants.PAYPAL_WEBHOOK_ID, WebhookId);
-			apiContext.setConfigurationMap(map);
+			apiContext.addConfiguration(Constants.PAYPAL_WEBHOOK_ID, WebhookId);
 
 			Boolean result = Event.validateReceivedEvent(apiContext, getHeadersInfo(req), getBody(req));
 			
@@ -91,7 +83,12 @@ public class ValidateWebhookServlet extends HttpServlet {
 		}
 	}
 
-	//get request headers
+	/**
+	 * Simple helper method to help you extract the headers from HttpServletRequest object.
+	 *
+	 * @param request {@link HttpServletRequest} request object
+	 * @return @{@link Map} of headers.
+     */
 	private static Map<String, String> getHeadersInfo(HttpServletRequest request) {
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -106,7 +103,14 @@ public class ValidateWebhookServlet extends HttpServlet {
 
 		return map;
 	}
-	
+
+	/**
+	 * Simple helper method to fetch request data as a string from @{@link HttpServletRequest} object.
+	 *
+	 * @param request {@link HttpServletRequest} request object
+	 * @return String containing the webhook data
+	 * @throws IOException
+     */
 	private static String getBody(HttpServletRequest request) throws IOException {
 
 	    String body = null;
