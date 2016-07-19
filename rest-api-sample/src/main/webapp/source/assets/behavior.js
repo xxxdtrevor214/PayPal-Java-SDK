@@ -33,297 +33,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/AuthorizationCaptureServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/AuthorizationCaptureServlet.java",
                 "projectPath": "payments/servlet/AuthorizationCaptureServlet.java",
                 "targetPath": "payments/servlet/AuthorizationCaptureServlet",
                 "pageTitle": "payments/servlet/AuthorizationCaptureServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "AuthorizationCapture Sample",
-                    "slug": "authorizationcapture-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "AuthorizationCapture",
-                        "slug": "authorizationcapture"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Authorization",
-                            "slug": "authorization"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Capture",
-                            "slug": "capture"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "IsFinalCapture",
-                        "slug": "isfinalcapture"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Address",
-                            "slug": "address"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "FundingInstrument",
-                            "slug": "fundinginstrument"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "AuthorizationCapture Sample"
+                "title": "AuthorizationCaptureServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "AuthorizationCapture",
-                    "slug": "authorizationcapture"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Authorization",
-                        "slug": "authorization"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Capture",
-                        "slug": "capture"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "IsFinalCapture",
-                    "slug": "isfinalcapture"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Address",
-                        "slug": "address"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "FundingInstrument",
-                        "slug": "fundinginstrument"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -336,131 +52,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/CreateCreditCardServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/CreateCreditCardServlet.java",
                 "projectPath": "payments/servlet/CreateCreditCardServlet.java",
                 "targetPath": "payments/servlet/CreateCreditCardServlet",
                 "pageTitle": "payments/servlet/CreateCreditCardServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "CreateCreditCard Sample",
-                    "slug": "createcreditcard-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Create",
-                        "slug": "create"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Save",
-                            "slug": "save"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "CreateCreditCard Sample"
+                "title": "CreateCreditCardServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Create",
-                    "slug": "create"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Save",
-                        "slug": "save"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -473,243 +71,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetAuthorizationServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetAuthorizationServlet.java",
                 "projectPath": "payments/servlet/GetAuthorizationServlet.java",
                 "targetPath": "payments/servlet/GetAuthorizationServlet",
                 "pageTitle": "payments/servlet/GetAuthorizationServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "GetAuthorization Sample",
-                    "slug": "getauthorization-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "GetAuthorization",
-                        "slug": "getauthorization"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Authorization",
-                            "slug": "authorization"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Address",
-                            "slug": "address"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "FundingInstrument",
-                            "slug": "fundinginstrument"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "GetAuthorization Sample"
+                "title": "GetAuthorizationServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "GetAuthorization",
-                    "slug": "getauthorization"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Authorization",
-                        "slug": "authorization"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Address",
-                        "slug": "address"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "FundingInstrument",
-                        "slug": "fundinginstrument"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -722,297 +90,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetCaptureServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetCaptureServlet.java",
                 "projectPath": "payments/servlet/GetCaptureServlet.java",
                 "targetPath": "payments/servlet/GetCaptureServlet",
                 "pageTitle": "payments/servlet/GetCaptureServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "GetCapture Sample",
-                    "slug": "getcapture-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "GetCapture",
-                        "slug": "getcapture"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Authorization",
-                            "slug": "authorization"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Capture",
-                            "slug": "capture"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "IsFinalCapture",
-                        "slug": "isfinalcapture"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Address",
-                            "slug": "address"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "FundingInstrument",
-                            "slug": "fundinginstrument"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "GetCapture Sample"
+                "title": "GetCaptureServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "GetCapture",
-                    "slug": "getcapture"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Authorization",
-                        "slug": "authorization"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Capture",
-                        "slug": "capture"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "IsFinalCapture",
-                    "slug": "isfinalcapture"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Address",
-                        "slug": "address"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "FundingInstrument",
-                        "slug": "fundinginstrument"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -1025,83 +109,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetCreditCardServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetCreditCardServlet.java",
                 "projectPath": "payments/servlet/GetCreditCardServlet.java",
                 "targetPath": "payments/servlet/GetCreditCardServlet",
                 "pageTitle": "payments/servlet/GetCreditCardServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "GetCreditCard Sample",
-                    "slug": "getcreditcard-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "GetCreditCardUsingId",
-                        "slug": "getcreditcardusingid"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "GetCreditCard Sample"
+                "title": "GetCreditCardServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "GetCreditCardUsingId",
-                    "slug": "getcreditcardusingid"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -1114,83 +128,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetPaymentHistoryServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetPaymentHistoryServlet.java",
                 "projectPath": "payments/servlet/GetPaymentHistoryServlet.java",
                 "targetPath": "payments/servlet/GetPaymentHistoryServlet",
                 "pageTitle": "payments/servlet/GetPaymentHistoryServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "GetPaymentList Sample",
-                    "slug": "getpaymentlist-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Retrieve",
-                            "slug": "retrieve"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "GetPaymentList Sample"
+                "title": "GetPaymentHistoryServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Retrieve",
-                        "slug": "retrieve"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -1203,83 +147,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetPaymentServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetPaymentServlet.java",
                 "projectPath": "payments/servlet/GetPaymentServlet.java",
                 "targetPath": "payments/servlet/GetPaymentServlet",
                 "pageTitle": "payments/servlet/GetPaymentServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "GetPayment Sample",
-                    "slug": "getpayment-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "GetPayment",
-                        "slug": "getpayment"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "GetPayment Sample"
+                "title": "GetPaymentServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "GetPayment",
-                    "slug": "getpayment"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -1292,64 +166,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetSaleServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/GetSaleServlet.java",
                 "projectPath": "payments/servlet/GetSaleServlet.java",
                 "targetPath": "payments/servlet/GetSaleServlet",
                 "pageTitle": "payments/servlet/GetSaleServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Get Details of a Sale Transaction Sample",
-                    "slug": "get-details-of-a-sale-transaction-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }
-                  ]
-                },
-                "title": "Get Details of a Sale Transaction Sample"
+                "title": "GetSaleServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Get Sale By SaleID Sample how to get details about a sale.",
-                    "slug": "get-sale-by-saleid-sample-how-to-get-details-about-a-sale"
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -1362,227 +185,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/PaymentWithCreditCardServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/PaymentWithCreditCardServlet.java",
                 "projectPath": "payments/servlet/PaymentWithCreditCardServlet.java",
                 "targetPath": "payments/servlet/PaymentWithCreditCardServlet",
                 "pageTitle": "payments/servlet/PaymentWithCreditCardServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "CreatePayment using credit card Sample",
-                    "slug": "createpayment-using-credit-card-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Create",
-                        "slug": "create"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Address",
-                            "slug": "address"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "FundingInstrument",
-                            "slug": "fundinginstrument"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "CreatePayment using credit card Sample"
+                "title": "PaymentWithCreditCardServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Create",
-                    "slug": "create"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Address",
-                        "slug": "address"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "FundingInstrument",
-                        "slug": "fundinginstrument"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -1595,227 +204,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/PaymentWithPayPalServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/PaymentWithPayPalServlet.java",
                 "projectPath": "payments/servlet/PaymentWithPayPalServlet.java",
                 "targetPath": "payments/servlet/PaymentWithPayPalServlet",
                 "pageTitle": "payments/servlet/PaymentWithPayPalServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Create Payment Using PayPal Sample",
-                    "slug": "create-payment-using-paypal-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Create",
-                        "slug": "create"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Items",
-                            "slug": "items"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Redirect URLs",
-                            "slug": "redirect-urls"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment Approval Url",
-                            "slug": "payment-approval-url"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "Create Payment Using PayPal Sample"
+                "title": "PaymentWithPayPalServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Create",
-                    "slug": "create"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Items",
-                        "slug": "items"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Redirect URLs",
-                        "slug": "redirect-urls"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment Approval Url",
-                        "slug": "payment-approval-url"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -1828,211 +223,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/PaymentWithSavedCardServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/PaymentWithSavedCardServlet.java",
                 "projectPath": "payments/servlet/PaymentWithSavedCardServlet.java",
                 "targetPath": "payments/servlet/PaymentWithSavedCardServlet",
                 "pageTitle": "payments/servlet/PaymentWithSavedCardServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "CreatePayment Using Saved Card Sample",
-                    "slug": "createpayment-using-saved-card-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Create",
-                        "slug": "create"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "FundingInstrument",
-                            "slug": "fundinginstrument"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "APIContext",
-                            "slug": "apicontext"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "CreatePayment Using Saved Card Sample"
+                "title": "PaymentWithSavedCardServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Create",
-                    "slug": "create"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "FundingInstrument",
-                        "slug": "fundinginstrument"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "APIContext",
-                        "slug": "apicontext"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -2045,67 +242,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/ReauthorizationServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/ReauthorizationServlet.java",
                 "projectPath": "payments/servlet/ReauthorizationServlet.java",
                 "targetPath": "payments/servlet/ReauthorizationServlet",
                 "pageTitle": "payments/servlet/ReauthorizationServlet",
                 "title": "ReauthorizationServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Reauthorization",
-                    "slug": "reauthorization"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Reauthorization",
-                        "slug": "reauthorization"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -2118,313 +261,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/RefundCaptureServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/RefundCaptureServlet.java",
                 "projectPath": "payments/servlet/RefundCaptureServlet.java",
                 "targetPath": "payments/servlet/RefundCaptureServlet",
                 "pageTitle": "payments/servlet/RefundCaptureServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "RefundCapture Sample",
-                    "slug": "refundcapture-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "RefundCapture",
-                        "slug": "refundcapture"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Authorization",
-                            "slug": "authorization"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Capture",
-                            "slug": "capture"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "IsFinalCapture",
-                        "slug": "isfinalcapture"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Address",
-                            "slug": "address"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "FundingInstrument",
-                            "slug": "fundinginstrument"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "RefundCapture Sample"
+                "title": "RefundCaptureServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "RefundCapture",
-                    "slug": "refundcapture"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Authorization",
-                        "slug": "authorization"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Capture",
-                        "slug": "capture"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "IsFinalCapture",
-                    "slug": "isfinalcapture"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Address",
-                        "slug": "address"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "FundingInstrument",
-                        "slug": "fundinginstrument"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -2437,147 +280,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/SaleRefundServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/SaleRefundServlet.java",
                 "projectPath": "payments/servlet/SaleRefundServlet.java",
                 "targetPath": "payments/servlet/SaleRefundServlet",
                 "pageTitle": "payments/servlet/SaleRefundServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "SaleRefund Sample",
-                    "slug": "salerefund-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "RefundSale",
-                        "slug": "refundsale"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Sale",
-                            "slug": "sale"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Refund",
-                            "slug": "refund"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "SaleRefund Sample"
+                "title": "SaleRefundServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "RefundSale",
-                    "slug": "refundsale"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Sale",
-                        "slug": "sale"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Refund",
-                        "slug": "refund"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -2590,7 +299,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/UpdatePaymentServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/UpdatePaymentServlet.java",
                 "projectPath": "payments/servlet/UpdatePaymentServlet.java",
                 "targetPath": "payments/servlet/UpdatePaymentServlet",
                 "pageTitle": "payments/servlet/UpdatePaymentServlet",
@@ -2598,8 +307,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 1,
-                    "title": "Get Payout Batch Status",
-                    "slug": "get-payout-batch-status",
+                    "title": "Update Payment",
+                    "slug": "update-payment",
                     "isFileHeader": true
                   },
                   "depth": 1,
@@ -2607,100 +316,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     {
                       "type": "heading",
                       "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "GetPayoutBatchStatus",
-                        "slug": "getpayoutbatchstatus"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Create a Payout Batch",
-                            "slug": "create-a-payout-batch"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Create Patch Request",
-                            "slug": "create-patch-request"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Patch Object",
-                            "slug": "patch-object"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "Get Payout Batch Status"
-              },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "GetPayoutBatchStatus",
-                    "slug": "getpayoutbatchstatus"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
                         "level": 3,
-                        "title": "Create a Payout Batch",
-                        "slug": "create-a-payout-batch"
+                        "title": "Create a Payment",
+                        "slug": "create-a-payment"
                       },
                       "depth": 3
                     }, {
@@ -2731,20 +349,57 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "type": "heading",
                       "data": {
                         "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
                         "title": "Api Context",
                         "slug": "api-context"
                       },
                       "depth": 3
                     }
                   ]
+                },
+                "title": "Update Payment"
+              },
+              "depth": 3,
+              "outline": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Create a Payment",
+                    "slug": "create-a-payment"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Create Patch Request",
+                    "slug": "create-patch-request"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Amount",
+                    "slug": "amount"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Patch Object",
+                    "slug": "patch-object"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Api Context",
+                    "slug": "api-context"
+                  },
+                  "depth": 3
                 }
               ]
             }, {
@@ -2759,243 +414,32 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/VoidAuthorizationServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/ValidateWebhookServlet.java",
+                "projectPath": "payments/servlet/ValidateWebhookServlet.java",
+                "targetPath": "payments/servlet/ValidateWebhookServlet",
+                "pageTitle": "payments/servlet/ValidateWebhookServlet",
+                "title": "ValidateWebhookServlet"
+              },
+              "depth": 3
+            }, {
+              "type": "file",
+              "data": {
+                "language": {
+                  "nameMatchers": [".java"],
+                  "pygmentsLexer": "java",
+                  "multiLineComment": ["/*", "*", "*/"],
+                  "singleLineComment": ["//"],
+                  "ignorePrefix": "}",
+                  "foldPrefix": "^",
+                  "name": "Java"
+                },
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payments/servlet/VoidAuthorizationServlet.java",
                 "projectPath": "payments/servlet/VoidAuthorizationServlet.java",
                 "targetPath": "payments/servlet/VoidAuthorizationServlet",
                 "pageTitle": "payments/servlet/VoidAuthorizationServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "VoidAuthorization Sample",
-                    "slug": "voidauthorization-sample",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "VoidAuthorization",
-                        "slug": "voidauthorization"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Authorization",
-                            "slug": "authorization"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Details",
-                            "slug": "details"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Amount",
-                            "slug": "amount"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Transaction",
-                            "slug": "transaction"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Address",
-                            "slug": "address"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "CreditCard",
-                            "slug": "creditcard"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "FundingInstrument",
-                            "slug": "fundinginstrument"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payer",
-                            "slug": "payer"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payment",
-                            "slug": "payment"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "VoidAuthorization Sample"
+                "title": "VoidAuthorizationServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "VoidAuthorization",
-                    "slug": "voidauthorization"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Authorization",
-                        "slug": "authorization"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Details",
-                        "slug": "details"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Amount",
-                        "slug": "amount"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Transaction",
-                        "slug": "transaction"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Address",
-                        "slug": "address"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "CreditCard",
-                        "slug": "creditcard"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "FundingInstrument",
-                        "slug": "fundinginstrument"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payer",
-                        "slug": "payer"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payment",
-                        "slug": "payment"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }
           ]
         }
@@ -3028,147 +472,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/CancelPayoutItemServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/CancelPayoutItemServlet.java",
                 "projectPath": "payouts/servlet/CancelPayoutItemServlet.java",
                 "targetPath": "payouts/servlet/CancelPayoutItemServlet",
                 "pageTitle": "payouts/servlet/CancelPayoutItemServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Cancel Unclaimed Payout",
-                    "slug": "cancel-unclaimed-payout",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Get Payout Item Status",
-                        "slug": "get-payout-item-status"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Get a Payout Batch",
-                            "slug": "get-a-payout-batch"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Retrieve PayoutItem ID",
-                            "slug": "retrieve-payoutitem-id"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Cancel Payout Item if it is unclaimed",
-                            "slug": "cancel-payout-item-if-it-is-unclaimed"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "Cancel Unclaimed Payout"
+                "title": "CancelPayoutItemServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Get Payout Item Status",
-                    "slug": "get-payout-item-status"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Get a Payout Batch",
-                        "slug": "get-a-payout-batch"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Retrieve PayoutItem ID",
-                        "slug": "retrieve-payoutitem-id"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Cancel Payout Item if it is unclaimed",
-                        "slug": "cancel-payout-item-if-it-is-unclaimed"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -3181,271 +491,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/CreateBatchPayoutServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/CreateBatchPayoutServlet.java",
                 "projectPath": "payouts/servlet/CreateBatchPayoutServlet.java",
                 "targetPath": "payouts/servlet/CreateBatchPayoutServlet",
                 "pageTitle": "payouts/servlet/CreateBatchPayoutServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Create Batch Payout",
-                    "slug": "create-batch-payout",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Create",
-                        "slug": "create"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payout",
-                            "slug": "payout"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "NOTE:",
-                            "slug": "note"
-                          },
-                          "depth": 3,
-                          "children": [
-                            {
-                              "type": "heading",
-                              "data": {
-                                "level": 4,
-                                "title": "Batch Header Instance",
-                                "slug": "batch-header-instance"
-                              },
-                              "depth": 4
-                            }
-                          ]
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Currency",
-                            "slug": "currency"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Currency",
-                            "slug": "currency"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Currency",
-                            "slug": "currency"
-                          },
-                          "depth": 3,
-                          "children": [
-                            {
-                              "type": "heading",
-                              "data": {
-                                "level": 4,
-                                "title": "Sender Item 1",
-                                "slug": "sender-item-1"
-                              },
-                              "depth": 4
-                            }, {
-                              "type": "heading",
-                              "data": {
-                                "level": 4,
-                                "title": "Sender Item 1",
-                                "slug": "sender-item-1"
-                              },
-                              "depth": 4
-                            }, {
-                              "type": "heading",
-                              "data": {
-                                "level": 4,
-                                "title": "Sender Item 1",
-                                "slug": "sender-item-1"
-                              },
-                              "depth": 4
-                            }
-                          ]
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Create Batch Payout",
-                            "slug": "create-batch-payout"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "Create Batch Payout"
+                "title": "CreateBatchPayoutServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Create",
-                    "slug": "create"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payout",
-                        "slug": "payout"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "NOTE:",
-                        "slug": "note"
-                      },
-                      "depth": 3,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Batch Header Instance",
-                            "slug": "batch-header-instance"
-                          },
-                          "depth": 4
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Currency",
-                        "slug": "currency"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Currency",
-                        "slug": "currency"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Currency",
-                        "slug": "currency"
-                      },
-                      "depth": 3,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Sender Item 1",
-                            "slug": "sender-item-1"
-                          },
-                          "depth": 4
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Sender Item 1",
-                            "slug": "sender-item-1"
-                          },
-                          "depth": 4
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Sender Item 1",
-                            "slug": "sender-item-1"
-                          },
-                          "depth": 4
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Create Batch Payout",
-                        "slug": "create-batch-payout"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -3458,207 +510,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/CreateSinglePayoutServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/CreateSinglePayoutServlet.java",
                 "projectPath": "payouts/servlet/CreateSinglePayoutServlet.java",
                 "targetPath": "payouts/servlet/CreateSinglePayoutServlet",
                 "pageTitle": "payouts/servlet/CreateSinglePayoutServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Create Single Payout",
-                    "slug": "create-single-payout",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Create",
-                        "slug": "create"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Payout",
-                            "slug": "payout"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "NOTE:",
-                            "slug": "note"
-                          },
-                          "depth": 3,
-                          "children": [
-                            {
-                              "type": "heading",
-                              "data": {
-                                "level": 4,
-                                "title": "Batch Header Instance",
-                                "slug": "batch-header-instance"
-                              },
-                              "depth": 4
-                            }
-                          ]
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Currency",
-                            "slug": "currency"
-                          },
-                          "depth": 3,
-                          "children": [
-                            {
-                              "type": "heading",
-                              "data": {
-                                "level": 4,
-                                "title": "Sender Item",
-                                "slug": "sender-item"
-                              },
-                              "depth": 4
-                            }
-                          ]
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Create Payout Synchronous",
-                            "slug": "create-payout-synchronous"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "Create Single Payout"
+                "title": "CreateSinglePayoutServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Create",
-                    "slug": "create"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Payout",
-                        "slug": "payout"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "NOTE:",
-                        "slug": "note"
-                      },
-                      "depth": 3,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Batch Header Instance",
-                            "slug": "batch-header-instance"
-                          },
-                          "depth": 4
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Currency",
-                        "slug": "currency"
-                      },
-                      "depth": 3,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Sender Item",
-                            "slug": "sender-item"
-                          },
-                          "depth": 4
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Create Payout Synchronous",
-                        "slug": "create-payout-synchronous"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -3671,131 +529,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/GetPayoutBatchStatusServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/GetPayoutBatchStatusServlet.java",
                 "projectPath": "payouts/servlet/GetPayoutBatchStatusServlet.java",
                 "targetPath": "payouts/servlet/GetPayoutBatchStatusServlet",
                 "pageTitle": "payouts/servlet/GetPayoutBatchStatusServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Get Payout Batch Status",
-                    "slug": "get-payout-batch-status",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "GetPayoutBatchStatus",
-                        "slug": "getpayoutbatchstatus"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Create a Payout Batch",
-                            "slug": "create-a-payout-batch"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Get Payout Batch Status",
-                            "slug": "get-payout-batch-status"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "Get Payout Batch Status"
+                "title": "GetPayoutBatchStatusServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "GetPayoutBatchStatus",
-                    "slug": "getpayoutbatchstatus"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Create a Payout Batch",
-                        "slug": "create-a-payout-batch"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Get Payout Batch Status",
-                        "slug": "get-payout-batch-status"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }, {
               "type": "file",
               "data": {
@@ -3808,147 +548,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "Java"
                 },
-                "sourcePath": "/Users/japatel/Documents/workspace/java/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/GetPayoutItemStatusServlet.java",
+                "sourcePath": "/Users/japatel/Documents/workspace/paypal/PayPal-Java-SDK/rest-api-sample/src/main/java/com/paypal/api/payouts/servlet/GetPayoutItemStatusServlet.java",
                 "projectPath": "payouts/servlet/GetPayoutItemStatusServlet.java",
                 "targetPath": "payouts/servlet/GetPayoutItemStatusServlet",
                 "pageTitle": "payouts/servlet/GetPayoutItemStatusServlet",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Get Payout Item Status",
-                    "slug": "get-payout-item-status",
-                    "isFileHeader": true
-                  },
-                  "depth": 1,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Load Configuration",
-                        "slug": "load-configuration"
-                      },
-                      "depth": 2
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Get Payout Item Status",
-                        "slug": "get-payout-item-status"
-                      },
-                      "depth": 2,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Get a Payout Batch",
-                            "slug": "get-a-payout-batch"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Retrieve PayoutItem ID",
-                            "slug": "retrieve-payoutitem-id"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "AccessToken",
-                            "slug": "accesstoken"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Api Context",
-                            "slug": "api-context"
-                          },
-                          "depth": 3
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 3,
-                            "title": "Get Payout Item",
-                            "slug": "get-payout-item"
-                          },
-                          "depth": 3
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "title": "Get Payout Item Status"
+                "title": "GetPayoutItemStatusServlet"
               },
-              "depth": 3,
-              "outline": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Load Configuration",
-                    "slug": "load-configuration"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Get Payout Item Status",
-                    "slug": "get-payout-item-status"
-                  },
-                  "depth": 2,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Get a Payout Batch",
-                        "slug": "get-a-payout-batch"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Retrieve PayoutItem ID",
-                        "slug": "retrieve-payoutitem-id"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "AccessToken",
-                        "slug": "accesstoken"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Api Context",
-                        "slug": "api-context"
-                      },
-                      "depth": 3
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Get Payout Item",
-                        "slug": "get-payout-item"
-                      },
-                      "depth": 3
-                    }
-                  ]
-                }
-              ]
+              "depth": 3
             }
           ]
         }
@@ -4015,15 +621,15 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   };
 
   selectNodeByDocumentPath = function(documentPath, headerSlug) {
-    var link, urlChunks, _i, _len, _ref;
+    var j, len, link, ref, urlChunks;
     if (headerSlug == null) {
       headerSlug = null;
     }
     currentNode$ = fileMap[documentPath];
     if (headerSlug) {
-      _ref = currentNode$.find('.outline a');
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        link = _ref[_i];
+      ref = currentNode$.find('.outline a');
+      for (j = 0, len = ref.length; j < len; j++) {
+        link = ref[j];
         urlChunks = $(link).attr('href').split('#');
         if (urlChunks[1] === headerSlug) {
           currentNode$ = $(link).parents('li').first();
@@ -4037,10 +643,10 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   };
 
   moveCurrentNode = function(up) {
-    var i, newIndex, node, visibleNodes$, _i, _len;
+    var i, j, len, newIndex, node, visibleNodes$;
     visibleNodes$ = toc$.find('li:visible:not(.filtered)');
     newIndex = 0;
-    for (i = _i = 0, _len = visibleNodes$.length; _i < _len; i = ++_i) {
+    for (i = j = 0, len = visibleNodes$.length; j < len; i = ++j) {
       node = visibleNodes$[i];
       if (node === currentNode$[0]) {
         newIndex = up ? i - 1 : i + 1;
@@ -4077,7 +683,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   currentQuery = '';
 
   searchNodes = function(queryString) {
-    var c, filtered, matched, matcher, nodeInfo, p, _i, _j, _k, _len, _len1, _len2, _results;
+    var c, filtered, j, k, l, len, len1, len2, matched, matcher, nodeInfo, p, results;
     queryString = queryString.toLowerCase().replace(/\s+/, '');
     if (queryString === currentQuery) {
       return;
@@ -4087,18 +693,18 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       return clearFilter();
     }
     matcher = new RegExp(((function() {
-      var _i, _len, _results;
-      _results = [];
-      for (_i = 0, _len = queryString.length; _i < _len; _i++) {
-        c = queryString[_i];
-        _results.push(c.replace(/[-[\]{}()*+?.,\\^$|#\s]/, "\\$&"));
+      var j, len, results;
+      results = [];
+      for (j = 0, len = queryString.length; j < len; j++) {
+        c = queryString[j];
+        results.push(c.replace(/[-[\]{}()*+?.,\\^$|#\s]/, "\\$&"));
       }
-      return _results;
+      return results;
     })()).join('.*'));
     matched = [];
     filtered = [];
-    for (_i = 0, _len = searchableNodes.length; _i < _len; _i++) {
-      nodeInfo = searchableNodes[_i];
+    for (j = 0, len = searchableNodes.length; j < len; j++) {
+      nodeInfo = searchableNodes[j];
       if (matcher.test(nodeInfo[0])) {
         matched.push(nodeInfo);
       } else {
@@ -4109,53 +715,53 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       return clearFilter();
     }
     nav$.addClass('searching');
-    for (_j = 0, _len1 = filtered.length; _j < _len1; _j++) {
-      nodeInfo = filtered[_j];
+    for (k = 0, len1 = filtered.length; k < len1; k++) {
+      nodeInfo = filtered[k];
       nodeInfo[1].removeClass('matched-child');
       nodeInfo[1].addClass('filtered');
       clearHighlight(nodeInfo[2]);
     }
-    _results = [];
-    for (_k = 0, _len2 = matched.length; _k < _len2; _k++) {
-      nodeInfo = matched[_k];
+    results = [];
+    for (l = 0, len2 = matched.length; l < len2; l++) {
+      nodeInfo = matched[l];
       nodeInfo[1].removeClass('filtered matched-child');
       nodeInfo[1].addClass('matched');
       highlightMatch(nodeInfo[2], queryString);
-      _results.push((function() {
-        var _l, _len3, _ref, _results1;
-        _ref = nodeInfo[1].parents('li');
-        _results1 = [];
-        for (_l = 0, _len3 = _ref.length; _l < _len3; _l++) {
-          p = _ref[_l];
-          _results1.push($(p).addClass('matched-child'));
+      results.push((function() {
+        var len3, m, ref, results1;
+        ref = nodeInfo[1].parents('li');
+        results1 = [];
+        for (m = 0, len3 = ref.length; m < len3; m++) {
+          p = ref[m];
+          results1.push($(p).addClass('matched-child'));
         }
-        return _results1;
+        return results1;
       })());
     }
-    return _results;
+    return results;
   };
 
   clearFilter = function() {
-    var nodeInfo, _i, _len, _results;
+    var j, len, nodeInfo, results;
     nav$.removeClass('searching');
     currentQuery = '';
-    _results = [];
-    for (_i = 0, _len = searchableNodes.length; _i < _len; _i++) {
-      nodeInfo = searchableNodes[_i];
+    results = [];
+    for (j = 0, len = searchableNodes.length; j < len; j++) {
+      nodeInfo = searchableNodes[j];
       nodeInfo[1].removeClass('filtered matched-child');
-      _results.push(clearHighlight(nodeInfo[2]));
+      results.push(clearHighlight(nodeInfo[2]));
     }
-    return _results;
+    return results;
   };
 
   highlightMatch = function(text$, queryString) {
-    var char, foundIndex, furthestIndex, lowerText, markedText, nodeText, _i, _len;
+    var char, foundIndex, furthestIndex, j, len, lowerText, markedText, nodeText;
     nodeText = text$.text();
     lowerText = nodeText.toLowerCase();
     markedText = '';
     furthestIndex = 0;
-    for (_i = 0, _len = queryString.length; _i < _len; _i++) {
-      char = queryString[_i];
+    for (j = 0, len = queryString.length; j < len; j++) {
+      char = queryString[j];
       foundIndex = lowerText.indexOf(char, furthestIndex);
       markedText += nodeText.slice(furthestIndex, foundIndex) + ("<em>" + nodeText[foundIndex] + "</em>");
       furthestIndex = foundIndex + 1;
@@ -4170,26 +776,26 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   fileMap = {};
 
   buildNav = function(metaInfo) {
-    var node, sourceURL, _i, _len;
+    var j, len, node, sourceURL;
     nav$ = $("<nav>\n  <ul class=\"tools\">\n    <li class=\"toggle\">Table of Contents</li>\n    <li class=\"search\">\n      <input id=\"search\" type=\"search\" autocomplete=\"off\"/>\n    </li>\n  </ul>\n  <ol class=\"toc\"/>\n  </div>\n</nav>").appendTo($('body'));
     toc$ = nav$.find('.toc');
     if (metaInfo.githubURL) {
       if (metaInfo.documentPath === 'index') {
         sourceURL = metaInfo.githubURL;
       } else {
-        sourceURL = "" + metaInfo.githubURL + "/blob/master/" + metaInfo.projectPath;
+        sourceURL = metaInfo.githubURL + "/blob/master/" + metaInfo.projectPath;
       }
       nav$.find('.tools').prepend("<li class=\"github\">\n  <a href=\"" + sourceURL + "\" title=\"View source on GitHub\">\n    View source on GitHub\n  </a>\n</li>");
     }
-    for (_i = 0, _len = tableOfContents.length; _i < _len; _i++) {
-      node = tableOfContents[_i];
+    for (j = 0, len = tableOfContents.length; j < len; j++) {
+      node = tableOfContents[j];
       toc$.append(buildTOCNode(node, metaInfo));
     }
     return nav$;
   };
 
   buildTOCNode = function(node, metaInfo) {
-    var c, children$, clickLabel, discloser, discloser$, label$, node$, _i, _len, _ref, _ref1, _ref2;
+    var c, children$, clickLabel, discloser, discloser$, j, label$, len, node$, ref, ref1, ref2;
     node$ = $("<li class=\"" + node.type + "\"/>");
     discloser = null;
     switch (node.type) {
@@ -4213,11 +819,11 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           return false;
         };
     }
-    if (((_ref = node.children) != null ? _ref.length : void 0) > 0) {
+    if (((ref = node.children) != null ? ref.length : void 0) > 0) {
       children$ = $('<ol class="children"/>');
-      _ref1 = node.children;
-      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-        c = _ref1[_i];
+      ref1 = node.children;
+      for (j = 0, len = ref1.length; j < len; j++) {
+        c = ref1[j];
         children$.append(buildTOCNode(c, metaInfo));
       }
       node$.append(children$);
@@ -4225,7 +831,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     label$ = node$.find('> .label');
     label$.click(clickLabel);
     discloser$ = $('<span class="discloser"/>').prependTo(label$);
-    if (!(((_ref2 = node.children) != null ? _ref2.length : void 0) > 0)) {
+    if (!(((ref2 = node.children) != null ? ref2.length : void 0) > 0)) {
       discloser$.addClass('placeholder');
     }
     discloser = discloser$.get(0);

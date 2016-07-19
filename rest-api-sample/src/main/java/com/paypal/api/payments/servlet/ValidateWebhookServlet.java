@@ -1,12 +1,7 @@
-// #CreateCreditCard Sample
-// Using the 'vault' API, you can store a 
-// Credit Card securely on PayPal. You can
-// use a saved Credit Card to process
-// a payment in the future.
-// The following code demonstrates how 
-// can save a Credit Card on PayPal using 
-// the Vault API.
-// API used: POST /v1/vault/credit-card
+// #Validate Webhook Sample
+// This is a sample code to demonstrate how to validate a webhook received on your web server.
+// This sample assumes you are using java servlet, which returns HttpServletRequest object.
+// However, this code can still be easily modified to your specific case.
 package com.paypal.api.payments.servlet;
 
 import com.paypal.api.payments.CreditCard;
@@ -49,17 +44,14 @@ public class ValidateWebhookServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 
-	// ##Create
+	// ##Validate Webhook
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try{
 			// ### Api Context
-			// Pass in a `ApiContext` object to authenticate
-			// the call and to send a unique request id
-			// (that ensures idempotency). The SDK generates
-			// a request id if you do not pass one explicitly.
 			APIContext apiContext = new APIContext(clientID, clientSecret, mode);
+			// Set the webhookId that you received when you created this webhook.
 			apiContext.addConfiguration(Constants.PAYPAL_WEBHOOK_ID, WebhookId);
 
 			Boolean result = Event.validateReceivedEvent(apiContext, getHeadersInfo(req), getBody(req));
@@ -83,12 +75,7 @@ public class ValidateWebhookServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * Simple helper method to help you extract the headers from HttpServletRequest object.
-	 *
-	 * @param request {@link HttpServletRequest} request object
-	 * @return @{@link Map} of headers.
-     */
+	// Simple helper method to help you extract the headers from HttpServletRequest object.
 	private static Map<String, String> getHeadersInfo(HttpServletRequest request) {
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -104,16 +91,10 @@ public class ValidateWebhookServlet extends HttpServlet {
 		return map;
 	}
 
-	/**
-	 * Simple helper method to fetch request data as a string from @{@link HttpServletRequest} object.
-	 *
-	 * @param request {@link HttpServletRequest} request object
-	 * @return String containing the webhook data
-	 * @throws IOException
-     */
+	// Simple helper method to fetch request data as a string from HttpServletRequest object.
 	private static String getBody(HttpServletRequest request) throws IOException {
 
-	    String body = null;
+	    String body;
 	    StringBuilder stringBuilder = new StringBuilder();
 	    BufferedReader bufferedReader = null;
 

@@ -1,22 +1,5 @@
-// #Get Payout Batch Status
-// This call can be used to periodically to get the latest status of a batch, along with the transaction status and other data for individual items.
-// API used: GET /v1/payments/payouts/<Payout-Batch-Id>
+// #Update Payment
 package com.paypal.api.payments.servlet;
-
-import static com.paypal.api.payments.util.SampleConstants.clientID;
-import static com.paypal.api.payments.util.SampleConstants.clientSecret;
-import static com.paypal.api.payments.util.SampleConstants.mode;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
 
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Details;
@@ -25,6 +8,17 @@ import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import org.apache.log4j.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.paypal.api.payments.util.SampleConstants.*;
 
 public class UpdatePaymentServlet extends HttpServlet {
 
@@ -39,8 +33,6 @@ public class UpdatePaymentServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 
-	// ##GetPayoutBatchStatus
-	// Sample showing how to get a Payout Batch Status
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -51,8 +43,8 @@ public class UpdatePaymentServlet extends HttpServlet {
 	public boolean updatePayment(HttpServletRequest req,
 			HttpServletResponse resp) {
 
-		// ### Create a Payout Batch
-		// We are re-using the CreateBatchPayoutServlet to create a batch payout
+		// ### Create a Payment
+		// We are re-using the PaymentWithPayPalServlet to create a payment
 		// for us. This will make sure the samples will work all the time.
 		PaymentWithPayPalServlet servlet = new PaymentWithPayPalServlet();
 		Payment payment = servlet.createPayment(req, resp);
@@ -83,9 +75,8 @@ public class UpdatePaymentServlet extends HttpServlet {
 			// a request id if you do not pass one explicitly.
 			APIContext apiContext = new APIContext(clientID, clientSecret, mode);
 
-			// Create a payment by posting to the APIService
-			// using a valid AccessToken
-			// The return object contains the status;
+			// Update a payment by posting to the APIService
+			// using a valid apiContext
 			payment.update(apiContext, patchRequest);
 
 			LOGGER.info("Updated Payment with " + payment.getId());
