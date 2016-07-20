@@ -1,19 +1,18 @@
 package com.paypal.base;
 
+import com.paypal.api.payments.Event;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.rest.PayPalResource;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-import com.paypal.api.payments.Event;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
 
 public class ValidateCertTest {
 	
@@ -51,12 +50,6 @@ public class ValidateCertTest {
 		} catch (PayPalRESTException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Test(groups = "unit", expectedExceptions = PayPalRESTException.class, expectedExceptionsMessageRegExp = "Paypal-Cert-Url cannot be null" )
-	public void testMissingCertUrl() throws PayPalRESTException, InvalidKeyException, NoSuchAlgorithmException, SignatureException {
-		headers.remove(Constants.PAYPAL_HEADER_CERT_URL);
-		Event.validateReceivedEvent(apiContext, headers, requestBody);
 	}
 
 	@Test(groups = "unit", expectedExceptions = PayPalRESTException.class, expectedExceptionsMessageRegExp = "webhook.id cannot be null" )
