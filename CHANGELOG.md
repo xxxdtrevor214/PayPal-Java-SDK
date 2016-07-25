@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+v1.9.2
+----
+   * Improvements to Webhook Validation integration [#223](https://github.com/paypal/PayPal-Java-SDK/pull/223).
+   * Minor improvements.
+
 v1.9.1
 ----
    * Use UTF-8 as the character set when generating CRC32 checksum [#218](https://github.com/paypal/PayPal-Java-SDK/pull/218).
