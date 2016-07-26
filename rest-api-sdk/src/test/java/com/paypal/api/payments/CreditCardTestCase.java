@@ -1,21 +1,17 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
-
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
+import java.util.*;
 
 public class CreditCardTestCase {
 
@@ -48,20 +44,8 @@ public class CreditCardTestCase {
 
 	public static final String VALIDUNTIL = "2020";
 
-	public static final Address BILLINGADDRESS = AddressTestCase
-			.createAddress();
+	public static final Address BILLINGADDRESS = AddressTestCase.createAddress();
 
-	@BeforeTest(groups = "integration")
-	public void beforeClass() throws PayPalRESTException {
-		File testFile = new File(".",
-				"src/test/resources/sdk_config.properties");
-		PayPalResource.initConfig(testFile);
-		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
-		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
-		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
-				clientSecret).getAccessToken();
-	}
-	
 	public static CreditCard createCreditCard() {
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(BILLINGADDRESS).setExpireMonth(EXPMONTH)
@@ -129,18 +113,12 @@ public class CreditCardTestCase {
 
 	@Test(groups = "integration")
 	public void createCreditCardTest() throws PayPalRESTException {
-		logger.info("**** Create CreditCard ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
 		CreditCard creditCard = new CreditCard();
 		creditCard.setExpireMonth(EXPMONTH);
 		creditCard.setExpireYear(EXPYEAR);
 		creditCard.setNumber(NUMBER);
 		creditCard.setType(TYPE);
-		this.creditCard = creditCard.create(TokenHolder.accessToken);
-		logger.info("Request = " + CreditCard.getLastRequest());
-		logger.info("Response = " + CreditCard.getLastResponse());
-		logger.info("Credit Card created with ID = " + this.creditCard.getId());
+		this.creditCard = creditCard.create(TestConstants.SANDBOXCONTEXT);
 		Assert.assertEquals(true,
 				"ok".equalsIgnoreCase(this.creditCard.getState()));
 		logger.info("Created Credit Card status = "
@@ -150,27 +128,15 @@ public class CreditCardTestCase {
 
 	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
 	public void testGetCreditCard() throws PayPalRESTException {
-		logger.info("**** Get CreditCard ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
-		CreditCard retrievedCreditCard = CreditCard.get(
-				TokenHolder.accessToken, createdCreditCardId);
-		logger.info("Request = " + CreditCard.getLastRequest());
-		logger.info("Response = " + CreditCard.getLastResponse());
+		CreditCard retrievedCreditCard = CreditCard.get(TestConstants.SANDBOXCONTEXT, createdCreditCardId);
 		Assert.assertEquals(
 				true,
 				this.creditCard.getId().equalsIgnoreCase(
 						retrievedCreditCard.getId()));
-		logger.info("Retrieved Credit Card status = "
-				+ retrievedCreditCard.getState());
-
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetCreditCard" })
 	public void testUpdateCreditCard() throws PayPalRESTException {
-		logger.info("**** Update CreditCard ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
 		// set up patch request
 		Patch patch = new Patch();
 		patch.setOp("replace");
@@ -182,10 +148,7 @@ public class CreditCardTestCase {
 		// send patch request
 		CreditCard creditCard = new CreditCard();
 		creditCard.setId(createdCreditCardId);
-		CreditCard retrievedCreditCard = creditCard.update(TokenHolder.accessToken, patchRequest);
-		
-		logger.info("Request = " + CreditCard.getLastRequest());
-		logger.info("Response = " + CreditCard.getLastResponse());
+		CreditCard retrievedCreditCard = creditCard.update(TestConstants.SANDBOXCONTEXT, patchRequest);
 		Assert.assertEquals(2020, retrievedCreditCard.getExpireYear());
 
 	}
@@ -193,44 +156,45 @@ public class CreditCardTestCase {
 	
 	@Test(groups = "integration", dependsOnMethods = { "testUpdateCreditCard" })
 	public void deleteCreditCard() throws PayPalRESTException {
-		logger.info("**** Delete CreditCard ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
-		CreditCard retrievedCreditCard = CreditCard.get(
-				TokenHolder.accessToken, createdCreditCardId);
-		retrievedCreditCard.delete(TokenHolder.accessToken);
-		logger.info("Request = " + CreditCard.getLastRequest());
-		logger.info("Response = " + CreditCard.getLastResponse());
+		CreditCard retrievedCreditCard = CreditCard.get(TestConstants.SANDBOXCONTEXT, createdCreditCardId);
+		retrievedCreditCard.delete(TestConstants.SANDBOXCONTEXT);
 		try {
-			CreditCard.get(
-				TokenHolder.accessToken, createdCreditCardId);
+			CreditCard.get(TestConstants.SANDBOXCONTEXT, createdCreditCardId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	// Pass empty HashMap
 	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
-	public void testListCreditCard() throws PayPalRESTException {
-		logger.info("**** List CreditCard ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-		
-		CreditCardHistory creditCards = CreditCard.list(
-				TokenHolder.accessToken);
-		logger.info("Request = " + CreditCard.getLastRequest());
-		logger.info("Response = " + CreditCard.getLastResponse());
-		logger.info("Retrieved list of credit cards = "
-				+ creditCards.getItems());
+	public void testListCreditCardContextOnly() throws PayPalRESTException {
+		CreditCardHistory creditCards = CreditCard.list(TestConstants.SANDBOXCONTEXT);
 		Assert.assertTrue(creditCards.getTotalItems() > 0);
 
 	}
-	
+
+	// Pass empty HashMap
+	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
+	public void testListCreditCard() throws PayPalRESTException {
+		Map<String, String> containerMap = new HashMap<String, String>();
+		CreditCardHistory creditCards = CreditCard.list(TestConstants.SANDBOXCONTEXT, containerMap);
+		Assert.assertTrue(creditCards.getTotalItems() > 0);
+
+	}
+
+	// Pass HashMap with count
+	@Test(groups = "integration", dependsOnMethods = { "createCreditCardTest" })
+	public void testListCreditCardwithCount() throws PayPalRESTException {
+		Map<String, String> containerMap = new HashMap<String, String>();
+		containerMap.put("count", "10");
+		CreditCardHistory creditCards = CreditCard.list(TestConstants.SANDBOXCONTEXT, containerMap);
+		Assert.assertTrue(creditCards.getTotalItems() > 0);
+	}
+
 	@Test(groups = "integration", dependsOnMethods = { "testGetCreditCard" })
 	public void getCreditCardForNull() {
-		logger.info("**** Get CreditCard Null ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
 		try {
-			CreditCard.get(TokenHolder.accessToken, null);
+			CreditCard.get(TestConstants.SANDBOXCONTEXT, null);
 		} catch (IllegalArgumentException e) {
 			Assert.assertTrue(e != null,
 					"Illegal Argument Exception not thrown for null arguments");

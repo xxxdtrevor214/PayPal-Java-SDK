@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
@@ -103,16 +104,12 @@ public class WebhookTestCase {
 	
 	@Test(groups = "integration")
 	public void testCreateWebhook() throws PayPalRESTException {
-		logger.info("**** Create Webhook ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-		
 		Webhook webhookRequest = new Webhook();
 		String uuid = UUID.randomUUID().toString();
 		webhookRequest.setUrl(WebhooksInputData.WEBHOOK_URL + uuid);
 		webhookRequest.setEventTypes(EventTypeListTestCase.createAuthEventTypeList());
 		logger.info("Request = " + webhookRequest.toJSON());
-		Webhook webhookResponse = webhookRequest.create(TokenHolder.accessToken, webhookRequest);
+		Webhook webhookResponse = webhookRequest.create(TestConstants.SANDBOXCONTEXT, webhookRequest);
 		logger.info("Response = " + webhookResponse.toJSON());
 		webhookId =  webhookResponse.getId();
 		webhookUrl = webhookResponse.getUrl();
@@ -128,12 +125,8 @@ public class WebhookTestCase {
 	
 	@Test(groups = "integration", dependsOnMethods = { "testCreateWebhook" })
 	public void testGetWebhook() throws PayPalRESTException {
-		logger.info("**** Get Webhook ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-		
 		Webhook webhookRequest = new Webhook();
-		Webhook webhookGetResponse = webhookRequest.get(TokenHolder.accessToken, webhookId);
+		Webhook webhookGetResponse = webhookRequest.get(TestConstants.SANDBOXCONTEXT, webhookId);
 		logger.info("Response = " + webhookGetResponse.toJSON());
 		
 		Assert.assertNotNull(webhookGetResponse.getId());
@@ -147,10 +140,6 @@ public class WebhookTestCase {
 	
 	@Test(groups = "integration", dependsOnMethods = { "testGetWebhook" })
 	public void testUpdateWebhook() throws PayPalRESTException {
-		logger.info("**** Update Webhook ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
 		String webhookUpdatedUrl = webhookUrl + "/new_url";
 		
 		JsonObject patchUrl = new JsonObject();
@@ -176,7 +165,7 @@ public class WebhookTestCase {
 		logger.info("Request" + patchRequest);
 		
 		Webhook webhookRequest = new Webhook();
-		Webhook webhookGetResponse = webhookRequest.update(TokenHolder.accessToken, webhookId, patchRequest);
+		Webhook webhookGetResponse = webhookRequest.update(TestConstants.SANDBOXCONTEXT, webhookId, patchRequest);
 		logger.info("Response = " + webhookGetResponse.toJSON());
 		
 		Assert.assertNotNull(webhookGetResponse);
@@ -188,11 +177,8 @@ public class WebhookTestCase {
 	
 	@Test(groups = "integration", dependsOnMethods= { "testUpdateWebhook" }, expectedExceptions = {PayPalRESTException.class} )
 	public void testDeleteWebhook() throws PayPalRESTException {
-		logger.info("**** Delete Webhook ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		Webhook webhookRequest = new Webhook();
-		webhookRequest.delete(TokenHolder.accessToken, webhookId);
-		webhookRequest.get(TokenHolder.accessToken, webhookId); //This should throw PayPalRESTException since Resource does not exist 
+		webhookRequest.delete(TestConstants.SANDBOXCONTEXT, webhookId);
+		webhookRequest.get(TestConstants.SANDBOXCONTEXT, webhookId); //This should throw PayPalRESTException since Resource does not exist
 	}
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
@@ -15,17 +17,20 @@ import com.paypal.base.rest.PayPalRESTException;
 public class PayoutsTestCase {
 	
 	PayoutBatch result;
-	
+
+	public static String clientID = "AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS";
+	public static String clientSecret = "EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL";
+	public static final APIContext SANDBOXCONTEXTPAYOUTS = new APIContext(clientID, clientSecret, "sandbox");
 	private static final Logger logger = Logger.getLogger(PayoutsTestCase.class);
 
 	public static String getJson() {
 		return "{\"sender_batch_header\":" + PayoutSenderBatchHeaderTestCase.getJson() + ",\"items\":[" + PayoutItemTestCase.getJson() + "],\"links\":[" + LinksTestCase.getJson() + "]}";
 	}
-	
+
 	public static Payout getObject() {
 		return JSONFormatter.fromJSON(getJson(), Payout.class);
 	}
-	
+
 	@Test(groups = "unit")
 	public void testJsontoObject() {
 		Payout payout = PayoutsTestCase.getObject();
@@ -36,9 +41,6 @@ public class PayoutsTestCase {
 	
 	@Test(groups = "integration")
 	public void testCreate() throws PayPalRESTException {
-		logger.info("**** Create Payouts ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		
 		Random random = new Random();
 		PayoutSenderBatchHeader senderBatchHeader = new PayoutSenderBatchHeader();
 		senderBatchHeader.setSenderBatchId(
@@ -57,7 +59,7 @@ public class PayoutsTestCase {
 		items.add(senderItem);
 		Payout payout = new Payout();
 		payout.setSenderBatchHeader(senderBatchHeader).setItems(items);
-		this.result = payout.create(TokenHolder.accessToken, null);
+		this.result = payout.create(SANDBOXCONTEXTPAYOUTS, null);
 		
 		Assert.assertNotNull(this.result);
 		Assert.assertNotNull(this.result.getBatchHeader());
@@ -66,9 +68,6 @@ public class PayoutsTestCase {
 	
 	@Test(groups = "integration")
 	public void testCreateSync() throws PayPalRESTException {
-		logger.info("**** Create Payouts Synchronously****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		
 		Random random = new Random();
 		PayoutSenderBatchHeader senderBatchHeader = new PayoutSenderBatchHeader();
 		senderBatchHeader.setSenderBatchId(
@@ -87,7 +86,7 @@ public class PayoutsTestCase {
 		items.add(senderItem);
 		Payout payout = new Payout();
 		payout.setSenderBatchHeader(senderBatchHeader).setItems(items);
-		PayoutBatch result = payout.createSynchronous(TokenHolder.accessToken);
+		PayoutBatch result = payout.createSynchronous(SANDBOXCONTEXTPAYOUTS);
 		
 		Assert.assertNotNull(result);
 		Assert.assertNotNull(result.getBatchHeader());
@@ -96,12 +95,9 @@ public class PayoutsTestCase {
 	
 	@Test(groups = "integration")
 	public void testGetPayout() throws PayPalRESTException {
-		logger.info("**** Get Payout ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		String payoutBatchId = this.result.getBatchHeader().getPayoutBatchId();
-		payoutBatchId = "XR3H37QDELPZS";
+		String payoutBatchId = "XR3H37QDELPZS";
 		
-		this.result = Payout.get(TokenHolder.accessToken, payoutBatchId);
+		this.result = Payout.get(SANDBOXCONTEXTPAYOUTS, payoutBatchId);
 		
 		Assert.assertNotNull(this.result);
 		Assert.assertEquals(this.result.getBatchHeader().getPayoutBatchId(), payoutBatchId);
@@ -112,12 +108,10 @@ public class PayoutsTestCase {
 	
 	@Test(groups = "integration")
 	public void testGetPayoutItemError() throws PayPalRESTException {
-		logger.info("**** Get Payout Item Error ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
 		PayoutItemDetails payoutItem = this.result.getItems().get(0);
 		String payoutItemId = "BYGU98D9Z8SQG";
 		
-		PayoutItemDetails result = PayoutItem.get(TokenHolder.accessToken, payoutItemId);
+		PayoutItemDetails result = PayoutItem.get(SANDBOXCONTEXTPAYOUTS, payoutItemId);
 		
 		Assert.assertNotNull(result);
 		Assert.assertEquals(result.getPayoutItemId(), payoutItemId);
@@ -130,12 +124,10 @@ public class PayoutsTestCase {
 	
 	@Test(groups = "integration")
 	public void testGetPayoutItem() throws PayPalRESTException {
-		logger.info("**** Get Payout Item ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
 		PayoutItemDetails payoutItem = this.result.getItems().get(0);
 		String payoutItemId = payoutItem.getPayoutItemId();
 		
-		PayoutItemDetails result = PayoutItem.get(TokenHolder.accessToken, payoutItemId);
+		PayoutItemDetails result = PayoutItem.get(SANDBOXCONTEXTPAYOUTS, payoutItemId);
 		
 		Assert.assertNotNull(result);
 		Assert.assertEquals(result.getPayoutItemId(), payoutItemId);
@@ -145,13 +137,11 @@ public class PayoutsTestCase {
 	
 	@Test(groups = "integration")
 	public void testPayoutItemCancel() throws PayPalRESTException {
-		logger.info("**** Cancel Payout Item ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
 		PayoutItemDetails payoutItem = this.result.getItems().get(0);
 		String payoutItemId = payoutItem.getPayoutItemId();
 		
 		if (payoutItem.getTransactionStatus() == "UNCLAIMED") {
-			PayoutItemDetails result = PayoutItem.cancel(TokenHolder.accessToken, payoutItemId);
+			PayoutItemDetails result = PayoutItem.cancel(SANDBOXCONTEXTPAYOUTS, payoutItemId);
 			
 			Assert.assertNotNull(result);
 			Assert.assertEquals(result.getPayoutItemId(), payoutItemId);

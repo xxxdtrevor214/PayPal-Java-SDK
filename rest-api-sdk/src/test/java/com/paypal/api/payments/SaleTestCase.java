@@ -1,5 +1,12 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,13 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
-
-import com.paypal.base.rest.PayPalRESTException;
 
 public class SaleTestCase {
 
@@ -30,13 +30,6 @@ public class SaleTestCase {
 	public static final String CREATEDTIME = "2013-01-17T18:12:02.347Z";
 
 	public String SALE_ID = null;
-
-	@BeforeClass
-	public void beforeClass() throws PayPalRESTException {
-		File testFile = new File(".",
-				"src/test/resources/sdk_config.properties");
-		Sale.initConfig(testFile);
-	}
 
 	public static Sale createSale() {
 		List<Links> links = new ArrayList<Links>();
@@ -64,21 +57,14 @@ public class SaleTestCase {
 
 	@Test(groups = "integration")
 	public void testSaleRefundAPI() throws PayPalRESTException {
-		logger.info("**** Sale Refund ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
 		Payment payment = PaymentTestCase.createCallPayment();
+		Payment createdPayment = payment.create(TestConstants.SANDBOXCONTEXT);
 
-		Payment createdPayment = payment.create(TokenHolder.accessToken);
 		List<Transaction> transactions = createdPayment.getTransactions();
 		List<RelatedResources> subTransactions = transactions.get(0)
 				.getRelatedResources();
 		String id = subTransactions.get(0).getSale().getId();
 		this.SALE_ID = id;
-		logger.info("Payment Request for Sale = " + Payment.getLastRequest());
-		logger.info("Payment Response for Sale = " + Payment.getLastResponse());
-		logger.info("Sale ID = " + id);
-
 		Sale sale = new Sale();
 		sale.setId(id);
 
@@ -89,42 +75,31 @@ public class SaleTestCase {
 		Refund refund = new Refund();
 		refund.setAmount(amount);
 		refund.setSaleId(id);
-		Refund returnRefund = sale.refund(TokenHolder.accessToken, refund);
+		Refund returnRefund = sale.refund(TestConstants.SANDBOXCONTEXT, refund);
 		ObjectHolder.refundId = returnRefund.getId();
-		logger.info("Sale Refund Request = " + Sale.getLastRequest());
-		logger.info("Sale Refund Response = " + Sale.getLastResponse());
-		logger.info("Refund Id = " + ObjectHolder.refundId);
-		Assert.assertEquals(true,
-				"completed".equalsIgnoreCase(returnRefund.getState()));
-		logger.info("Refund Status = " + returnRefund.getState());
+		Assert.assertEquals(true, "completed".equalsIgnoreCase(returnRefund.getState()));
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPI" })
 	public void testGetSale() {
-		logger.info("**** Sale Get for SaleId : " + this.SALE_ID);
 		Sale sale = null;
 		try {
-			sale = Sale.get(TokenHolder.accessToken, this.SALE_ID);
+			sale = Sale.get(TestConstants.SANDBOXCONTEXT, this.SALE_ID);
 			Assert.assertNotNull(sale);
 			Assert.assertEquals(this.SALE_ID, sale.getId());
 		} catch (PayPalRESTException ppx) {
 			Assert.fail();
 		}
-		logger.info("**** Sale State : " + sale.getState());
-		logger.info("**** Sale Id : " + sale.getId());
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetSale" })
 	public void testSaleRefundAPIForNullRefund() {
-		logger.info("**** Sale Refund For Null Refund ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		Sale sale = new Sale();
 		Refund refund = null;
 		try {
-			sale.refund(TokenHolder.accessToken, refund);
+			sale.refund(TestConstants.SANDBOXCONTEXT, refund);
 		} catch (IllegalArgumentException e) {
-			Assert.assertTrue(e != null,
-					"IllegalArgument exception not thrown for null Refund");
+			Assert.assertTrue(e != null, "IllegalArgument exception not thrown for null Refund");
 		} catch (PayPalRESTException e) {
 			Assert.fail();
 		}
@@ -132,9 +107,6 @@ public class SaleTestCase {
 
 	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPIForNullRefund" })
 	public void testSaleRefundAPIForNullID() {
-		logger.info("**** Sale Refund For Null Id ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-
 		Sale sale = new Sale();
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
@@ -143,10 +115,9 @@ public class SaleTestCase {
 		refund.setAmount(amount);
 		refund.setSaleId("123");
 		try {
-			sale.refund(TokenHolder.accessToken, refund);
+			sale.refund(TestConstants.SANDBOXCONTEXT, refund);
 		} catch (IllegalArgumentException e) {
-			Assert.assertTrue(e != null,
-					"IllegalArgument exception not thrown for null Id");
+			Assert.assertTrue(e != null, "IllegalArgument exception not thrown for null Id");
 		} catch (PayPalRESTException e) {
 			Assert.fail();
 		}
@@ -154,12 +125,10 @@ public class SaleTestCase {
 
 	@Test(groups = "integration", dependsOnMethods = { "testSaleRefundAPIForNullID" })
 	public void testGetSaleForNullId() {
-		logger.info("**** Sale Get for Null SaleId ****");
 		try {
-			Sale.get(TokenHolder.accessToken, null);
+			Sale.get(TestConstants.SANDBOXCONTEXT, null);
 		} catch (IllegalArgumentException e) {
-			Assert.assertTrue(e != null,
-					"IllegalArgument exception not thrown for null Id");
+			Assert.assertTrue(e != null, "IllegalArgument exception not thrown for null Id");
 		} catch (PayPalRESTException e) {
 			Assert.fail();
 		}

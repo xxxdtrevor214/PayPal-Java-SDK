@@ -1,25 +1,21 @@
 package com.paypal.api.payments;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
 
 public class PaymentTestCase {
 
@@ -42,29 +38,17 @@ public class PaymentTestCase {
 
 	public static Payment payment;
 
-	@BeforeClass
-	public void beforeClass() throws PayPalRESTException {
-		File testFile = new File(".",
-				"src/test/resources/sdk_config.properties");
-		Payment.initConfig(testFile);
-	}
-
-	@BeforeTest
-	public void beforeTest() {
-
-	}
-
 	public static Payment createCallPayment() {
 		Address billingAddress = AddressTestCase.createAddress();
 
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
-		creditCard.setCvv2(874);
-		creditCard.setExpireMonth(11);
-		creditCard.setExpireYear(2018);
+		creditCard.setCvv2(617);
+		creditCard.setExpireMonth(01);
+		creditCard.setExpireYear(2017);
 		creditCard.setFirstName("Joe");
 		creditCard.setLastName("Shopper");
-		creditCard.setNumber("4417119669820331");
+		creditCard.setNumber("4422009910903049");
 		creditCard.setType("visa");
 
 
@@ -233,17 +217,8 @@ public class PaymentTestCase {
 
 	@Test(groups = "integration")
 	public void testCreatePaymentAPI() throws PayPalRESTException {
-		logger.info("**** Create Payment ****");
-		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
-		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
-		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
-				clientSecret).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		Payment payment = createCallPayment();
-		Payment createdPayment = payment.create(TokenHolder.accessToken);
-		logger.info("Request = " + Payment.getLastRequest());
-		logger.info("Response = " + Payment.getLastResponse());
-		logger.info("Payment created with ID = " + createdPayment.getId());
+		Payment createdPayment = payment.create(TestConstants.SANDBOXCONTEXT);
 		createdPaymentID = createdPayment.getId();
 		String json = Payment.getLastResponse();
 		JsonParser parser = new JsonParser();
@@ -251,8 +226,8 @@ public class PaymentTestCase {
 		JsonObject obj = jsonElement.getAsJsonObject();
 
 		// State of a created payment object is approved
-		Assert.assertEquals(true, obj.get("state").getAsString()
-				.equalsIgnoreCase("approved"));
+		Assert.assertEquals(obj.get("state").getAsString()
+				.equalsIgnoreCase("approved"),true);
 		obj.get("transactions").getAsJsonArray().get(0)
 				.getAsJsonObject().get("related_resources").getAsJsonArray()
 				.get(0).getAsJsonObject().get("sale").getAsJsonObject()
@@ -261,53 +236,35 @@ public class PaymentTestCase {
 
 	@Test(groups = "integration", dependsOnMethods = { "testCreatePaymentAPI" })
 	public void testGetPaymentAPI() throws PayPalRESTException {
-		logger.info("**** Get Payment ****");
-		logger.info("Setting Access Token = " + TokenHolder.accessToken);
-		payment = Payment.get(TokenHolder.accessToken, createdPaymentID);
-		logger.info("Request = " + Payment.getLastRequest());
-		logger.info("Response = " + Payment.getLastResponse());
-		logger.info("Retrieved Payment status = " + payment.getState());
+		payment = Payment.get(TestConstants.SANDBOXCONTEXT, createdPaymentID);
 	}
 
 	@Test(groups = "integration", enabled = false, dependsOnMethods = { "testGetPaymentAPI" })
 	public void testExecutePayment() throws PayPalRESTException, IOException {
-		logger.info("**** Execute Payment ****");
 		Payment exPayment = createPaymentForExecution();
-		exPayment = exPayment.create(TokenHolder.accessToken);
-		logger.info("Create Payment Response: " + exPayment);
-		logger.info("Payer ID:");
+		exPayment = exPayment.create(TestConstants.SANDBOXCONTEXT);
 		InputStreamReader converter = new InputStreamReader(System.in);
 		BufferedReader in = new BufferedReader(converter);
 		String payerId = in.readLine();
 		PaymentExecution paymentExecution = new PaymentExecution();
 		paymentExecution.setPayerId(payerId);
 		exPayment = exPayment
-				.execute(TokenHolder.accessToken, paymentExecution);
-		logger.info("Request = " + Payment.getLastRequest());
-		logger.info("Response = " + Payment.getLastResponse());
-		logger.info("Retrieved Payment status = " + exPayment.getState());
+				.execute(TestConstants.SANDBOXCONTEXT, paymentExecution);
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetPaymentAPI" })
 	public void testGetPaymentHistoryAPI() throws PayPalRESTException {
-		logger.info("**** Get Payment History ****");
-		logger.info("Setting Access Token = " + TokenHolder.accessToken);
 		Map<String, String> containerMap = new HashMap<String, String>();
 		containerMap.put("count", "10");
-		PaymentHistory paymentHistory = Payment.list(TokenHolder.accessToken,
+		PaymentHistory paymentHistory = Payment.list(TestConstants.SANDBOXCONTEXT,
 				containerMap);
-		logger.info("Request = " + Payment.getLastRequest());
-		logger.info("Response = " + Payment.getLastResponse());
-		logger.info("Retrieved Payments count = " + paymentHistory.getCount());
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetPaymentHistoryAPI" })
 	public void testFailCreatePaymentAPI() {
-		logger.info("**** Failing Create Payment ****");
-		logger.info("Setting Access Token = " + TokenHolder.accessToken);
 		Payment payment = new Payment();
 		try {
-			payment.create(TokenHolder.accessToken);
+			payment.create(TestConstants.SANDBOXCONTEXT);
 		} catch (PayPalRESTException e) {
 			Assert.assertEquals(e.getCause().getClass().getSimpleName(),
 					"HttpErrorException");
@@ -316,10 +273,8 @@ public class PaymentTestCase {
 
 	@Test(groups = "integration", dependsOnMethods = { "testFailCreatePaymentAPI" })
 	public void testFailGetPaymentAPI() {
-		logger.info("**** Failing Get Payment ****");
-		logger.info("Setting Access Token = " + TokenHolder.accessToken);
 		try {
-			Payment.get(TokenHolder.accessToken, (String) null);
+			Payment.get(TestConstants.SANDBOXCONTEXT, (String) null);
 		} catch (IllegalArgumentException e) {
 			Assert.assertTrue(e != null,
 					"Illegal Argument Exception not thrown for null arguments");
@@ -333,13 +288,6 @@ public class PaymentTestCase {
 	@Test(groups = "integration", dependsOnMethods = { "testCreatePaymentAPI" })
 	public void testUpdatePayment() throws PayPalRESTException {
 
-		logger.info("**** Update Payment ****");
-		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
-		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
-		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
-				clientSecret).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-		
 		// set update values
 		//        {
 		//		  "op": "replace",
@@ -368,12 +316,8 @@ public class PaymentTestCase {
 		patchRequest.add(patch);
 		
 		try {
-			Payment payment = Payment.get(TokenHolder.accessToken, createdPaymentID);
-			payment.update(TokenHolder.accessToken, patchRequest);
-			logger.info("Payment ID = " + createdPaymentID);
-			logger.info("Request = " + Payment.getLastRequest());
-			logger.info("Response = " + Payment.getLastResponse());
-			logger.info("updated payment ID = " + createdPaymentID);
+			Payment payment = Payment.get(TestConstants.SANDBOXCONTEXT, createdPaymentID);
+			payment.update(TestConstants.SANDBOXCONTEXT, patchRequest);
 		} catch (PayPalRESTException e) {
 			logger.info("Payment ID = " + createdPaymentID);
 			logger.error("response code: " + e.getResponsecode());

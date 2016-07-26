@@ -563,12 +563,13 @@ public class Invoice extends PayPalResource {
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
-			apiContext.setMaskRequestId(true);
+		apiContext.setRequestId(null);
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/invoicing/invoices/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		apiContext.setRequestId(null);
 	}
 
 	/**

@@ -2,6 +2,7 @@ package com.paypal.api.payments;
 
 import java.util.UUID;
 
+import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
@@ -42,18 +43,15 @@ public class EventTypeTestCase {
 	
 	@Test(groups = "integration")
 	public void testSubscribedEventTypes() throws PayPalRESTException {
-		logger.info("**** Subscribed EventTypes ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-		
+
 		Webhook webhookRequest = new Webhook();
 		String uuid = UUID.randomUUID().toString();
 		webhookRequest.setUrl(WebhooksInputData.WEBHOOK_URL + uuid);
 		webhookRequest.setEventTypes(EventTypeListTestCase.createAuthEventTypeList());
-		Webhook webhookResponse = webhookRequest.create(TokenHolder.accessToken, webhookRequest);
+		Webhook webhookResponse = webhookRequest.create(TestConstants.SANDBOXCONTEXT, webhookRequest);
 		String webhookId =  webhookResponse.getId();
 		
-		EventTypeList eventTypeList = EventType.subscribedEventTypes(TokenHolder.accessToken, webhookId);
+		EventTypeList eventTypeList = EventType.subscribedEventTypes(TestConstants.SANDBOXCONTEXT, webhookId);
 		logger.info("Response = " + eventTypeList.toJSON());
 
 		Assert.assertNotNull(eventTypeList.getEventTypes());
@@ -65,13 +63,7 @@ public class EventTypeTestCase {
 	
 	@Test(groups = "integration")
 	public void testAvailableEventTypes() throws PayPalRESTException {
-		logger.info("**** Available EventTypes ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-		
-		EventTypeList eventTypeList = EventType.availableEventTypes(TokenHolder.accessToken);
-		logger.info("Response = " + eventTypeList.toJSON());
-
+		EventTypeList eventTypeList = EventType.availableEventTypes(TestConstants.SANDBOXCONTEXT);
 		Assert.assertNotNull(eventTypeList.getEventTypes());
 		Assert.assertTrue(eventTypeList.getEventTypes().size() > WebhooksInputData.availableEvents.length);
 	}

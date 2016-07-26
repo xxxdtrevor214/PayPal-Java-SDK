@@ -208,12 +208,13 @@ public class CreditCard  extends PayPalResource {
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
-			apiContext.setMaskRequestId(true);
+		apiContext.setRequestId(null);
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/vault/credit-cards/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		apiContext.setRequestId(null);
 		return;
 	}
 
@@ -294,6 +295,20 @@ public class CreditCard  extends PayPalResource {
 		CreditCardHistory creditCardHistory = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, CreditCardHistory.class);
 
 		return creditCardHistory;
+	}
+
+	/**
+	 * Retrieves a list of Credit Card resources.
+	 * @param apiContext
+	 *            {@link APIContext} used for the API call.
+	 * @return CreditCardHistory
+	 * @throws PayPalRESTException
+	 */
+	public static CreditCardHistory list(APIContext apiContext) throws PayPalRESTException {
+		Map<String, String> containerMap = new HashMap<String, String>();
+		CreditCardHistory creditCardHistory = CreditCard.list(apiContext, containerMap);
+
+ 		return creditCardHistory;
 	}
 
 	/**

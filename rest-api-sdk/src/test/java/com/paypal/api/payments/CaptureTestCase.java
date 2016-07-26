@@ -1,17 +1,17 @@
 package com.paypal.api.payments;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
 
 @Test
 public class CaptureTestCase {
@@ -33,15 +33,14 @@ public class CaptureTestCase {
 
 	private Capture retrievedCapture = null;
 
-	@BeforeTest(groups = "integration")
-	public void beforeClass() throws PayPalRESTException {
-		File testFile = new File(".",
-				"src/test/resources/sdk_config.properties");
-		PayPalResource.initConfig(testFile);
-		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
-		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
-		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
-				clientSecret).getAccessToken();
+	@BeforeTest
+	public void setUp() {
+		TestConstants.SANDBOXCONTEXT.setMaskRequestId(true);
+	}
+
+	@AfterTest
+	public void tearDown() {
+		TestConstants.SANDBOXCONTEXT.setMaskRequestId(false);
 	}
 
 	public static Capture createCapture() {
@@ -71,73 +70,52 @@ public class CaptureTestCase {
 
 	@Test(groups = "integration")
 	public void testGetCapture() throws PayPalRESTException {
-		
-		logger.info("**** Get Capture ****");
-		Payment payment = getPaymentAgainstAuthorization();
-
-		Payment authPayment = payment.create(TokenHolder.accessToken);
-		logger.info("Received AuthPayment: " + authPayment.getId());
+		Payment payment = getPaymentAgainstAuthorization("9.00");
+		Payment authPayment = payment.create(TestConstants.SANDBOXCONTEXT);
 		String authorizationId = authPayment.getTransactions().get(0)
 				.getRelatedResources().get(0).getAuthorization().getId();
 		Authorization authorization = Authorization.get(
-				TokenHolder.accessToken, authorizationId);
+				TestConstants.SANDBOXCONTEXT, authorizationId);
 		Capture capture = new Capture();
 		Amount amount = new Amount();
 		amount.setCurrency("USD").setTotal("1");
 		capture.setAmount(amount).setIsFinalCapture(true);
-		Capture responsecapture = authorization.capture(
-				TokenHolder.accessToken, capture);
-		logger.info("Generated Capture Id = " + responsecapture.getId());
-		retrievedCapture = Capture.get(TokenHolder.accessToken,
-				responsecapture.getId());
-		logger.info("Request = " + Capture.getLastRequest());
-		logger.info("Response = " + Capture.getLastResponse());
-		logger.info("Retrieved Capture State: " + retrievedCapture.getState());
-		
+		Capture responsecapture = authorization.capture(TestConstants.SANDBOXCONTEXT, capture);
+		retrievedCapture = Capture.get(TestConstants.SANDBOXCONTEXT,	responsecapture.getId());
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetCapture" })
 	public void testRefundCapture() throws PayPalRESTException {
-		
-		logger.info("**** Refund Capture ****");
+		/* testing */
 		Refund refund = new Refund();
 		Amount amount = new Amount();
 		amount.setCurrency("USD").setTotal("1");
 		refund.setAmount(amount);
-		Refund responseRefund = retrievedCapture.refund(
-				TokenHolder.accessToken, refund);
+		Refund responseRefund = retrievedCapture.refund(TestConstants.SANDBOXCONTEXT, refund);
 		Assert.assertEquals("completed", responseRefund.getState());
-		logger.info("Request = " + Capture.getLastRequest());
-		logger.info("Response = " + Capture.getLastResponse());
-		logger.info("Refund State: " + responseRefund.getState());
-		
 	}
 
 	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
 	public void testGetCaptureNullCaptureId() throws PayPalRESTException {
-		logger.info("**** Get Capture (Null Capture Id) ****");
-		Capture.get(TokenHolder.accessToken, null);
+		Capture.get(TestConstants.SANDBOXCONTEXT, null);
 	}
 
 	@Test(groups = "integration", expectedExceptions = { IllegalArgumentException.class })
 	public void testCaptureNullRefund() throws PayPalRESTException {
-		logger.info("**** Get Capture (Null Refund) ****");
-		Payment payment = getPaymentAgainstAuthorization();
-		Payment authPayment = payment.create(TokenHolder.accessToken);
+		Payment payment = getPaymentAgainstAuthorization("2.50");
+		Payment authPayment = payment.create(TestConstants.SANDBOXCONTEXT);
 		String authorizationId = authPayment.getTransactions().get(0)
 				.getRelatedResources().get(0).getAuthorization().getId();
-		Authorization authorization = Authorization.get(
-				TokenHolder.accessToken, authorizationId);
+		Authorization authorization = Authorization.get(TestConstants.SANDBOXCONTEXT, authorizationId);
 		Capture capture = new Capture();
 		Amount amount = new Amount();
 		amount.setCurrency("USD").setTotal("1");
 		capture.setAmount(amount).setIsFinalCapture(true);
-		Capture responsecapture = authorization.capture(
-				TokenHolder.accessToken, capture);
+		Capture responsecapture = authorization.capture(TestConstants.SANDBOXCONTEXT, capture);
 		logger.info("Generated Capture Id = " + responsecapture.getId());
-		Capture rCapture = Capture.get(TokenHolder.accessToken,
+		Capture rCapture = Capture.get(TestConstants.SANDBOXCONTEXT,
 				responsecapture.getId());
-		rCapture.refund(TokenHolder.accessToken, null);
+		rCapture.refund(TestConstants.SANDBOXCONTEXT, null);
 	}
 
 	@Test
@@ -152,22 +130,22 @@ public class CaptureTestCase {
 		Assert.assertEquals(capture.toString().length() == 0, false);
 	}
 
-	private Payment getPaymentAgainstAuthorization() {
+	private Payment getPaymentAgainstAuthorization(String totalAmount) {
 		Address billingAddress = AddressTestCase.createAddress();
 
 		CreditCard creditCard = new CreditCard();
 		creditCard.setBillingAddress(billingAddress);
-		creditCard.setCvv2(874);
-		creditCard.setExpireMonth(11);
-		creditCard.setExpireYear(2018);
+		creditCard.setCvv2(617);
+		creditCard.setExpireMonth(01);
+		creditCard.setExpireYear(2017);
 		creditCard.setFirstName("Joe");
 		creditCard.setLastName("Shopper");
-		creditCard.setNumber("4417119669820331");
+		creditCard.setNumber("4422009910903049");
 		creditCard.setType("visa");
 
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
-		amount.setTotal("7");
+		amount.setTotal(totalAmount);
 
 		Transaction transaction = new Transaction();
 		transaction.setAmount(amount);
