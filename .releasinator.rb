@@ -59,7 +59,7 @@ configatron.wait_for_package_manager_method = method(:wait_for_package_manager)
 configatron.release_to_github = true
 
 def file_SDK_version()
-  f=File.open(SDK_VERSION_JAVA_FILE, 'r') do |f|
+  File.open(SDK_VERSION_JAVA_FILE, 'r') do |f|
     f.each_line do |line|
       if line.match(/SDK_VERSION = \"\d+.\d+.\d+"/)
         return line.strip.split('=')[1].strip.split('"')[1]               
