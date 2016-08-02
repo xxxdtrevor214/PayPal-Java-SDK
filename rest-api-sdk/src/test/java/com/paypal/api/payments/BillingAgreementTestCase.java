@@ -14,21 +14,14 @@ import java.util.Random;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
 public class BillingAgreementTestCase {
 	private String id = null;
 	private Agreement agreement = null;
-
-	public static String clientID = "AUASNhD7YM7dc5Wmc5YE9pEsC0o4eVOyYWO9ezXWBu2XTc63d3Au_s9c-v-U";
-	public static String clientSecret = "EBq0TRAE-4R9kgCDKzVh09sm1TeNcuY-xJirid7LNtheUh5t5vlOhR0XSHt3";
-
-	public static final APIContext SANDBOXCONTEXTBILLING = new APIContext(clientID, clientSecret, "sandbox");
 
 	public static Agreement loadAgreement() {
 	    try {
@@ -54,15 +47,17 @@ public class BillingAgreementTestCase {
 	public void testCreateAgreement() throws PayPalRESTException, MalformedURLException, UnsupportedEncodingException {
 		// first, set up plan to be included in the agreement
 		Plan plan = new Plan();
-		plan.setId("P-0V2939118D268823YFYLVH4Y");
+		plan.setId("P-8JY85466CB547405SOESMNSI");
 		
 		// construct an agreement and add the above plan to it
 		Agreement agreement = loadAgreement();
 		agreement.setPlan(plan);
 		agreement.setShippingAddress(null);
-		agreement = agreement.create(SANDBOXCONTEXTBILLING);
-		
+		agreement = agreement.create(TestConstants.SANDBOX_CONTEXT);
+
+		System.out.println("agreement.getId():"+agreement.getId());
 		this.id = agreement.getId();
+		System.out.println("Test:" + agreement.getId());
 		Assert.assertNull(agreement.getId());
 		Assert.assertNotNull(agreement.getToken());
 		Assert.assertEquals(this.id, agreement.getId());
@@ -71,9 +66,9 @@ public class BillingAgreementTestCase {
 	@Test(groups = "integration", dependsOnMethods = {"testCreateAgreement"})
 	public void testExecuteAgreement() throws PayPalRESTException {
 		Agreement agreement =  new Agreement();
-		agreement.setToken("EC-2CD33889A9699491E");
-		this.agreement = agreement.execute(SANDBOXCONTEXTBILLING,agreement.getToken());
-		Assert.assertEquals("I-ASXCM9U5MJJV", this.agreement.getId());
+		agreement.setToken("EC-4WP43347M2969501K");
+		this.agreement = agreement.execute(TestConstants.SANDBOX_CONTEXT,agreement.getToken());
+		Assert.assertEquals("I-JJRBKD609M69", this.agreement.getId());
 	}
 	
 	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testExecuteAgreement"})
@@ -94,7 +89,7 @@ public class BillingAgreementTestCase {
 		List<Patch> patchRequest = new ArrayList<Patch>();
 		patchRequest.add(patch);
 		
-		Agreement updatedAgreement = this.agreement.update(SANDBOXCONTEXTBILLING, patchRequest);
+		Agreement updatedAgreement = this.agreement.update(TestConstants.SANDBOX_CONTEXT, patchRequest);
 		Assert.assertNotSame(agreement.getDescription(), updatedAgreement.getDescription());
 		Assert.assertEquals(updatedAgreement.getId(), this.agreement.getId());
 		Assert.assertEquals(newAgreement.getDescription(), updatedAgreement.getDescription());
@@ -102,17 +97,17 @@ public class BillingAgreementTestCase {
 	
 	@Test(groups = "integration", dependsOnMethods = {"testExecuteAgreement"})
 	public void testRetrieveAgreement() throws PayPalRESTException {
-		Agreement agreement = Agreement.get(SANDBOXCONTEXTBILLING, "I-ASXCM9U5MJJV");
-		Assert.assertEquals("I-ASXCM9U5MJJV", agreement.getId());
-		Assert.assertEquals("2015-02-19T08:00:00Z", agreement.getStartDate());
+		Agreement agreement = Agreement.get(TestConstants.SANDBOX_CONTEXT, "I-JJRBKD609M69");
+		Assert.assertEquals("I-JJRBKD609M69", agreement.getId());
+		Assert.assertEquals("2019-06-17T07:00:00Z", agreement.getStartDate());
 		Assert.assertNotNull(agreement.getPlan());
 	}
 	
-	@Test(groups = "integration")
+	@Test(groups = "integration", dependsOnMethods = {"testCreateAgreement"})
 	public void testSearchAgreement() throws PayPalRESTException {
 		Date startDate = new GregorianCalendar(2014, 10, 1).getTime();
 		Date endDate = new GregorianCalendar(2014, 10, 14).getTime();
-		AgreementTransactions transactions = Agreement.transactions(SANDBOXCONTEXTBILLING, "I-9STXMKR58UNN", startDate, endDate);
+		AgreementTransactions transactions = Agreement.transactions(TestConstants.SANDBOX_CONTEXT, "I-9STXMKR58UNN", startDate, endDate);
 		Assert.assertNotNull(transactions);
 		Assert.assertNotNull(transactions.getAgreementTransactionList());
 	}
@@ -125,34 +120,34 @@ public class BillingAgreementTestCase {
 	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testRetrieveAgreement"})
 	public void testSuspendAgreement() throws PayPalRESTException {
 		String agreementId = "";
-		Agreement agreement = Agreement.get(SANDBOXCONTEXTBILLING, agreementId);
+		Agreement agreement = Agreement.get(TestConstants.SANDBOX_CONTEXT, agreementId);
 		System.out.println("agreement state: " + agreement.getPlan().getState());
 		
 		AgreementStateDescriptor agreementStateDescriptor = new AgreementStateDescriptor();
 		agreementStateDescriptor.setNote("Suspending the agreement.");
-		agreement.suspend(SANDBOXCONTEXTBILLING, agreementStateDescriptor);
+		agreement.suspend(TestConstants.SANDBOX_CONTEXT, agreementStateDescriptor);
 		
-		Agreement suspendedAgreement = Agreement.get(SANDBOXCONTEXTBILLING, "I-ASXCM9U5MJJV");
+		Agreement suspendedAgreement = Agreement.get(TestConstants.SANDBOX_CONTEXT, "I-ASXCM9U5MJJV");
 		Assert.assertEquals("SUSPENDED", suspendedAgreement.getPlan().getState());
 	}
 	
 	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testSuspendAgreement"})
 	public void testReactivateAgreement() throws PayPalRESTException {
 		String agreementId = "";
-		Agreement agreement = Agreement.get(SANDBOXCONTEXTBILLING, agreementId);
+		Agreement agreement = Agreement.get(TestConstants.SANDBOX_CONTEXT, agreementId);
 		
 		AgreementStateDescriptor stateDescriptor = new AgreementStateDescriptor();
 		stateDescriptor.setNote("Re-activating the agreement");
-		agreement.reActivate(SANDBOXCONTEXTBILLING, stateDescriptor);
+		agreement.reActivate(TestConstants.SANDBOX_CONTEXT, stateDescriptor);
 	}
 	
 	@Test(enabled=false, groups = "integration", dependsOnMethods = {"testReactivateAgreement"})
 	public void testCancelAgreement() throws PayPalRESTException {
 		String agreementId = "";
-		Agreement agreement = Agreement.get(SANDBOXCONTEXTBILLING, agreementId);
+		Agreement agreement = Agreement.get(TestConstants.SANDBOX_CONTEXT, agreementId);
 		
 		AgreementStateDescriptor stateDescriptor = new AgreementStateDescriptor();
 		stateDescriptor.setNote("Cancelling the agreement");
-		agreement.cancel(SANDBOXCONTEXTBILLING, stateDescriptor);
+		agreement.cancel(TestConstants.SANDBOX_CONTEXT, stateDescriptor);
 	}
 }
