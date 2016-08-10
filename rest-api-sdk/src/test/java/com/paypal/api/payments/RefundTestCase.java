@@ -1,5 +1,11 @@
 package com.paypal.api.payments;
 
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,13 +14,6 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Properties;
-
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
-
-import com.paypal.base.rest.PayPalRESTException;
 
 public class RefundTestCase {
 
@@ -33,13 +32,6 @@ public class RefundTestCase {
 	public static final Amount AMOUNT = AmountTestCase.createAmount("100.00");
 
 	public static final String CREATEDTIME = "2013-01-17T18:12:02.347Z";
-
-	@BeforeClass
-	public void beforeClass() throws PayPalRESTException {
-		File testFile = new File(".",
-				"src/test/resources/sdk_config.properties");
-		Refund.initConfig(testFile);
-	}
 
 	public static Refund createRefund() {
 		List<Links> links = new ArrayList<Links>();
@@ -75,12 +67,8 @@ public class RefundTestCase {
 		if (ObjectHolder.refundId == null) {
 			new SaleTestCase().testSaleRefundAPI();
 		}
-		logger.info("**** Get Refund ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		try {
-			Refund refund = Refund.get(TokenHolder.accessToken, ObjectHolder.refundId);
-			logger.info("Refund Get Request = " + Refund.getLastRequest());
-			logger.info("Payment Get Response = " + Refund.getLastResponse());
+			Refund refund = Refund.get(TestConstants.SANDBOX_CONTEXT, ObjectHolder.refundId);
 			logger.info("Refund ID = " + refund.getId());
 
 		} catch (PayPalRESTException e) {
@@ -90,10 +78,8 @@ public class RefundTestCase {
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetRefund" })
 	public void testGetRefundForNull() {
-		logger.info("**** Get Refund For Null ****");
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
 		try {
-			Refund.get(TokenHolder.accessToken, null);
+			Refund.get(TestConstants.SANDBOX_CONTEXT, null);
 		} catch (IllegalArgumentException e) {
 			Assert.assertTrue(e != null,
 					"IllegalArgument exception not thrown for null Refund Id");

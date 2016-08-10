@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
 public class WebhookListTestCase {
@@ -48,20 +48,16 @@ public class WebhookListTestCase {
 	
 	@Test(groups = "integration", dependsOnMethods = {"testDeleteAllWebhooks"})
 	public void testListWebhooks() throws PayPalRESTException {
-		logger.info("**** List All Webhooks ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-		
 		for(int i=0; i<2; i++) {
 			Webhook webhookRequest = new Webhook();
 			String uuid = UUID.randomUUID().toString();
 			webhookRequest.setUrl(WebhooksInputData.WEBHOOK_URL + uuid);
 			webhookRequest.setEventTypes(EventTypeListTestCase.createAuthEventTypeList());
-			webhookRequest.create(TokenHolder.accessToken, webhookRequest);
+			webhookRequest.create(TestConstants.SANDBOX_CONTEXT, webhookRequest);
 		}
 			
 		WebhookList webhookList = new WebhookList();
-		WebhookList webhookResponse = webhookList.getAll(TokenHolder.accessToken);
+		WebhookList webhookResponse = webhookList.getAll(TestConstants.SANDBOX_CONTEXT);
 		logger.info("Response = " + webhookResponse.toJSON());
 		
 		Assert.assertTrue(webhookResponse.getWebhooks().size() >= 2, "Webhook List contains Two or More Webhooks");
@@ -69,19 +65,15 @@ public class WebhookListTestCase {
 	
 	@Test(groups = "integration")
 	public void testDeleteAllWebhooks() throws PayPalRESTException {
-		logger.info("**** Delete All Webhooks ****");
-		TokenHolder.accessToken = new OAuthTokenCredential(WebhooksInputData.CLIENT_ID, WebhooksInputData.CLIENT_SECRET).getAccessToken();
-		logger.info("Generated Access Token = " + TokenHolder.accessToken);
-			
 		WebhookList webhookList = new WebhookList();
-		WebhookList webhookRequest = webhookList.getAll(TokenHolder.accessToken);
+		WebhookList webhookRequest = webhookList.getAll(TestConstants.SANDBOX_CONTEXT);
 		
 		for(int i=0; i<webhookRequest.getWebhooks().size(); i++) {
 			Webhook webhook = new Webhook();
-			webhook.delete(TokenHolder.accessToken, webhookRequest.getWebhooks().get(i).getId());
+			webhook.delete(TestConstants.SANDBOX_CONTEXT, webhookRequest.getWebhooks().get(i).getId());
 		}
 		
-		webhookRequest = webhookList.getAll(TokenHolder.accessToken);
+		webhookRequest = webhookList.getAll(TestConstants.SANDBOX_CONTEXT);
 		logger.info("Response = " + webhookRequest.toJSON());
 		Assert.assertEquals(webhookRequest.getWebhooks().size(), 0);
 	}

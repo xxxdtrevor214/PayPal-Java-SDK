@@ -238,11 +238,12 @@ public class WebProfile extends PayPalResource {
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
-			apiContext.setMaskRequestId(true);
+		apiContext.setRequestId(null);
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+		apiContext.setRequestId(null);
 	}
 }

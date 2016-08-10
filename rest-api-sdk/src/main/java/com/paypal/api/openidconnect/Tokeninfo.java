@@ -246,7 +246,7 @@ public class Tokeninfo extends PayPalResource {
 		if (apiContext == null) {
 			apiContext = new APIContext();
 		}
-		apiContext.setMaskRequestId(true);
+		apiContext.setRequestId(null);
 		if (createFromAuthorizationCodeParameters.getClientID() == null
 				|| createFromAuthorizationCodeParameters.getClientID().trim()
 				.length() <= 0
@@ -256,7 +256,7 @@ public class Tokeninfo extends PayPalResource {
 			throw new PayPalRESTException(
 					"ClientID and ClientSecret not set in CreateFromAuthorizationCodeParameters");
 		}
-
+		apiContext.setRequestId(null);
 		OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(
 				createFromAuthorizationCodeParameters.getClientID(),
 				createFromAuthorizationCodeParameters.getClientSecret(),
@@ -269,8 +269,10 @@ public class Tokeninfo extends PayPalResource {
 		headersMap.put(Constants.HTTP_ACCEPT_HEADER,
 				Constants.HTTP_CONTENT_TYPE_JSON);
 		apiContext.addHTTPHeaders(headersMap);
-		return configureAndExecute(apiContext, HttpMethod.POST,
+		Tokeninfo tokeninfo = configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class, authorizationHeader);
+		apiContext.setRequestId(null);
+		return tokeninfo;
 	}
 
 	/**
@@ -316,7 +318,7 @@ public class Tokeninfo extends PayPalResource {
 		if (apiContext == null) {
 			apiContext = new APIContext();
 		}
-		apiContext.setMaskRequestId(true);
+		apiContext.setRequestId(null);
 		Map<String, String> headersMap = new HashMap<String, String>();
 		if (createFromRefreshTokenParameters.getClientID() == null
 				|| createFromRefreshTokenParameters.getClientID().trim()
@@ -338,8 +340,11 @@ public class Tokeninfo extends PayPalResource {
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 
 		apiContext.addHTTPHeaders(headersMap);
-		return configureAndExecute(apiContext, HttpMethod.POST,
+		Tokeninfo tokeninfo = configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class, authorizationHeader);
+		apiContext.setRequestId(null);
+		return tokeninfo;
+
 	}
 
 	/**
@@ -370,13 +375,15 @@ public class Tokeninfo extends PayPalResource {
 		if (apiContext == null) {
 			apiContext = new APIContext();
 		}
-		apiContext.setMaskRequestId(true);
+		apiContext.setRequestId(null);
 		Map<String, String> headersMap = new HashMap<String, String>();
 		headersMap.put(Constants.HTTP_CONTENT_TYPE_HEADER,
 				Constants.HTTP_CONFIG_DEFAULT_CONTENT_TYPE);
 
 		apiContext.addHTTPHeaders(headersMap);
-		return configureAndExecute(apiContext, HttpMethod.POST,
+		Tokeninfo tokeninfo = configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, Tokeninfo.class);
+		apiContext.setRequestId(null);
+		return tokeninfo;
 	}
 }

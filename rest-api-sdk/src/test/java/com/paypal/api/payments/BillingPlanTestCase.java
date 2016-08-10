@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -15,6 +17,8 @@ import org.testng.annotations.Test;
 import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
+
+import static org.testng.Assert.assertNull;
 
 public class BillingPlanTestCase {
 	private String id = null;
@@ -38,19 +42,11 @@ public class BillingPlanTestCase {
 	    	return null;
 	    }
 	}
-	
-	@BeforeTest(groups = "integration")
-	public void setUp() throws PayPalRESTException {
-		String clientID = "AUASNhD7YM7dc5Wmc5YE9pEsC0o4eVOyYWO9ezXWBu2XTc63d3Au_s9c-v-U";
-		String clientSecret = "EBq0TRAE-4R9kgCDKzVh09sm1TeNcuY-xJirid7LNtheUh5t5vlOhR0XSHt3";
-		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
-				clientSecret).getAccessToken();
-	}
-	
+
 	@Test(groups = "integration")
 	public void testCreatePlan() throws PayPalRESTException {
 		Plan plan = loadPlan();
-		plan = plan.create(TokenHolder.accessToken);
+		plan = plan.create(TestConstants.SANDBOX_CONTEXT);
 		this.id = plan.getId();
 		Assert.assertNotNull(plan.getId());
 	}
@@ -76,15 +72,15 @@ public class BillingPlanTestCase {
 		patchRequest.add(patch);
 		
 		// execute update
-		plan.update(TokenHolder.accessToken, patchRequest);
-		Plan updatedPlan = Plan.get(TokenHolder.accessToken, plan.getId());
+		plan.update(TestConstants.SANDBOX_CONTEXT, patchRequest);
+		Plan updatedPlan = Plan.get(TestConstants.SANDBOX_CONTEXT, plan.getId());
 		Assert.assertEquals(plan.getId(), updatedPlan.getId());
 		Assert.assertEquals(updatedPlan.getState(), "ACTIVE");
 	}
 	
 	@Test(groups = "integration", dependsOnMethods = {"testUpdatePlan"})
 	public void testRetrievePlan() throws PayPalRESTException {
-		Plan plan = Plan.get(TokenHolder.accessToken, this.id);
+		Plan plan = Plan.get(TestConstants.SANDBOX_CONTEXT, this.id);
 		Assert.assertEquals(plan.getId(), this.id);
 	}
 	
@@ -98,9 +94,8 @@ public class BillingPlanTestCase {
 		parameters.put("total_required", "yes");
 		
 		// retrieve plans that match the specified criteria
-		PlanList planList = Plan.list(TokenHolder.accessToken, parameters);
-		List<Plan> plans = planList.getPlans();
-		Assert.assertEquals(plans.size(), 0);
+		PlanList planList = Plan.list(TestConstants.SANDBOX_CONTEXT, parameters);
+		assertNull(planList);
 	}
 	
 	@Test(groups = "integration", dependsOnMethods = {"testRetrievePlan"})
@@ -113,7 +108,7 @@ public class BillingPlanTestCase {
 		parameters.put("total_required", "yes");
 		
 		// retrieve plans that match the specified criteria
-		PlanList planList = Plan.list(TokenHolder.accessToken, parameters);
+		PlanList planList = Plan.list(TestConstants.SANDBOX_CONTEXT, parameters);
 		List<Plan> plans = planList.getPlans();
 		for (int i = 0; i < plans.size(); ++i) {
 			Assert.assertEquals(plans.get(i).getState(), "ACTIVE");

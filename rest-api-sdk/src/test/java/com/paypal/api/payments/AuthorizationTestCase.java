@@ -1,17 +1,13 @@
 package com.paypal.api.payments;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthorizationTestCase {
 
@@ -32,16 +28,7 @@ public class AuthorizationTestCase {
 
 	public Authorization authorization = null;
 
-	@BeforeTest(groups = "integration")
-	public void beforeClass() throws PayPalRESTException {
-		File testFile = new File(".",
-				"src/test/resources/sdk_config.properties");
-		PayPalResource.initConfig(testFile);
-		String clientID = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
-		String clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
-		TokenHolder.accessToken = new OAuthTokenCredential(clientID,
-				clientSecret).getAccessToken();
-	}
+
 
 	public static Authorization createAuthorization() {
 		List<Links> links = new ArrayList<Links>();
@@ -70,84 +57,57 @@ public class AuthorizationTestCase {
 
 	@Test(groups = "integration")
 	public void testGetAuthorization() throws PayPalRESTException {
-		logger.info("**** Authorize Payment ****");
 		Payment payment = getPaymentAgainstAuthorization();
-		logger.info("Authorization Token Set to " + TokenHolder.accessToken);
-		Payment authPayment = payment.create(TokenHolder.accessToken);
-		logger.info("Authorization Payment created with ID = "
-				+ authPayment.getId());
+		Payment authPayment = payment.create(TestConstants.SANDBOX_CONTEXT);
 		authorizationId = authPayment.getTransactions().get(0)
 				.getRelatedResources().get(0).getAuthorization().getId();
-		logger.info("Retrieving Authorization using id = " + authorizationId);
-		authorization = Authorization.get(TokenHolder.accessToken,
-				authorizationId);
+		authorization = Authorization.get(TestConstants.SANDBOX_CONTEXT, authorizationId);
 		Assert.assertEquals(authorization.getId(), authPayment.getTransactions().get(0)
 				.getRelatedResources().get(0).getAuthorization().getId());
-		logger.info("Request = " + Authorization.getLastRequest());
-		logger.info("Response = " + Authorization.getLastResponse());
 		logger.info("Authorization State: " + authorization.getState());
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetAuthorization" }, expectedExceptions = { PayPalRESTException.class })
 	public void testGetReauthorization() throws PayPalRESTException{
-		logger.info("**** Reauthorization ****");
-		authorization = Authorization.get(TokenHolder.accessToken, "7GH53639GA425732B");
-		logger.info("Authorization ID: " + authorization.getId());
+		authorization = Authorization.get(TestConstants.SANDBOX_CONTEXT, "7GH53639GA425732B");
 		Amount amount = new Amount();
 		amount.setCurrency("USD").setTotal("1");
 		authorization.setAmount(amount);
-		Authorization reauthorization =	authorization.reauthorize(TokenHolder.accessToken);
-		logger.info("Request = " + Authorization.getLastRequest());
-		logger.info("Response = " + Authorization.getLastResponse());
+		Authorization reauthorization =	authorization.reauthorize(TestConstants.SANDBOX_CONTEXT);
 		logger.info("Reauthorization ID: " + reauthorization.getId());
 	}
 	
 	
 	@Test(groups = "integration", dependsOnMethods = { "testGetAuthorization" })
 	public void testAuthorizationCapture() throws PayPalRESTException {
-		logger.info("**** Capture Authorization ****");
 		Capture capture = new Capture();
 		Amount amount = new Amount();
 		amount.setCurrency("USD").setTotal("1");
 		capture.setAmount(amount);
 		capture.setIsFinalCapture(true);
-		Capture responsecapture = authorization.capture(
-				TokenHolder.accessToken, capture);
+		Capture responsecapture = authorization.capture(TestConstants.SANDBOX_CONTEXT, capture);
 		Assert.assertEquals(responsecapture.getState(), "completed");
-		logger.info("Request = " + Authorization.getLastRequest());
-		logger.info("Response = " + Authorization.getLastResponse());
 		logger.info("Returned Capture state: " + responsecapture.getState());
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" })
 	public void testAuthorizationVoid() throws PayPalRESTException {
-		logger.info("**** Void Authorization ****");
 		Authorization auth = getAuthorization();
-		Authorization responseAuthorization = auth
-				.doVoid(TokenHolder.accessToken);
-		Assert.assertEquals(responseAuthorization.getState(), "voided");
-		logger.info("Request = " + Authorization.getLastRequest());
-		logger.info("Response = " + Authorization.getLastResponse());
-		logger.info("Returned Authorization state: "
-				+ responseAuthorization.getState());
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" }, expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullAccessToken() throws PayPalRESTException {
-		logger.info("**** Get Authorization (Null Access Token) ****");
 		Authorization.get((String) null, "123");
 	}
 	
 	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" }, expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullAuthId() throws PayPalRESTException {
-		logger.info("**** Get Authorization (Null Auth ID) ****");
-		Authorization.get(TokenHolder.accessToken, null);
+		Authorization.get(TestConstants.SANDBOX_CONTEXT, null);
 	}
 	
 	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" }, expectedExceptions = { IllegalArgumentException.class })
 	public void testAuthorizationNullCapture() throws PayPalRESTException {
-		logger.info("**** Capture Authorization (Null Capture) ****");
-		getAuthorization().capture(TokenHolder.accessToken, null);
+		getAuthorization().capture(TestConstants.SANDBOX_CONTEXT, null);
 	}
 	
 	
@@ -208,7 +168,7 @@ public class AuthorizationTestCase {
 
 	private Authorization getAuthorization() throws PayPalRESTException {
 		Payment payment = getPaymentAgainstAuthorization();
-		Payment authPayment = payment.create(TokenHolder.accessToken);
+		Payment authPayment = payment.create(TestConstants.SANDBOX_CONTEXT);
 		Authorization authorization = authPayment.getTransactions().get(0)
 				.getRelatedResources().get(0).getAuthorization();
 		return authorization;
