@@ -38,21 +38,6 @@ public class GetPaymentHistoryServlet extends HttpServlet {
 	private static final Logger LOGGER = Logger
 			.getLogger(GetPaymentHistoryServlet.class);
 
-	public void init(ServletConfig servletConfig) throws ServletException {
-		// ##Load Configuration
-		// Load SDK configuration for
-		// the resource. This intialization code can be
-		// done as Init Servlet.
-		InputStream is = GetPaymentHistoryServlet.class
-				.getResourceAsStream("/sdk_config.properties");
-		try {
-			PayPalResource.initConfig(is);
-		} catch (PayPalRESTException e) {
-			LOGGER.fatal(e.getMessage());
-		}
-
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

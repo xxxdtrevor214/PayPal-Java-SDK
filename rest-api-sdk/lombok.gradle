@@ -7,7 +7,7 @@ configurations {
 }
 
 dependencies { 
-    lombok 'org.projectlombok:lombok:1.16.8'
+    lombok 'org.projectlombok:lombok:1.16.10'
 }
 
 sourceSets.each{ sourceSet -> 
