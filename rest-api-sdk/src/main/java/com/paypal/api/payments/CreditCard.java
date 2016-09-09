@@ -46,7 +46,8 @@ public class CreditCard  extends PayPalResource {
 	 * Card validation code. Only supported when making a Payment but not when saving a credit card for future use.
 	 */
 	@Getter(AccessLevel.NONE)
-	private Integer cvv2;
+	@Setter(AccessLevel.NONE)
+	private String cvv2;
 
 	/**
 	 * Card holder's first name.
@@ -96,6 +97,7 @@ public class CreditCard  extends PayPalResource {
 	}
 
 	/**
+	 * @deprecated Please use {@link #getCvv2String()} instead.
 	 * Getter for cvv2
 	 * Returns -1 if <code>cvv2</code> is null.
 	 * Not autogenerating using lombok as it includes logic to return -1 on null.
@@ -104,8 +106,35 @@ public class CreditCard  extends PayPalResource {
 		if (this.cvv2 == null) {
 			return -1;
 		} else {
-			return this.cvv2;
+			return Integer.valueOf(this.cvv2);
 		}
+	}
+
+	/**
+	 * @deprecated The cvv2 needs to be a string, as any cvv2 starting with 0 is sent invalid to servers. Please use {@link #setCvv2(String)} instead.
+	 * @param cvv2 Integer cvv2
+	 * @return CreditCard
+	 */
+	public CreditCard setCvv2(Integer cvv2) {
+		this.cvv2 = cvv2.toString();
+		return this;
+	}
+
+	/**
+	 * @param cvv2 String cvv2
+	 * @return CreditCard
+	 */
+	public CreditCard setCvv2(String cvv2) {
+		this.cvv2 = cvv2;
+		return this;
+	}
+
+	/**
+	 * Returns the cvv2
+	 * @return String representation of cvv2
+	 */
+	public String getCvv2String() {
+		return this.cvv2;
 	}
 	
 	/**

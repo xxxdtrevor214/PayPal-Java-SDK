@@ -33,7 +33,7 @@ public class CreditCardTestCase {
 
 	public static final int EXPYEAR = 2018;
 
-	public static final int CVV2 = 874;
+	public static final String CVV2 = "874";
 
 	public static final String ID = "12345";
 
@@ -80,7 +80,7 @@ public class CreditCardTestCase {
 	@Test(groups = "unit")
 	public void testConstruction() {
 		CreditCard creditCard = createDummyCreditCard();
-		Assert.assertEquals(creditCard.getCvv2(), CVV2);
+		Assert.assertEquals(creditCard.getCvv2String(), CVV2);
 		Assert.assertEquals(creditCard.getExpireMonth(), EXPMONTH);
 		Assert.assertEquals(creditCard.getExpireYear(), EXPYEAR);
 		Assert.assertEquals(creditCard.getFirstName(), FIRSTNAME);
@@ -103,12 +103,12 @@ public class CreditCardTestCase {
 		CreditCard creditCard = createDummyCreditCard();
 		
 		// empty CVV2
-		creditCard.setCvv2(null);
-		Assert.assertEquals(-1, creditCard.getCvv2());
+		creditCard.setCvv2("");
+		Assert.assertEquals("", creditCard.getCvv2String());
 		
 		// valid CVV2
 		creditCard.setCvv2(123);
-		Assert.assertEquals(123, creditCard.getCvv2());
+		Assert.assertEquals("123", creditCard.getCvv2String());
 	}
 
 	@Test(groups = "integration")
