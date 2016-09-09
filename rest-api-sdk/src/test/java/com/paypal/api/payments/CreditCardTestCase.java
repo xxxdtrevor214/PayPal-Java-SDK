@@ -109,6 +109,10 @@ public class CreditCardTestCase {
 		// valid CVV2
 		creditCard.setCvv2(123);
 		Assert.assertEquals("123", creditCard.getCvv2String());
+
+		// CVV2 starting with 0
+		creditCard.setCvv2("012");
+		Assert.assertEquals("012", creditCard.getCvv2String());
 	}
 
 	@Test(groups = "integration")
