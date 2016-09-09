@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v1.9.3
+----
+   * Changed cvv2 to be a String [#242](https://github.com/paypal/PayPal-Java-SDK/pull/242).
+   * Change OpenID Connect URLs [#236](https://github.com/paypal/PayPal-Java-SDK/pull/236).
+   * Fixed functional tests and duplicate requestId [#228](https://github.com/paypal/PayPal-Java-SDK/pull/228).
+   * Minor bug fixes [#232](https://github.com/paypal/PayPal-Java-SDK/pull/232).
+
 v1.9.2
 ----
    * Improvements to Webhook Validation integration [#223](https://github.com/paypal/PayPal-Java-SDK/pull/223).
