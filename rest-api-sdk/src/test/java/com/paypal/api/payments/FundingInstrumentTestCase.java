@@ -23,7 +23,7 @@ public class FundingInstrumentTestCase {
 		FundingInstrument fundingInsturment = createFundingInstrument();
 		Assert.assertEquals(fundingInsturment.getCreditCardToken()
 				.getCreditCardId(), CreditCardTokenTestCase.CREDITCARDID);
-		Assert.assertEquals(fundingInsturment.getCreditCard().getCvv2(),
+		Assert.assertEquals(fundingInsturment.getCreditCard().getCvv2String(),
 				CreditCardTestCase.CVV2);
 	}
 
