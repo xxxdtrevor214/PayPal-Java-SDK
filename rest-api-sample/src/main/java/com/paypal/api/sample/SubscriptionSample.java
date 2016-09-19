@@ -2,23 +2,23 @@ package com.paypal.api.sample;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.paypal.api.payments.Patch;
-import com.paypal.api.payments.Plan;
+import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-public class SubscriptionSample extends SampleBase<Plan> {
+public class SubscriptionSample{
 	public static final String clientID = "AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS";
 	public static final String clientSecret = "EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL";
 
-	public SubscriptionSample() throws PayPalRESTException,
-			JsonSyntaxException, JsonIOException, FileNotFoundException {
-		super(new Plan());
-	}
+	protected Plan instance = null;
 
 	/**
 	 * Create a plan.
@@ -29,10 +29,51 @@ public class SubscriptionSample extends SampleBase<Plan> {
 	 * @throws PayPalRESTException
 	 */
 	public Plan create(APIContext context) throws PayPalRESTException, IOException {
-		// populate Plan object that we are going to play with
-		super.instance = super.load("billingplan_create.json", Plan.class);
-		super.instance = super.instance.create(context);
-		return super.instance;
+		// Build Plan object
+		Plan plan = new Plan();
+		plan.setName("T-Shirt of the Month Club Plan");
+		plan.setDescription("Template creation.");
+		plan.setType("fixed");
+
+		//payment_definitions
+		PaymentDefinition paymentDefinition = new PaymentDefinition();
+		paymentDefinition.setName("Regular Payments");
+		paymentDefinition.setType("REGULAR");
+		paymentDefinition.setFrequency("MONTH");
+		paymentDefinition.setFrequencyInterval("1");
+		paymentDefinition.setCycles("12");
+
+		//currency
+		Currency currency = new Currency();
+		currency.setCurrency("USD");
+		currency.setValue("20");
+		paymentDefinition.setAmount(currency);
+
+		//charge_models
+		ChargeModels chargeModels = new com.paypal.api.payments.ChargeModels();
+		chargeModels.setType("SHIPPING");
+		chargeModels.setAmount(currency);
+		List<ChargeModels> chargeModelsList = new ArrayList<ChargeModels>();
+		chargeModelsList.add(chargeModels);
+		paymentDefinition.setChargeModels(chargeModelsList);
+
+		//payment_definition
+		List<PaymentDefinition> paymentDefinitionList = new ArrayList<PaymentDefinition>();
+		paymentDefinitionList.add(paymentDefinition);
+		plan.setPaymentDefinitions(paymentDefinitionList);
+
+		//merchant_preferences
+		MerchantPreferences merchantPreferences = new MerchantPreferences();
+		merchantPreferences.setSetupFee(currency);
+		merchantPreferences.setCancelUrl("http://www.cancel.com");
+		merchantPreferences.setReturnUrl("http://www.return.com");
+		merchantPreferences.setMaxFailAttempts("0");
+		merchantPreferences.setAutoBillAmount("YES");
+		merchantPreferences.setInitialFailAmountAction("CONTINUE");
+		plan.setMerchantPreferences(merchantPreferences);
+
+		this.instance = plan.create(context);
+		return this.instance;
 	}
 
 	/**
@@ -44,9 +85,19 @@ public class SubscriptionSample extends SampleBase<Plan> {
 	 * @throws PayPalRESTException
 	 */
 	public Plan update(APIContext context) throws PayPalRESTException, IOException {
-		Patch[] patch = super.load("billingplan_update.json", Patch[].class);
-		super.instance.update(context, Arrays.asList(patch));
-		return super.instance;
+
+		List<Patch> patchRequestList = new ArrayList<Patch>();
+		Map<String, String> value = new HashMap<String, String>();
+		value.put("state", "ACTIVE");
+
+		Patch patch = new Patch();
+		patch.setPath("/");
+		patch.setValue(value);
+		patch.setOp("replace");
+		patchRequestList.add(patch);
+
+		this.instance.update(context, patchRequestList);
+		return this.instance;
 	}
 
 	/**
@@ -58,7 +109,7 @@ public class SubscriptionSample extends SampleBase<Plan> {
 	 * @throws PayPalRESTException
 	 */
 	public Plan retrieve(APIContext context) throws PayPalRESTException {
-		return Plan.get(context, super.instance.getId());
+		return Plan.get(context, this.instance.getId());
 	}
 
 	/**

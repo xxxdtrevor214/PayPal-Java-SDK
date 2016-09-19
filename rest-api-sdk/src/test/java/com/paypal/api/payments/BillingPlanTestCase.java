@@ -23,29 +23,57 @@ import static org.testng.Assert.assertNull;
 public class BillingPlanTestCase {
 	private String id = null;
 
-	public static Plan loadPlan() {
-	    try {
-		    BufferedReader br = new BufferedReader(new FileReader("src/test/resources/billingplan_create.json"));
-	        StringBuilder sb = new StringBuilder();
-	        String line = br.readLine();
+	public static Plan buildPlan() {
 
-	        while (line != null) {
-	            sb.append(line);
-	            sb.append(System.getProperty("line.separator"));
-	            line = br.readLine();
-	        }
-	        br.close();
-	        return JSONFormatter.fromJSON(sb.toString(), Plan.class);
-	        
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    	return null;
-	    }
+		// Build Plan object
+		Plan plan = new Plan();
+		plan.setName("T-Shirt of the Month Club Plan");
+		plan.setDescription("Template creation.");
+		plan.setType("fixed");
+
+		//payment_definitions
+		PaymentDefinition paymentDefinition = new PaymentDefinition();
+		paymentDefinition.setName("Regular Payments");
+		paymentDefinition.setType("REGULAR");
+		paymentDefinition.setFrequency("MONTH");
+		paymentDefinition.setFrequencyInterval("1");
+		paymentDefinition.setCycles("12");
+
+		//currency
+		Currency currency = new Currency();
+		currency.setCurrency("USD");
+		currency.setValue("20");
+		paymentDefinition.setAmount(currency);
+
+		//charge_models
+		ChargeModels chargeModels = new com.paypal.api.payments.ChargeModels();
+		chargeModels.setType("SHIPPING");
+		chargeModels.setAmount(currency);
+		List<ChargeModels> chargeModelsList = new ArrayList<ChargeModels>();
+		chargeModelsList.add(chargeModels);
+		paymentDefinition.setChargeModels(chargeModelsList);
+
+		//payment_definition
+		List<PaymentDefinition> paymentDefinitionList = new ArrayList<PaymentDefinition>();
+		paymentDefinitionList.add(paymentDefinition);
+		plan.setPaymentDefinitions(paymentDefinitionList);
+
+		//merchant_preferences
+		MerchantPreferences merchantPreferences = new MerchantPreferences();
+		merchantPreferences.setSetupFee(currency);
+		merchantPreferences.setCancelUrl("http://www.cancel.com");
+		merchantPreferences.setReturnUrl("http://www.return.com");
+		merchantPreferences.setMaxFailAttempts("0");
+		merchantPreferences.setAutoBillAmount("YES");
+		merchantPreferences.setInitialFailAmountAction("CONTINUE");
+		plan.setMerchantPreferences(merchantPreferences);
+
+		return plan;
 	}
 
 	@Test(groups = "integration")
 	public void testCreatePlan() throws PayPalRESTException {
-		Plan plan = loadPlan();
+		Plan plan = buildPlan();
 		plan = plan.create(TestConstants.SANDBOX_CONTEXT);
 		this.id = plan.getId();
 		Assert.assertNotNull(plan.getId());
@@ -54,7 +82,7 @@ public class BillingPlanTestCase {
 	@Test(groups = "integration", dependsOnMethods = {"testCreatePlan"})
 	public void testUpdatePlan() throws PayPalRESTException {
 		// get original plan
-		Plan plan = loadPlan();
+		Plan plan = buildPlan();
 		plan.setId(this.id);
 		
 		// set up new plan
