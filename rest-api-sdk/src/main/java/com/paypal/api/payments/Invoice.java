@@ -3,8 +3,9 @@ package com.paypal.api.payments;
 import com.paypal.api.openidconnect.Tokeninfo;
 import com.paypal.base.rest.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
@@ -142,12 +143,12 @@ public class Invoice extends PayPalResource {
 	/**
 	 * List of payment details for the invoice.
 	 */
-	private List<PaymentDetail> paymentDetails;
+	private List<PaymentDetail> payments;
 
 	/**
 	 * List of refund details for the invoice.
 	 */
-	private List<RefundDetail> refundDetails;
+	private List<RefundDetail> refunds;
 
 	/**
 	 * Audit information for the invoice.
@@ -195,6 +196,42 @@ public class Invoice extends PayPalResource {
 	 */
 	public Invoice(MerchantInfo merchantInfo) {
 		this.merchantInfo = merchantInfo;
+	}
+
+	/**
+	 * @deprecated Please use {@link #getPayments()} instead.
+	 * @return {@link List} of {@link PaymentDetail}
+	 */
+	public List<PaymentDetail> getPaymentDetails(){
+		return this.payments;
+	}
+
+	/**
+	 * @deprecated Please use {@link #setPayments(List)} instead.
+	 * @param details
+	 * @return {@link Invoice}
+	 */
+	public Invoice setPaymentDetails(List<PaymentDetail> details) {
+		this.payments = details;
+		return this;
+	}
+
+	/**
+	 * @deprecated Please use {@link #getRefunds()} instead.
+	 * @return {@link List} of {@link RefundDetail}
+	 */
+	public List<RefundDetail> getRefundDetails() {
+		return this.refunds;
+	}
+
+	/**
+	 * @deprecated Please use {@link #setRefunds(List)} instead.
+	 * @param details
+	 * @return {@link Invoice}
+	 */
+	public Invoice setRefundDetails(List<RefundDetail> details) {
+		this.refunds = details;
+		return this;
 	}
 
 	/**
@@ -248,7 +285,6 @@ public class Invoice extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public Invoices search(APIContext apiContext, Search search) throws PayPalRESTException {
-
 		if (search == null) {
 			throw new IllegalArgumentException("search cannot be null");
 		}
@@ -510,7 +546,7 @@ public class Invoice extends PayPalResource {
 
 
 	/**
-	 * Fully updates an invoice by passing the invoice ID to the request URI. In addition, pass a complete invoice object in the request JSON. Does not support partial updates.
+	 * Fully updates an invoice by passing the invoice ID to the request URI. In addition, pass a complete invoice object in the request JSON. Partial updates are not supported.
 	 * @deprecated Please use {@link #update(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
@@ -523,7 +559,7 @@ public class Invoice extends PayPalResource {
 	}
 
 	/**
-	 * Fully updates an invoice by passing the invoice ID to the request URI. In addition, pass a complete invoice object in the request JSON. Does not support partial updates.
+	 * Fully updates an invoice by passing the invoice ID to the request URI. In addition, pass a complete invoice object in the request JSON. Partial updates are not supported.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @return Invoice
@@ -540,9 +576,8 @@ public class Invoice extends PayPalResource {
 		return configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, Invoice.class);
 	}
 
-
 	/**
-	 * Deletes an invoice, by ID.
+	 * Delete a particular invoice by passing the invoice ID to the request URI.
 	 * @deprecated Please use {@link #delete(APIContext)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
@@ -554,7 +589,7 @@ public class Invoice extends PayPalResource {
 	}
 
 	/**
-	 * Deletes an invoice, by ID.
+	 * Delete a particular invoice by passing the invoice ID to the request URI.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @throws PayPalRESTException
@@ -563,17 +598,55 @@ public class Invoice extends PayPalResource {
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
-		apiContext.setRequestId(null);
+			apiContext.setMaskRequestId(true);
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/invoicing/invoices/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
-		apiContext.setRequestId(null);
+	}
+
+	/**
+	 * Delete external payment.
+	 * @param apiContext
+	 *            {@link APIContext} used for the API call.
+	 * @return 
+	 * @throws PayPalRESTException
+	 */
+	public void deleteExternalPayment(APIContext apiContext) throws PayPalRESTException {
+		if (this.getId() == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+			apiContext.setMaskRequestId(true);
+		Object[] parameters = new Object[] {this.getId()};
+		String pattern = "v1/invoicing/invoices/{0}/payment-records/{1}";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
+	}
+
+	/**
+	 * Delete external refund.
+	 * @param apiContext
+	 *            {@link APIContext} used for the API call.
+	 * @return 
+	 * @throws PayPalRESTException
+	 */
+	public void deleteExternalRefund(APIContext apiContext) throws PayPalRESTException {
+		if (this.getId() == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+			apiContext.setMaskRequestId(true);
+		Object[] parameters = new Object[] {this.getId()};
+		String pattern = "v1/invoicing/invoices/{0}/refund-records/{1}";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = "";
+		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
 	}
 
 	/**
 	 * Generates a QR code for an invoice, by ID. The request generates a QR code that is 500 pixels in width and height. To change the dimensions of the returned code, specify optional query parameters.
+	 * @deprecated Please use {@link #qrCode(APIContext, String, Map)} instead.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param invoiceId

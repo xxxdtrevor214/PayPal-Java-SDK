@@ -2,8 +2,9 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
@@ -14,6 +15,11 @@ public class RefundDetail extends PayPalModel {
 	 * The PayPal refund type. Indicates whether refund was paid in invoicing flow through PayPal or externally. In the case of mark-as-refunded API, the supported refund type is `EXTERNAL`. For backward compatability, the `PAYPAL` refund type is still supported.
 	 */
 	private String type;
+
+	/**
+	 * The PayPal refund transaction ID. Required with the `PAYPAL` refund type.
+	 */
+	private String transactionId;
 
 	/**
 	 * Date on which the invoice was refunded. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
