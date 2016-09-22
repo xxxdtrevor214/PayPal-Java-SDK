@@ -1,13 +1,14 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 
-@Data
+@Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class Templates extends PayPalResource {
@@ -44,8 +45,9 @@ public class Templates extends PayPalResource {
 	}
 
 	/**
-	 * Shows the details for a template, by ID.
-	 * @param apiContext
+	 * Retrieve the details for a particular template by passing the template ID to the request URI.
+	 * @deprecated Please use {@link Template#get(APIContext, String)} instead.
+ 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param templateId
 	 *            String
@@ -53,18 +55,11 @@ public class Templates extends PayPalResource {
 	 * @throws PayPalRESTException
 	 */
 	public static Template get(APIContext apiContext, String templateId) throws PayPalRESTException {
-		if (templateId == null) {
-			throw new IllegalArgumentException("templateId cannot be null");
-		}
-		Object[] parameters = new Object[] {templateId};
-		String pattern = "v1/invoicing/templates/{0}";
-		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
-		String payLoad = "";
-		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, Template.class);
+		return Template.get(apiContext, templateId);
 	}
 
 	/**
-	 * Lists all templates for the merchant.
+	 * Retrieves the template information of the merchant.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @return Templates
