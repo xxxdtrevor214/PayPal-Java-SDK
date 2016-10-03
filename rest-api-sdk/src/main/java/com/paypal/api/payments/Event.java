@@ -77,6 +77,7 @@ public class Event  extends PayPalResource {
 	 * @return Event
 	 * @throws PayPalRESTException
 	 */
+	@Deprecated
 	public static Event get(String accessToken, String eventId) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		return get(apiContext, eventId);
@@ -112,6 +113,7 @@ public class Event  extends PayPalResource {
 	 * @return Event
 	 * @throws PayPalRESTException
 	 */
+	@Deprecated
 	public Event resend(String accessToken) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		return resend(apiContext);
@@ -145,6 +147,7 @@ public class Event  extends PayPalResource {
 	 * @return EventList
 	 * @throws PayPalRESTException
 	 */
+	@Deprecated
 	public static EventList list(String accessToken, String queryParams) throws PayPalRESTException {
 		APIContext apiContext = new APIContext(accessToken);
 		return list(apiContext, queryParams);
@@ -225,7 +228,6 @@ public class Event  extends PayPalResource {
 		}
 
 		return false;
-
 	}
 
 	/**
@@ -235,8 +237,7 @@ public class Event  extends PayPalResource {
 	 * @return Map of configurations to be used for particular request
 	 */
 	private static Map<String, String> getConfigurations(APIContext apiContext) {
-
-		Map<String, String> cmap = new HashMap<String, String>();
+		Map<String, String> cmap;
 		if (apiContext != null) {
 			if (apiContext.getConfigurationMap() == null) {
 				apiContext.setConfigurationMap(new HashMap<String, String>());
@@ -248,6 +249,4 @@ public class Event  extends PayPalResource {
 		}
 		return cmap;
 	}
-
-
 }
