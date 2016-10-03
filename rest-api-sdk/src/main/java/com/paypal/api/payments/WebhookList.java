@@ -1,20 +1,19 @@
 package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 public class WebhookList  extends PayPalResource {
 
 	/**
-	 * A list of Webhooks
+	 * A list of webhooks.
 	 */
 	private List<Webhook> webhooks;
 
@@ -22,9 +21,8 @@ public class WebhookList  extends PayPalResource {
 	 * Default Constructor
 	 */
 	public WebhookList() {
-		webhooks = new ArrayList<Webhook>();
 	}
-	
+
 	/**
 	 * Retrieves all Webhooks for the application associated with access token.
 	 * @deprecated Please use {@link #getAll(APIContext)} instead.
@@ -53,6 +51,4 @@ public class WebhookList  extends PayPalResource {
 		String payLoad = "";
 		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebhookList.class);
 	}
-
-
 }
