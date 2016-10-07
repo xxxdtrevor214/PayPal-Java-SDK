@@ -299,11 +299,10 @@ public class APIContext {
 	 * @throws PayPalRESTException
 	 */
 	public String fetchAccessToken() throws PayPalRESTException {
-		String accessToken = null;
 		if (this.credential != null) {
-			accessToken = this.credential.getAccessToken();
+			return this.credential.getAccessToken();
 		}
-		return accessToken;
+		return null;
 	}
 
 	/**
