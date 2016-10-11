@@ -55,9 +55,9 @@ project(':rest-api-sdk') {
         compile 'com.google.code.gson:gson:2.2.2'
 
         // Logging
-        compile 'org.apache.logging.log4j:log4j-api:2.1'
-        compile 'org.apache.logging.log4j:log4j-core:2.1'
-        compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.1'
+        testRuntime 'org.apache.logging.log4j:log4j-api:2.1'
+        testRuntime 'org.apache.logging.log4j:log4j-core:2.1'
+        testRuntime 'org.apache.logging.log4j:log4j-slf4j-impl:2.1'
         compile 'org.slf4j:slf4j-api:1.7.21'
 
         // Test
