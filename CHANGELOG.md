@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v1.10.0
+----
+   * Made apiContext threadsafe [#251](https://github.com/paypal/PayPal-Java-SDK/pull/251).
+   * Updates to Invoicing APIs [#247](https://github.com/paypal/PayPal-Java-SDK/pull/247).
+   * Updates to Webhooks APIs [#248](https://github.com/paypal/PayPal-Java-SDK/pull/248).
+
 v1.9.3
 ----
    * Changed cvv2 to be a String [#242](https://github.com/paypal/PayPal-Java-SDK/pull/242).
