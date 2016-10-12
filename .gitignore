@@ -53,6 +53,7 @@ release.sh
 
 # Maven specific #
 target/
+classes
 
 #################
 ## Visual Studio
