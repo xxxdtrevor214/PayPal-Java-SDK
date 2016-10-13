@@ -12,12 +12,12 @@ import lombok.experimental.Accessors;
 public class Currency extends PayPalModel {
 
 	/**
-	 * 3 letter currency code as defined by ISO 4217.
+	 * 3 letter currency code
 	 */
 	private String currency;
 
 	/**
-	 * amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
+	 * amount upto 2 decimals represented as string
 	 */
 	private String value;
 

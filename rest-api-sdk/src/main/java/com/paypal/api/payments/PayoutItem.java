@@ -2,8 +2,9 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
@@ -11,37 +12,30 @@ import lombok.Getter; import lombok.Setter;
 public class PayoutItem extends PayPalResource {
 
 	/**
-	 * The type of identification for the payment receiver. If this field is
-	 * provided, the payout items without a `recipient_type` will use the
-	 * provided value. If this field is not provided, each payout item must
-	 * include a value for the `recipient_type`.
+	 * The type of ID that identifies the payment receiver. Value is:<ul><code>EMAIL</code>. Unencrypted email. Value is a string of up to 127 single-byte characters.</li><li><code>PHONE</code>. Unencrypted phone number.<blockquote><strong>Note:</strong> The PayPal sandbox does not support the <code>PHONE</code> recipient type.</blockquote></li><li><code>PAYPAL_ID</code>. Encrypted PayPal account number.</li></ul>If the <code>sender_batch_header</code> includes the <code>recipient_type</code> attribute, any payout item without its own <code>recipient_type</code> attribute uses the <code>recipient_type</code> value from <code>sender_batch_header</code>. If the <code>sender_batch_header</code> omits the <code>recipient_type</code> attribute, each payout item must include its own <code>recipient_type</code> value.
 	 */
 	private String recipientType;
 
 	/**
-	 * The amount of money to pay a receiver.
+	 * The amount of money to pay the receiver.
 	 */
 	private Currency amount;
 
 	/**
-	 * Note for notifications. The note is provided by the payment sender. This
-	 * note can be any string. 4000 characters max.
+	 * Optional. A sender-specified note for notifications. Value is any string value.
 	 */
 	private String note;
 
 	/**
-	 * The receiver of the payment. In a call response, the format of this value
-	 * corresponds to the `recipient_type` specified in the request. 127
-	 * characters max.
+	 * The receiver of the payment. Corresponds to the `recipient_type` value in the request.
 	 */
 	private String receiver;
 
 	/**
-	 * A sender-specific ID number, used in an accounting system for tracking
-	 * purposes. 30 characters max.
+	 * A sender-specified ID number. Tracks the batch payout in an accounting system.
 	 */
 	private String senderItemId;
-	
+
 	/**
 	 * Default Constructor
 	 */
@@ -60,7 +54,7 @@ public class PayoutItem extends PayPalResource {
 	 * Obtain the status of a payout item by passing the item ID to the request
 	 * URI.
 	 * @deprecated Please use {@link #get(APIContext, String)} instead.
-	 * 
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param payoutItemId
@@ -77,7 +71,7 @@ public class PayoutItem extends PayPalResource {
 	/**
 	 * Obtain the status of a payout item by passing the item ID to the request
 	 * URI.
-	 * 
+	 *
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param payoutItemId
@@ -104,7 +98,7 @@ public class PayoutItem extends PayPalResource {
 	 * be automatically returned to the sender. This call can be used to cancel
 	 * the unclaimed item prior to the automatic 30-day return.
 	 * @deprecated Please use {@link #cancel(APIContext, String)} instead.
-	 * 
+	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param payoutItemId
@@ -123,7 +117,7 @@ public class PayoutItem extends PayPalResource {
 	 * URI. If an unclaimed item is not claimed within 30 days, the funds will
 	 * be automatically returned to the sender. This call can be used to cancel
 	 * the unclaimed item prior to the automatic 30-day return.
-	 * 
+	 *
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param payoutItemId
@@ -143,5 +137,4 @@ public class PayoutItem extends PayPalResource {
 		return configureAndExecute(apiContext, HttpMethod.POST,
 				resourcePath, payLoad, PayoutItemDetails.class);
 	}
-	
 }
