@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v1.11.0
+----
+   * Removed hard dependency on Log4j [#253](https://github.com/paypal/PayPal-Java-SDK/pull/253).
+
 v1.10.0
 ----
    * Made apiContext threadsafe [#251](https://github.com/paypal/PayPal-Java-SDK/pull/251).
