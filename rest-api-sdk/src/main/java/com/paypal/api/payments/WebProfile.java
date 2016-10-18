@@ -2,8 +2,9 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
 import java.util.List;
 
@@ -13,14 +14,19 @@ import java.util.List;
 public class WebProfile extends PayPalResource {
 
 	/**
-	 * Unique ID of the web experience profile.
+	 * The unique ID of the web experience profile.
 	 */
 	private String id;
 
 	/**
-	 * Name of the web experience profile. Unique only among the profiles for a given merchant.
+	 * The web experience profile name. Unique for a specified merchant's profiles.
 	 */
 	private String name;
+
+	/**
+	 * Indicates whether the profile persists for three hours or permanently. Set to `false` to persist the profile permanently. Set to `true` to persist the profile for three hours.
+	 */
+	private Boolean temporary;
 
 	/**
 	 * Parameters for flow configuration.
@@ -49,11 +55,10 @@ public class WebProfile extends PayPalResource {
 	public WebProfile(String name) {
 		this.name = name;
 	}
-	
+
 	/**
-	 * Create a web experience profile by passing the name of the profile and other profile details in the request JSON to the request URI.
+	 * Creates a web experience profile. Pass the profile name and details in the JSON request body.
 	 * @deprecated Please use {@link #create(APIContext)} instead.
-	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return CreateProfileResponse
@@ -65,7 +70,7 @@ public class WebProfile extends PayPalResource {
 	}
 
 	/**
-	 * Create a web experience profile by passing the name of the profile and other profile details in the request JSON to the request URI.
+	 * Creates a web experience profile. Pass the profile name and details in the JSON request body.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @return CreateProfileResponse
@@ -79,11 +84,11 @@ public class WebProfile extends PayPalResource {
 
 
 	/**
-	 * Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
+	 * Updates a web experience profile. Pass the ID of the profile to the request URI and pass the profile details in the JSON request body. If your request omits any profile detail fields, the operation removes the previously set values for those fields.
 	 * @deprecated Please use {@link #update(APIContext)} instead.
-	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
+	 * @return
 	 * @throws PayPalRESTException
 	 */
 	public void update(String accessToken) throws PayPalRESTException {
@@ -92,9 +97,10 @@ public class WebProfile extends PayPalResource {
 	}
 
 	/**
-	 * Update a web experience profile by passing the ID of the profile to the request URI. In addition, pass the profile details in the request JSON. If your request does not include values for all profile detail fields, the previously set values for the omitted fields are removed by this operation.
+	 * Updates a web experience profile. Pass the ID of the profile to the request URI and pass the profile details in the JSON request body. If your request omits any profile detail fields, the operation removes the previously set values for those fields.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
+	 * @return
 	 * @throws PayPalRESTException
 	 */
 	public void update(APIContext apiContext) throws PayPalRESTException {
@@ -106,17 +112,19 @@ public class WebProfile extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = this.toJSON();
 		configureAndExecute(apiContext, HttpMethod.PUT, resourcePath, payLoad, null);
+		return;
 	}
 
 
 	/**
-	 * Partially update an existing web experience profile by passing the ID of the profile to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, path of the profile location to update, and a new value if needed to complete the operation.
+	 * Partially-updates a web experience profile. Pass the profile ID to the request URI. Pass a patch object with the operation, path of the profile location to update, and, if needed, a new value to complete the operation in the JSON request body.
 	 * @deprecated Please use {@link #partialUpdate(APIContext, PatchRequest)} instead.
 	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param patchRequest
 	 *            PatchRequest
+     * @return
 	 * @throws PayPalRESTException
 	 */
 	public void partialUpdate(String accessToken, PatchRequest patchRequest) throws PayPalRESTException {
@@ -125,11 +133,12 @@ public class WebProfile extends PayPalResource {
 	}
 
 	/**
-	 * Partially update an existing web experience profile by passing the ID of the profile to the request URI. In addition, pass a patch object in the request JSON that specifies the operation to perform, path of the profile location to update, and a new value if needed to complete the operation.
+	 * Partially-updates a web experience profile. Pass the profile ID to the request URI. Pass a patch object with the operation, path of the profile location to update, and, if needed, a new value to complete the operation in the JSON request body.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param patchRequest
 	 *            PatchRequest
+     * @return
 	 * @throws PayPalRESTException
 	 */
 	public void partialUpdate(APIContext apiContext, PatchRequest patchRequest) throws PayPalRESTException {
@@ -144,13 +153,13 @@ public class WebProfile extends PayPalResource {
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = patchRequest.toJSON();
 		configureAndExecute(apiContext, HttpMethod.PATCH, resourcePath, payLoad, null);
+		return;
 	}
 
 
 	/**
-	 * Retrieve the details of a particular web experience profile by passing the ID of the profile to the request URI.
+	 * Shows details for a web experience profile, by ID.
 	 * @deprecated Please use {@link #get(APIContext, String)} instead.
-	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @param profileId
@@ -164,7 +173,7 @@ public class WebProfile extends PayPalResource {
 	}
 
 	/**
-	 * Retrieve the details of a particular web experience profile by passing the ID of the profile to the request URI.
+	 * Shows details for a web experience profile, by ID.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param profileId
@@ -185,9 +194,8 @@ public class WebProfile extends PayPalResource {
 
 
 	/**
-	 * Lists all web experience profiles that exist for a merchant (or subject).
+	 * Lists all web experience profiles for a merchant or subject.
 	 * @deprecated Please use {@link #getList(APIContext)} instead.
-	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
 	 * @return WebProfileList
@@ -199,7 +207,7 @@ public class WebProfile extends PayPalResource {
 	}
 
 	/**
-	 * Lists all web experience profiles that exist for a merchant (or subject).
+	 * Lists all web experience profiles for a merchant or subject.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @return WebProfileList
@@ -208,18 +216,16 @@ public class WebProfile extends PayPalResource {
 	public static List<WebProfile> getList(APIContext apiContext) throws PayPalRESTException {
 		String resourcePath = "v1/payment-experience/web-profiles";
 		String payLoad = "";
-		List<WebProfile> webProfiles = configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
-		
-		return webProfiles;
+		return configureAndExecute(apiContext, HttpMethod.GET, resourcePath, payLoad, WebProfileList.class);
 	}
 
 
 	/**
-	 * Delete an existing web experience profile by passing the profile ID to the request URI.
+	 * Deletes a web experience profile, by ID.
 	 * @deprecated Please use {@link #delete(APIContext)} instead.
-	 *
 	 * @param accessToken
 	 *            Access Token used for the API call.
+	 * @return
 	 * @throws PayPalRESTException
 	 */
 	public void delete(String accessToken) throws PayPalRESTException {
@@ -228,22 +234,20 @@ public class WebProfile extends PayPalResource {
 	}
 
 	/**
-	 * Delete an existing web experience profile by passing the profile ID to the request URI.
+	 * Deletes a web experience profile, by ID.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
+	 * @return
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext apiContext) throws PayPalRESTException {
-
 		if (this.getId() == null) {
 			throw new IllegalArgumentException("Id cannot be null");
 		}
-		apiContext.setRequestId(null);
 		Object[] parameters = new Object[] {this.getId()};
 		String pattern = "v1/payment-experience/web-profiles/{0}";
 		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
 		String payLoad = "";
 		configureAndExecute(apiContext, HttpMethod.DELETE, resourcePath, payLoad, null);
-		apiContext.setRequestId(null);
 	}
 }

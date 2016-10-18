@@ -2,27 +2,39 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class FlowConfig  extends PayPalModel {
+public class FlowConfig extends PayPalModel {
 
 	/**
-	 * Type of PayPal page to be displayed when a user lands on the PayPal site for checkout. Allowed values: `Billing` or `Login`. When set to `Billing`, the Non-PayPal account landing page is used. When set to `Login`, the PayPal account login landing page is used.
+	 * The type of landing page to display on the PayPal site for user checkout. Set to `Billing` to use the non-PayPal account landing page. Set to `Login` to use the PayPal account login landing page.
 	 */
 	private String landingPageType;
 
 	/**
-	 * The URL on the merchant site for transferring to after a bank transfer payment. Use this field only if you are using giropay or bank transfer payment methods in Germany.
+	 * The merchant site URL to display after a bank transfer payment. Valid for only the Giropay or bank transfer payment method in Germany.
 	 */
 	private String bankTxnPendingUrl;
+
+	/**
+	 * Defines whether buyers can complete purchases on the PayPal or merchant website.
+	 */
+	private String userAction;
+
+	/**
+	 * Defines the HTTP method to use to redirect the user to a return URL. A valid value is `GET` or `POST`.
+	 */
+	private String returnUriHttpMethod;
 
 	/**
 	 * Default Constructor
 	 */
 	public FlowConfig() {
 	}
+
 }
