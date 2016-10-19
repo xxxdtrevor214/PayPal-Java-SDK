@@ -24,7 +24,7 @@ public class Patch extends PayPalModel {
 	/**
 	 * New value to apply based on the operation.
 	 */
-	private String value;
+	private Object value;
 
 	/**
 	 * A string containing a JSON Pointer value that references the location in the target document to move the value from.
