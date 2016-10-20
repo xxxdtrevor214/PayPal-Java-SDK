@@ -19,34 +19,14 @@ public class Error extends PayPalModel {
 	private String name;
 
 	/**
-	 * Reference ID of the purchase_unit associated with this error
-	 */
-	private String purchaseUnitReferenceId;
-
-	/**
 	 * Message describing the error.
 	 */
 	private String message;
 
 	/**
-	 * PayPal internal error code.
-	 */
-	private String code;
-
-	/**
 	 * Additional details of the error
 	 */
 	private List<ErrorDetails> details;
-
-	/**
-	 * response codes returned from a payment processor such as avs, cvv, etc. Only supported when the `payment_method` is set to `credit_card`.
-	 */
-	private ProcessorResponse processorResponse;
-
-	/**
-	 * Fraud filter details.  Only supported when the `payment_method` is set to `credit_card`
-	 */
-	private FmfDetails fmfDetails;
 
 	/**
 	 * URI for detailed information related to this error for the developer.
@@ -62,6 +42,34 @@ public class Error extends PayPalModel {
 	 * Links
 	 */
 	private List<DefinitionsLinkdescription> links;
+
+	/**
+	 * @deprecated This property is not available publicly
+	 * PayPal internal error code.
+	 */
+	@Deprecated
+	private String code;
+
+	/**
+	 * @deprecated This property is not available publicly
+	 * Fraud filter details.  Only supported when the `payment_method` is set to `credit_card`
+	 */
+	@Deprecated
+	private FmfDetails fmfDetails;
+
+	/**
+	 * @deprecated This property is not available publicly
+	 * response codes returned from a payment processor such as avs, cvv, etc. Only supported when the `payment_method` is set to `credit_card`.
+	 */
+	@Deprecated
+	private ProcessorResponse processorResponse;
+
+	/**
+	 * @deprecated This property is not available publicly
+	 * Reference ID of the purchase_unit associated with this error
+	 */
+	@Deprecated()
+	private String purchaseUnitReferenceId;
 
 	/**
 	 * Default Constructor
@@ -82,5 +90,4 @@ public class Error extends PayPalModel {
 	public String toString() {
 		return "name: " + this.name + "\tmessage: " + this.message + "\tdetails: " + this.details + "\tdebug-id: " + this.debugId + "\tinformation-link: " + this.informationLink;
 	}
-
 }

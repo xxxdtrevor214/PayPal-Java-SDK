@@ -2,16 +2,17 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.PayPalModel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Patch  extends PayPalModel {
+public class Patch extends PayPalModel {
 
 	/**
-	 * Patch operation to perform.Value required for add & remove operation can be any JSON value.
+	 * The operation to perform.
 	 */
 	private String op;
 
@@ -19,9 +20,15 @@ public class Patch  extends PayPalModel {
 	 * string containing a JSON-Pointer value that references a location within the target document (the target location) where the operation is performed.
 	 */
 	private String path;
-	
+
+	/**
+	 * New value to apply based on the operation.
+	 */
 	private Object value;
 
+	/**
+	 * A string containing a JSON Pointer value that references the location in the target document to move the value from.
+	 */
 	private String from;
 
 	/**

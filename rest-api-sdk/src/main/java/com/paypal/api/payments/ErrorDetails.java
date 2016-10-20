@@ -22,13 +22,17 @@ public class ErrorDetails extends PayPalModel {
 	private String issue;
 
 	/**
+	 * @deprecated This property is not publicly available
 	 * Reference ID of the purchase_unit associated with this error
 	 */
+	@Deprecated
 	private String purchaseUnitReferenceId;
 
 	/**
+	 * @deprecated This property is not publicly available
 	 * PayPal internal error code.
 	 */
+	@Deprecated
 	private String code;
 
 
