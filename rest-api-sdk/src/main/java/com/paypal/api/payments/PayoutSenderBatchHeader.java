@@ -27,11 +27,6 @@ public class PayoutSenderBatchHeader extends PayPalModel {
 	private String recipientType;
 
 	/**
-	 * The batch status to update. You can change the `NEW` batch status to `PENDING` or `CANCEL`.
-	 */
-	private String batchStatus;
-
-	/**
 	 * Default Constructor
 	 */
 	public PayoutSenderBatchHeader() {

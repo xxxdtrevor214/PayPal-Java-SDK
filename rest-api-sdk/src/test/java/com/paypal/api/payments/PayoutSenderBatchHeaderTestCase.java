@@ -8,7 +8,7 @@ import com.paypal.base.rest.JSONFormatter;
 public class PayoutSenderBatchHeaderTestCase {
 
 	public static String getJson() {
-		return "{\"sender_batch_id\":\"TestSample\",\"email_subject\":\"TestSample\",\"recipient_type\":\"TestSample\",\"batch_status\":\"TestSample\"}";
+		return "{\"sender_batch_id\":\"TestSample\",\"email_subject\":\"TestSample\",\"recipient_type\":\"TestSample\"}";
 	}
 
 	public static PayoutSenderBatchHeader getObject() {
@@ -21,6 +21,5 @@ public class PayoutSenderBatchHeaderTestCase {
 		Assert.assertEquals(obj.getRecipientType(), "TestSample");
 		Assert.assertEquals(obj.getEmailSubject(), "TestSample");
 		Assert.assertEquals(obj.getSenderBatchId(), "TestSample");
-		Assert.assertEquals(obj.getBatchStatus(), "TestSample");
 	}
 }
