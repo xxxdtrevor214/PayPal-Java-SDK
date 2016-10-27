@@ -37,6 +37,14 @@
 		<servlet-name>PaymentWithCreditCardServlet</servlet-name>
 		<url-pattern>/paymentwithcreditcard</url-pattern>
 	</servlet-mapping>
+    <servlet>
+        <servlet-name>ThirdPartyPaymentWithPayPalServlet</servlet-name>
+        <servlet-class>com.paypal.api.payments.servlet.ThirdPartyPaymentWithPayPalServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ThirdPartyPaymentWithPayPalServlet</servlet-name>
+        <url-pattern>/thirdpartypaymentwithpaypal</url-pattern>
+    </servlet-mapping>
 	<servlet>
 		<servlet-name>PaymentWithPayPalServlet</servlet-name>
 		<servlet-class>com.paypal.api.payments.servlet.PaymentWithPayPalServlet</servlet-class>
