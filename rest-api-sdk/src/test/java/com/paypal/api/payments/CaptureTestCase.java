@@ -1,16 +1,13 @@
 package com.paypal.api.payments;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import com.paypal.base.rest.PayPalRESTException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Test
 public class CaptureTestCase {
@@ -104,7 +101,8 @@ public class CaptureTestCase {
 		logger.info("Generated Capture Id = " + responsecapture.getId());
 		Capture rCapture = Capture.get(TestConstants.SANDBOX_CONTEXT,
 				responsecapture.getId());
-		rCapture.refund(TestConstants.SANDBOX_CONTEXT, null);
+
+		rCapture.refund(TestConstants.SANDBOX_CONTEXT, new Refund());
 	}
 
 	@Test

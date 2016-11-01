@@ -2,53 +2,64 @@ package com.paypal.api.payments;
 
 import com.paypal.base.rest.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.Getter; import lombok.Setter;
 
 import java.util.List;
 
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Capture  extends PayPalResource {
+public class Capture extends PayPalResource {
 
 	/**
-	 * ID of the capture transaction.
+	 * The ID of the capture transaction.
 	 */
 	private String id;
 
 	/**
-	 * Amount being captured. If the amount matches the orginally authorized amount, the state of the authorization changes to `captured`. If not, the state of the authorization changes to `partially_captured`.
+	 * The amount to capture. If the amount matches the orginally authorized amount, the state of the authorization changes to `captured`. If not, the state of the authorization changes to `partially_captured`.
 	 */
 	private Amount amount;
 
 	/**
-	 * If set to `true`, all remaining funds held by the authorization will be released in the funding instrument.
+	 * Indicates whether to release all remaining funds that the authorization holds in the funding instrument. Default is `false`.
 	 */
 	private Boolean isFinalCapture;
 
 	/**
-	 * State of the capture.
+	 * The state of the capture.
 	 */
 	private String state;
 
 	/**
-	 * ID of the payment resource on which this transaction is based.
+	 * The reason code that describes why the transaction state is pending or reversed.
+	 */
+	private String reasonCode;
+
+	/**
+	 * The ID of the payment on which this transaction is based.
 	 */
 	private String parentPayment;
 
 	/**
-	 * Transaction fee applicable for this payment.
+	 * The invoice number to track this payment.
+	 */
+	private String invoiceNumber;
+
+	/**
+	 * The transaction fee for this payment.
 	 */
 	private Currency transactionFee;
 
 	/**
-	 * Time of capture as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
+	 * The date and time of capture, as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
 	 */
 	private String createTime;
 
 	/**
-	 * Time that the resource was last updated.
+	 * The date and time when the resource was last updated.
 	 */
 	private String updateTime;
 
@@ -64,7 +75,7 @@ public class Capture  extends PayPalResource {
 	}
 
 	/**
-	 * Obtain the Capture transaction resource for the given identifier.
+	 * Shows details for a captured payment, by ID.
 	 * @deprecated Please use {@link #get(APIContext, String)} instead.
 	 * @param accessToken
 	 *            Access Token used for the API call.
@@ -79,7 +90,7 @@ public class Capture  extends PayPalResource {
 	}
 
 	/**
-	 * Obtain the Capture transaction resource for the given identifier.
+	 * Shows details for a captured payment, by ID.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param captureId
@@ -116,7 +127,8 @@ public class Capture  extends PayPalResource {
 	}
 
 	/**
-	 * Creates (and processes) a new Refund Transaction added as a related resource.
+	 * @deprecated Please use {@link #refund(APIContext, RefundRequest)} instead
+	 * Refunds a captured payment, by ID. Include an `amount` object in the JSON request body.
 	 * @param apiContext
 	 *            {@link APIContext} used for the API call.
 	 * @param refund
@@ -142,5 +154,27 @@ public class Capture  extends PayPalResource {
 		return refundResponse;
 	}
 
+	/**
+	 * Refunds a captured payment, by ID. Include an `amount` object in the JSON request body.
+	 * @param apiContext
+	 *            {@link APIContext} used for the API call.
+	 * @param refundRequest
+	 *            RefundRequest
+	 * @return DetailedRefund
+	 * @throws PayPalRESTException
+	 */
+	public DetailedRefund refund(APIContext apiContext, RefundRequest refundRequest) throws PayPalRESTException {
+		if (this.getId() == null) {
+			throw new IllegalArgumentException("Id cannot be null");
+		}
+		if (refundRequest == null) {
+			throw new IllegalArgumentException("refundRequest cannot be null");
+		}
+		Object[] parameters = new Object[] {this.getId()};
+		String pattern = "v1/payments/capture/{0}/refund";
+		String resourcePath = RESTUtil.formatURIPath(pattern, parameters);
+		String payLoad = refundRequest.toJSON();
+		return configureAndExecute(apiContext, HttpMethod.POST, resourcePath, payLoad, DetailedRefund.class);
+	}
 
 }
