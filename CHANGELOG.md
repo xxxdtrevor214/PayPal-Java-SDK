@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v1.13.0
+----
+   * Payments API updates [#258](https://github.com/paypal/PayPal-Java-SDK/pull/258).
+
 v1.12.0
 ----
    * Payment Experience API updates [#252](https://github.com/paypal/PayPal-Java-SDK/pull/252).
