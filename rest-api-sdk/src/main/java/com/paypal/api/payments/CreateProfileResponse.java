@@ -11,11 +11,6 @@ import lombok.experimental.Accessors;
 public class CreateProfileResponse extends WebProfile {
 
 	/**
-	 * ID of the payment web experience profile.
-	 */
-	private String id;
-
-	/**
 	 * Default Constructor
 	 */
 	public CreateProfileResponse() {

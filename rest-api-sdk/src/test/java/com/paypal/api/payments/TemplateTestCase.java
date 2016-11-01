@@ -49,7 +49,25 @@ public class TemplateTestCase {
 		String templateName = UUID.randomUUID().toString();
 		// Updated name as it is unique
 		template.setName(templateName);
-		template = template.create(SANDBOX_CONTEXT);
+		try {
+			template = template.create(SANDBOX_CONTEXT);
+		} catch (PayPalRESTException ex) {
+			if (ex.getResponsecode() == 400 && ex.getDetails().getMessage().contains("Exceed maximum number")) {
+				// This could be because we have reached the maximum number of templates possible per app.
+				Templates templates = Template.getAll(SANDBOX_CONTEXT);
+				for (Template templ : templates.getTemplates()) {
+					if (!templ.getIsDefault()) {
+						try {
+							templ.delete(SANDBOX_CONTEXT);
+						} catch (Exception e) {
+							// We tried our best. We will continue.
+							continue;
+						}
+					}
+				}
+				template = template.create(SANDBOX_CONTEXT);
+			}
+		}
 		logger.info("Invoice template created: ID=" + template.getTemplateId());
 		this.id = template.getTemplateId();
 		Assert.assertEquals(templateName, template.getName());

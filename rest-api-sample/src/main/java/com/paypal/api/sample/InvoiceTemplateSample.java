@@ -2,7 +2,9 @@ package com.paypal.api.sample;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.internal.Excluder;
 import com.paypal.api.payments.Template;
+import com.paypal.api.payments.Templates;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -46,7 +48,25 @@ public class InvoiceTemplateSample extends SampleBase<Template> {
 		super.instance = load("template_create.json", Template.class);
 		// Make sure the Name of Invoice is unique.
 		super.instance.setName("Sample-" + UUID.randomUUID().toString());
-		super.instance = super.instance.create(context);
+		try {
+			super.instance = super.instance.create(context);
+		} catch (PayPalRESTException ex) {
+			if (ex.getResponsecode() == 400 && ex.getDetails().getMessage().contains("Exceed maximum number")) {
+				// This could be because we have reached the maximum number of templates possible per app.
+				Templates templates = Template.getAll(context);
+				for (Template template: templates.getTemplates()) {
+					if (!template.getIsDefault()) {
+						try {
+							template.delete(context);
+						} catch (Exception e) {
+							// We tried our best. We will continue.
+							continue;
+						}
+					}
+				}
+				super.instance = super.instance.create(context);
+			}
+		}
 		return super.instance;
 	}
 
