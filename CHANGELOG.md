@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v1.12.0
+----
+   * Payment Experience API updates [#252](https://github.com/paypal/PayPal-Java-SDK/pull/252).
+   * Payouts API updates [#249](https://github.com/paypal/PayPal-Java-SDK/pull/249).
+   * Minor sample updates. 
+
 v1.11.0
 ----
    * Removed hard dependency on Log4j [#253](https://github.com/paypal/PayPal-Java-SDK/pull/253).
