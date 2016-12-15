@@ -303,21 +303,16 @@ public class APIContext {
 	}
 
 	/**
-	 * Returns the unique requestId set during creation. If there is not an existing value,
-	 * sets and returns a generated one.
+	 * Returns the requestId.
 	 *
 	 * @return requestId
 	 */
 	public String getRequestId() {
-        if (requestId == null || requestId.length() == 0) {
-            requestId = UUID.randomUUID().toString();
-        }
         return requestId;
 	}
 
 	/**
 	 * Sets the requestId to be sent on each request. Used for idempotency purposes.
-	 * requestId is auto generated if not passed explicitly.
 	 *
 	 * @param requestId request Id
 	 * @return APIContext
