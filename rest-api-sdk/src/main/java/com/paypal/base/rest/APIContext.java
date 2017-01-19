@@ -28,6 +28,11 @@ public class APIContext {
 	private boolean maskRequestId;
 
 	/**
+	 * Determine if a method was called that set the request ID.
+	 */
+	private boolean isRequestIdSet = false;
+
+	/**
 	 * {@link SDKVersion} instance
 	 */
 	private SDKVersion sdkVersion;
@@ -303,12 +308,21 @@ public class APIContext {
 	}
 
 	/**
-	 * Returns the requestId.
+	 * Returns the unique requestId set during creation. If there is not an existing value,
+	 * sets and returns a generated one
 	 *
 	 * @return requestId
 	 */
 	public String getRequestId() {
-        return requestId;
+		String reqId = null;
+		if (!maskRequestId) {
+			if (requestId == null || requestId.length() <= 0) {
+				requestId = UUID.randomUUID().toString();
+				isRequestIdSet = true;
+			}
+			reqId = requestId;
+		}
+		return reqId;
 	}
 
 	/**
@@ -319,6 +333,7 @@ public class APIContext {
 	 */
 	public APIContext setRequestId(String requestId) {
 		this.requestId = requestId;
+		isRequestIdSet = true;
 		return this;
 	}
 
@@ -329,6 +344,15 @@ public class APIContext {
 	 */
 	public void setMaskRequestId(boolean maskRequestId) {
 		this.maskRequestId = maskRequestId;
+	}
+
+	/**
+	 * Determine if the request ID was set either manually or automatically.
+	 *
+	 * @return true if the request ID was set, false otherwise
+	 */
+	public boolean isRequestIdSet() {
+		return isRequestIdSet;
 	}
 
 	/**
