@@ -1,38 +1,43 @@
-## PayPal REST API Java SDK [![Build Status](https://travis-ci.org/paypal/PayPal-Java-SDK.svg?branch=master)](https://travis-ci.org/paypal/PayPal-Java-SDK)
+# PayPal SDK 2.0 Demo
 
-![Home Image](https://raw.githubusercontent.com/wiki/paypal/PayPal-Java-SDK/images/homepage.jpg)
+This is a sample repository demonstrating our proposed approach for the newest major version of PayPal REST SDKs. 
+The approach is defined by a rethinking of the way that these SDKs are generated, s.t. we only aim to generate simple objects and 
+_blueprints_ for HTTP calls, instead of more complex networking code. This takes shape through a simple interface through
+which generated code interacts with human-written networking code.
 
-This repository contains Java SDK and samples for REST API. For PayPal mobile(Android) SDK, please go to [PayPal Android SDK](https://github.com/paypal/PayPal-Android-SDK)
+In a nutshell, there are two main modules in this project, `core` and `sdk`. `core` is the home to human-written networking
+code, specifically an `HttpClient` class and our tailored subclass `PayPalHttpClient`. This class has one main method, `execute`
+which takes in a generically typed `HttpRequest<T>` class and returns an `HttpResponse<T>` where `T` is the actual response
+object which you as the developer expect to be returned.
 
-## Please Note
-> **The Payment Card Industry (PCI) Council has [mandated](http://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) that early versions of TLS be retired from service.  All organizations that handle credit card information are required to comply with this standard. As part of this obligation, PayPal is updating its services to require TLS 1.2 for all HTTPS connections. At this time, PayPal will also require HTTP/1.1 for all connections. [Click here](https://github.com/paypal/tls-update) for more information**
+`sdk`, consequently, contains _only_ generated code. There are simple model objects, and simple service classes which contain static methods.
+Each of these methods simply returns an `HttpRequest` object, which the developer then passes to an `HttpClient` instance's `execute` method.
 
-## Prerequisites
-* Java JDK 6 or higher
-* An environment which supports TLS 1.2 (see the [TLS-update site](https://github.com/paypal/TLS-update#java) for more information)
+```java
+PayPalHttpClient paypal = new PayPalHttpClient(
+		"YOUR_CLIENT_ID",
+		"YOUR_CLIENT_SECRET",
+		SANDBOX);
 
-## Integration
 
-#### Gradle
-```gradle
-repositories {
-	mavenCentral()
-}
-dependencies {
-	compile 'com.paypal.sdk:rest-api-sdk:+'
+Invoice invoiceParams = new Invoice()
+          .setInvoiceDate("12-12-2016");
+          ...
+
+HttpRequest<Invoice> request = InvoicesService.create(invoiceParams);
+try {
+	Invoice createdInvoice = paypal.execute(request).result();
+	System.out.println(createdInvoice.getId());
+} catch (PayPalServerException ignored) {
+	ignored.printStackTrace();
+} catch (ClientException ignored) {
+	ignored.printStackTrace();
 }
 ```
-#### Others
-- For Maven and other options, follow [instructions here](https://github.com/paypal/PayPal-Java-SDK/wiki/Installation)
 
-## Get Started
-- [Make your first call](https://github.com/paypal/PayPal-Java-SDK/wiki/Making-First-Call).
-- [Run Samples project](rest-api-sample).
+In this example, a `PayPalServerException` is thrown we receive a non-200 level status code, and a `ClientException` is 
+throw for generic i/o errors.
 
-License
---------------------
-Code released under [SDK LICENSE](LICENSE)
-
-Contributions
---------------------
-Pull requests and new issues are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+The simplicity of this approach puts more flexibility in the hands of the developer. For instance, if the above request fails,
+they can attempt retries on their own terms, since they still have a reference to a blueprint of the HTTP request they
+want to make.

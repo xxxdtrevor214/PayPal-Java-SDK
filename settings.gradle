@@ -1,3 +1,5 @@
-rootProject.name = 'rest-api'
+rootProject.name = 'paypal-java-sdk'
+include 'sample'
+include 'core'
+include 'sdk'
 
-include ':rest-api-sdk', ':rest-api-sample'
