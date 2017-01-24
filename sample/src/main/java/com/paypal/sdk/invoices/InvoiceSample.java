@@ -3,6 +3,7 @@ package com.paypal.sdk.invoices;
 import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.PayPalHttpClient;
+import com.paypal.sdk.http.exceptions.HttpServerException;
 import com.paypal.sdk.http.internal.Environment;
 import com.paypal.sdk.http.internal.JSONFormatter;
 import com.paypal.sdk.models.invoices.Invoice;
@@ -13,18 +14,30 @@ import java.io.IOException;
 
 public class InvoiceSample {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
+		// Construct a PayPalHttpClient with your clientId and secret
 		PayPalHttpClient client = new PayPalHttpClient(
 				"AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS",
 				"EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL",
 				Environment.SANDBOX);
 
-		Invoice invoice = getInvoice();
+		// Create an invoice object with the desired parameters
+		Invoice invoice = new Invoice()
+				.setInvoiceDate("01-22-2017");
 
+		// Use a Request Builder to get an Http Request
 		HttpRequest<Invoice> invoiceHttpRequest = InvoicesRequestBuilder.create(invoice);
 
-		HttpResponse<Invoice> response = client.execute(invoiceHttpRequest);
-		System.out.println(response.toString());
+		try {
+			HttpResponse<Invoice> response = client.execute(invoiceHttpRequest);
+			Invoice createdInvoice = response.result(); // The invoice returned from the API
+		} catch (IOException e) {
+			if (e instanceof HttpServerException) {
+				// Inspect error for details from PayPal API
+			} else {
+				// A low-level i/o error occurred (timeout, etc.)
+			}
+		}
 	}
 
 	private static Invoice getInvoice() {
