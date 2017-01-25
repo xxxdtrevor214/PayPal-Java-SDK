@@ -1,6 +1,6 @@
 package com.paypal.sdk.http.exceptions;
 
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 
 /**
  * Exception thrown when a 422 HTTP_UNPROCESSABLE_ENTITY response is encountered. Indicates the

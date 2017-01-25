@@ -1,10 +1,9 @@
 package com.paypal.sdk;
 
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 import com.paypal.sdk.http.internal.JSONFormatter;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.experimental.Accessors;
 
 @Builder

@@ -1,10 +1,11 @@
-package com.paypal.sdk.http.internal;
+package com.paypal.sdk.http;
 
 import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
 import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.http.exceptions.*;
+import com.paypal.sdk.http.internal.TLSSocketFactory;
 import com.paypal.sdk.http.utils.WireMockHarness;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -24,16 +25,13 @@ import java.util.Locale;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.http.RequestMethod.*;
-import static com.paypal.sdk.http.internal.Environment.SANDBOX;
-import static com.paypal.sdk.http.internal.Headers.HttpHeader.*;
+import static com.paypal.sdk.http.Headers.HttpHeader.*;
 import static com.paypal.sdk.http.utils.StubUtils.stub;
 import static java.net.HttpURLConnection.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
+import static org.testng.Assert.*;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
@@ -66,14 +64,12 @@ public class DefaultHttpClientTest extends WireMockHarness {
     public void testHttpClient_execute_returnsSuccess(final int statusCode) throws IOException {
         HttpRequest<String> request = new HttpRequest<String>("/", "POST", String.class).baseUrl(baseUrl());
         HttpResponse<String> expectedResponse = HttpResponse.<String>builder()
-                .result("some data")
                 .statusCode(statusCode)
                 .build();
 
         stub(request, expectedResponse);
 
         HttpResponse actualResponse = client.execute(request);
-        assertEquals(expectedResponse.result(), actualResponse.result());
         assertEquals(expectedResponse.statusCode(), actualResponse.statusCode());
     }
 
@@ -122,10 +118,11 @@ public class DefaultHttpClientTest extends WireMockHarness {
     @Test(expectedExceptions = IOException.class, expectedExceptionsMessageRegExp = "SSLSocketFactory was not set or failed to initialize")
     public void testHttpClient_execute_postsErrorForHttpsRequestsWhenSSLSocketFactoryIsNull()
             throws InterruptedException, IOException {
-        client.setSSLSocketFactory(null);
 
-        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(SANDBOX.baseUrl);
-        client.execute(request);
+        client.setSSLSocketFactory(null);
+        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(new Environment.Sandbox().baseUrl());
+
+		client.execute(request);
     }
 
     @Test
@@ -133,7 +130,7 @@ public class DefaultHttpClientTest extends WireMockHarness {
         SSLSocketFactory sslSocketFactory = mock(SSLSocketFactory.class);
 		client.setSSLSocketFactory(sslSocketFactory);
 
-        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(SANDBOX.baseUrl);
+        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(new Environment.Sandbox().baseUrl());
         HttpURLConnection connection = client.getConnection(request);
 
         assertEquals(sslSocketFactory, ((HttpsURLConnection) connection).getSSLSocketFactory());
@@ -296,7 +293,9 @@ public class DefaultHttpClientTest extends WireMockHarness {
         return new Object[][]{
                 {HTTP_OK},
                 {HTTP_CREATED},
-                {HTTP_ACCEPTED}
+                {HTTP_ACCEPTED},
+				{HTTP_RESET},
+				{HTTP_NO_CONTENT},
         };
     }
 

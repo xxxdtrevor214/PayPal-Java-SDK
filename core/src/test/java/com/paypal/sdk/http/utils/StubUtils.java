@@ -90,7 +90,7 @@ public class StubUtils {
 	 * @param accessToken the accessToken to be returned in the response
 	 * @param baseUrl the baseUrl used by wiremock
 	 */
-	public static void stubTokenServiceRequest(AccessToken accessToken, String baseUrl) {
+	public static void stubAccessTokenWithRefreshTokenRequest(AccessToken accessToken, String baseUrl) {
 		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<RefreshToken>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
 				.baseUrl(baseUrl);
 
@@ -108,7 +108,7 @@ public class StubUtils {
 	 * @param refreshToken the refresh token to be returned in the response
 	 * @param baseUrl the baseUrl used by wiremock
 	 */
-	public static void stubTokenServiceRequest(String refreshToken, String baseUrl) {
+	public static void stubAccessRefreshTokenWithAuthorizationCodeRequest(String refreshToken, String baseUrl) {
 		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<RefreshToken>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
 				.baseUrl(baseUrl);
 

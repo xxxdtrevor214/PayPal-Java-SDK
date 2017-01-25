@@ -1,6 +1,6 @@
 package com.paypal.sdk.http.exceptions;
 
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 
 /**
  * Exception thrown when a 403 HTTP_FORBIDDEN response is encountered. Indicates the current

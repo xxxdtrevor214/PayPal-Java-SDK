@@ -1,6 +1,6 @@
 package com.paypal.sdk;
 
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 import com.paypal.sdk.http.internal.JSONFormatter;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -19,7 +19,7 @@ public final class HttpRequest<T> {
 	}
 
 	@Setter
-	@Getter(AccessLevel.NONE)
+	@Getter(AccessLevel.PACKAGE)
 	private String baseUrl;
 
 	private String path;

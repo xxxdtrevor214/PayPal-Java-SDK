@@ -1,7 +1,7 @@
 package com.paypal.sdk.http.exceptions;
 
 import com.google.gson.JsonSyntaxException;
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 import com.paypal.sdk.http.internal.JSONFormatter;
 import com.paypal.sdk.model.Error;
 import lombok.Data;

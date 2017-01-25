@@ -1,6 +1,6 @@
 package com.paypal.sdk.http.exceptions;
 
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;

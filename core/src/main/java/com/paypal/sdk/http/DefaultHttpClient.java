@@ -1,8 +1,9 @@
-package com.paypal.sdk.http.internal;
+package com.paypal.sdk.http;
 
 import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.http.exceptions.*;
+import com.paypal.sdk.http.internal.TLSSocketFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLException;
@@ -16,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 import static com.paypal.sdk.codec.CharEncoding.UTF_8;
-import static com.paypal.sdk.http.internal.Headers.HttpHeader.ACCEPT_LANGUAGE;
-import static com.paypal.sdk.http.internal.Headers.HttpHeader.USER_AGENT;
+import static com.paypal.sdk.http.Headers.HttpHeader.ACCEPT_LANGUAGE;
+import static com.paypal.sdk.http.Headers.HttpHeader.USER_AGENT;
 import static java.net.HttpURLConnection.*;
 
 public class DefaultHttpClient implements HttpClient {
@@ -76,6 +77,7 @@ public class DefaultHttpClient implements HttpClient {
 	@Override
 	public <T> HttpResponse<T> execute(HttpRequest<T> request) throws IOException {
 		prepareRequest(request);
+
 		HttpURLConnection connection = null;
 		try {
 			connection = getConnection(request);
@@ -146,7 +148,7 @@ public class DefaultHttpClient implements HttpClient {
 		}
 
 		switch(responseCode) {
-			case HTTP_OK: case HTTP_CREATED: case HTTP_ACCEPTED:
+			case HTTP_OK: case HTTP_CREATED: case HTTP_ACCEPTED: case HTTP_NO_CONTENT: case HTTP_RESET:
 				return HttpResponse.deserialize(responseHeaders, responseCode, responseBody, responseClass);
 			case HTTP_UNAUTHORIZED:
 				throw new AuthenticationException(responseBody, responseCode, responseHeaders);

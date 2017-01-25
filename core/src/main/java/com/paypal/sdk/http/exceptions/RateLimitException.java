@@ -1,6 +1,6 @@
 package com.paypal.sdk.http.exceptions;
 
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 
 /**
  * Exception thrown when a 429 HTTP_TOO_MANY_REQUESTS response is encountered. Indicates the client has hit a request

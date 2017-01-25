@@ -1,13 +1,8 @@
-package com.paypal.sdk.http.internal;
+package com.paypal.sdk.http;
 
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-
-import static com.paypal.sdk.http.internal.Headers.HttpHeader.*;
 
 public class Headers implements Iterable<String> {
 

@@ -2,10 +2,7 @@ package com.paypal.sdk.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.experimental.Accessors;
-
-import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

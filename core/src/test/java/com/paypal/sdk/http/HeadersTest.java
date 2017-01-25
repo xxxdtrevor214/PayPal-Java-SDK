@@ -1,10 +1,11 @@
-package com.paypal.sdk.http.internal;
+package com.paypal.sdk.http;
 
 import org.testng.annotations.Test;
 
 import java.util.Iterator;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNull;
 
 public class HeadersTest {
 

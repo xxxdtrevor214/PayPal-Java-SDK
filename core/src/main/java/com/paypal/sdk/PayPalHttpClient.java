@@ -1,33 +1,27 @@
 package com.paypal.sdk;
 
-import com.paypal.sdk.http.internal.DefaultHttpClient;
-import com.paypal.sdk.http.internal.Environment;
-import com.paypal.sdk.http.internal.HttpClient;
-import com.paypal.sdk.services.AuthService;
-import com.paypal.sdk.services.OAuthService;
+import com.paypal.sdk.http.DefaultHttpClient;
+import com.paypal.sdk.http.Environment;
+import com.paypal.sdk.http.HttpClient;
+import com.paypal.sdk.services.Injector;
+import com.paypal.sdk.services.OAuthInjector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-import static com.paypal.sdk.http.internal.Headers.HttpHeader.ACCEPT_ENCODING;
-import static com.paypal.sdk.http.internal.Headers.HttpHeader.CONTENT_TYPE;
+import static com.paypal.sdk.http.Headers.HttpHeader.ACCEPT_ENCODING;
+import static com.paypal.sdk.http.Headers.HttpHeader.CONTENT_TYPE;
 
 @Slf4j
 public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 
-    protected String mBaseUrl;
-
-    protected AuthService mAuthService;
+    private Injector mAuthInjector;
+    private Environment mEnvironment;
 
     public PayPalHttpClient(String clientId, String clientSecret, Environment environment) {
-    	mBaseUrl = environment.baseUrl;
-		mAuthService = new OAuthService(clientId, clientSecret, environment);
+		mAuthInjector = new OAuthInjector(clientId, clientSecret, environment);
+		mEnvironment = environment;
     }
-
-    public PayPalHttpClient(AuthService authService) {
-    	mBaseUrl = authService.getBaseUrl();
-    	mAuthService = authService;
-	}
 
 	@Override
 	protected String getUserAgent() {
@@ -43,22 +37,18 @@ public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 	 */
 	@Override
     public <T> HttpResponse<T> execute(HttpRequest<T> request) throws IOException {
-		signRequest(request);
-		return super.execute(request);
-	}
+		mAuthInjector.inject(request);
 
-	protected <T> void signRequest(HttpRequest<T> request) throws IOException {
-		mAuthService.signRequest(request, this);
-	}
-
-	protected <T> void prepareRequest(HttpRequest<T> request) {
-		super.prepareRequest(request);
+		if (request.baseUrl() == null) {
+			request.baseUrl(mEnvironment.baseUrl());
+		}
 
 		if (request.requestBody() != null) {
 			request.headers().headerIfNotPresent(CONTENT_TYPE.toString(), "application/json");
 		}
 
 		request.headers().headerIfNotPresent(ACCEPT_ENCODING.toString(), "gzip");
-		request.baseUrl(mBaseUrl);
+
+		return super.execute(request);
 	}
 }

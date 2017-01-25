@@ -1,6 +1,6 @@
 package com.paypal.sdk;
 
-import com.paypal.sdk.http.internal.Headers;
+import com.paypal.sdk.http.Headers;
 import com.paypal.sdk.model.Error;
 import org.testng.annotations.Test;
 
