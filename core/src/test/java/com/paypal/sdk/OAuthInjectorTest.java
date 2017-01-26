@@ -1,6 +1,5 @@
-package com.paypal.sdk.services;
+package com.paypal.sdk;
 
-import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.http.Environment;
 import com.paypal.sdk.http.utils.WireMockHarness;
 import org.testng.annotations.BeforeMethod;
@@ -15,8 +14,8 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class OAuthInjectorTest extends WireMockHarness {
 
-	OAuthInjector injector;
-	Environment environment = new Environment.Development(baseUrl());
+	private OAuthInjector injector;
+	private Environment environment = new Environment.Development(baseUrl());
 
 	@BeforeMethod
 	public void setup() {

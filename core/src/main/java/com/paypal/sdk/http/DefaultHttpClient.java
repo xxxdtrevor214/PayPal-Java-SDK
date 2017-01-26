@@ -4,7 +4,7 @@ import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.http.exceptions.*;
 import com.paypal.sdk.http.internal.TLSSocketFactory;
-import com.paypal.sdk.services.Injector;
+import com.paypal.sdk.Injector;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLException;

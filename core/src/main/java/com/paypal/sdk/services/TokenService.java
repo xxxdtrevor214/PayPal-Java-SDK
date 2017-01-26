@@ -53,7 +53,7 @@ public class TokenService {
 		return refreshTokenResponse.result();
 	}
 
-	private <T extends AccessToken> HttpRequest<T> getAccessTokenRequest(String baseUrl, String path, Class<T> returnTypeClass) throws IOException {
+	private <T> HttpRequest<T> getAccessTokenRequest(String baseUrl, String path, Class<T> returnTypeClass) throws IOException {
 		return new HttpRequest<T>(path, "POST", returnTypeClass)
 				.baseUrl(baseUrl)
 				.header(Headers.HttpHeader.CONTENT_TYPE.toString(), "application/x-www-form-urlencoded");

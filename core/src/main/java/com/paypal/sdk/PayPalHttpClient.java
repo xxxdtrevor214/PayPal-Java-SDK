@@ -3,8 +3,6 @@ package com.paypal.sdk;
 import com.paypal.sdk.http.DefaultHttpClient;
 import com.paypal.sdk.http.Environment;
 import com.paypal.sdk.http.HttpClient;
-import com.paypal.sdk.services.Injector;
-import com.paypal.sdk.services.OAuthInjector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

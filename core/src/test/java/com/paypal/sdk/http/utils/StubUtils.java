@@ -112,11 +112,12 @@ public class StubUtils {
 		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<RefreshToken>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
 				.baseUrl(baseUrl);
 
-		HttpResponse<AccessToken> refreshTokenResponse = HttpResponse.<AccessToken>builder()
+		HttpResponse<RefreshToken> refreshTokenResponse = HttpResponse.<RefreshToken>builder()
 				.result(new RefreshToken()
 						.refreshToken(refreshToken)
-						.accessToken("refresh-token-based-access-token")
-						.expiresIn(3600))
+						.accessToken(new AccessToken()
+							.accessToken("refresh-token-based-access-token")
+							.expiresIn(3600)))
 				.statusCode(200)
 				.build();
 

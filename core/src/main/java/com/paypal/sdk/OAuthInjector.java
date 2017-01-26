@@ -1,8 +1,8 @@
-package com.paypal.sdk.services;
+package com.paypal.sdk;
 
-import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.http.Environment;
 import com.paypal.sdk.model.AccessToken;
+import com.paypal.sdk.services.TokenService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;

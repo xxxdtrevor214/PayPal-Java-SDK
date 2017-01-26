@@ -1,13 +1,16 @@
-package com.paypal.sdk.services;
+package com.paypal.sdk;
 
 import com.paypal.sdk.http.Environment;
 import com.paypal.sdk.http.utils.WireMockHarness;
+import com.paypal.sdk.model.RefreshToken;
+import com.paypal.sdk.services.TokenService;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.paypal.sdk.http.utils.StubUtils.*;
+import static org.testng.Assert.assertEquals;
 
 public class TokenServiceTest extends WireMockHarness {
 
@@ -43,5 +46,26 @@ public class TokenServiceTest extends WireMockHarness {
 		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice"))
 				.withRequestBody(equalTo("grant_type=authorization_code&code=sample_authorization_code"))
 				.withHeader("Content-Type", equalTo("application/x-www-form-urlencoded")));
+	}
+
+	@Test void TokenService_deserializesRefreshToken() throws IOException {
+		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<RefreshToken>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
+				.baseUrl(baseUrl());
+
+		String refreshResponseString = "{\n" +
+				"  \"token_type\": \"Bearer\",\n" +
+				"  \"expires_in\": \"28800\",\n" +
+				"  \"refresh_token\": \"Refresh-Token-Value\",\n" +
+				"  \"access_token\": \"Access-Token-Value\"\n" +
+				"}";
+		HttpResponse<String> refreshTokenResponse = HttpResponse.<String>builder()
+				.result(refreshResponseString).build();
+
+		stub(refreshTokenRequest, refreshTokenResponse);
+		RefreshToken refreshToken = mTokenService.fetchRefreshToken("sample_authorization_code", environment);
+		assertEquals(refreshToken.refreshToken(), "Refresh-Token-Value");
+		assertEquals(refreshToken.accessToken().accessToken(), "Access-Token-Value");
+		assertEquals(refreshToken.accessToken().tokenType(), "Bearer");
+		assertEquals(refreshToken.accessToken().expiresIn(), 28800);
 	}
 }

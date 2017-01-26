@@ -1,4 +1,4 @@
-package com.paypal.sdk.services;
+package com.paypal.sdk;
 
 import com.paypal.sdk.HttpRequest;
 

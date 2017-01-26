@@ -7,7 +7,7 @@ import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.http.exceptions.*;
 import com.paypal.sdk.http.internal.TLSSocketFactory;
 import com.paypal.sdk.http.utils.WireMockHarness;
-import com.paypal.sdk.services.Injector;
+import com.paypal.sdk.Injector;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
