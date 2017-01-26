@@ -4,6 +4,7 @@ import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.PayPalHttpClient;
 import com.paypal.sdk.http.Environment.Sandbox;
+import com.paypal.sdk.http.exceptions.HttpServerException;
 import com.paypal.sdk.models.invoices.Invoice;
 import com.paypal.sdk.models.invoices.MerchantInfo;
 import com.paypal.sdk.services.invoices.InvoicesRequestBuilder;
@@ -41,7 +42,13 @@ public class InvoiceSample {
 			HttpRequest<Void> deleteRequest = InvoicesRequestBuilder.delete(createdInvoice.getId());
 			client.execute(deleteRequest);
 		} catch (IOException e) {
-			e.printStackTrace();
+			if (e instanceof HttpServerException) {
+				HttpServerException serverException = (HttpServerException) e;
+				// inspect inspection for details from PayPal, including the response code
+			} else {
+				// A general i/o error occured
+				e.printStackTrace();
+			}
 		}
 	}
 }
