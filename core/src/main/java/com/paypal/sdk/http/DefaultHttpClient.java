@@ -4,6 +4,7 @@ import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.http.exceptions.*;
 import com.paypal.sdk.http.internal.TLSSocketFactory;
+import com.paypal.sdk.services.Injector;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLException;
@@ -12,6 +13,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
@@ -28,10 +31,14 @@ public class DefaultHttpClient implements HttpClient {
 	private int mConnectTimeout;
 	private int mReadTimeout;
 
+	protected List<Injector> mInjectors;
+
 	public DefaultHttpClient() {
 		mReadTimeout =  (int) TimeUnit.SECONDS.toMillis(30);
 		mConnectTimeout = mReadTimeout;
 		mUserAgent = "Java HTTP/1.1"; // TODO: add version string to build.gradle
+		mInjectors = new ArrayList<Injector>();
+		addInjector(new DefaultHeaderInjector());
 
 		try {
 			mSSLSocketFactory = new TLSSocketFactory();
@@ -68,15 +75,17 @@ public class DefaultHttpClient implements HttpClient {
 
 	public void setReadTimeout(int readTimeout) { mReadTimeout = readTimeout; }
 
-	protected <T> void prepareRequest(HttpRequest<T> request) {
-		request.headers()
-				.headerIfNotPresent(USER_AGENT.toString(), getUserAgent())
-				.headerIfNotPresent(ACCEPT_LANGUAGE.toString(), Locale.getDefault().getLanguage());
+	public void addInjector(Injector injector) {
+		if (injector != null) {
+			mInjectors.add(injector);
+		}
 	}
 
 	@Override
 	public <T> HttpResponse<T> execute(HttpRequest<T> request) throws IOException {
-		prepareRequest(request);
+		for (Injector injector : mInjectors) {
+			injector.inject(request);
+		}
 
 		HttpURLConnection connection = null;
 		try {
@@ -194,6 +203,16 @@ public class DefaultHttpClient implements HttpClient {
 			try {
 				in.close();
 			} catch (IOException ignored) {}
+		}
+	}
+
+	private class DefaultHeaderInjector implements Injector {
+
+		@Override
+		public <T> void inject(HttpRequest<T> request) throws IOException {
+			request.headers()
+					.headerIfNotPresent(USER_AGENT.toString(), getUserAgent())
+					.headerIfNotPresent(ACCEPT_LANGUAGE.toString(), Locale.getDefault().getLanguage());
 		}
 	}
 }

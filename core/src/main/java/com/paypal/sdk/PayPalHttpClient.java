@@ -15,11 +15,11 @@ import static com.paypal.sdk.http.Headers.HttpHeader.CONTENT_TYPE;
 @Slf4j
 public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 
-    private Injector mAuthInjector;
+	private Injector mAuthInjector;
     private Environment mEnvironment;
 
     public PayPalHttpClient(String clientId, String clientSecret, Environment environment) {
-		mAuthInjector = new OAuthInjector(clientId, clientSecret, environment);
+    	mAuthInjector = new OAuthInjector(clientId, clientSecret, environment);
 		mEnvironment = environment;
     }
 
@@ -37,7 +37,9 @@ public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 	 */
 	@Override
     public <T> HttpResponse<T> execute(HttpRequest<T> request) throws IOException {
-		mAuthInjector.inject(request);
+		if (mAuthInjector != null) {
+			mAuthInjector.inject(request);
+		}
 
 		if (request.baseUrl() == null) {
 			request.baseUrl(mEnvironment.baseUrl());

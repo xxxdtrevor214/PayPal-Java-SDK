@@ -7,6 +7,7 @@ import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.http.exceptions.*;
 import com.paypal.sdk.http.internal.TLSSocketFactory;
 import com.paypal.sdk.http.utils.WireMockHarness;
+import com.paypal.sdk.services.Injector;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -235,25 +236,53 @@ public class DefaultHttpClientTest extends WireMockHarness {
     }
 
     @Test
-	public void testDefaultHttpClient_prepareRequest_setsCommonHeaders() {
+	public void testDefaultHttpClient_execute_setsCommonHeaders() throws IOException {
 	    HttpRequest<Void> request = new HttpRequest<Void>("/", "POST", Void.class).baseUrl(baseUrl());
+		stub(request, null);
 
-	    client.prepareRequest(request);
+	    client.execute(request);
+
         assertEquals(request.headers().header(USER_AGENT.toString()), "Java HTTP/1.1");
         assertEquals(request.headers().header(ACCEPT_LANGUAGE.toString()), Locale.getDefault().getLanguage());
     }
 
     @Test
-    public void testDefaultHttpClient_prepareRequest_doesNotSetCommonHeadersIfPresent() {
+    public void testDefaultHttpClient_execute_doesNotSetCommonHeadersIfPresent() throws IOException {
         HttpRequest<Void> request = new HttpRequest<Void>("/", "POST", Void.class)
                 .baseUrl(baseUrl());
         request.header(USER_AGENT.toString(), "Custom User Agent");
         request.header(ACCEPT_LANGUAGE.toString(), "custom");
-        client.prepareRequest(request);
+
+        stub(request, null);
+
+        client.execute(request);
 
         assertEquals(request.headers().header(USER_AGENT.toString()), "Custom User Agent");
         assertEquals(request.headers().header(ACCEPT_LANGUAGE.toString()), "custom");
     }
+
+    @Test
+	public void testDefaultHttpClient_addInjector_usesCustomInjectors() throws IOException {
+    	client.addInjector(new Injector() {
+			@Override
+			public <T> void inject(HttpRequest<T> request) throws IOException {
+				request.header(PAYPAL_REQUEST_ID.toString(), "request-id");
+			}
+		});
+
+		HttpRequest<Void> request = new HttpRequest<Void>("/", "POST", Void.class).baseUrl(baseUrl());
+		stub(request, null);
+
+		client.execute(request);
+
+		assertEquals(request.headers().header(PAYPAL_REQUEST_ID.toString()), "request-id");
+	}
+
+	@Test
+	public void testDefaultHttpClient_addInjector_withNull_doestNotAddNullInjector() {
+		client.addInjector(null);
+		assertEquals(1, client.mInjectors.size());
+	}
 
     @Test
     public void testDefaultHttpClient_applyHeadersFromRequest_SetsHeaders() throws IOException {
