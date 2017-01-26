@@ -1,4 +1,4 @@
-# PayPal SDK 2.0-RC1
+# PayPal SDK 2.0.0-alpha
 
 This is a preview of how PayPal SDKs will look in the next major version. We've simplified the intereface to only provide
 simple model objects and blueprints for HTTP calls. This repo currently only contains functionality for working with invoices
