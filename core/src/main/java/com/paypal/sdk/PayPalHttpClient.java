@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-import static com.paypal.sdk.http.Headers.HttpHeader.ACCEPT_ENCODING;
-import static com.paypal.sdk.http.Headers.HttpHeader.CONTENT_TYPE;
+import static com.paypal.sdk.http.Headers.ACCEPT_ENCODING;
+import static com.paypal.sdk.http.Headers.CONTENT_TYPE;
 
 @Slf4j
 public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
@@ -16,10 +16,15 @@ public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 	private Injector mAuthInjector;
     private Environment mEnvironment;
 
-    public PayPalHttpClient(String clientId, String clientSecret, Environment environment) {
-    	mAuthInjector = new OAuthInjector(clientId, clientSecret, environment);
+    public PayPalHttpClient(Environment environment) {
+    	mAuthInjector = new OAuthInjector(environment);
 		mEnvironment = environment;
     }
+
+    public PayPalHttpClient(Injector authInjector, Environment environment) {
+    	mAuthInjector = authInjector;
+    	mEnvironment = environment;
+	}
 
 	@Override
 	protected String getUserAgent() {
@@ -44,10 +49,10 @@ public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 		}
 
 		if (request.requestBody() != null) {
-			request.headers().headerIfNotPresent(CONTENT_TYPE.toString(), "application/json");
+			request.headers().headerIfNotPresent(CONTENT_TYPE, "application/json");
 		}
 
-		request.headers().headerIfNotPresent(ACCEPT_ENCODING.toString(), "gzip");
+		request.headers().headerIfNotPresent(ACCEPT_ENCODING, "gzip");
 
 		return super.execute(request);
 	}

@@ -5,7 +5,6 @@ import com.paypal.sdk.model.AccessToken;
 import com.paypal.sdk.services.TokenService;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.io.IOException;
@@ -20,36 +19,34 @@ public class OAuthInjector implements Injector {
 	protected AccessToken mAccessToken;
 
 	@Setter(AccessLevel.NONE)
-	private String mClientId;
-
-	@Setter(AccessLevel.NONE)
-	private String mClientSecret;
-
-	@Setter(AccessLevel.NONE)
-	private Environment mEnvironment;
-
-	@Setter(AccessLevel.NONE)
 	@Getter(AccessLevel.NONE)
 	private TokenService mTokenService;
 
-	public OAuthInjector(@NonNull String clientID, @NonNull String clientSecret, Environment environment) {
-		mClientId = clientID;
-		mClientSecret = clientSecret;
-		mEnvironment = environment;
-		mTokenService = new TokenService();
+	@Setter(AccessLevel.NONE)
+	@Getter(AccessLevel.NONE)
+	private String mRefreshToken;
+
+	public OAuthInjector(Environment environment) {
+		mTokenService = new TokenService(environment);
+	}
+
+	public OAuthInjector(Environment environment, String refreshToken) {
+		this(environment);
+		mRefreshToken = refreshToken;
 	}
 
 	@Override
 	public synchronized <T> void inject(HttpRequest<T> request) throws IOException {
 		AccessToken token;
-		if (request.refreshToken() == null && mAccessToken != null && !mAccessToken.isExpired()) { // ClientId + ClientSecret auth
+		if (mAccessToken != null && !mAccessToken.isExpired()) { // ClientId + ClientSecret auth
 			token = mAccessToken;
 		} else {
-			if (request.refreshToken() == null) {
-				token = mTokenService.fetchAccessToken(mClientId, mClientSecret, mEnvironment);
+			if (mRefreshToken != null) {
+				token = mTokenService.fetchAccessToken(mRefreshToken);
 				mAccessToken = token;
 			} else {
-				token = mTokenService.fetchAccessToken(request.refreshToken(), mEnvironment);
+				token = mTokenService.fetchAccessToken();
+				mAccessToken = token;
 			}
 		}
 

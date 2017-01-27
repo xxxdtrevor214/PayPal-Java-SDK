@@ -4,10 +4,10 @@ import com.github.tomakehurst.wiremock.http.RequestMethod;
 import com.github.tomakehurst.wiremock.matching.RequestPatternBuilder;
 import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
+import com.paypal.sdk.Injector;
 import com.paypal.sdk.http.exceptions.*;
 import com.paypal.sdk.http.internal.TLSSocketFactory;
 import com.paypal.sdk.http.utils.WireMockHarness;
-import com.paypal.sdk.Injector;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -26,7 +26,7 @@ import java.util.Locale;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.http.RequestMethod.*;
-import static com.paypal.sdk.http.Headers.HttpHeader.*;
+import static com.paypal.sdk.http.Headers.*;
 import static com.paypal.sdk.http.utils.StubUtils.stub;
 import static java.net.HttpURLConnection.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -121,7 +121,8 @@ public class DefaultHttpClientTest extends WireMockHarness {
             throws InterruptedException, IOException {
 
         client.setSSLSocketFactory(null);
-        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(new Environment.Sandbox().baseUrl());
+        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class)
+				.baseUrl(new Environment.Sandbox("clientId", "clientSecret").baseUrl());
 
 		client.execute(request);
     }
@@ -131,7 +132,8 @@ public class DefaultHttpClientTest extends WireMockHarness {
         SSLSocketFactory sslSocketFactory = mock(SSLSocketFactory.class);
 		client.setSSLSocketFactory(sslSocketFactory);
 
-        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(new Environment.Sandbox().baseUrl());
+        HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class)
+				.baseUrl(new Environment.Sandbox("clientId", "clientSecret").baseUrl());
         HttpURLConnection connection = client.getConnection(request);
 
         assertEquals(sslSocketFactory, ((HttpsURLConnection) connection).getSSLSocketFactory());
@@ -150,7 +152,7 @@ public class DefaultHttpClientTest extends WireMockHarness {
 		client.setUserAgent("Client User Agent");
 
         HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(baseUrl());
-        request.headers().header("User-Agent", "Request User Agent");
+        request.headers().header(USER_AGENT, "Request User Agent");
 
         HttpURLConnection connection = client.getConnection(request);
 
@@ -205,7 +207,7 @@ public class DefaultHttpClientTest extends WireMockHarness {
         HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class).baseUrl(baseUrl());
         request.headers()
                 .header("Key1", "Value1")
-				.header("Content-Type", "application/xml");
+				.header(CONTENT_TYPE, "application/xml");
 
         stub(request, null);
 
@@ -242,23 +244,23 @@ public class DefaultHttpClientTest extends WireMockHarness {
 
 	    client.execute(request);
 
-        assertEquals(request.headers().header(USER_AGENT.toString()), "Java HTTP/1.1");
-        assertEquals(request.headers().header(ACCEPT_LANGUAGE.toString()), Locale.getDefault().getLanguage());
+        assertEquals(request.headers().header(USER_AGENT), "Java HTTP/1.1");
+        assertEquals(request.headers().header(ACCEPT_LANGUAGE), Locale.getDefault().getLanguage());
     }
 
     @Test
     public void testDefaultHttpClient_execute_doesNotSetCommonHeadersIfPresent() throws IOException {
         HttpRequest<Void> request = new HttpRequest<Void>("/", "POST", Void.class)
                 .baseUrl(baseUrl());
-        request.header(USER_AGENT.toString(), "Custom User Agent");
-        request.header(ACCEPT_LANGUAGE.toString(), "custom");
+        request.header(USER_AGENT, "Custom User Agent");
+        request.header(ACCEPT_LANGUAGE, "custom");
 
         stub(request, null);
 
         client.execute(request);
 
-        assertEquals(request.headers().header(USER_AGENT.toString()), "Custom User Agent");
-        assertEquals(request.headers().header(ACCEPT_LANGUAGE.toString()), "custom");
+        assertEquals(request.headers().header(USER_AGENT), "Custom User Agent");
+        assertEquals(request.headers().header(ACCEPT_LANGUAGE), "custom");
     }
 
     @Test
@@ -266,7 +268,7 @@ public class DefaultHttpClientTest extends WireMockHarness {
     	client.addInjector(new Injector() {
 			@Override
 			public <T> void inject(HttpRequest<T> request) throws IOException {
-				request.header(PAYPAL_REQUEST_ID.toString(), "request-id");
+				request.header(PAYPAL_REQUEST_ID, "request-id");
 			}
 		});
 
@@ -275,7 +277,7 @@ public class DefaultHttpClientTest extends WireMockHarness {
 
 		client.execute(request);
 
-		assertEquals(request.headers().header(PAYPAL_REQUEST_ID.toString()), "request-id");
+		assertEquals(request.headers().header(PAYPAL_REQUEST_ID), "request-id");
 	}
 
 	@Test
@@ -287,7 +289,7 @@ public class DefaultHttpClientTest extends WireMockHarness {
     @Test
     public void testDefaultHttpClient_applyHeadersFromRequest_SetsHeaders() throws IOException {
         HttpRequest<Void> request = new HttpRequest<Void>("/", "POST", Void.class).baseUrl(baseUrl());
-        request.header(USER_AGENT.toString(), "Custom User Agent");
+        request.header(USER_AGENT, "Custom User Agent");
         HttpURLConnection connection = (HttpURLConnection) new URL(request.url()).openConnection();
 
         client.applyHeadersFromRequest(request, connection);
@@ -299,6 +301,7 @@ public class DefaultHttpClientTest extends WireMockHarness {
         HttpURLConnection connection = mock(HttpURLConnection.class);
         when(connection.getHeaderField(anyInt())).thenReturn("value");
         when(connection.getHeaderFieldKey(anyInt())).thenReturn("key");
+
         when(connection.getHeaderFields()).thenReturn(new HashMap<String, List<String>>() {{
             put("key", new ArrayList<String>() {{ add("value"); }});
         }});

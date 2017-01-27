@@ -5,7 +5,6 @@ import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.codec.binary.Base64;
 import com.paypal.sdk.http.DefaultHttpClient;
 import com.paypal.sdk.http.Environment;
-import com.paypal.sdk.http.Headers;
 import com.paypal.sdk.http.HttpClient;
 import com.paypal.sdk.model.AccessToken;
 import com.paypal.sdk.model.RefreshToken;
@@ -14,27 +13,29 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.paypal.sdk.http.Headers.HttpHeader.AUTHORIZATION;
+import static com.paypal.sdk.http.Headers.AUTHORIZATION;
+import static com.paypal.sdk.http.Headers.CONTENT_TYPE;
 
 public class TokenService {
 
 	private HttpClient mHttpClient;
+	private Environment mEnvironment;
 
-	public TokenService() {
+	public TokenService(Environment environment) {
 		mHttpClient = new DefaultHttpClient();
+		mEnvironment = environment;
 	}
 
-	public AccessToken fetchAccessToken(String clientId, String clientSecret, Environment environment) throws IOException {
-		HttpRequest<AccessToken> accessTokenRequest = getAccessTokenRequest(environment.baseUrl(), "/v1/oauth2/token", AccessToken.class)
-				.requestBody(tokenRequestBody("client_credentials", new HashMap<String, String>()))
-				.header(AUTHORIZATION.toString(), accessTokenRequestHeader(clientId, clientSecret));
+	public AccessToken fetchAccessToken() throws IOException {
+		HttpRequest<AccessToken> accessTokenRequest = getAccessTokenRequest(mEnvironment.baseUrl(), "/v1/oauth2/token", AccessToken.class)
+				.requestBody(tokenRequestBody("client_credentials", new HashMap<String, String>()));
 
 		HttpResponse<AccessToken> accessTokenResponse = mHttpClient.execute(accessTokenRequest);
 		return accessTokenResponse.result();
 	}
 
-	public AccessToken fetchAccessToken(final String refreshToken, Environment environment) throws IOException {
-		HttpRequest<AccessToken> accessTokenRequest = getAccessTokenRequest(environment.baseUrl(), "/v1/identity/openidconnect/tokenservice", AccessToken.class)
+	public AccessToken fetchAccessToken(final String refreshToken) throws IOException {
+		HttpRequest<AccessToken> accessTokenRequest = getAccessTokenRequest(mEnvironment.baseUrl(), "/v1/identity/openidconnect/tokenservice", AccessToken.class)
 				.requestBody(tokenRequestBody("client_credentials", new HashMap<String, String>() {{
 					put("refreshToken", refreshToken);
 				}}));
@@ -43,8 +44,8 @@ public class TokenService {
 		return accessTokenResponse.result();
 	}
 
-	public RefreshToken fetchRefreshToken(final String authorizationCode, Environment environment) throws IOException {
-		HttpRequest<RefreshToken> refreshTokenHttpRequest = getAccessTokenRequest(environment.baseUrl(), "/v1/identity/openidconnect/tokenservice", RefreshToken.class)
+	public RefreshToken fetchRefreshToken(final String authorizationCode) throws IOException {
+		HttpRequest<RefreshToken> refreshTokenHttpRequest = getAccessTokenRequest(mEnvironment.baseUrl(), "/v1/identity/openidconnect/tokenservice", RefreshToken.class)
 				.requestBody(tokenRequestBody("authorization_code", new HashMap<String, String>() {{
 					put("code", authorizationCode);
 				}}));
@@ -56,12 +57,13 @@ public class TokenService {
 	private <T> HttpRequest<T> getAccessTokenRequest(String baseUrl, String path, Class<T> returnTypeClass) throws IOException {
 		return new HttpRequest<T>(path, "POST", returnTypeClass)
 				.baseUrl(baseUrl)
-				.header(Headers.HttpHeader.CONTENT_TYPE.toString(), "application/x-www-form-urlencoded");
+				.header(AUTHORIZATION, accessTokenRequestHeader())
+				.header(CONTENT_TYPE, "application/x-www-form-urlencoded");
 	}
 
-	private String accessTokenRequestHeader(String clientID, String clientSecret) throws IOException {
+	private String accessTokenRequestHeader() throws IOException {
 		byte[] encoded;
-		encoded = Base64.encodeBase64((clientID + ":" + clientSecret).getBytes("UTF-8"));
+		encoded = Base64.encodeBase64((mEnvironment.getClientId() + ":" + mEnvironment.getClientSecret()).getBytes("UTF-8"));
 		return "Basic " + new String(encoded, "UTF-8");
 	}
 

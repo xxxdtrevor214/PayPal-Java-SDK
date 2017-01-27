@@ -14,14 +14,14 @@ import static org.testng.Assert.assertEquals;
 
 public class TokenServiceTest extends WireMockHarness {
 
-	private final Environment environment = new Environment.Development(baseUrl());
-	private TokenService mTokenService = new TokenService();
+	private final Environment environment = new Environment.Development("clientId", "clientSecret", baseUrl());
+	private TokenService mTokenService = new TokenService(environment);
 
 	@Test
 	public void TokenService_fetchAccessToken_clientId_fetchesAccessToken() throws IOException {
 		stubAccessTokenRequest(simpleAccessToken(), baseUrl());
 
-		mTokenService.fetchAccessToken("clientId", "clientSecret", environment);
+		mTokenService.fetchAccessToken();
 		verify(postRequestedFor(urlEqualTo("/v1/oauth2/token"))
 				.withRequestBody(equalTo("grant_type=client_credentials"))
 				.withHeader("Authorization", containing("Basic "))
@@ -32,8 +32,9 @@ public class TokenServiceTest extends WireMockHarness {
 	public void TokenService_fetchAccessToken_refreshToken_fetchesAccessToken() throws IOException {
 		stubAccessTokenWithRefreshTokenRequest(simpleAccessToken(), baseUrl());
 
-		mTokenService.fetchAccessToken("refresh-token", environment);
+		mTokenService.fetchAccessToken("refresh-token");
 		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice"))
+				.withHeader("Authorization", containing("Basic "))
 				.withRequestBody(equalTo("grant_type=client_credentials&refreshToken=refresh-token"))
 				.withHeader("Content-Type", equalTo("application/x-www-form-urlencoded")));
 	}
@@ -42,13 +43,15 @@ public class TokenServiceTest extends WireMockHarness {
 	public void TokenService_fetchRefreshToken_fetchesRefreshToken() throws IOException {
 		stubAccessRefreshTokenWithAuthorizationCodeRequest("refresh-token", baseUrl());
 
-		mTokenService.fetchRefreshToken("sample_authorization_code", environment);
+		mTokenService.fetchRefreshToken("sample_authorization_code");
 		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice"))
+				.withHeader("Authorization", containing("Basic "))
 				.withRequestBody(equalTo("grant_type=authorization_code&code=sample_authorization_code"))
 				.withHeader("Content-Type", equalTo("application/x-www-form-urlencoded")));
 	}
 
-	@Test void TokenService_deserializesRefreshToken() throws IOException {
+	@Test
+	void TokenService_deserializesRefreshToken() throws IOException {
 		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<RefreshToken>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
 				.baseUrl(baseUrl());
 
@@ -62,10 +65,7 @@ public class TokenServiceTest extends WireMockHarness {
 				.result(refreshResponseString).build();
 
 		stub(refreshTokenRequest, refreshTokenResponse);
-		RefreshToken refreshToken = mTokenService.fetchRefreshToken("sample_authorization_code", environment);
+		RefreshToken refreshToken = mTokenService.fetchRefreshToken("sample_authorization_code");
 		assertEquals(refreshToken.refreshToken(), "Refresh-Token-Value");
-		assertEquals(refreshToken.accessToken().accessToken(), "Access-Token-Value");
-		assertEquals(refreshToken.accessToken().tokenType(), "Bearer");
-		assertEquals(refreshToken.accessToken().expiresIn(), 28800);
 	}
 }

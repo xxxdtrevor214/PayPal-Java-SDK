@@ -6,41 +6,32 @@ import java.util.Map;
 
 public class Headers implements Iterable<String> {
 
+	public static final String CONTENT_TYPE = "Content-Type";
+	public static final String AUTHORIZATION = "Authorization";
+	public static final String PAYPAL_REQUEST_ID = "PayPal-Request-Id";
+	public static final String USER_AGENT = "User-Agent";
+	public static final String ACCEPT_LANGUAGE = "Accept-Language";
+	public static final String ACCEPT_ENCODING = "Accept-Encoding";
+	public static final String PAYPAL_CORRELATION_ID = "PAYPAL-CLIENT-METADATA-ID";
+
 	@Override
 	public Iterator<String> iterator() {
 		return mHeaders.keySet().iterator();
 	}
 
-	public enum HttpHeader {
-		CONTENT_TYPE("Content-Type"),
-		AUTHORIZATION("Authorization"),
-		PAYPAL_REQUEST_ID("PayPal-Request-Id"),
-		USER_AGENT("User-Agent"),
-		ACCEPT_LANGUAGE("Accept-Language"),
-		ACCEPT_ENCODING("Accept-Encoding"),
-		PAYPAL_CORRELATION_ID("PAYPAL-CLIENT-METADATA-ID");
-
-		private String headerKey;
-		HttpHeader(String headerkey) { this.headerKey = headerkey; }
-
-		@Override
-		public String toString() {
-			return this.headerKey;
-		}
-	}
-
 	private Map<String, String> mHeaders = new HashMap<String, String>();
 
-	public Headers() {}
+	public Headers() {
+	}
 
-	public Headers header(String key, String value) {
-		mHeaders.put(key, value);
+	public Headers header(String header, String value) {
+		mHeaders.put(header, value);
 		return this;
 	}
 
 	public Headers headerIfNotPresent(String key, String value) {
-		if (mHeaders.get(key) == null) {
-			mHeaders.put(key, value);
+		if (header(key) == null) {
+			return header(key, value);
 		}
 		return this;
 	}

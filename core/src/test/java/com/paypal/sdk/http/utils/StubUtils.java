@@ -114,10 +114,7 @@ public class StubUtils {
 
 		HttpResponse<RefreshToken> refreshTokenResponse = HttpResponse.<RefreshToken>builder()
 				.result(new RefreshToken()
-						.refreshToken(refreshToken)
-						.accessToken(new AccessToken()
-							.accessToken("refresh-token-based-access-token")
-							.expiresIn(3600)))
+						.refreshToken(refreshToken))
 				.statusCode(200)
 				.build();
 

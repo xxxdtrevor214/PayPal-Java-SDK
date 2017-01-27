@@ -2,9 +2,9 @@ package com.paypal.sdk.http;
 
 import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
+import com.paypal.sdk.Injector;
 import com.paypal.sdk.http.exceptions.*;
 import com.paypal.sdk.http.internal.TLSSocketFactory;
-import com.paypal.sdk.Injector;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLException;
@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 import static com.paypal.sdk.codec.CharEncoding.UTF_8;
-import static com.paypal.sdk.http.Headers.HttpHeader.ACCEPT_LANGUAGE;
-import static com.paypal.sdk.http.Headers.HttpHeader.USER_AGENT;
+import static com.paypal.sdk.http.Headers.ACCEPT_LANGUAGE;
+import static com.paypal.sdk.http.Headers.USER_AGENT;
 import static java.net.HttpURLConnection.*;
 
 public class DefaultHttpClient implements HttpClient {
@@ -75,7 +75,7 @@ public class DefaultHttpClient implements HttpClient {
 
 	public void setReadTimeout(int readTimeout) { mReadTimeout = readTimeout; }
 
-	public void addInjector(Injector injector) {
+	public synchronized void addInjector(Injector injector) {
 		if (injector != null) {
 			mInjectors.add(injector);
 		}
@@ -211,8 +211,8 @@ public class DefaultHttpClient implements HttpClient {
 		@Override
 		public <T> void inject(HttpRequest<T> request) throws IOException {
 			request.headers()
-					.headerIfNotPresent(USER_AGENT.toString(), getUserAgent())
-					.headerIfNotPresent(ACCEPT_LANGUAGE.toString(), Locale.getDefault().getLanguage());
+					.headerIfNotPresent(USER_AGENT, getUserAgent())
+					.headerIfNotPresent(ACCEPT_LANGUAGE, Locale.getDefault().getLanguage());
 		}
 	}
 }

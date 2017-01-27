@@ -34,7 +34,6 @@ public final class HttpRequest<T> {
 	private Headers headers = new Headers();
 
 	private Object requestBody;
-	private String refreshToken;
 	private String oAuthScope;
 
 	public HttpRequest<T> header(String header, String value) {

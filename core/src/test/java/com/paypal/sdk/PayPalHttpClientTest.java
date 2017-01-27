@@ -9,19 +9,19 @@ import java.io.IOException;
 import java.util.Locale;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.paypal.sdk.http.Headers.HttpHeader.*;
+import static com.paypal.sdk.http.Headers.*;
 import static com.paypal.sdk.http.utils.StubUtils.*;
 import static org.testng.Assert.assertEquals;
 
 public class PayPalHttpClientTest extends WireMockHarness {
 
 	private PayPalHttpClient client = null;
-	private Environment environment = new Environment.Development(baseUrl());
+	private Environment environment = new Environment.Development("clientId", "clientSecret", baseUrl());
 
 	@BeforeMethod
 	public void setup() {
 		super.setup();
-		client = new PayPalHttpClient("clientId", "clientSecret", environment);
+		client = new PayPalHttpClient(environment);
 		stubAccessTokenRequest(simpleAccessToken(), baseUrl());
 	}
 
@@ -31,7 +31,7 @@ public class PayPalHttpClientTest extends WireMockHarness {
 		stub(request, null);
 
 		client.execute(request);
-		assertEquals(request.headers().header(ACCEPT_ENCODING.toString()), "gzip");
+		assertEquals(request.headers().header(ACCEPT_ENCODING), "gzip");
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class PayPalHttpClientTest extends WireMockHarness {
 
 		client.execute(request);
 
-		assertEquals(request.headers().header(CONTENT_TYPE.toString()), "application/json");
+		assertEquals(request.headers().header(CONTENT_TYPE), "application/json");
 	}
 
 	@Test
@@ -79,6 +79,26 @@ public class PayPalHttpClientTest extends WireMockHarness {
 		client.execute(request);
 
 		verify(getRequestedFor(urlEqualTo("/"))
-			.withHeader(ACCEPT_LANGUAGE.toString(), equalTo(Locale.getDefault().getLanguage())));
+			.withHeader(ACCEPT_LANGUAGE, equalTo(Locale.getDefault().getLanguage())));
+	}
+
+	@Test
+	public void testPayPalHttpClient_execute_withCustomInjector_signsRequest() throws IOException {
+		HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class);
+
+		stub(request, null);
+
+		Injector injector = new Injector() {
+			@Override
+			public <T> void inject(HttpRequest<T> request) throws IOException {
+				request.header("super-header-key", "super-header-value");
+			}
+		};
+
+		PayPalHttpClient client = new PayPalHttpClient(injector, environment);
+		client.execute(request);
+
+		verify(getRequestedFor(urlEqualTo("/"))
+				.withHeader("super-header-key", equalTo("super-header-value")));
 	}
 }
