@@ -37,7 +37,7 @@ public class DefaultHttpClient implements HttpClient {
 		mReadTimeout =  (int) TimeUnit.SECONDS.toMillis(30);
 		mConnectTimeout = mReadTimeout;
 		mUserAgent = "Java HTTP/1.1"; // TODO: add version string to build.gradle
-		mInjectors = new ArrayList<Injector>();
+		mInjectors = new ArrayList<>();
 		addInjector(new DefaultHeaderInjector());
 
 		try {
