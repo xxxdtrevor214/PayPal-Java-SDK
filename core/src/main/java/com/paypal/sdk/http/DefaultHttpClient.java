@@ -19,10 +19,10 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
-import static com.paypal.sdk.codec.CharEncoding.UTF_8;
 import static com.paypal.sdk.http.Headers.ACCEPT_LANGUAGE;
 import static com.paypal.sdk.http.Headers.USER_AGENT;
 import static java.net.HttpURLConnection.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class DefaultHttpClient implements HttpClient {
 
@@ -31,14 +31,14 @@ public class DefaultHttpClient implements HttpClient {
 	private int mConnectTimeout;
 	private int mReadTimeout;
 
-	protected List<Injector> mInjectors;
+	List<Injector> mInjectors;
 
 	public DefaultHttpClient() {
 		mReadTimeout =  (int) TimeUnit.SECONDS.toMillis(30);
 		mConnectTimeout = mReadTimeout;
 		mUserAgent = "Java HTTP/1.1"; // TODO: add version string to build.gradle
 		mInjectors = new ArrayList<>();
-		addInjector(new DefaultHeaderInjector());
+		addInjector(this::injectStandardHeaders);
 
 		try {
 			mSSLSocketFactory = new TLSSocketFactory();
@@ -206,13 +206,9 @@ public class DefaultHttpClient implements HttpClient {
 		}
 	}
 
-	private class DefaultHeaderInjector implements Injector {
-
-		@Override
-		public <T> void inject(HttpRequest<T> request) throws IOException {
-			request.headers()
-					.headerIfNotPresent(USER_AGENT, getUserAgent())
-					.headerIfNotPresent(ACCEPT_LANGUAGE, Locale.getDefault().getLanguage());
-		}
+	private void injectStandardHeaders(HttpRequest request) throws IOException {
+		request.headers()
+				.headerIfNotPresent(USER_AGENT, getUserAgent())
+				.headerIfNotPresent(ACCEPT_LANGUAGE, Locale.getDefault().getLanguage());
 	}
 }
