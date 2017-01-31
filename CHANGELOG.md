@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v1.13.1
+----
+   * Fixed PATCH requests for Google App Engine [#273](https://github.com/paypal/PayPal-Java-SDK/pull/273).
+
 v1.13.0
 ----
    * Payments API updates [#258](https://github.com/paypal/PayPal-Java-SDK/pull/258).
