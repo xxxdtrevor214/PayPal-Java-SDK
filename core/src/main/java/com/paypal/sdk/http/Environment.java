@@ -20,9 +20,9 @@ public abstract class Environment {
 
     public abstract String baseUrl();
 
-    public static class Production extends Environment {
+    public static class Live extends Environment {
 
-		public Production(String clientId, String clientSecret) {
+		public Live(String clientId, String clientSecret) {
 			super(clientId, clientSecret);
 		}
 

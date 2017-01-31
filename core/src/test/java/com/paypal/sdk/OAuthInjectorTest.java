@@ -17,6 +17,30 @@ public class OAuthInjectorTest extends WireMockHarness {
 	}
 
 	@Test
+	public void testOAuthInjector_inject_fetchesAccessTokenIfExpired() throws InterruptedException, IOException {
+		OAuthInjector injector = new OAuthInjector(environment());
+		injector.mAccessToken = simpleAccessToken().expiresIn(0);
+		stubAccessTokenRequest(simpleAccessToken());
+
+		HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class);
+		injector.inject(request);
+
+		verify(postRequestedFor(urlEqualTo("/v1/oauth2/token")));
+	}
+
+	@Test
+	public void testOAuthInjector_inject_setsAuthorizationHeader() throws IOException {
+		OAuthInjector injector = new OAuthInjector(environment());
+		injector.mAccessToken = simpleAccessToken();
+
+		HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class);
+
+		injector.inject(request);
+
+		assertEquals("Bearer sample-access-token", request.headers().header("Authorization"));
+	}
+
+	@Test
 	public void OAuthInjector_clientId_inject_fetchesAccessTokenIfNotCached() throws IOException {
 		OAuthInjector injector = new OAuthInjector(environment());
 		stubAccessTokenRequest(simpleAccessToken());
@@ -28,31 +52,7 @@ public class OAuthInjectorTest extends WireMockHarness {
 	}
 
 	@Test
-	public void testOAuthInjector_clientId_inject_fetchesAccessTokenIfExpired() throws InterruptedException, IOException {
-		OAuthInjector injector = new OAuthInjector(environment());
-		injector.mAccessToken = simpleAccessToken().expiresIn(0);
-		stubAccessTokenRequest(simpleAccessToken());
-
-		HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class);
-		injector.inject(request);
-
-		verify(postRequestedFor(urlEqualTo("/v1/oauth2/token")));
-	}
-
-	@Test
-	public void testOAuthInjector_clientId_inject_setsAuthorizationHeader() throws IOException {
-		OAuthInjector injector = new OAuthInjector(environment());
-		injector.mAccessToken = simpleAccessToken();
-
-		HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class);
-
-		injector.inject(request);
-
-		assertEquals("Bearer sample-access-token", request.headers().header("Authorization"));
-	}
-
-	@Test
-	public void testOAuthInjector_refreshToken_fetchesAccessTokenIfNotCached() throws IOException {
+	public void testOAuthInjector_refreshToken_inject_fetchesAccessTokenIfNotCached() throws IOException {
 		OAuthInjector injector = new OAuthInjector(environment(),"refresh-token");
 		stubAccessTokenWithRefreshTokenRequest(simpleAccessToken());
 
@@ -60,29 +60,5 @@ public class OAuthInjectorTest extends WireMockHarness {
 		injector.inject(request);
 
 		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice")));
-	}
-
-	@Test
-	public void testOAuthInjector_refreshToken_fetchesAccessTokenIfExpired() throws IOException {
-		OAuthInjector injector = new OAuthInjector(environment(), "refresh-token");
-		injector.mAccessToken = simpleAccessToken().expiresIn(0);
-		stubAccessTokenWithRefreshTokenRequest(simpleAccessToken());
-
-		HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class);
-		injector.inject(request);
-
-		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice")));
-	}
-
-	@Test
-	public void testOAuthInjector_refreshToken_inject_setsAuthorizationHeader() throws IOException {
-		OAuthInjector injector = new OAuthInjector(environment(),"refresh-token");
-		injector.mAccessToken = simpleAccessToken();
-
-		HttpRequest<Void> request = new HttpRequest<Void>("/", "GET", Void.class);
-
-		injector.inject(request);
-
-		assertEquals("Bearer sample-access-token", request.headers().header("Authorization"));
 	}
 }

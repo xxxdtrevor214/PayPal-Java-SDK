@@ -37,7 +37,7 @@ public class TokenService {
 	public AccessToken fetchAccessToken(final String refreshToken) throws IOException {
 		HttpRequest<AccessToken> accessTokenRequest = getAccessTokenRequest(mEnvironment.baseUrl(), "/v1/identity/openidconnect/tokenservice", AccessToken.class)
 				.requestBody(tokenRequestBody("client_credentials", new HashMap<String, String>() {{
-					put("refreshToken", refreshToken);
+					put("refresh_token", refreshToken);
 				}}));
 
 		HttpResponse<AccessToken> accessTokenResponse = mHttpClient.execute(accessTokenRequest);

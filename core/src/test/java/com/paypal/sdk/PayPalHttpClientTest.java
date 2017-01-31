@@ -5,10 +5,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.paypal.sdk.http.Headers.*;
+import static com.paypal.sdk.http.Headers.ACCEPT_ENCODING;
+import static com.paypal.sdk.http.Headers.CONTENT_TYPE;
 import static org.testng.Assert.assertEquals;
 
 public class PayPalHttpClientTest extends WireMockHarness {
@@ -63,20 +63,8 @@ public class PayPalHttpClientTest extends WireMockHarness {
 		client.execute(request);
 
 		verify(getRequestedFor(urlEqualTo("/"))
-		.withHeader("Authorization", equalTo("Bearer sample-access-token")));
+				.withHeader("Authorization", equalTo("Bearer sample-access-token")));
 
-	}
-
-	@Test
-	public void testPayPalHttpClient_execute_preparesRequest() throws IOException {
-		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class);
-
-		stub(request, null);
-
-		client.execute(request);
-
-		verify(getRequestedFor(urlEqualTo("/"))
-			.withHeader(ACCEPT_LANGUAGE, equalTo(Locale.getDefault().getLanguage())));
 	}
 
 	@Test

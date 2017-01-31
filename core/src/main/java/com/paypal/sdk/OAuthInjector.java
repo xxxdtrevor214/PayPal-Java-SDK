@@ -38,7 +38,7 @@ public class OAuthInjector implements Injector {
 	@Override
 	public synchronized void inject(HttpRequest request) throws IOException {
 		AccessToken token;
-		if (mAccessToken != null && !mAccessToken.isExpired()) { // ClientId + ClientSecret auth
+		if (mAccessToken != null && !mAccessToken.isExpired()) {
 			token = mAccessToken;
 		} else {
 			if (mRefreshToken != null) {

@@ -15,11 +15,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
-import static com.paypal.sdk.http.Headers.ACCEPT_LANGUAGE;
 import static com.paypal.sdk.http.Headers.USER_AGENT;
 import static java.net.HttpURLConnection.*;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -208,7 +206,6 @@ public class DefaultHttpClient implements HttpClient {
 
 	private void injectStandardHeaders(HttpRequest request) throws IOException {
 		request.headers()
-				.headerIfNotPresent(USER_AGENT, getUserAgent())
-				.headerIfNotPresent(ACCEPT_LANGUAGE, Locale.getDefault().getLanguage());
+				.headerIfNotPresent(USER_AGENT, getUserAgent());
 	}
 }

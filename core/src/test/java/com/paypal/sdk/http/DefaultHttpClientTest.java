@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.http.RequestMethod.*;
@@ -245,21 +244,18 @@ public class DefaultHttpClientTest extends WireMockHarness {
 
 	    client.execute(request);
         assertEquals(request.headers().header(USER_AGENT), "Java HTTP/1.1");
-        assertEquals(request.headers().header(ACCEPT_LANGUAGE), Locale.getDefault().getLanguage());
     }
 
     @Test
     public void testDefaultHttpClient_execute_doesNotSetCommonHeadersIfPresent() throws IOException {
         HttpRequest<String> request = simpleRequest();
         request.header(USER_AGENT, "Custom User Agent");
-        request.header(ACCEPT_LANGUAGE, "custom");
 
         stub(request, null);
 
         client.execute(request);
 
         assertEquals(request.headers().header(USER_AGENT), "Custom User Agent");
-        assertEquals(request.headers().header(ACCEPT_LANGUAGE), "custom");
     }
 
     @Test

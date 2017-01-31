@@ -10,9 +10,7 @@ public class Headers implements Iterable<String> {
 	public static final String AUTHORIZATION = "Authorization";
 	public static final String PAYPAL_REQUEST_ID = "PayPal-Request-Id";
 	public static final String USER_AGENT = "User-Agent";
-	public static final String ACCEPT_LANGUAGE = "Accept-Language";
 	public static final String ACCEPT_ENCODING = "Accept-Encoding";
-	public static final String PAYPAL_CORRELATION_ID = "PAYPAL-CLIENT-METADATA-ID";
 
 	@Override
 	public Iterator<String> iterator() {
@@ -20,9 +18,6 @@ public class Headers implements Iterable<String> {
 	}
 
 	private Map<String, String> mHeaders = new HashMap<String, String>();
-
-	public Headers() {
-	}
 
 	public Headers header(String header, String value) {
 		mHeaders.put(header, value);

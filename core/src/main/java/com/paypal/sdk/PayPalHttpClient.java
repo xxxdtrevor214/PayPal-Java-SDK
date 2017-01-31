@@ -13,23 +13,23 @@ import static com.paypal.sdk.http.Headers.CONTENT_TYPE;
 @Slf4j
 public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 
-    private Environment mEnvironment;
+	private Environment mEnvironment;
 
-    public PayPalHttpClient(Environment environment) {
-    	this(environment, new OAuthInjector(environment));
-    }
+	public PayPalHttpClient(Environment environment) {
+		this(environment, new OAuthInjector(environment));
+	}
 
-    public PayPalHttpClient(Environment environment, Injector authInjector) {
-    	super();
+	public PayPalHttpClient(Environment environment, Injector authInjector) {
+		super();
 		mEnvironment = environment;
-    	addInjector(authInjector);
-    	addInjector(this::injectBaseUrl);
+		addInjector(authInjector);
+		addInjector(this::injectBaseUrl);
 		addInjector(this::injectStandardHeaders);
 	}
 
 	@Override
 	protected String getUserAgent() {
-    	return "Java PayPalHttpClient"; // TODO: Return SDK version as part of this user agent.
+		return "Java PayPalHttpClient"; // TODO: Return SDK version as part of this user agent.
 	}
 
 	private void injectBaseUrl(HttpRequest request) throws IOException {
