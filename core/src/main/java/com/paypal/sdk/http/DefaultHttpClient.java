@@ -2,9 +2,9 @@ package com.paypal.sdk.http;
 
 import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
+import com.paypal.sdk.Injector;
 import com.paypal.sdk.http.exceptions.*;
 import com.paypal.sdk.http.internal.TLSSocketFactory;
-import com.paypal.sdk.Injector;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLException;
@@ -15,14 +15,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
-import static com.paypal.sdk.codec.CharEncoding.UTF_8;
-import static com.paypal.sdk.http.Headers.HttpHeader.ACCEPT_LANGUAGE;
-import static com.paypal.sdk.http.Headers.HttpHeader.USER_AGENT;
+import static com.paypal.sdk.http.Headers.USER_AGENT;
 import static java.net.HttpURLConnection.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class DefaultHttpClient implements HttpClient {
 
@@ -31,14 +29,14 @@ public class DefaultHttpClient implements HttpClient {
 	private int mConnectTimeout;
 	private int mReadTimeout;
 
-	protected List<Injector> mInjectors;
+	List<Injector> mInjectors;
 
 	public DefaultHttpClient() {
 		mReadTimeout =  (int) TimeUnit.SECONDS.toMillis(30);
 		mConnectTimeout = mReadTimeout;
 		mUserAgent = "Java HTTP/1.1"; // TODO: add version string to build.gradle
-		mInjectors = new ArrayList<Injector>();
-		addInjector(new DefaultHeaderInjector());
+		mInjectors = new ArrayList<>();
+		addInjector(this::injectStandardHeaders);
 
 		try {
 			mSSLSocketFactory = new TLSSocketFactory();
@@ -75,7 +73,7 @@ public class DefaultHttpClient implements HttpClient {
 
 	public void setReadTimeout(int readTimeout) { mReadTimeout = readTimeout; }
 
-	public void addInjector(Injector injector) {
+	public synchronized void addInjector(Injector injector) {
 		if (injector != null) {
 			mInjectors.add(injector);
 		}
@@ -206,13 +204,8 @@ public class DefaultHttpClient implements HttpClient {
 		}
 	}
 
-	private class DefaultHeaderInjector implements Injector {
-
-		@Override
-		public <T> void inject(HttpRequest<T> request) throws IOException {
-			request.headers()
-					.headerIfNotPresent(USER_AGENT.toString(), getUserAgent())
-					.headerIfNotPresent(ACCEPT_LANGUAGE.toString(), Locale.getDefault().getLanguage());
-		}
+	private void injectStandardHeaders(HttpRequest request) throws IOException {
+		request.headers()
+				.headerIfNotPresent(USER_AGENT, getUserAgent());
 	}
 }

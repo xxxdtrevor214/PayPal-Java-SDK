@@ -1,56 +1,65 @@
 package com.paypal.sdk;
 
-import com.paypal.sdk.http.Environment;
 import com.paypal.sdk.http.utils.WireMockHarness;
 import com.paypal.sdk.model.RefreshToken;
 import com.paypal.sdk.services.TokenService;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import java.util.Base64;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.paypal.sdk.http.utils.StubUtils.*;
 import static org.testng.Assert.assertEquals;
 
 public class TokenServiceTest extends WireMockHarness {
 
-	private final Environment environment = new Environment.Development(baseUrl());
-	private TokenService mTokenService = new TokenService();
+	private TokenService mTokenService;
+
+	@BeforeMethod
+	public void setup() {
+		super.setup();
+		mTokenService =  new TokenService(environment());
+	}
 
 	@Test
 	public void TokenService_fetchAccessToken_clientId_fetchesAccessToken() throws IOException {
-		stubAccessTokenRequest(simpleAccessToken(), baseUrl());
+		stubAccessTokenRequest(simpleAccessToken());
 
-		mTokenService.fetchAccessToken("clientId", "clientSecret", environment);
+		mTokenService.fetchAccessToken();
 		verify(postRequestedFor(urlEqualTo("/v1/oauth2/token"))
 				.withRequestBody(equalTo("grant_type=client_credentials"))
-				.withHeader("Authorization", containing("Basic "))
+				.withHeader("Authorization", equalTo("Basic " + basicHeader()))
 				.withHeader("Content-Type", equalTo("application/x-www-form-urlencoded")));
 	}
 
 	@Test
 	public void TokenService_fetchAccessToken_refreshToken_fetchesAccessToken() throws IOException {
-		stubAccessTokenWithRefreshTokenRequest(simpleAccessToken(), baseUrl());
+		stubAccessTokenWithRefreshTokenRequest(simpleAccessToken());
 
-		mTokenService.fetchAccessToken("refresh-token", environment);
+		mTokenService.fetchAccessToken("refresh-token");
 		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice"))
-				.withRequestBody(equalTo("grant_type=client_credentials&refreshToken=refresh-token"))
+				.withHeader("Authorization", equalTo("Basic " + basicHeader()))
+				.withRequestBody(equalTo("grant_type=client_credentials&refresh_token=refresh-token"))
 				.withHeader("Content-Type", equalTo("application/x-www-form-urlencoded")));
 	}
 
 	@Test
 	public void TokenService_fetchRefreshToken_fetchesRefreshToken() throws IOException {
-		stubAccessRefreshTokenWithAuthorizationCodeRequest("refresh-token", baseUrl());
+		stubAccessRefreshTokenWithAuthorizationCodeRequest("refresh-token");
 
-		mTokenService.fetchRefreshToken("sample_authorization_code", environment);
+		mTokenService.fetchRefreshToken("sample_authorization_code");
 		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice"))
+				.withHeader("Authorization", equalTo("Basic " + basicHeader()))
 				.withRequestBody(equalTo("grant_type=authorization_code&code=sample_authorization_code"))
 				.withHeader("Content-Type", equalTo("application/x-www-form-urlencoded")));
 	}
 
-	@Test void TokenService_deserializesRefreshToken() throws IOException {
-		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<RefreshToken>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
-				.baseUrl(baseUrl());
+	@Test
+	void TokenService_deserializesRefreshToken() throws IOException {
+		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
+				.baseUrl(environment().baseUrl());
 
 		String refreshResponseString = "{\n" +
 				"  \"token_type\": \"Bearer\",\n" +
@@ -62,10 +71,13 @@ public class TokenServiceTest extends WireMockHarness {
 				.result(refreshResponseString).build();
 
 		stub(refreshTokenRequest, refreshTokenResponse);
-		RefreshToken refreshToken = mTokenService.fetchRefreshToken("sample_authorization_code", environment);
+		RefreshToken refreshToken = mTokenService.fetchRefreshToken("sample_authorization_code");
 		assertEquals(refreshToken.refreshToken(), "Refresh-Token-Value");
-		assertEquals(refreshToken.accessToken().accessToken(), "Access-Token-Value");
-		assertEquals(refreshToken.accessToken().tokenType(), "Bearer");
-		assertEquals(refreshToken.accessToken().expiresIn(), 28800);
+	}
+
+	private String basicHeader() throws UnsupportedEncodingException {
+		byte[] encoded = Base64.getEncoder()
+				.encode((environment().getClientId() + ":" + environment().getClientSecret()).getBytes("UTF-8"));
+		return new String(encoded);
 	}
 }

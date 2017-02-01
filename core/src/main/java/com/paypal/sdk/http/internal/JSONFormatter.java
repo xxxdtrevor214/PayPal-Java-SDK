@@ -3,7 +3,6 @@ package com.paypal.sdk.http.internal;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.paypal.sdk.model.RefreshToken;
 
 /**
  * JSONFormatter converts objects to JSON representation and vice-versa. This
@@ -31,8 +30,6 @@ public final class JSONFormatter {
 	 */
 	public static Gson GSON = new GsonBuilder()
 			.setFieldNamingPolicy(FIELD_NAMING_POLICY)
-			.registerTypeAdapter(RefreshToken.class, new RefreshToken.RefreshTokenDeserializer())
-			.registerTypeAdapter(RefreshToken.class, new RefreshToken.RefreshTokenSerializer())
 			.create();
 	/**
 	 * Converts a Raw Type to JSON String

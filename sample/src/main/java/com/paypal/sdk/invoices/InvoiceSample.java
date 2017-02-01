@@ -3,6 +3,7 @@ package com.paypal.sdk.invoices;
 import com.paypal.sdk.HttpRequest;
 import com.paypal.sdk.HttpResponse;
 import com.paypal.sdk.PayPalHttpClient;
+import com.paypal.sdk.http.Environment;
 import com.paypal.sdk.http.Environment.Sandbox;
 import com.paypal.sdk.http.exceptions.HttpServerException;
 import com.paypal.sdk.models.invoices.Invoice;
@@ -21,11 +22,10 @@ public class InvoiceSample {
 	 * Basic config (minimum)
 	 */
 	public static void basicConfig() {
+		Environment environment = new Sandbox("clientId", "clientSecret");
+
 		// Construct a PayPalHttpClient with your clientId and secret
-		PayPalHttpClient client = new PayPalHttpClient(
-				"AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS",
-				"EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL",
-				new Sandbox());
+		PayPalHttpClient client = new PayPalHttpClient(environment);
 
 		// Create an invoice object with the desired parameters
 		Invoice invoice = new Invoice()

@@ -1,10 +1,30 @@
 package com.paypal.sdk.http;
 
-public interface Environment {
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 
-    String baseUrl();
+@Data
+public abstract class Environment {
 
-    class Production implements Environment {
+	@Setter(AccessLevel.NONE)
+	private String clientId;
+
+	@Setter(AccessLevel.NONE)
+	private String clientSecret;
+
+	public Environment(String clientId, String clientSecret) {
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
+	}
+
+    public abstract String baseUrl();
+
+    public static class Live extends Environment {
+
+		public Live(String clientId, String clientSecret) {
+			super(clientId, clientSecret);
+		}
 
 		@Override
 		public String baseUrl() {
@@ -12,26 +32,15 @@ public interface Environment {
 		}
 	}
 
-	class Sandbox implements Environment {
+	public static class Sandbox extends Environment {
 
-    	@Override
+		public Sandbox(String clientId, String clientSecret) {
+			super(clientId, clientSecret);
+		}
+
+		@Override
 		public String baseUrl() {
-
 			return "https://api.sandbox.paypal.com";
-		}
-	}
-
-	class Development implements Environment {
-
-    	public Development(String baseUrl) {
-    		mBaseUrl = baseUrl;
-		}
-
-    	private String mBaseUrl;
-
-    	@Override
-		public String baseUrl() {
-			return mBaseUrl;
 		}
 	}
 }

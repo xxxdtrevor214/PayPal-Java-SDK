@@ -7,48 +7,42 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-import static com.paypal.sdk.http.Headers.HttpHeader.ACCEPT_ENCODING;
-import static com.paypal.sdk.http.Headers.HttpHeader.CONTENT_TYPE;
+import static com.paypal.sdk.http.Headers.ACCEPT_ENCODING;
+import static com.paypal.sdk.http.Headers.CONTENT_TYPE;
 
 @Slf4j
 public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
 
-	private Injector mAuthInjector;
-    private Environment mEnvironment;
+	private Environment mEnvironment;
 
-    public PayPalHttpClient(String clientId, String clientSecret, Environment environment) {
-    	mAuthInjector = new OAuthInjector(clientId, clientSecret, environment);
+	public PayPalHttpClient(Environment environment) {
+		this(environment, new OAuthInjector(environment));
+	}
+
+	public PayPalHttpClient(Environment environment, Injector authInjector) {
+		super();
 		mEnvironment = environment;
-    }
+		addInjector(authInjector);
+		addInjector(this::injectBaseUrl);
+		addInjector(this::injectStandardHeaders);
+	}
 
 	@Override
 	protected String getUserAgent() {
-    	return "Java PayPalHttpClient"; // TODO: Return SDK version as part of this user agent.
+		return "Java PayPalHttpClient"; // TODO: Return SDK version as part of this user agent.
 	}
 
-	/**
-	 * Make an HTTP request to the base url using the parameters specified in the {@link HttpRequest} object.
-	 *
-	 * @param request the {@link HttpRequest} object containing the parameters for this request
-	 * @return an {@link HttpResponse} object containing the parameters from a successful call to the server
-	 * @throws IOException
-	 */
-	@Override
-    public <T> HttpResponse<T> execute(HttpRequest<T> request) throws IOException {
-		if (mAuthInjector != null) {
-			mAuthInjector.inject(request);
-		}
-
+	private void injectBaseUrl(HttpRequest request) throws IOException {
 		if (request.baseUrl() == null) {
 			request.baseUrl(mEnvironment.baseUrl());
 		}
+	}
 
+	private void injectStandardHeaders(HttpRequest request) throws IOException {
 		if (request.requestBody() != null) {
-			request.headers().headerIfNotPresent(CONTENT_TYPE.toString(), "application/json");
+			request.headers().headerIfNotPresent(CONTENT_TYPE, "application/json");
 		}
 
-		request.headers().headerIfNotPresent(ACCEPT_ENCODING.toString(), "gzip");
-
-		return super.execute(request);
+		request.headers().headerIfNotPresent(ACCEPT_ENCODING, "gzip");
 	}
 }
