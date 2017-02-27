@@ -13,40 +13,21 @@ allprojects {
     }
 }
 
-project(':core') {
-    dependencies {
-        compileOnly "org.projectlombok:lombok:1.16.10"
+dependencies {
+    compileOnly "org.projectlombok:lombok:1.16.10"
 
-        compile 'com.google.code.gson:gson:2.4'
-        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+    compile 'com.google.code.gson:gson:2.4'
+    compile files('libs/core-2.0.jar')
 
-        testCompile group: 'org.testng', name: 'testng', version: '6.9.13.6'
-        testCompile "com.github.tomakehurst:wiremock:2.4.1"
-        testCompile "org.mockito:mockito-core:2.+"
+    testCompile group: 'org.testng', name: 'testng', version: '6.9.13.6'
+    testCompile "com.github.tomakehurst:wiremock:2.4.1"
+    testCompile files('libs/testutils-2.0.jar')
 
-        // Logging
-        testRuntime 'org.apache.logging.log4j:log4j-api:2.1'
-        testRuntime 'org.apache.logging.log4j:log4j-core:2.1'
-        testRuntime 'org.apache.logging.log4j:log4j-slf4j-impl:2.1'
-    }
-
-    test {
-        useTestNG {
-            testLogging.showStandardStreams = true
-            outputs.upToDateWhen { false }
-        }
-    }
 }
 
-project(':sdk') {
-    dependencies {
-        compileOnly "org.projectlombok:lombok:1.16.10"
-        compile project(':core')
-    }
-}
-
-project(':sample') {
-    dependencies {
-        compile project(':sdk')
+test {
+    useTestNG {
+        testLogging.showStandardStreams = true
+        outputs.upToDateWhen { false }
     }
 }

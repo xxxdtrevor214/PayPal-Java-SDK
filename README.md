@@ -8,10 +8,11 @@ and invoice templates to serve as an example of the API going forward.
 
 ```java
 // Construct a PayPalHttpClient with your clientId and secret
-PayPalHttpClient client = new PayPalHttpClient(
+PayPalEnvironment environment = new PayPalEnvironment.Sandbox(
 		"AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS",
-		"EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL",
-		new Sandbox());
+		"EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL");
+
+PayPalHttpClient client = new PayPalHttpClient(environment);
 
 // Create an invoice object with the desired parameters
 Invoice invoice = new Invoice()
