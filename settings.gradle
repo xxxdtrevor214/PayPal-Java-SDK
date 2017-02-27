@@ -1,2 +1,4 @@
 rootProject.name = 'paypal-java-sdk'
+include 'paypal-sdk'
+include 'paypal-samples'
 
