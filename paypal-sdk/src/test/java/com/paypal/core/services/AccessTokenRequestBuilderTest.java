@@ -31,8 +31,7 @@ public class AccessTokenRequestBuilderTest extends PayPalWireMockHarness {
 	public void TokenService_fetchAccessToken_clientId_fetchesAccessToken() throws IOException {
 		stubAccessTokenRequest(simpleAccessToken());
 
-		HttpRequest<AccessToken> request = AccessTokenRequestBuilder.fetchAccessToken(environment().getClientId(),
-				environment().getClientSecret())
+		HttpRequest<AccessToken> request = AccessTokenRequestBuilder.fetchAccessToken(environment())
 				.baseUrl(environment().baseUrl());
 		mHttpClient.execute(request);
 
@@ -46,8 +45,7 @@ public class AccessTokenRequestBuilderTest extends PayPalWireMockHarness {
 	public void TokenService_fetchAccessToken_refreshToken_fetchesAccessToken() throws IOException {
 		stubAccessTokenWithRefreshTokenRequest(simpleAccessToken());
 
-		HttpRequest<AccessToken> request = AccessTokenRequestBuilder.fetchAccessToken(environment().getClientId(),
-				environment().getClientSecret(),
+		HttpRequest<AccessToken> request = AccessTokenRequestBuilder.fetchAccessToken(environment(),
 				"refresh-token")
 				.baseUrl(environment().baseUrl());
 		mHttpClient.execute(request);
@@ -62,8 +60,7 @@ public class AccessTokenRequestBuilderTest extends PayPalWireMockHarness {
 	public void TokenService_fetchRefreshToken_fetchesRefreshToken() throws IOException {
 		stubAccessRefreshTokenWithAuthorizationCodeRequest("refresh-token");
 
-		HttpRequest<RefreshToken> request = AccessTokenRequestBuilder.fetchRefreshToken(environment().getClientId(),
-				environment().getClientSecret(), "sample_authorization_code")
+		HttpRequest<RefreshToken> request = AccessTokenRequestBuilder.fetchRefreshToken(environment(), "sample_authorization_code")
 				.baseUrl(environment().baseUrl());
 		mHttpClient.execute(request);
 
@@ -89,8 +86,7 @@ public class AccessTokenRequestBuilderTest extends PayPalWireMockHarness {
 
 		stub(refreshTokenRequest, refreshTokenResponse);
 
-		HttpRequest<RefreshToken> request = AccessTokenRequestBuilder.fetchRefreshToken(environment().getClientId(),
-				environment().getClientSecret(), "sample_authorization_code")
+		HttpRequest<RefreshToken> request = AccessTokenRequestBuilder.fetchRefreshToken(environment(), "sample_authorization_code")
 				.baseUrl(environment().baseUrl());
 		HttpResponse<RefreshToken> response = mHttpClient.execute(request);
 

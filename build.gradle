@@ -14,6 +14,7 @@ allprojects {
 }
 
 project(':paypal-sdk') {
+
     dependencies {
         compileOnly "org.projectlombok:lombok:1.16.10"
 
@@ -23,7 +24,6 @@ project(':paypal-sdk') {
         testCompile group: 'org.testng', name: 'testng', version: '6.9.13.6'
         testCompile "com.github.tomakehurst:wiremock:2.4.1"
         testCompile files('libs/testutils-2.0.jar')
-
     }
 
     test {
@@ -35,6 +35,7 @@ project(':paypal-sdk') {
 }
 
 project(':paypal-samples') {
+
     dependencies {
         compile project(':paypal-sdk')
     }

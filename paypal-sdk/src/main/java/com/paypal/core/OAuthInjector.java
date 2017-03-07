@@ -37,31 +37,19 @@ public class OAuthInjector implements Injector {
 
 	@Override
 	public synchronized void inject(HttpRequest request) throws IOException {
-		AccessToken token;
-		if (mAccessToken != null && !mAccessToken.isExpired()) {
-			token = mAccessToken;
-		} else {
-			if (mRefreshToken != null) {
-				mAccessToken = fetchAccessToken(mRefreshToken);
-			} else {
-				mAccessToken = fetchAccessToken(null);
-			}
-
-			token = mAccessToken;
+		if (mAccessToken == null || mAccessToken.isExpired()) {
+			mAccessToken = fetchAccessToken();
 		}
 
-		request.header("Authorization", "Bearer " + token.accessToken());
+		request.header("Authorization", "Bearer " + mAccessToken.accessToken());
 	}
 
-	private AccessToken fetchAccessToken(String refreshToken) throws IOException {
+	private AccessToken fetchAccessToken() throws IOException {
 		HttpRequest<AccessToken> request;
-		if (refreshToken == null) {
-			request = AccessTokenRequestBuilder.fetchAccessToken(mEnvironment.getClientId(),
-					mEnvironment.getClientSecret());
+		if (mRefreshToken == null) {
+			request = AccessTokenRequestBuilder.fetchAccessToken(mEnvironment);
 		} else {
-			request = AccessTokenRequestBuilder.fetchAccessToken(mEnvironment.getClientId(),
-					mEnvironment.getClientSecret(),
-					refreshToken);
+			request = AccessTokenRequestBuilder.fetchAccessToken(mEnvironment, mRefreshToken);
 		}
 		request.baseUrl(mEnvironment.baseUrl());
 

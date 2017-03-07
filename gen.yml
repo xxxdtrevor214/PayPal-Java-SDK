@@ -1,0 +1,5 @@
+---
+sourcePath: paypal-sdk/src/main/java/com/paypal/sdk
+testPath: paypal-sdk/src/test/java/com/paypal/sdk
+extras:
+  packageName: com.paypal.sdk
