@@ -1,4 +1,3 @@
-
 allprojects {
     apply plugin: 'java'
 
@@ -31,12 +30,5 @@ project(':paypal-sdk') {
             testLogging.showStandardStreams = true
             outputs.upToDateWhen { false }
         }
-    }
-}
-
-project(':paypal-samples') {
-
-    dependencies {
-        compile project(':paypal-sdk')
     }
 }
