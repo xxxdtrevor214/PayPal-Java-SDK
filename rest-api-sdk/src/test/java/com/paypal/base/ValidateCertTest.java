@@ -4,42 +4,59 @@ import com.paypal.api.payments.Event;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.paypal.base.rest.PayPalResource;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.testng.PowerMockTestCase;
 import org.testng.Assert;
+import org.testng.IObjectFactory;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.ObjectFactory;
 import org.testng.annotations.Test;
 
+import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidateCertTest {
+import static org.powermock.api.support.membermodification.MemberModifier.stub;
+
+@PrepareForTest(SSLUtil.class)
+@PowerMockIgnore({"javax.management.*", "javax.net.ssl.*", "javax.security.*"})
+public class ValidateCertTest extends PowerMockTestCase {
 	
 	Map<String, String> headers, configs;
 	APIContext apiContext;
 	String requestBody;
-	
+
+	@ObjectFactory
+	public IObjectFactory getObjectFactory() {
+		return new org.powermock.modules.testng.PowerMockObjectFactory();
+	}
+
 	@BeforeMethod
-	public void setUp() {
-		
+	public void setUp() throws Exception {
+		InputStream testClientCertStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("testClientCert.crt");
+		stub(PowerMockito.method(SSLUtil.class, "downloadCertificateFromPath", String.class, Map.class)).toReturn(testClientCertStream);
+
 		// Settings some default values before each methods
 		headers = new HashMap<String, String>();
 		configs = new HashMap<String, String>();
 		apiContext = new APIContext();
 		
 		//configs.put(Constants.PAYPAL_TRUST_CERT_URL, "DigiCertSHA2ExtendedValidationServerCA.crt");
-		configs.put(Constants.PAYPAL_WEBHOOK_ID, "3RN13029J36659323");
+		configs.put(Constants.PAYPAL_WEBHOOK_ID, "96605875FF6516633");
 		apiContext.setConfigurationMap(configs);
 		
-		headers.put(Constants.PAYPAL_HEADER_CERT_URL, "https://api.sandbox.paypal.com/v1/notifications/certs/CERT-360caa42-fca2a594-a5cafa77");
-		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_ID, "b2384410-f8d2-11e4-8bf3-77339302725b");
-		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_TIME, "2015-05-12T18:14:14Z");
+		headers.put(Constants.PAYPAL_HEADER_CERT_URL, "https://api.sandbox.paypal.com/v1/notifications/test");
+		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_ID, "071f7d20-1584-11e7-abf0-6b62a8a99ac4");
+		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_TIME, "2017-03-30T20:04:05Z");
 		headers.put(Constants.PAYPAL_HEADER_AUTH_ALGO, "SHA256withRSA");
-		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_SIG, "vSOIQFIZQHv8G2vpbOpD/4fSC4/MYhdHyv+AmgJyeJQq6q5avWyHIe/zL6qO5hle192HSqKbYveLoFXGJun2od2zXN3Q45VBXwdX3woXYGaNq532flAtiYin+tQ/0pNwRDsVIufCxa3a8HskaXy+YEfXNnwCSL287esD3HgOHmuAs0mYKQdbR4e8Evk8XOOQaZzGeV7GNXXz19gzzvyHbsbHmDz5VoRl9so5OoHqvnc5RtgjZfG8KA9lXh2MTPSbtdTLQb9ikKYnOGM+FasFMxk5stJisgmxaefpO9Q1qm3rCjaJ29aAOyDNr3Q7WkeN3w4bSXtFMwyRBOF28pJg9g==");
+		headers.put(Constants.PAYPAL_HEADER_TRANSMISSION_SIG, "aBjgm5/xljRYu3G64Q0axISrP2xcy7WbW1u4UTCKnQvyprOZ1a1BBmqn2Jdr6ce8E76I3Ti/AL9y4VYSHyGSEaoE6dVQcCDebLbOXLH0fjTAbTc1/rmfdWmsk0DPltW84Y8W8jOHe3CLWDOwg5zmozyt+AceG2x5eOiw7mLSycaEoj/5RG+dOIWXnmWcLEArbG3VFshy0wuhZrKuGa9C/bD4Ku+Y9gK7Bv5I5IuGRVnTGpcFnVG0KxOyJxccLGyBVCIUMY5IZS7LkmJszQ3HZZFDTNihvgJHECSLwLhzUaysIye5G6CbbLdtAmeeb6wiDciEAvr2dFf+SplOR4Lrng==");
 		
-		requestBody = "{\"id\":\"WH-2W7266712B616591M-36507203HX6402335\",\"create_time\":\"2015-05-12T18:14:14Z\",\"resource_type\":\"sale\",\"event_type\":\"PAYMENT.SALE.COMPLETED\",\"summary\":\"Payment completed for $ 20.0 USD\",\"resource\":{\"id\":\"7DW85331GX749735N\",\"create_time\":\"2015-05-12T18:13:18Z\",\"update_time\":\"2015-05-12T18:13:36Z\",\"amount\":{\"total\":\"20.00\",\"currency\":\"USD\"},\"payment_mode\":\"INSTANT_TRANSFER\",\"state\":\"completed\",\"protection_eligibility\":\"ELIGIBLE\",\"protection_eligibility_type\":\"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE\",\"parent_payment\":\"PAY-1A142943SV880364LKVJEFPQ\",\"transaction_fee\":{\"value\":\"0.88\",\"currency\":\"USD\"},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/sale/7DW85331GX749735N/refund\",\"rel\":\"refund\",\"method\":\"POST\"},{\"href\":\"https://api.sandbox.paypal.com/v1/payments/payment/PAY-1A142943SV880364LKVJEFPQ\",\"rel\":\"parent_payment\",\"method\":\"GET\"}]},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2W7266712B616591M-36507203HX6402335/resend\",\"rel\":\"resend\",\"method\":\"POST\"}]}";
-			
+		requestBody = "{\"id\":\"WH-2MW4820926242972J-6SG447389E205703U\",\"event_version\":\"1.0\",\"create_time\":\"2017-03-30T20:04:05.613Z\",\"resource_type\":\"plan\",\"event_type\":\"BILLING.PLAN.CREATED\",\"summary\":\"A billing plan was created\",\"resource\":{\"merchant_preferences\":{\"setup_fee\":{\"currency\":\"USD\",\"value\":\"1\"},\"return_url\":\"https://www.mta.org/wp-content/plugins/AMS/api/Paypal/paypal/rest-api-sdk-php/sample/billing/ExecuteAgreement.php?success=true\",\"cancel_url\":\"https://www.mta.org/wp-content/plugins/AMS/api/Paypal/paypal/rest-api-sdk-php/sample/billing/ExecuteAgreement.php?success=false\",\"auto_bill_amount\":\"YES\",\"initial_fail_amount_action\":\"CONTINUE\",\"max_fail_attempts\":\"0\"},\"update_time\":\"2017-03-30T20:04:05.587Z\",\"create_time\":\"2017-03-30T20:04:05.587Z\",\"name\":\"T-Shirt of the Month Club Plan\",\"description\":\"Template creation.\",\"links\":[{\"href\":\"api.sandbox.paypal.com/v1/payments/billing-plans/P-2U911356NH683973BEDIWKUY\",\"rel\":\"self\",\"method\":\"GET\"}],\"payment_definitions\":[{\"name\":\"Regular Payments\",\"type\":\"REGULAR\",\"frequency\":\"Month\",\"frequency_interval\":\"2\",\"amount\":{\"currency\":\"USD\",\"value\":\"100\"},\"cycles\":\"12\",\"charge_models\":[{\"type\":\"SHIPPING\",\"amount\":{\"currency\":\"USD\",\"value\":\"10\"},\"id\":\"CHM-6H655806YS685182XEDIWKUY\"}],\"id\":\"PD-5N450756VM995270VEDIWKUY\"}],\"id\":\"P-2U911356NH683973BEDIWKUY\",\"state\":\"CREATED\",\"type\":\"FIXED\"},\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2MW4820926242972J-6SG447389E205703U\",\"rel\":\"self\",\"method\":\"GET\"},{\"href\":\"https://api.sandbox.paypal.com/v1/notifications/webhooks-events/WH-2MW4820926242972J-6SG447389E205703U/resend\",\"rel\":\"resend\",\"method\":\"POST\"}]}";
 	}
 
 	@Test(groups = "unit")
@@ -72,7 +89,7 @@ public class ValidateCertTest {
 	}
 
 	@Test(groups = "unit")
-	public void testDefaultCert() throws PayPalRESTException, InvalidKeyException, NoSuchAlgorithmException, SignatureException {
+	public void testDefaultCert() throws Exception {
 		boolean result = Event.validateReceivedEvent(apiContext, headers, requestBody);
 		Assert.assertTrue(result);
 	}
