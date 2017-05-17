@@ -62,7 +62,7 @@ public final class ReflectionUtil {
 						}
 						if (packageName != null) {
 							if (!packageName.getName().contains("com.paypal")) {
-								returnObject = m.invoke(responseType, null);
+								returnObject = m.invoke(responseType);
 								if (returnObject != null
 										&& List.class.isAssignableFrom(m
 												.getReturnType())) {
@@ -94,18 +94,15 @@ public final class ReflectionUtil {
 									responseMap.put(propertyName, returnObject);
 								}
 							} else {
-								returnObject = m.invoke(responseType, null);
+								returnObject = m.invoke(responseType);
 								if (returnObject != null
 										&& m.getReturnType().isEnum()) {
 									responseMap
 											.put(propertyName,
 													returnObject
 															.getClass()
-															.getMethod(
-																	"getValue",
-																	null)
-															.invoke(returnObject,
-																	null));
+															.getMethod("getValue")
+															.invoke(returnObject));
 								} else if (returnObject != null) {
 									returnMap = generateMapFromResponse(
 											returnObject, propertyName);
@@ -118,7 +115,7 @@ public final class ReflectionUtil {
 
 						} else {
 							responseMap.put(propertyName,
-									m.invoke(klazz.newInstance(), null));
+									m.invoke(klazz.newInstance()));
 						}
 					} catch (IllegalAccessException e) {
 					} catch (IllegalArgumentException e) {
