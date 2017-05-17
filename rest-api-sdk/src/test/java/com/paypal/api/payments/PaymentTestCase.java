@@ -1,14 +1,5 @@
 package com.paypal.api.payments;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.util.TestConstants;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,6 +7,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
 
 public class PaymentTestCase {
 
@@ -256,8 +257,7 @@ public class PaymentTestCase {
 	public void testGetPaymentHistoryAPI() throws PayPalRESTException {
 		Map<String, String> containerMap = new HashMap<String, String>();
 		containerMap.put("count", "10");
-		PaymentHistory paymentHistory = Payment.list(TestConstants.SANDBOX_CONTEXT,
-				containerMap);
+		Payment.list(TestConstants.SANDBOX_CONTEXT, containerMap);
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testGetPaymentHistoryAPI" })

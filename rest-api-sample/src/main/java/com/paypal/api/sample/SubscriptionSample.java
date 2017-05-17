@@ -127,11 +127,11 @@ public class SubscriptionSample{
 
 			APIContext context = new APIContext(clientID, clientSecret, "sandbox");
 			
-			Plan plan = subscriptionSample.create(context);
+			subscriptionSample.create(context);
 			System.out.println("create response:\n" + Plan.getLastResponse());
-			plan = subscriptionSample.update(context);
+			subscriptionSample.update(context);
 			System.out.println("plan updated");
-			plan = subscriptionSample.retrieve(context);
+			subscriptionSample.retrieve(context);
 			System.out.println("retrieve response:\n" + Plan.getLastResponse());
 		} catch (JsonSyntaxException e) {
 			e.printStackTrace();

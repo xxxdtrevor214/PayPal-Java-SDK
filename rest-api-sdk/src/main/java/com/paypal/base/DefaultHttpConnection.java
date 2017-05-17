@@ -100,7 +100,7 @@ public class DefaultHttpConnection extends HttpConnection {
             httpURLConnection.setRequestMethod(method); // Check whether we are running on a buggy JRE
         } catch (final ProtocolException pe) {
             try {
-                final Class<?> httpURLConnectionClass = httpURLConnection.getClass();
+                httpURLConnection.getClass();
 				AccessController
 						.doPrivileged(new PrivilegedExceptionAction<Object>() {
 							public Object run() throws NoSuchFieldException,

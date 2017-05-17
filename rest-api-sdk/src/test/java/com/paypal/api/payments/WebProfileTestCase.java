@@ -6,15 +6,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
-import com.paypal.base.rest.*;
-import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
+
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
 
 public class WebProfileTestCase {
 
-	private static final Logger logger = Logger.getLogger(WebProfileTestCase.class);
 	private String id = null;
 
 	public static WebProfile loadWebProfile() {

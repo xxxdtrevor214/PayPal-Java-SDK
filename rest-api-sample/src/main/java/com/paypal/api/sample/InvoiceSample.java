@@ -8,7 +8,12 @@ import java.util.UUID;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.paypal.api.payments.*;
+import com.paypal.api.payments.CancelNotification;
+import com.paypal.api.payments.Image;
+import com.paypal.api.payments.Invoice;
+import com.paypal.api.payments.Invoices;
+import com.paypal.api.payments.Notification;
+import com.paypal.api.payments.Search;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -202,18 +207,18 @@ public class InvoiceSample extends SampleBase<Invoice> {
 			
 			APIContext context = new APIContext(clientID, clientSecret, "sandbox");
 
-			Invoice invoice = invoiceSample.create(context);
+			invoiceSample.create(context);
 			System.out.println("create response:\n" + Invoice.getLastResponse());
-			invoice = invoiceSample.update(context);
+			invoiceSample.update(context);
 			System.out.println("update response:\n" + Invoice.getLastResponse());
 			invoiceSample.send(context);
 			System.out.println("send response:\n" + Invoice.getLastResponse());
 			invoiceSample.getQRCode(context);
-			invoice = invoiceSample.retrieve(context);
+			invoiceSample.retrieve(context);
 			System.out.println("retrieve response:\n" + Invoice.getLastResponse());
-			Invoices invoices = invoiceSample.getMerchantInvoices(context);
+			invoiceSample.getMerchantInvoices(context);
 			System.out.println("getall response:\n" + Invoice.getLastResponse());
-			invoices = invoiceSample.search(context);
+			invoiceSample.search(context);
 			System.out.println("search response:\n" + Invoice.getLastResponse());
 			invoiceSample.sendReminder(context);
 			System.out.println("remind response:\n" + Invoice.getLastResponse());

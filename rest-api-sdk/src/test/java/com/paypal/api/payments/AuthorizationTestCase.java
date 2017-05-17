@@ -1,13 +1,14 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.util.TestConstants;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
 
 public class AuthorizationTestCase {
 
@@ -92,7 +93,7 @@ public class AuthorizationTestCase {
 
 	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" })
 	public void testAuthorizationVoid() throws PayPalRESTException {
-		Authorization auth = getAuthorization();
+		getAuthorization();
 	}
 
 	@Test(groups = "integration", dependsOnMethods = { "testAuthorizationCapture" }, expectedExceptions = { IllegalArgumentException.class })
