@@ -40,7 +40,7 @@ public final class ReflectionUtil {
 		Object returnObject;
 
 		try {
-			Class klazz = responseType.getClass();
+			Class<?> klazz = responseType.getClass();
 			Method[] methods = klazz.getMethods();
 			Package packageName;
 			String propertyName;
