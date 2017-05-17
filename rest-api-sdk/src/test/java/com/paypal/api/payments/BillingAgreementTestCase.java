@@ -66,7 +66,7 @@ public class BillingAgreementTestCase {
 	public void testExecuteAgreement() throws PayPalRESTException {
 		Agreement agreement =  new Agreement();
 		agreement.setToken("EC-4WP43347M2969501K");
-		this.agreement = agreement.execute(TestConstants.SANDBOX_CONTEXT,agreement.getToken());
+		this.agreement = Agreement.execute(TestConstants.SANDBOX_CONTEXT,agreement.getToken());
 		Assert.assertEquals("I-JJRBKD609M69", this.agreement.getId());
 	}
 	
