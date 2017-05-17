@@ -10,9 +10,7 @@ import static com.paypal.api.payments.util.SampleConstants.clientSecret;
 import static com.paypal.api.payments.util.SampleConstants.mode;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +24,6 @@ import com.paypal.api.payments.PayoutItemDetails;
 import com.paypal.api.payments.util.ResultPrinter;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-import com.paypal.base.rest.PayPalResource;
 
 public class CancelPayoutItemServlet extends HttpServlet {
 

@@ -1,24 +1,17 @@
 package com.paypal.api.payments;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import static org.testng.Assert.assertNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
-
-import static org.testng.Assert.assertNull;
+import com.paypal.base.util.TestConstants;
 
 public class BillingPlanTestCase {
 	private String id = null;

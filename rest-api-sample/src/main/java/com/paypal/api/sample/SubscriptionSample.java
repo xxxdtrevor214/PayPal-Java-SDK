@@ -3,14 +3,18 @@ package com.paypal.api.sample;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.paypal.api.payments.*;
+import com.paypal.api.payments.ChargeModels;
+import com.paypal.api.payments.Currency;
+import com.paypal.api.payments.MerchantPreferences;
+import com.paypal.api.payments.Patch;
+import com.paypal.api.payments.PaymentDefinition;
+import com.paypal.api.payments.Plan;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 

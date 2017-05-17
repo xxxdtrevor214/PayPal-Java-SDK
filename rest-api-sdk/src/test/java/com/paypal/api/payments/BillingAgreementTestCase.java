@@ -11,13 +11,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
 
 public class BillingAgreementTestCase {
 	private String id = null;

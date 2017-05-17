@@ -1,16 +1,15 @@
 package com.paypal.api.sample;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.UUID;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.internal.Excluder;
 import com.paypal.api.payments.Template;
 import com.paypal.api.payments.Templates;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * This class shows code samples for invoicing templates.
