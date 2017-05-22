@@ -1,15 +1,11 @@
 package com.paypal.api.payments;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
-
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
 
 public class EventTestCase {
 	

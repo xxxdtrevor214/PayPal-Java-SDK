@@ -1,16 +1,15 @@
 package com.paypal.api.sample;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.UUID;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.internal.Excluder;
 import com.paypal.api.payments.Template;
 import com.paypal.api.payments.Templates;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * This class shows code samples for invoicing templates.
@@ -102,7 +101,6 @@ public class InvoiceTemplateSample extends SampleBase<Template> {
 	 * @throws PayPalRESTException
 	 */
 	public void delete(APIContext context) throws PayPalRESTException {
-		String id = super.instance.getTemplateId();
 		this.instance.delete(context);
 	}
 
@@ -119,9 +117,9 @@ public class InvoiceTemplateSample extends SampleBase<Template> {
 
 			Template template = invoiceSample.create(context);
 			System.out.println("create response:\n" + Template.getLastResponse());
-			Template templateGet = Template.get(context, template.getTemplateId());
+			Template.get(context, template.getTemplateId());
 			System.out.println("get response:\n" + Template.getLastResponse());
-			Template updatedTemplate = invoiceSample.update(context);
+			invoiceSample.update(context);
 			System.out.println("update response:\n" + Template.getLastResponse());
 			invoiceSample.delete(context);
 			System.out.println("delete response:\n" + Template.getLastResponse());

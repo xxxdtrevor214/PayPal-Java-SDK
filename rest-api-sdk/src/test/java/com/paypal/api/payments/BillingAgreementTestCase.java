@@ -11,13 +11,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.paypal.base.rest.JSONFormatter;
 import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
 
 public class BillingAgreementTestCase {
 	private String id = null;
@@ -67,7 +66,7 @@ public class BillingAgreementTestCase {
 	public void testExecuteAgreement() throws PayPalRESTException {
 		Agreement agreement =  new Agreement();
 		agreement.setToken("EC-4WP43347M2969501K");
-		this.agreement = agreement.execute(TestConstants.SANDBOX_CONTEXT,agreement.getToken());
+		this.agreement = Agreement.execute(TestConstants.SANDBOX_CONTEXT,agreement.getToken());
 		Assert.assertEquals("I-JJRBKD609M69", this.agreement.getId());
 	}
 	

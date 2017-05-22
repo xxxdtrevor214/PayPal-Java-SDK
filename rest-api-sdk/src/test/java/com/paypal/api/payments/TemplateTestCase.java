@@ -1,10 +1,6 @@
 package com.paypal.api.payments;
 
-import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.PayPalRESTException;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
+import static com.paypal.base.util.TestConstants.SANDBOX_CONTEXT;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +8,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.UUID;
 
-import static com.paypal.base.util.TestConstants.SANDBOX_CONTEXT;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
+
+import com.paypal.base.rest.JSONFormatter;
+import com.paypal.base.rest.PayPalRESTException;
 
 @Test
 public class TemplateTestCase {
@@ -24,7 +25,7 @@ public class TemplateTestCase {
 
 	public Template loadInvoiceTemplate() {
 	    try {
-		    BufferedReader br = br = new BufferedReader(new FileReader(new File(
+		    BufferedReader br = new BufferedReader(new FileReader(new File(
 				    this.getClass().getClassLoader().getResource("template_test.json").getFile())));
 	        StringBuilder sb = new StringBuilder();
 	        String line = br.readLine();

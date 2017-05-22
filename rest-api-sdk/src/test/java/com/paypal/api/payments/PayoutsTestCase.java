@@ -4,21 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.util.TestConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
 
 import com.paypal.base.rest.JSONFormatter;
-import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.base.util.TestConstants;
 
 public class PayoutsTestCase {
 	
 	PayoutBatch result;
-	private static final Logger logger = Logger.getLogger(PayoutsTestCase.class);
-
+	
 	public static String getJson() {
 		return "{\"sender_batch_header\":" + PayoutSenderBatchHeaderTestCase.getJson() + ",\"items\":[" + PayoutItemTestCase.getJson() + "],\"links\":[" + LinksTestCase.getJson() + "]}";
 	}
