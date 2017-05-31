@@ -8,7 +8,10 @@ public class JsonHttpClient extends BaseHttpClient {
 
 	@Override
 	protected String serializeRequestBody(HttpRequest httpRequest) {
-		return new Gson().toJson(httpRequest.requestBody());
+		if (httpRequest.headers().header("Content-Type").equals("application/json")) {
+			return new Gson().toJson(httpRequest.requestBody());
+		}
+		return httpRequest.requestBody().toString();
 	}
 
 	@Override
