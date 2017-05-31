@@ -3,7 +3,7 @@ package com.paypal.core;
 import com.braintreepayments.http.Headers;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
-import com.braintreepayments.http.internal.JSONFormatter;
+import com.braintreepayments.http.testutils.JSONFormatter;
 import com.braintreepayments.http.testutils.WireMockHarness;
 import com.paypal.core.model.AccessToken;
 import com.paypal.core.model.RefreshToken;
@@ -39,7 +39,7 @@ public class PayPalWireMockHarness extends WireMockHarness {
 		Map<String, String> headers = translateHeaders(request.headers());
 		String requestBody = null;
 		if (request.requestBody() != null) {
-			requestBody = request.serialize();
+			requestBody = JSONFormatter.toJSON(request.requestBody());
 		}
 
 		String responseBody = null;

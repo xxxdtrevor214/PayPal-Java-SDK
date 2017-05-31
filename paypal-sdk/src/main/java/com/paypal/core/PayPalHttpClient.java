@@ -1,11 +1,13 @@
 package com.paypal.core;
 
-import com.braintreepayments.http.*;
+import com.braintreepayments.http.Headers;
+import com.braintreepayments.http.HttpRequest;
+import com.braintreepayments.http.Injector;
 
 import java.io.IOException;
 
 
-public class PayPalHttpClient extends DefaultHttpClient implements HttpClient {
+public class PayPalHttpClient extends JsonHttpClient {
 
 	private PayPalEnvironment mEnvironment;
 

@@ -1,6 +1,8 @@
 package com.paypal.core;
 
-import com.braintreepayments.http.*;
+import com.braintreepayments.http.BaseHttpClient;
+import com.braintreepayments.http.HttpRequest;
+import com.braintreepayments.http.Injector;
 import com.paypal.core.model.AccessToken;
 import com.paypal.core.services.AccessTokenRequestBuilder;
 import lombok.AccessLevel;
@@ -22,11 +24,11 @@ public class OAuthInjector implements Injector {
 	@Getter(AccessLevel.NONE)
 	private String mRefreshToken;
 
-	private HttpClient mHttpClient;
+	private BaseHttpClient mHttpClient;
 	private PayPalEnvironment mEnvironment;
 
 	public OAuthInjector(PayPalEnvironment environment) {
-		mHttpClient = new DefaultHttpClient();
+		mHttpClient = new JsonHttpClient();
 		mEnvironment = environment;
 	}
 

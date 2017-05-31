@@ -34,7 +34,7 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 	@Test
 	public void testPayPalHttpClient_execute_setsContentTypeHeaderWhenRequestBodyPresent() throws IOException {
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		request.requestBody("{some json}");
+		request.requestBody(new Object());
 		stub(request, null);
 
 		client.execute(request);
@@ -55,8 +55,7 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 	@Test
 	public void testPayPalHttpClient_execute_signsRequest() throws IOException {
 		stubAccessTokenRequest(simpleAccessToken());
-		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class)
-				.oAuthScope("scope");
+		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class);
 
 		stub(request, null);
 

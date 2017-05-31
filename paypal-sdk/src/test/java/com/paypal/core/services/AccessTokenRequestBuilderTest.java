@@ -1,12 +1,12 @@
 package com.paypal.core.services;
 
-import com.braintreepayments.http.DefaultHttpClient;
-import com.braintreepayments.http.HttpClient;
+import com.braintreepayments.http.BaseHttpClient;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
+import com.paypal.core.JsonHttpClient;
+import com.paypal.core.PayPalWireMockHarness;
 import com.paypal.core.model.AccessToken;
 import com.paypal.core.model.RefreshToken;
-import com.paypal.core.PayPalWireMockHarness;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -19,12 +19,12 @@ import static org.testng.Assert.assertEquals;
 
 public class AccessTokenRequestBuilderTest extends PayPalWireMockHarness {
 
-	private HttpClient mHttpClient;
+	private BaseHttpClient mHttpClient;
 
 	@BeforeMethod
 	public void setup() {
 		super.setup();
-		mHttpClient = new DefaultHttpClient();
+		mHttpClient = new JsonHttpClient();
 	}
 
 	@Test
