@@ -1,37 +1,32 @@
-package com.paypal.core;
+package com.paypal.core.utils;
 
 import com.braintreepayments.http.Headers;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
 import com.braintreepayments.http.testutils.JSONFormatter;
 import com.braintreepayments.http.testutils.WireMockHarness;
-import com.paypal.core.model.AccessToken;
-import com.paypal.core.model.RefreshToken;
+import com.paypal.core.authorization.PayPalEnvironment;
+import com.paypal.core.object.AccessToken;
+import com.paypal.core.request.AccessTokenRequest;
 import org.testng.annotations.BeforeMethod;
 
 import java.lang.reflect.Field;
 import java.util.Map;
 
+import static com.paypal.core.utils.ReflectionHelper.setField;
+
 public class PayPalWireMockHarness extends WireMockHarness {
 
-	private PayPalEnvironment mEnvironment;
+	private PayPalEnvironment environment;
 
 	@BeforeMethod
 	@Override
 	public void setup() {
 		super.setup();
-
-		mEnvironment = new PayPalEnvironment("clientId", "clientSecret") {
-			@Override
-			public String baseUrl() {
-				return String.format("http://%s:%d", host(), port());
-			}
-		};
+		environment = new PayPalEnvironment("fake-client-id", "fake-client-secret", String.format("http://%s:%d", host(), port()));
 	}
 
-	protected PayPalEnvironment environment() {
-		return mEnvironment;
-	}
+	protected PayPalEnvironment environment() { return environment; }
 
 	protected void stub(HttpRequest request, HttpResponse response) {
 		String path = request.path();
@@ -71,10 +66,14 @@ public class PayPalWireMockHarness extends WireMockHarness {
 	}
 
 	protected AccessToken simpleAccessToken() {
-		return new AccessToken()
-				.accessToken("sample-access-token")
-				.expiresIn(3600)
-				.tokenType("accessToken");
+		AccessToken accessToken = new AccessToken();
+		try {
+			setField("accessToken", accessToken, "sample-access-token");
+			setField("expiresIn", accessToken, 3600);
+			setField("tokenType", accessToken, "accessToken");
+		} catch (NoSuchFieldException |IllegalAccessException ignored) {}
+
+		return accessToken;
 	}
 
 	/**
@@ -83,8 +82,7 @@ public class PayPalWireMockHarness extends WireMockHarness {
 	 * @param accessToken the accessToken to be returned in the response
 	 */
 	protected void stubAccessTokenRequest(AccessToken accessToken) {
-		HttpRequest<AccessToken> accessTokenRequest = new HttpRequest<>("/v1/oauth2/token", "POST", AccessToken.class)
-				.baseUrl(environment().baseUrl());
+		AccessTokenRequest accessTokenRequest = new AccessTokenRequest(environment());
 
 		HttpResponse<AccessToken> accessTokenResponse = HttpResponse.<AccessToken>builder()
 				.result(accessToken)
@@ -94,38 +92,13 @@ public class PayPalWireMockHarness extends WireMockHarness {
 		stub(accessTokenRequest, accessTokenResponse);
 	}
 
-	/**
-	 * Used for stubbing access token requests using a refresh token
-	 *
-	 * @param accessToken the accessToken to be returned in the response
-	 */
-	protected void stubAccessTokenWithRefreshTokenRequest(AccessToken accessToken) {
-		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
-				.baseUrl(environment().baseUrl());
-
-		HttpResponse<AccessToken> refreshTokenResponse = HttpResponse.<AccessToken>builder()
+	protected void stubAccessTokenRequest(AccessToken accessToken, String refreshToken) {
+		AccessTokenRequest request = new AccessTokenRequest(environment(), refreshToken);
+		HttpResponse<AccessToken> accessTokenResponse = HttpResponse.<AccessToken>builder()
 				.result(accessToken)
 				.statusCode(200)
 				.build();
 
-		stub(refreshTokenRequest, refreshTokenResponse);
-	}
-
-	/**
-	 * Used for stubbing refresh token requests using an authorization code
-	 *
-	 * @param refreshToken the refresh token to be returned in the response
-	 */
-	protected void stubAccessRefreshTokenWithAuthorizationCodeRequest(String refreshToken) {
-		HttpRequest<RefreshToken> refreshTokenRequest = new HttpRequest<>("/v1/identity/openidconnect/tokenservice", "POST", RefreshToken.class)
-				.baseUrl(environment().baseUrl());
-
-		HttpResponse<RefreshToken> refreshTokenResponse = HttpResponse.<RefreshToken>builder()
-				.result(new RefreshToken()
-						.refreshToken(refreshToken))
-				.statusCode(200)
-				.build();
-
-		stub(refreshTokenRequest, refreshTokenResponse);
+		stub(request, accessTokenResponse);
 	}
 }

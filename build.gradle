@@ -15,14 +15,12 @@ allprojects {
 project(':paypal-sdk') {
 
     dependencies {
-        compileOnly "org.projectlombok:lombok:1.16.10"
-
-        compile 'com.google.code.gson:gson:2.4'
-        compile files('libs/core-2.0.jar')
+        compile 'com.google.code.gson:gson:[2,3)'
+        compile files('libs/braintreehttp-1.0.jar')
 
         testCompile group: 'org.testng', name: 'testng', version: '6.9.13.6'
         testCompile "com.github.tomakehurst:wiremock:2.4.1"
-        testCompile files('libs/testutils-2.0.jar')
+        testCompile files('libs/testutils-1.0.jar')
     }
 
     test {
