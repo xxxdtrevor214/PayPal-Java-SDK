@@ -3,8 +3,8 @@ package com.paypal.core.utils;
 import com.braintreepayments.http.Headers;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
-import com.braintreepayments.http.testutils.JSONFormatter;
 import com.braintreepayments.http.testutils.WireMockHarness;
+import com.google.gson.Gson;
 import com.paypal.core.authorization.PayPalEnvironment;
 import com.paypal.core.object.AccessToken;
 import com.paypal.core.request.AccessTokenRequest;
@@ -34,7 +34,11 @@ public class PayPalWireMockHarness extends WireMockHarness {
 		Map<String, String> headers = translateHeaders(request.headers());
 		String requestBody = null;
 		if (request.requestBody() != null) {
-			requestBody = JSONFormatter.toJSON(request.requestBody());
+			if (request.requestBody() instanceof String) {
+				requestBody = (String) request.requestBody();
+			} else {
+				requestBody = new Gson().toJson(request.requestBody());
+			}
 		}
 
 		String responseBody = null;
@@ -44,7 +48,7 @@ public class PayPalWireMockHarness extends WireMockHarness {
 			if (response.result() instanceof String) {
 				responseBody = (String) response.result();
 			} else {
-				responseBody = JSONFormatter.toJSON(response.result());
+				responseBody = new Gson().toJson(response.result());
 			}
 			statusCode = response.statusCode();
 			responseHeaders = translateHeaders(response.headers());
@@ -85,6 +89,7 @@ public class PayPalWireMockHarness extends WireMockHarness {
 		AccessTokenRequest accessTokenRequest = new AccessTokenRequest(environment());
 
 		HttpResponse<AccessToken> accessTokenResponse = HttpResponse.<AccessToken>builder()
+				.headers(new Headers().header("Content-Type", "application/json"))
 				.result(accessToken)
 				.statusCode(200)
 				.build();
@@ -95,6 +100,7 @@ public class PayPalWireMockHarness extends WireMockHarness {
 	protected void stubAccessTokenRequest(AccessToken accessToken, String refreshToken) {
 		AccessTokenRequest request = new AccessTokenRequest(environment(), refreshToken);
 		HttpResponse<AccessToken> accessTokenResponse = HttpResponse.<AccessToken>builder()
+				.headers(new Headers().header("Content-Type", "application/json"))
 				.result(accessToken)
 				.statusCode(200)
 				.build();
