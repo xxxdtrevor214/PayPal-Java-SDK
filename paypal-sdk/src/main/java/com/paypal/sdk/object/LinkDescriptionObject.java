@@ -1,4 +1,4 @@
-// This class was generated on Fri, 02 Jun 2017 16:03:13 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 05 Jun 2017 14:29:09 PDT by version 0.01 of Braintree SDK Generator
 // LinkDescriptionObject.java
 // DO NOT EDIT
 // @type object
@@ -6,6 +6,8 @@
 
 package com.paypal.sdk.object;
 
+import java.util.Map;
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 /**
  * The [HATEOAS links](/docs/api/hateoas-links/) related to the request.
