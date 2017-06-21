@@ -7,25 +7,38 @@
 package com.paypal.sdk.request;
 
 import com.braintreepayments.http.HttpResponse;
+import com.paypal.core.PayPalHttpClient;
+import com.paypal.core.authorization.PayPalEnvironment;
 import com.paypal.sdk.TestHarness;
+import com.paypal.sdk.object.EventType;
 import com.paypal.sdk.object.Webhook;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-
-import static org.testng.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WebhooksCreateRequestTest extends TestHarness {
 
     @Test
     public void testWebhooksCreateRequest() throws IOException {
-        WebhooksCreateRequest request = new WebhooksCreateRequest();
-        Webhook body = new Webhook();
-        request.body(body);
+			PayPalHttpClient client  = new PayPalHttpClient(new PayPalEnvironment.Sandbox("client_id", "client_secret"));
 
-        HttpResponse<Webhook> response = client().execute(request);
-        assertEquals(200, response.statusCode());
+			Webhook webhook = new Webhook()
+							.url("https://localhost/webhook-goes-here");
 
-        // Add your own checks here
+			List<EventType> eventTypes = new ArrayList<>();
+			eventTypes.add(new EventType().name("PAYMENT.AUTHORIZATION.CREATED"));
+			webhook.eventTypes(eventTypes);
+
+			WebhooksCreateRequest webhooksCreateRequest = new WebhooksCreateRequest()
+							.body(webhook);
+
+			try {
+				HttpResponse<Webhook> response = client.execute(webhooksCreateRequest);
+				Webhook createdWebhook = response.result();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
     }
 }

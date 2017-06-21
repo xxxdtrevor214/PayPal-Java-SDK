@@ -39,9 +39,9 @@ public class PayPalHttpClient extends HttpClient {
 	@Override
 	protected String serializeRequest(HttpRequest httpRequest) throws IOException {
 		if (isContentTypeJson(httpRequest.headers())) {
-			return this.gson.toJson(httpRequest.requestBody());
+			return this.gson.toJson(httpRequest.body());
 		} else {
-			throw new UnsupportedEncodingException(String.format("Unable to serialize content %s with Content-Type: %s", httpRequest.requestBody(), httpRequest.headers().header(Headers.CONTENT_TYPE)));
+			throw new UnsupportedEncodingException(String.format("Unable to serialize content %s with Content-Type: %s", httpRequest.body(), httpRequest.headers().header(Headers.CONTENT_TYPE)));
 		}
 	}
 

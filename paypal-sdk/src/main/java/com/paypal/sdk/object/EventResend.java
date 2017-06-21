@@ -1,4 +1,4 @@
-// This class was generated on Mon, 05 Jun 2017 14:29:09 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Wed, 21 Jun 2017 14:20:42 PDT by version 0.01 of Braintree SDK Generator
 // EventResend.java
 // DO NOT EDIT
 // @type object

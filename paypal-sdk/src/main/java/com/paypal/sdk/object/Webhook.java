@@ -1,4 +1,4 @@
-// This class was generated on Mon, 05 Jun 2017 14:29:09 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Wed, 21 Jun 2017 14:20:42 PDT by version 0.01 of Braintree SDK Generator
 // Webhook.java
 // DO NOT EDIT
 // @type object
@@ -6,9 +6,9 @@
 
 package com.paypal.sdk.object;
 
-import com.google.gson.annotations.SerializedName;
-
+import java.util.Map;
 import java.util.List;
+import com.google.gson.annotations.SerializedName;
 /**
  * One or more webhook objects.
  */

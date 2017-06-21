@@ -1,4 +1,4 @@
-// This class was generated on Mon, 05 Jun 2017 14:29:09 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Wed, 21 Jun 2017 14:20:42 PDT by version 0.01 of Braintree SDK Generator
 // AvailableEventTypeListRequest.java
 // DO NOT EDIT
 // @type request
@@ -6,8 +6,9 @@
 
 package com.paypal.sdk.request;
 
-import com.braintreepayments.http.HttpRequest;
-import com.paypal.sdk.object.EventTypeList;
+import com.braintreepayments.http.*;
+import com.paypal.sdk.object.*;
+import java.util.List;
 
 
 /**
