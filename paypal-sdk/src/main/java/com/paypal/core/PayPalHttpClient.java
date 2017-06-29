@@ -38,6 +38,8 @@ public class PayPalHttpClient extends HttpClient {
 
 	@Override
 	protected String serializeRequest(HttpRequest httpRequest) throws IOException {
+		System.out.println("----> " + this.gson.toJson(httpRequest.body()));
+
 		if (isContentTypeJson(httpRequest.headers())) {
 			return this.gson.toJson(httpRequest.body());
 		} else {
@@ -47,6 +49,8 @@ public class PayPalHttpClient extends HttpClient {
 
 	@Override
 	protected <T> T deserializeResponse(String s, Class<T> aClass, Headers headers) throws UnsupportedEncodingException {
+		System.out.println("<---- " + s);
+
 		if (isContentTypeJson(headers)) {
 			return new Gson().fromJson(s, aClass);
 		} else {

@@ -11,6 +11,6 @@ public class RefreshTokenRequest extends HttpRequest<RefreshToken> {
 		super("/v1/identity/openidconnect/tokenserivce", "POST", RefreshToken.class);
 		header(Headers.CONTENT_TYPE, "application/x-www-form-urlencoded");
 		header(Headers.AUTHORIZATION, credentials.authorizationString());
-		requestBody("grant_type=authorization_code&code=" + authorizationCode);
+		body("grant_type=authorization_code&code=" + authorizationCode);
 	}
 }

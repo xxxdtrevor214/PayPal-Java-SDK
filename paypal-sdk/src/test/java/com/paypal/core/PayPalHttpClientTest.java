@@ -145,7 +145,7 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
 		request.header(Headers.CONTENT_TYPE, "application/json");
 		TestPojo body = new TestPojo("Brian Tree", 10);
-		request.requestBody(body);
+		request.body(body);
 
 		stub(request, null);
 
@@ -160,7 +160,7 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		request.requestBody(new TestPojo("Brian Tree", 10));
+		request.body(new TestPojo("Brian Tree", 10));
 
 		client.execute(request);
 	}
@@ -201,7 +201,7 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		request.requestBody("Some plain data");
+		request.body("Some plain data");
 
 		stub(request, null);
 
