@@ -4,27 +4,39 @@ This is a preview of how PayPal SDKs will look in the next major version. We've 
 simple model objects and blueprints for HTTP calls. This repo currently only contains functionality for working with webhooks
 to serve as an example of the API going forward.
 
-### Getting a list of webook events
+### Creating a Payment
 
 ```java
-// Construct a PayPalHttpClient with your clientId and secret
 PayPalEnvironment environment = new PayPalEnvironment.Sandbox(
         "AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS",
         "EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL");
 
 PayPalHttpClient client = new PayPalHttpClient(environment);
 
-AvailableEventTypeListRequest request = new AvailableEventTypeListRequest();
+PaymentCreateRequest request = new PaymentCreateRequest()
+        .body(new Payment()
+                .intent("sale")
+                .payer(new Payer()
+                        .paymentMethod("paypal"))
+                .transactions(Arrays.asList(
+                        new Transaction()
+                                .amount(new Amount().total("10").currency("USD"))
+                ))
+                .redirectUrls(new RedirectUrls()
+                        .cancelUrl("http://paypal.com/cancel")
+                        .returnUrl("http://paypal.com/return")));
 
 try {
-    HttpResponse<EventTypeList> resp = client.execute(request);
-    EventTypeList eventTypeList = resp.result();
-} catch(IOException ioe) {
-    if (ioe instanceof APIException) {
-        APIException exception = (APIException) ioe;
-        String debugId = exception.getHeaders().header("Paypal-Debug-Id");
+    HttpResponse<Payment> paymentResponse = client.execute(request);
+    Payment payment = paymentResponse.result();
+} catch (IOException ioe) {
+    if (ioe instanceof HttpException) {
+        // Something went wrong server-side
+        HttpException he = (HttpException) ioe);
+        int statusCode = he.getStatusCode();
+        String debugId = he.getHeaders().header("PayPal-Debug-Id");
     } else {
-        ioe.printStackTrace();
+        // Something went wrong client-side
     }
 }
 ```
