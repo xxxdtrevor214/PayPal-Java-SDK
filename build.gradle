@@ -1,8 +1,18 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+apply plugin: 'io.codearte.nexus-staging'
+
 allprojects {
     apply plugin: 'java'
 
     group 'com.paypal.sdk'
-    version '2.0'
+    version '2.0.0-SNAPSHOT'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
@@ -14,7 +24,17 @@ allprojects {
 
 def integration = project.hasProperty("integration")
 
+// GLOBAL METHODS
+def getRepositoryUsername() {
+    return hasProperty('sonatypeUsername') ? sonatypeUsername : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('sonatypePassword') ? sonatypePassword : ""
+}
+
 project(':paypal-sdk') {
+    apply plugin: 'signing'
 
     dependencies {
         compile 'com.google.code.gson:gson:[2,3)'
@@ -36,5 +56,72 @@ project(':paypal-sdk') {
                 suites 'src/test/resources/testng_unit.xml'
             }
         }
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        // Using delomboked as a source
+        from sourceSets.main.ext.delombok
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+
+    nexusStaging {
+        packageGroup = "com.paypal"
+        username = getRepositoryUsername()
+        password = getRepositoryPassword()
+    }
+
+    uploadArchives {
+        repositories.mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+            }
+
+            pom.project {
+                name 'rest-api-sdk'
+                groupId  'com.paypal.sdk'
+                artifactId 'rest-api-sdk'
+                packaging 'jar'
+                version "${version}"
+                description 'PayPal SDK for integrating with the REST APIs'
+                url 'https://github.com/paypal/PayPal-Java-SDK.git'
+
+                scm {
+                    url 'https://github.com/paypal/PayPal-Java-SDK.git'
+                    connection 'scm:git:git://github.com/paypal/PayPal-Java-SDK.git'
+                }
+
+                licenses {
+                    license {
+                        name 'PayPal SDK License'
+                        url 'https://github.com/paypal/PayPal-Java-SDK/blob/master/LICENSE.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'DL-PP-JAVA-SDK'
+                        name 'DL-PP-JAVA-SDK'
+                        email 'DL-PP-JAVA-SDK@paypal.com'
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        required { isReleaseVersion && gradle.taskGraph.hasTask(tasks.uploadArchives) }
+        sign configurations.archives
     }
 }

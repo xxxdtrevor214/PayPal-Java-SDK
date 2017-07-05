@@ -10,26 +10,27 @@ APIContext apiContext = new APIContext(clientID, clientSecret, mode);
 
 #### AFTER
 ```java
-PayPalHttpClient paypal = new PayPalHttpClient("clientId", "clientSecret", Environment.SANDBOX);
+PayPalEnvironment environment = new PayPalEnvironment.Sandbox(clientId, clientSecret);
+PayPalHttpClient paypal = new PayPalHttpClient(environment);
 ```
 
 # 2. Create Object
 
 #### BEFORE
 ```java
-Invoice invoice = new Invoice();
-
-MerchantInfo merchantInfo = new MerchantInfo();
-merchantInfo.setEmail("invoice@email.com");
+Payment payment = new Payment();
+                    .setIntent("sale");
+                    .setPayer(new Payer()
+                        .setPaymentMethod("paypal"));
 ...
 ```
 
 #### AFTER
 ```java
-Invoice invoice = new Invoice();
-
-MerchantInfo merchantInfo = new MerchantInfo();
-merchantInfo.setEmail("invoice@email.com");
+Payment payment = new Payment();
+                    .intent("sale");
+                    .payer(new Payer()
+                        .paymentMethod("paypal"));
 ...
 ```
 
@@ -38,7 +39,7 @@ merchantInfo.setEmail("invoice@email.com");
 #### BEFORE
 ```java
 try {
-  Invoice createdInvoice = invoice.create(apiContext);
+  Payment createdPayment = payment.create(apiContext);
 } catch (PayPalRESTException ex) {
   ex.printStackTrace();
 }
@@ -46,13 +47,13 @@ try {
 #### AFTER
 ```java
 // Form a request object from invoice data
-HttpRequest<Invoice> request = InvoiceRequestBuilder.create(invoiceParams);
+PaymentCreateRequest request = new PaymentCreateRequest()
+      .body(payment);
 try {
-    Invoice createdInvoice = paypal.execute(request).result();
-    System.out.println(createdInvoice.getId());
+    Payment createdPayment = paypal.execute(request).result();
+    System.out.println(createdPayment.getId());
 } catch (IOException ioe) {
     ioe.printStackTrace();
 }
 ```
-
 

@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v2.0.0-beta
+----
+   * Refactor API around request/response model. Only the Payments API is enabled for this beta.
+
 v1.13.0
 ----
    * Payments API updates [#258](https://github.com/paypal/PayPal-Java-SDK/pull/258).
