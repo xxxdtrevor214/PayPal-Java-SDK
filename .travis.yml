@@ -1,9 +1,9 @@
-sudo: false
 language: java
-jdk:
-  - oraclejdk8
-after_script: ./gradlew clean test
+jdk: oraclejdk8
 notifications:
   recipients:
     - DL-PP-JAVA-SDK@paypal.com
   on_success: change
+sudo: false
+script: ./gradle --stacktrace --info test
+after_success: ./script/deploy_snapshot.sh
