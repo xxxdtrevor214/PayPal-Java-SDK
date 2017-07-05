@@ -32,11 +32,11 @@ def integration = project.hasProperty("integration")
 
 // GLOBAL METHODS
 def getRepositoryUsername() {
-    return hasProperty('sonatypeUsername') ? sonatypeUsername : ""
+    return System.properties.containsKey('sonatypeUsername') ? System.properties['sonatypeUsername'] : System.env.containsKey('SONATYPE_USERNAME') ? System.env['SONATYPE_USERNAME'] : ""
 }
 
 def getRepositoryPassword() {
-    return hasProperty('sonatypePassword') ? sonatypePassword : ""
+    return System.properties.containsKey('sonatypePassword') ? System.properties['sonatypePassword'] : System.env.containsKey('SONATYPE_PASSWORD') ? System.env['SONATYPE_PASSWORD'] : ""
 }
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
