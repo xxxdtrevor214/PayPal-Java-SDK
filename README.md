@@ -1,18 +1,22 @@
-# PayPal SDK 2.0.0-alpha
+# PayPal SDK 2.0.0-beta
 
 This is a preview of how PayPal SDKs will look in the next major version. We've simplified the interface to only provide
-simple model objects and blueprints for HTTP calls. This repo currently only contains functionality for working with webhooks
-to serve as an example of the API going forward.
+simple model objects and blueprints for HTTP calls. This repo currently only contains functionality for working with payments
+to serve as an example and early beta of the API going forward.
 
 ### Creating a Payment
 
 ```java
+// Construct an environment with your client id and secret"
 PayPalEnvironment environment = new PayPalEnvironment.Sandbox(
         "AYSq3RDGsmBLJE-otTkBtM-jBRd1TCQwFf9RGfwddNXWz0uFU9ztymylOhRS",
         "EGnHDxD_qRPdaLdZz8iCr8N7_MzF-YHPTkjs6NKYQvQSBngp4PTTVWkPZRbL");
 
+// Use this environment to construct a PayPalHttpClient
 PayPalHttpClient client = new PayPalHttpClient(environment);
 
+// Construct a request object and set the desired parameters.
+// In this case, a PaymentCreateRequest constructs an POST request to /v1/payments
 PaymentCreateRequest request = new PaymentCreateRequest()
         .body(new Payment()
                 .intent("sale")
@@ -27,7 +31,11 @@ PaymentCreateRequest request = new PaymentCreateRequest()
                         .returnUrl("http://paypal.com/return")));
 
 try {
+    // Use your client to execute a request and get a response back
     HttpResponse<Payment> paymentResponse = client.execute(request);
+
+    // If the endpoint returns a body in its response, you can access the deserialized 
+    // version by calling result() on the response.
     Payment payment = paymentResponse.result();
 } catch (IOException ioe) {
     if (ioe instanceof HttpException) {
@@ -41,6 +49,8 @@ try {
 }
 ```
 
+For a more in-depth look into this pattern, check out some of the [request objects](https://github.com/paypal/PayPal-Java-SDK/tree/2.0-generated-example/paypal-sdk/src/main/java/com/paypal/sdk/payments/request).
+
 To try this out, clone this repo and run:
 ```sh
  $ ./gradlew clean build
@@ -49,4 +59,4 @@ then, copy `paypal-sdk-2.0.jar` from `paypal-sdk/build/libs` into your project.
 
 Please feel free to create an issue in this repo with any feedback, questions, or concerns you have.
 
-*NOTE*: This API is still in alpha, is subject to change, and should not be used in production.
+*NOTE*: This API is still in beta, is subject to change, and should not be used in production.
