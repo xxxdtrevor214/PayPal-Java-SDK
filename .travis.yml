@@ -4,6 +4,6 @@ notifications:
   recipients:
     - DL-PP-JAVA-SDK@paypal.com
   on_success: change
-sudo: false
+sudo: true
 script: ./gradlew --stacktrace --info test
 after_success: ./script/deploy_snapshot.sh
