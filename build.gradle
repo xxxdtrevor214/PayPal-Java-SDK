@@ -12,6 +12,8 @@ allprojects {
     }
 }
 
+def integration = project.hasProperty("integration")
+
 project(':paypal-sdk') {
 
     dependencies {
@@ -27,6 +29,12 @@ project(':paypal-sdk') {
         useTestNG {
             testLogging.showStandardStreams = true
             outputs.upToDateWhen { false }
+
+            if (integration) {
+                suites 'src/test/resources/testng_integration.xml'
+            } else {
+                suites 'src/test/resources/testng_unit.xml'
+            }
         }
     }
 }

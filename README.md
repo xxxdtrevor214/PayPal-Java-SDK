@@ -51,6 +51,8 @@ try {
 
 For a more in-depth look into this pattern, check out some of the [request objects](https://github.com/paypal/PayPal-Java-SDK/tree/2.0-generated-example/paypal-sdk/src/main/java/com/paypal/sdk/payments/request).
 
+## Building
+
 To try this out, clone this repo and run:
 ```sh
  $ ./gradlew clean build
@@ -58,5 +60,15 @@ To try this out, clone this repo and run:
 then, copy `paypal-sdk-2.0.jar` from `paypal-sdk/build/libs` into your project.
 
 Please feel free to create an issue in this repo with any feedback, questions, or concerns you have.
+
+## Running tests
+
+To run integration tests using your client id and secret, run the `test` gradle command with the `-Pintegration` flag
+```sh
+$ PAYPAL_CLIENT_ID=your_client_id PAYPAL_CLIENT_SECRET=your_client_secret ./gradlew clean test -Pintegration
+```
+
+You may use the client id and secret above for demonstration purposes.
+
 
 *NOTE*: This API is still in beta, is subject to change, and should not be used in production.
