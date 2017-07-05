@@ -53,11 +53,19 @@ For a more in-depth look into this pattern, check out some of the [request objec
 
 ## Building
 
-To try this out, clone this repo and run:
-```sh
- $ ./gradlew clean build
+To try this out, add the sonatype snapshots repository to the `repositories` block in your build.gradle, and update the version of rest-api-sdk to `2.0.0-SNAPSHOT`:
+```groovy
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+  compile 'com.paypal.sdk:rest-api-sdk:2.0.0-SNAPSHOT'
+}
 ```
-then, copy `paypal-sdk-2.0.jar` from `paypal-sdk/build/libs` into your project.
 
 Please feel free to create an issue in this repo with any feedback, questions, or concerns you have.
 
