@@ -6,10 +6,12 @@ buildscript {
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
     }
 }
+
 apply plugin: 'io.codearte.nexus-staging'
 
 allprojects {
     apply plugin: 'java'
+    apply plugin: 'maven'
 
     group 'com.paypal.sdk'
     version '2.0.0-SNAPSHOT'
@@ -19,6 +21,10 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+    }
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
     }
 }
 
@@ -32,6 +38,8 @@ def getRepositoryUsername() {
 def getRepositoryPassword() {
     return hasProperty('sonatypePassword') ? sonatypePassword : ""
 }
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 project(':paypal-sdk') {
     apply plugin: 'signing'
@@ -60,8 +68,6 @@ project(':paypal-sdk') {
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
-        // Using delomboked as a source
-        from sourceSets.main.ext.delombok
     }
 
     task javadocJar(type: Jar, dependsOn: javadoc) {
@@ -83,7 +89,11 @@ project(':paypal-sdk') {
     uploadArchives {
         repositories.mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+            }
+            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
                 authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
             }
 
