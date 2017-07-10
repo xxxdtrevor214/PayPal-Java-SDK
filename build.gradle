@@ -1,9 +1,13 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
     dependencies {
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+        classpath 'gradle.plugin.de.fuerstenau:BuildConfigPlugin:1.1.8'
     }
 }
 
@@ -43,6 +47,8 @@ ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 project(':paypal-sdk') {
     apply plugin: 'signing'
+    apply plugin: 'de.fuerstenau.buildconfig'
+    apply plugin: 'idea'
 
     dependencies {
         compile 'com.google.code.gson:gson:[2,3)'
@@ -84,6 +90,11 @@ project(':paypal-sdk') {
         packageGroup = "com.paypal"
         username = getRepositoryUsername()
         password = getRepositoryPassword()
+    }
+
+    buildConfig {
+        version = version
+        packageName = "com.paypal"
     }
 
     uploadArchives {
