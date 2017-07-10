@@ -19,6 +19,9 @@ import java.io.IOException;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+/**
+ * NOTE: This test expects a 500, as reauthorizing a Direct Credit Card payment is not allowed, and authorizing a PayPal transaction requires approval from the payer.
+ */
 public class AuthorizationReauthorizeRequestTest extends TestHarness {
 
 	@Test
