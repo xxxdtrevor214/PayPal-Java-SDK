@@ -25,6 +25,7 @@ public class AuthorizationVoidRequestTest extends TestHarness {
 		String authId = authorizeResponse.result().transactions().get(0)
 				.relatedResources().get(0).authorization().id();
         AuthorizationVoidRequest request = new AuthorizationVoidRequest(authId);
+        request.header("Content-Type", "application/json");
 
         HttpResponse<Authorization> response = client().execute(request);
         assertEquals(200, response.statusCode());
