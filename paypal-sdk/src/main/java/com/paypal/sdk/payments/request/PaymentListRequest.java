@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // PaymentListRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,47 +16,47 @@ import java.util.List;
  */
 public class PaymentListRequest extends HttpRequest<PaymentHistory> {
 
-		public PaymentListRequest() {
-				super("/v1/payments/payment?", "GET", PaymentHistory.class);
-		}
+    public PaymentListRequest() {
+        super("/v1/payments/payment?", "GET", PaymentHistory.class);
+    }
 
     public PaymentListRequest count(Integer count) {
-				path(path() + "count=" + String.valueOf(count) + "&");
+		path(path() + "count=" + String.valueOf(count) + "&");
         return this;
     }
 
     public PaymentListRequest endTime(String endTime) {
-				path(path() + "end_time=" + String.valueOf(endTime) + "&");
+		path(path() + "end_time=" + String.valueOf(endTime) + "&");
         return this;
     }
 
     public PaymentListRequest payeeId(String payeeId) {
-				path(path() + "payee_id=" + String.valueOf(payeeId) + "&");
+		path(path() + "payee_id=" + String.valueOf(payeeId) + "&");
         return this;
     }
 
     public PaymentListRequest sortBy(String sortBy) {
-				path(path() + "sort_by=" + String.valueOf(sortBy) + "&");
+		path(path() + "sort_by=" + String.valueOf(sortBy) + "&");
         return this;
     }
 
     public PaymentListRequest sortOrder(String sortOrder) {
-				path(path() + "sort_order=" + String.valueOf(sortOrder) + "&");
+		path(path() + "sort_order=" + String.valueOf(sortOrder) + "&");
         return this;
     }
 
     public PaymentListRequest startId(String startId) {
-				path(path() + "start_id=" + String.valueOf(startId) + "&");
+		path(path() + "start_id=" + String.valueOf(startId) + "&");
         return this;
     }
 
     public PaymentListRequest startIndex(Integer startIndex) {
-				path(path() + "start_index=" + String.valueOf(startIndex) + "&");
+		path(path() + "start_index=" + String.valueOf(startIndex) + "&");
         return this;
     }
 
     public PaymentListRequest startTime(String startTime) {
-				path(path() + "start_time=" + String.valueOf(startTime) + "&");
+		path(path() + "start_time=" + String.valueOf(startTime) + "&");
         return this;
     }
 }

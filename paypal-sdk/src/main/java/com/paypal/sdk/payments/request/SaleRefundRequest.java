@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // SaleRefundRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class SaleRefundRequest extends HttpRequest<DetailedRefund> {
 
-		public SaleRefundRequest(String saleId) {
-				super("/v1/payments/sale/{sale_id}/refund?"
-                    .replace("{sale_id}", String.valueOf(saleId)), "POST", DetailedRefund.class);
-		}
+    public SaleRefundRequest(String saleId) {
+        super("/v1/payments/sale/{sale_id}/refund?"
+            .replace("{sale_id}", String.valueOf(saleId)), "POST", DetailedRefund.class);
+    }
 
-    public SaleRefundRequest body(RefundRequest body) {
+    public SaleRefundRequest requestBody(RefundRequest body) {
         super.body(body);
         header("Content-Type", "application/json");
         return this;

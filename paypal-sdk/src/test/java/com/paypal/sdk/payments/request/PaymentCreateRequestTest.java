@@ -59,7 +59,7 @@ public class PaymentCreateRequestTest extends TestHarness {
 					.paymentMethod("paypal"));
 		}
 
-		request.body(body);
+		request.requestBody(body);
 		return client.execute(request);
 	}
 

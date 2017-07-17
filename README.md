@@ -18,7 +18,7 @@ PayPalHttpClient client = new PayPalHttpClient(environment);
 // Construct a request object and set the desired parameters.
 // In this case, a PaymentCreateRequest constructs an POST request to /v1/payments
 PaymentCreateRequest request = new PaymentCreateRequest()
-        .body(new Payment()
+        .requestBody(new Payment()
                 .intent("sale")
                 .payer(new Payer()
                         .paymentMethod("paypal"))

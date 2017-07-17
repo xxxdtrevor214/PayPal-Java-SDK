@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // AuthorizationVoidRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class AuthorizationVoidRequest extends HttpRequest<Authorization> {
 
-		public AuthorizationVoidRequest(String authorizationId) {
-				super("/v1/payments/authorization/{authorization_id}/void?"
-                    .replace("{authorization_id}", String.valueOf(authorizationId)), "POST", Authorization.class);
-		}
+    public AuthorizationVoidRequest(String authorizationId) {
+        super("/v1/payments/authorization/{authorization_id}/void?"
+            .replace("{authorization_id}", String.valueOf(authorizationId)), "POST", Authorization.class);
+    }
 }

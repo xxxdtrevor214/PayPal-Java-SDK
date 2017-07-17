@@ -35,7 +35,7 @@ public class PaymentUpdateRequestTest extends TestHarness {
 						.currency("USD")
 						.total("11")));
 
-		request.body(body);
+		request.requestBody(body);
 
 		HttpResponse<Void> response = client().execute(request);
 		assertEquals(200, response.statusCode());

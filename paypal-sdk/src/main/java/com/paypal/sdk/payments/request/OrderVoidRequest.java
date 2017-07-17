@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // OrderVoidRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class OrderVoidRequest extends HttpRequest<Order> {
 
-		public OrderVoidRequest(String orderId) {
-				super("/v1/payments/orders/{order_id}/do-void?"
-                    .replace("{order_id}", String.valueOf(orderId)), "POST", Order.class);
-		}
+    public OrderVoidRequest(String orderId) {
+        super("/v1/payments/orders/{order_id}/do-void?"
+            .replace("{order_id}", String.valueOf(orderId)), "POST", Order.class);
+    }
 }

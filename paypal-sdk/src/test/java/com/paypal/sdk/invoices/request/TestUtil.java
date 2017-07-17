@@ -24,7 +24,7 @@ public class TestUtil {
 	    Invoice body = new Invoice();
 	    body.merchantInfo(new MerchantInformation()
                 .email("team-dx-clients-facilitator@getbraintree.com"));
-	    InvoiceCreateRequest request = new InvoiceCreateRequest().body(body);
+	    InvoiceCreateRequest request = new InvoiceCreateRequest().requestBody(body);
 
 	    return client.execute(request);
 	}
@@ -38,7 +38,7 @@ public class TestUtil {
 
 	public static ResponseAndID createInvoicePayment(HttpClient client, String invoice_id) throws IOException {
 	    InvoiceRecordPaymentRequest request = new InvoiceRecordPaymentRequest(invoice_id)
-				.body(new PaymentDetail()
+				.requestBody(new PaymentDetail()
 						.method("CASH")
 						.date("2017-07-11 00:01:00 PST")
 						.amount(new Currency().currency("USD").value("10"))
@@ -58,7 +58,7 @@ public class TestUtil {
 		createInvoicePayment(client, responseAndID.id);
 
         InvoiceRecordRefundRequest request = new InvoiceRecordRefundRequest(responseAndID.id)
-				.body(new RefundDetail().amount(new Currency().currency("USD").value("10")));
+				.requestBody(new RefundDetail().amount(new Currency().currency("USD").value("10")));
 
         return new ResponseAndID(client.execute(request), responseAndID.id);
 	}
@@ -109,7 +109,7 @@ public class TestUtil {
 	public static CreateResponseAndCleanup createTemplate(HttpClient client) throws IOException {
 		Template template = buildTemplate();
 		TemplateCreateRequest request = new TemplateCreateRequest()
-				.body(template);
+				.requestBody(template);
 
 		HttpResponse<Template> response = client.execute(request);
 		return new CreateResponseAndCleanup(response, client, response.result().templateId());

@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // PaymentGetRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class PaymentGetRequest extends HttpRequest<Payment> {
 
-		public PaymentGetRequest(String paymentId) {
-				super("/v1/payments/payment/{payment_id}?"
-                    .replace("{payment_id}", String.valueOf(paymentId)), "GET", Payment.class);
-		}
+    public PaymentGetRequest(String paymentId) {
+        super("/v1/payments/payment/{payment_id}?"
+            .replace("{payment_id}", String.valueOf(paymentId)), "GET", Payment.class);
+    }
 }

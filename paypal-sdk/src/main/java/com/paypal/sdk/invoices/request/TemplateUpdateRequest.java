@@ -1,4 +1,4 @@
-// This class was generated on Thu, 13 Jul 2017 09:07:17 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
 // TemplateUpdateRequest.java
 // DO NOT EDIT
 // @type request
@@ -21,7 +21,7 @@ public class TemplateUpdateRequest extends HttpRequest<Template> {
             .replace("{template_id}", String.valueOf(templateId)), "PUT", Template.class);
     }
 
-    public TemplateUpdateRequest body(Template body) {
+    public TemplateUpdateRequest requestBody(Template body) {
         super.body(body);
         header("Content-Type", "application/json");
         return this;

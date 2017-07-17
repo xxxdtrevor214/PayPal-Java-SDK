@@ -24,7 +24,7 @@ public class InvoiceSearchRequestTest extends TestHarness {
         HttpResponse<Invoice> createResponse = TestUtil.createInvoice(client());
 
         InvoiceSearchRequest request = new InvoiceSearchRequest()
-                .body(new Search().number(createResponse.result().number()));
+                .requestBody(new Search().number(createResponse.result().number()));
 
         HttpResponse<Invoices> response = client().execute(request);
         assertEquals(response.statusCode(), 200);

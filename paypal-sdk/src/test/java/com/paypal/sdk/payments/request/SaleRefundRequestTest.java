@@ -27,7 +27,7 @@ public class SaleRefundRequestTest extends TestHarness {
         SaleRefundRequest request = new SaleRefundRequest(saleId);
 
         RefundRequest body = new RefundRequest();
-        request.body(body);
+        request.requestBody(body);
 
         return client.execute(request);
 	}

@@ -1,4 +1,4 @@
-// This class was generated on Thu, 13 Jul 2017 09:07:17 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
 // InvoiceCancelRequest.java
 // DO NOT EDIT
 // @type request
@@ -21,7 +21,7 @@ public class InvoiceCancelRequest extends HttpRequest<Void> {
             .replace("{invoice_id}", String.valueOf(invoiceId)), "POST", Void.class);
     }
 
-    public InvoiceCancelRequest body(CancelNotification body) {
+    public InvoiceCancelRequest requestBody(CancelNotification body) {
         super.body(body);
         header("Content-Type", "application/json");
         return this;

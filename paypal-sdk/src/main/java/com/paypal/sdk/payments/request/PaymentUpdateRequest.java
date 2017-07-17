@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // PaymentUpdateRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class PaymentUpdateRequest extends HttpRequest<Void> {
 
-		public PaymentUpdateRequest(String paymentId) {
-				super("/v1/payments/payment/{payment_id}?"
-                    .replace("{payment_id}", String.valueOf(paymentId)), "PATCH", Void.class);
-		}
+    public PaymentUpdateRequest(String paymentId) {
+        super("/v1/payments/payment/{payment_id}?"
+            .replace("{payment_id}", String.valueOf(paymentId)), "PATCH", Void.class);
+    }
 
-    public PaymentUpdateRequest body(List<JSONPatch> body) {
+    public PaymentUpdateRequest requestBody(List<JSONPatch> body) {
         super.body(body);
         header("Content-Type", "application/json");
         return this;

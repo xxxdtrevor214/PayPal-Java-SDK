@@ -29,7 +29,7 @@ public class PaymentExecuteRequestTest extends TestHarness {
 
         PaymentExecution body = new PaymentExecution()
 				.payerId("SOME_PAYER_ID");
-        request.body(body);
+        request.requestBody(body);
 
         HttpResponse<Payment> response = client().execute(request);
         assertEquals(200, response.statusCode());

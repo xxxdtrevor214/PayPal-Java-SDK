@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // RefundGetRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class RefundGetRequest extends HttpRequest<Refund> {
 
-		public RefundGetRequest(String refundId) {
-				super("/v1/payments/refund/{refund_id}?"
-                    .replace("{refund_id}", String.valueOf(refundId)), "GET", Refund.class);
-		}
+    public RefundGetRequest(String refundId) {
+        super("/v1/payments/refund/{refund_id}?"
+            .replace("{refund_id}", String.valueOf(refundId)), "GET", Refund.class);
+    }
 }

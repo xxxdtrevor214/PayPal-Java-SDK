@@ -25,7 +25,7 @@ public class TemplateUpdateRequestTest extends TestHarness {
         TestUtil.CreateResponseAndCleanup createResponseAndCleanup = TestUtil.createTemplate(client());
 
         TemplateUpdateRequest request = new TemplateUpdateRequest(createResponseAndCleanup.response.result().templateId())
-                .body(TestUtil.buildTemplate());
+                .requestBody(TestUtil.buildTemplate());
 
         HttpResponse<Template> response = client().execute(request);
         assertEquals(response.statusCode(), 200);

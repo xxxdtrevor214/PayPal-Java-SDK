@@ -1,4 +1,4 @@
-// This class was generated on Thu, 13 Jul 2017 09:07:17 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
 // InvoiceSearchRequest.java
 // DO NOT EDIT
 // @type request
@@ -20,7 +20,7 @@ public class InvoiceSearchRequest extends HttpRequest<Invoices> {
         super("/v1/invoicing/search?", "POST", Invoices.class);
     }
 
-    public InvoiceSearchRequest body(Search body) {
+    public InvoiceSearchRequest requestBody(Search body) {
         super.body(body);
         header("Content-Type", "application/json");
         return this;

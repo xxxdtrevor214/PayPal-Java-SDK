@@ -32,7 +32,7 @@ public class OrderAuthorizeRequestTest extends TestHarness {
         body.amount(new Amount()
 			.currency("USD")
 			.total("10"));
-        request.body(body);
+        request.requestBody(body);
 
         HttpResponse<Authorization> response = client().execute(request);
         assertEquals(200, response.statusCode());

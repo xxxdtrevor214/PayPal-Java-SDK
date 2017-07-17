@@ -31,7 +31,7 @@ public class OrderCaptureRequestTest extends TestHarness {
 						.currency("USD"))
 				.isFinalCapture(true);
 
-		request.body(body);
+		request.requestBody(body);
 
 		HttpResponse<Capture> response = client().execute(request);
 		assertEquals(200, response.statusCode());

@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // AuthorizationCaptureRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class AuthorizationCaptureRequest extends HttpRequest<Capture> {
 
-		public AuthorizationCaptureRequest(String authorizationId) {
-				super("/v1/payments/authorization/{authorization_id}/capture?"
-                    .replace("{authorization_id}", String.valueOf(authorizationId)), "POST", Capture.class);
-		}
+    public AuthorizationCaptureRequest(String authorizationId) {
+        super("/v1/payments/authorization/{authorization_id}/capture?"
+            .replace("{authorization_id}", String.valueOf(authorizationId)), "POST", Capture.class);
+    }
 
-    public AuthorizationCaptureRequest body(Capture body) {
+    public AuthorizationCaptureRequest requestBody(Capture body) {
         super.body(body);
         header("Content-Type", "application/json");
         return this;

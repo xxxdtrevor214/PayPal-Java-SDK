@@ -32,7 +32,7 @@ public class AuthorizationReauthorizeRequestTest extends TestHarness {
 				.get(0).relatedResources().get(0).authorization().id();
 		AuthorizationReauthorizeRequest request = new AuthorizationReauthorizeRequest(authId);
 
-		request.body(new Authorization()
+		request.requestBody(new Authorization()
 				.amount(new Amount()
 						.total("12")
 						.currency("USD")));

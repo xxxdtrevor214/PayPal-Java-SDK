@@ -1,4 +1,4 @@
-// This class was generated on Mon, 03 Jul 2017 13:56:47 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
 // OrderCaptureRequest.java
 // DO NOT EDIT
 // @type request
@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class OrderCaptureRequest extends HttpRequest<Capture> {
 
-		public OrderCaptureRequest(String orderId) {
-				super("/v1/payments/orders/{order_id}/capture?"
-                    .replace("{order_id}", String.valueOf(orderId)), "POST", Capture.class);
-		}
+    public OrderCaptureRequest(String orderId) {
+        super("/v1/payments/orders/{order_id}/capture?"
+            .replace("{order_id}", String.valueOf(orderId)), "POST", Capture.class);
+    }
 
-    public OrderCaptureRequest body(Capture body) {
+    public OrderCaptureRequest requestBody(Capture body) {
         super.body(body);
         header("Content-Type", "application/json");
         return this;

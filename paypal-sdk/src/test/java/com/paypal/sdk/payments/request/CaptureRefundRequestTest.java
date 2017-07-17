@@ -31,7 +31,7 @@ public class CaptureRefundRequestTest extends TestHarness {
         body.amount(new Amount()
 			.currency("USD")
 			.total("10"));
-        request.body(body);
+        request.requestBody(body);
 
         HttpResponse<DetailedRefund> response = client().execute(request);
         assertEquals(response.statusCode(), 201);

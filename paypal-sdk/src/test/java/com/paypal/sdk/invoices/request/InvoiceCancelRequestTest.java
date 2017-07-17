@@ -33,7 +33,7 @@ public class InvoiceCancelRequestTest extends TestHarness {
                 .sendToMerchant(true)
                 .sendToPayer(true);
 
-        cancelRequest.body(cancelNotification);
+        cancelRequest.requestBody(cancelNotification);
 
         HttpResponse<Void> response = client().execute(cancelRequest);
         assertEquals(response.statusCode(), 204);

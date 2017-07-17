@@ -32,7 +32,7 @@ public class AuthorizationCaptureRequestTest extends TestHarness {
 						.currency("USD"))
 				.isFinalCapture(true);
 
-		request.body(body);
+		request.requestBody(body);
 
 		return client.execute(request);
 	}

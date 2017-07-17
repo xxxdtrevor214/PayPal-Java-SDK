@@ -26,7 +26,7 @@ public class InvoiceRemindRequestTest extends TestHarness {
         assertEquals(responseAndID.response.statusCode(), 202);
 
         InvoiceRemindRequest remindRequest = new InvoiceRemindRequest(responseAndID.id);
-        remindRequest.body(new Notification()
+        remindRequest.requestBody(new Notification()
                 .subject("Past due")
                 .note("Please pay soon")
                 .sendToMerchant(true));

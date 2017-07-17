@@ -26,7 +26,7 @@ public class InvoiceUpdateRequestTest extends TestHarness {
         HttpResponse<Invoice> createResponse = TestUtil.createInvoice(client());
 
         InvoiceUpdateRequest updateRequest = new InvoiceUpdateRequest(createResponse.result().id()).notifyMerchant(true);
-        updateRequest.body(new Invoice()
+        updateRequest.requestBody(new Invoice()
                 .merchantInfo(new MerchantInformation().email("team-dx-clients-facilitator@getbraintree.com"))
                 .terms("Upon receipt of this invoice, Steve owes Sasha a soda."));
 
