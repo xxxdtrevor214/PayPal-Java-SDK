@@ -5,5 +5,5 @@ notifications:
     - DL-PP-JAVA-SDK@paypal.com
   on_success: change
 sudo: true
-script: ./gradlew --stacktrace --info test
+script: ./gradlew --stacktrace --info test -Pintegration
 after_success: ./script/deploy_snapshot.sh
