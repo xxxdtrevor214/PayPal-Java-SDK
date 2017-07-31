@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // FMFDetails.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The [Fraud Management Filter (FMF)](/docs/classic/fmf/integration-guide/FMFSummary/) details.
  */
-public class FMFDetails {
+public class FMFDetails implements Serializable, Deserializable {
+
+    // Required default constructor
+    public FMFDetails() {}
 
 	/**
 	* The filter description.
 	*/
-	@SerializedName("description")
 	private String description;
 
 	public String description() { return description; }
@@ -31,7 +37,6 @@ public class FMFDetails {
 	* REQUIRED
 	* The filter ID.
 	*/
-	@SerializedName("filter_id")
 	private String filterId;
 
 	public String filterId() { return filterId; }
@@ -45,7 +50,6 @@ public class FMFDetails {
 	* REQUIRED
 	* The filter type.
 	*/
-	@SerializedName("filter_type")
 	private String filterType;
 
 	public String filterType() { return filterType; }
@@ -58,7 +62,6 @@ public class FMFDetails {
 	/**
 	* The filter name.
 	*/
-	@SerializedName("name")
 	private String name;
 
 	public String name() { return name; }
@@ -67,4 +70,37 @@ public class FMFDetails {
 	    this.name = name;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (description != null) {
+            serialized.put("description", this.description);
+        }
+        if (filterId != null) {
+            serialized.put("filter_id", this.filterId);
+        }
+        if (filterType != null) {
+            serialized.put("filter_type", this.filterType);
+        }
+        if (name != null) {
+            serialized.put("name", this.name);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("description")) {
+            this.description = (String) values.get("description");
+        }
+        if (values.containsKey("filter_id")) {
+            this.filterId = (String) values.get("filter_id");
+        }
+        if (values.containsKey("filter_type")) {
+            this.filterType = (String) values.get("filter_type");
+        }
+        if (values.containsKey("name")) {
+            this.name = (String) values.get("name");
+        }
+    }
 }
+

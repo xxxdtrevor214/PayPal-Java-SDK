@@ -50,13 +50,14 @@ project(':paypal-sdk') {
     apply plugin: 'de.fuerstenau.buildconfig'
     apply plugin: 'idea'
 
+    def braintreeVersion = '1.2.6'
+
     dependencies {
-        compile 'com.google.code.gson:gson:[2,3)'
-        compile 'com.braintreepayments:braintreehttp:1.0'
+        compile "com.braintreepayments:braintreehttp:${braintreeVersion}"
 
         testCompile group: 'org.testng', name: 'testng', version: '6.9.13.6'
         testCompile "com.github.tomakehurst:wiremock:2.4.1"
-        testCompile 'com.braintreepayments:braintreehttp-testutils:1.0'
+        testCompile "com.braintreepayments:braintreehttp-testutils:${braintreeVersion}"
     }
 
     test {

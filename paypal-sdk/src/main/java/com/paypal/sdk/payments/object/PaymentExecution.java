@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // PaymentExecution.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Executes a PayPal account-based payment with the `payer_id` obtained from the web approval URL.
  */
-public class PaymentExecution {
+public class PaymentExecution implements Serializable, Deserializable {
+
+    // Required default constructor
+    public PaymentExecution() {}
 
 	/**
 	* The ID of the payer that PayPal passes in the `return_url`.
 	*/
-	@SerializedName("payer_id")
 	private String payerId;
 
 	public String payerId() { return payerId; }
@@ -30,7 +36,6 @@ public class PaymentExecution {
 	/**
 	* The transaction details, including the amount and item details. For update and execute payment calls, the **`transactions`** object accepts only the **`amount`** object.
 	*/
-	@SerializedName("transactions")
 	private List<Cart> transactions;
 
 	public List<Cart> transactions() { return transactions; }
@@ -39,4 +44,31 @@ public class PaymentExecution {
 	    this.transactions = transactions;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (payerId != null) {
+            serialized.put("payer_id", this.payerId);
+        }
+        if (transactions != null) {
+            serialized.put("transactions", this.transactions);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("payer_id")) {
+            this.payerId = (String) values.get("payer_id");
+        }
+        if (values.containsKey("transactions")) {
+            this.transactions = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("transactions");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					Cart nested = new Cart();
+					nested.deserialize(nestedValue);
+					this.transactions.add(nested);
+                }
+        }
+    }
 }
+

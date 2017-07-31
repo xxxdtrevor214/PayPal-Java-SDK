@@ -40,7 +40,7 @@ public class AuthorizationReauthorizeRequestTest extends TestHarness {
 		try {
 			HttpResponse<Authorization> response = client().execute(request);
 		} catch (HttpException he) {
-			assertEquals(he.getStatusCode(), 500);
+			assertEquals(he.statusCode(), 500);
 			assertTrue(he.getMessage().contains("DCC_REAUTHORIZATION_NOT_ALLOWED"));
 		}
 	}

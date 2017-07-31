@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // FileAttachment.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The file attached to an invoice or template.
  */
-public class FileAttachment {
+public class FileAttachment implements Serializable, Deserializable {
+
+    // Required default constructor
+    public FileAttachment() {}
 
 	/**
 	* The name of the attached file.
 	*/
-	@SerializedName("name")
 	private String name;
 
 	public String name() { return name; }
@@ -30,7 +36,6 @@ public class FileAttachment {
 	/**
 	* The URL of the attached file, which can be downloaded.
 	*/
-	@SerializedName("url")
 	private String url;
 
 	public String url() { return url; }
@@ -39,4 +44,25 @@ public class FileAttachment {
 	    this.url = url;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (name != null) {
+            serialized.put("name", this.name);
+        }
+        if (url != null) {
+            serialized.put("url", this.url);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("name")) {
+            this.name = (String) values.get("name");
+        }
+        if (values.containsKey("url")) {
+            this.url = (String) values.get("url");
+        }
+    }
 }
+

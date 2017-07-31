@@ -3,19 +3,16 @@ package com.paypal.core;
 import com.braintreepayments.http.Headers;
 import com.braintreepayments.http.HttpClient;
 import com.braintreepayments.http.HttpRequest;
-import com.google.gson.Gson;
 import com.paypal.BuildConfig;
 import com.paypal.core.authorization.PayPalEnvironment;
 import com.paypal.core.object.AccessToken;
 import com.paypal.core.request.AccessTokenRequest;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public class PayPalHttpClient extends HttpClient {
 
 	private String refreshToken;
-	private Gson gson;
 
 	// Visible for testing
 	protected AccessToken accessToken;
@@ -24,7 +21,6 @@ public class PayPalHttpClient extends HttpClient {
 
 	public PayPalHttpClient(PayPalEnvironment environment) {
 		super(environment);
-		this.gson = new Gson();
 		this.addInjector(this::addGzipHeader);
 		this.addInjector(this::signRequest);
 	}
@@ -37,24 +33,6 @@ public class PayPalHttpClient extends HttpClient {
 	@Override
 	protected String getUserAgent() {
 		return USER_AGENT;
-	}
-
-	@Override
-	protected String serializeRequest(HttpRequest httpRequest) throws IOException {
-		if (isContentTypeJson(httpRequest.headers())) {
-			return this.gson.toJson(httpRequest.body());
-		} else {
-			throw new UnsupportedEncodingException(String.format("Unable to serialize content %s with Content-Type: %s", httpRequest.body(), httpRequest.headers().header(Headers.CONTENT_TYPE)));
-		}
-	}
-
-	@Override
-	protected <T> T deserializeResponse(String s, Class<T> aClass, Headers headers) throws UnsupportedEncodingException {
-		if (isContentTypeJson(headers)) {
-			return new Gson().fromJson(s, aClass);
-		} else {
-			throw new UnsupportedEncodingException("Unsupported Content-Type: " + headers.header(Headers.CONTENT_TYPE));
-		}
 	}
 
 	private void signRequest(HttpRequest request) throws IOException {
@@ -80,11 +58,6 @@ public class PayPalHttpClient extends HttpClient {
 
 	private void addGzipHeader(HttpRequest request) throws IOException {
 		request.headers().headerIfNotPresent(Headers.ACCEPT_ENCODING, "gzip");
-	}
-
-	private boolean isContentTypeJson(Headers headers) {
-		String contentType = headers.header(Headers.CONTENT_TYPE);
-		return contentType != null && contentType.equals("application/json");
 	}
 
 	static {

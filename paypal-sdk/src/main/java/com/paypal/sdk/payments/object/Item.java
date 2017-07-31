@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // Item.java
 // DO NOT EDIT
 // @type object
@@ -7,18 +7,24 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The item details.
  */
-public class Item {
+public class Item implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Item() {}
 
 	/**
 	* REQUIRED
 	* The [three-character ISO-4217 currency code](/docs/classic/api/currency_codes/).
 	*/
-	@SerializedName("currency")
 	private String currency;
 
 	public String currency() { return currency; }
@@ -31,7 +37,6 @@ public class Item {
 	/**
 	* The item description. Supported for the PayPal payment method only.
 	*/
-	@SerializedName("description")
 	private String description;
 
 	public String description() { return description; }
@@ -45,7 +50,6 @@ public class Item {
 	* REQUIRED
 	* The item name. Maximum length is 127 characters.
 	*/
-	@SerializedName("name")
 	private String name;
 
 	public String name() { return name; }
@@ -59,7 +63,6 @@ public class Item {
 	* REQUIRED
 	* The item cost. Maximum length is 10 characters.
 	*/
-	@SerializedName("price")
 	private String price;
 
 	public String price() { return price; }
@@ -73,7 +76,6 @@ public class Item {
 	* REQUIRED
 	* The item quantity. Maximum length is 10 characters.
 	*/
-	@SerializedName("quantity")
 	private String quantity;
 
 	public String quantity() { return quantity; }
@@ -86,7 +88,6 @@ public class Item {
 	/**
 	* The stock keeping unit (SKU) for the item.
 	*/
-	@SerializedName("sku")
 	private String sku;
 
 	public String sku() { return sku; }
@@ -99,7 +100,6 @@ public class Item {
 	/**
 	* The item tax. Supported for the PayPal payment method only.
 	*/
-	@SerializedName("tax")
 	private String tax;
 
 	public String tax() { return tax; }
@@ -112,7 +112,6 @@ public class Item {
 	/**
 	* The URL to item information. Available to the payer in the transaction history.
 	*/
-	@SerializedName("url")
 	private String url;
 
 	public String url() { return url; }
@@ -121,4 +120,61 @@ public class Item {
 	    this.url = url;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (currency != null) {
+            serialized.put("currency", this.currency);
+        }
+        if (description != null) {
+            serialized.put("description", this.description);
+        }
+        if (name != null) {
+            serialized.put("name", this.name);
+        }
+        if (price != null) {
+            serialized.put("price", this.price);
+        }
+        if (quantity != null) {
+            serialized.put("quantity", this.quantity);
+        }
+        if (sku != null) {
+            serialized.put("sku", this.sku);
+        }
+        if (tax != null) {
+            serialized.put("tax", this.tax);
+        }
+        if (url != null) {
+            serialized.put("url", this.url);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("currency")) {
+            this.currency = (String) values.get("currency");
+        }
+        if (values.containsKey("description")) {
+            this.description = (String) values.get("description");
+        }
+        if (values.containsKey("name")) {
+            this.name = (String) values.get("name");
+        }
+        if (values.containsKey("price")) {
+            this.price = (String) values.get("price");
+        }
+        if (values.containsKey("quantity")) {
+            this.quantity = (String) values.get("quantity");
+        }
+        if (values.containsKey("sku")) {
+            this.sku = (String) values.get("sku");
+        }
+        if (values.containsKey("tax")) {
+            this.tax = (String) values.get("tax");
+        }
+        if (values.containsKey("url")) {
+            this.url = (String) values.get("url");
+        }
+    }
 }
+

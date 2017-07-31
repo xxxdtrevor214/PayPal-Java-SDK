@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // InvoiceItem.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Invoice line item information.
  */
-public class InvoiceItem {
+public class InvoiceItem implements Serializable, Deserializable {
+
+    // Required default constructor
+    public InvoiceItem() {}
 
 	/**
 	* The date when the item or service was provided. The date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("date")
 	private String date;
 
 	public String date() { return date; }
@@ -30,7 +36,6 @@ public class InvoiceItem {
 	/**
 	* The item description.
 	*/
-	@SerializedName("description")
 	private String description;
 
 	public String description() { return description; }
@@ -43,7 +48,6 @@ public class InvoiceItem {
 	/**
 	* The cost as a percent or an amount value. For example, to specify 10%, enter `10`. Alternatively, to specify an amount of 5, enter `5`.
 	*/
-	@SerializedName("discount")
 	private Cost discount;
 
 	public Cost discount() { return discount; }
@@ -57,7 +61,6 @@ public class InvoiceItem {
 	* REQUIRED
 	* The item name.
 	*/
-	@SerializedName("name")
 	private String name;
 
 	public String name() { return name; }
@@ -71,7 +74,6 @@ public class InvoiceItem {
 	* REQUIRED
 	* The item quantity. Valid value is from -10000 to 10000.
 	*/
-	@SerializedName("quantity")
 	private Double quantity;
 
 	public Double quantity() { return quantity; }
@@ -84,7 +86,6 @@ public class InvoiceItem {
 	/**
 	* Tax information.
 	*/
-	@SerializedName("tax")
 	private Tax tax;
 
 	public Tax tax() { return tax; }
@@ -97,7 +98,6 @@ public class InvoiceItem {
 	/**
 	* The unit of measure for the invoiced item.
 	*/
-	@SerializedName("unit_of_measure")
 	private String unitOfMeasure;
 
 	public String unitOfMeasure() { return unitOfMeasure; }
@@ -111,7 +111,6 @@ public class InvoiceItem {
 	* REQUIRED
 	* Base object for all financial value related fields (balance, payment due, etc.)
 	*/
-	@SerializedName("unit_price")
 	private Currency unitPrice;
 
 	public Currency unitPrice() { return unitPrice; }
@@ -120,4 +119,64 @@ public class InvoiceItem {
 	    this.unitPrice = unitPrice;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (date != null) {
+            serialized.put("date", this.date);
+        }
+        if (description != null) {
+            serialized.put("description", this.description);
+        }
+        if (discount != null) {
+            serialized.put("discount", this.discount);
+        }
+        if (name != null) {
+            serialized.put("name", this.name);
+        }
+        if (quantity != null) {
+            serialized.put("quantity", this.quantity);
+        }
+        if (tax != null) {
+            serialized.put("tax", this.tax);
+        }
+        if (unitOfMeasure != null) {
+            serialized.put("unit_of_measure", this.unitOfMeasure);
+        }
+        if (unitPrice != null) {
+            serialized.put("unit_price", this.unitPrice);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("date")) {
+            this.date = (String) values.get("date");
+        }
+        if (values.containsKey("description")) {
+            this.description = (String) values.get("description");
+        }
+        if (values.containsKey("discount")) {
+            this.discount = new Cost();
+            this.discount.deserialize((Map<String, Object>) values.get("discount"));
+        }
+        if (values.containsKey("name")) {
+            this.name = (String) values.get("name");
+        }
+        if (values.containsKey("quantity")) {
+            this.quantity = ((Number) values.get("quantity")).doubleValue();
+        }
+        if (values.containsKey("tax")) {
+            this.tax = new Tax();
+            this.tax.deserialize((Map<String, Object>) values.get("tax"));
+        }
+        if (values.containsKey("unit_of_measure")) {
+            this.unitOfMeasure = (String) values.get("unit_of_measure");
+        }
+        if (values.containsKey("unit_price")) {
+            this.unitPrice = new Currency();
+            this.unitPrice.deserialize((Map<String, Object>) values.get("unit_price"));
+        }
+    }
 }
+

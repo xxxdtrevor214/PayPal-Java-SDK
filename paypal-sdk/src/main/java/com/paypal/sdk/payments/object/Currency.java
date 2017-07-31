@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // Currency.java
 // DO NOT EDIT
 // @type object
@@ -7,18 +7,24 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Base currency object for all financial value-related fields. For example, balance, payment due, and so on.
  */
-public class Currency {
+public class Currency implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Currency() {}
 
 	/**
 	* REQUIRED
 	* The [three-character ISO-4217 currency code](https://developer.paypal.com/docs/classic/api/currency_codes/). PayPal does not support all currencies.
 	*/
-	@SerializedName("currency")
 	private String currency;
 
 	public String currency() { return currency; }
@@ -32,7 +38,6 @@ public class Currency {
 	* REQUIRED
 	* The amount, up to <i>N</i> digits after the decimal separator, as defined in [ISO 4217](https://developer.paypal.com/docs/classic/api/currency_codes/) for the appropriate currency code.
 	*/
-	@SerializedName("value")
 	private String value;
 
 	public String value() { return value; }
@@ -41,4 +46,25 @@ public class Currency {
 	    this.value = value;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (currency != null) {
+            serialized.put("currency", this.currency);
+        }
+        if (value != null) {
+            serialized.put("value", this.value);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("currency")) {
+            this.currency = (String) values.get("currency");
+        }
+        if (values.containsKey("value")) {
+            this.value = (String) values.get("value");
+        }
+    }
 }
+

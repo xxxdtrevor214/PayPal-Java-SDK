@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // Cost.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The cost as a percent or an amount value. For example, to specify 10%, enter `10`. Alternatively, to specify an amount of 5, enter `5`.
  */
-public class Cost {
+public class Cost implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Cost() {}
 
 	/**
 	* Base object for all financial value related fields (balance, payment due, etc.)
 	*/
-	@SerializedName("amount")
 	private Currency amount;
 
 	public Currency amount() { return amount; }
@@ -30,7 +36,6 @@ public class Cost {
 	/**
 	* The cost, as a percent value. Valid value is from 0 to 100.
 	*/
-	@SerializedName("percent")
 	private Double percent;
 
 	public Double percent() { return percent; }
@@ -39,4 +44,26 @@ public class Cost {
 	    this.percent = percent;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (amount != null) {
+            serialized.put("amount", this.amount);
+        }
+        if (percent != null) {
+            serialized.put("percent", this.percent);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("amount")) {
+            this.amount = new Currency();
+            this.amount.deserialize((Map<String, Object>) values.get("amount"));
+        }
+        if (values.containsKey("percent")) {
+            this.percent = ((Number) values.get("percent")).doubleValue();
+        }
+    }
 }
+

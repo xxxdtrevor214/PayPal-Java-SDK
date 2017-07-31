@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // Search.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Invoice search parameters.
  */
-public class Search {
+public class Search implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Search() {}
 
 	/**
 	* Indicates whether to list merchant-archived invoices in the response. If `true`, response lists only merchant-archived invoices. If `false`, response lists only unarchived invoices. If `null`, response lists all invoices.
 	*/
-	@SerializedName("archived")
 	private Boolean archived;
 
 	public Boolean archived() { return archived; }
@@ -30,7 +36,6 @@ public class Search {
 	/**
 	* The initial letters of the email address.
 	*/
-	@SerializedName("email")
 	private String email;
 
 	public String email() { return email; }
@@ -43,7 +48,6 @@ public class Search {
 	/**
 	* The end creation date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("end_creation_date")
 	private String endCreationDate;
 
 	public String endCreationDate() { return endCreationDate; }
@@ -56,7 +60,6 @@ public class Search {
 	/**
 	* The end due date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("end_due_date")
 	private String endDueDate;
 
 	public String endDueDate() { return endDueDate; }
@@ -69,7 +72,6 @@ public class Search {
 	/**
 	* The end date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("end_invoice_date")
 	private String endInvoiceDate;
 
 	public String endInvoiceDate() { return endInvoiceDate; }
@@ -82,7 +84,6 @@ public class Search {
 	/**
 	* The end payment date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("end_payment_date")
 	private String endPaymentDate;
 
 	public String endPaymentDate() { return endPaymentDate; }
@@ -95,7 +96,6 @@ public class Search {
 	/**
 	* Base object for all financial value related fields (balance, payment due, etc.)
 	*/
-	@SerializedName("lower_total_amount")
 	private Currency lowerTotalAmount;
 
 	public Currency lowerTotalAmount() { return lowerTotalAmount; }
@@ -108,7 +108,6 @@ public class Search {
 	/**
 	* The invoice number.
 	*/
-	@SerializedName("number")
 	private String number;
 
 	public String number() { return number; }
@@ -121,7 +120,6 @@ public class Search {
 	/**
 	* The offset for the search results.
 	*/
-	@SerializedName("page")
 	private Double page;
 
 	public Double page() { return page; }
@@ -134,7 +132,6 @@ public class Search {
 	/**
 	* The page size for the search results.
 	*/
-	@SerializedName("page_size")
 	private Double pageSize;
 
 	public Double pageSize() { return pageSize; }
@@ -147,7 +144,6 @@ public class Search {
 	/**
 	* The initial letters of the recipient business name.
 	*/
-	@SerializedName("recipient_business_name")
 	private String recipientBusinessName;
 
 	public String recipientBusinessName() { return recipientBusinessName; }
@@ -160,7 +156,6 @@ public class Search {
 	/**
 	* The initial letters of the recipient first name.
 	*/
-	@SerializedName("recipient_first_name")
 	private String recipientFirstName;
 
 	public String recipientFirstName() { return recipientFirstName; }
@@ -173,7 +168,6 @@ public class Search {
 	/**
 	* The initial letters of the recipient last name.
 	*/
-	@SerializedName("recipient_last_name")
 	private String recipientLastName;
 
 	public String recipientLastName() { return recipientLastName; }
@@ -186,7 +180,6 @@ public class Search {
 	/**
 	* The start creation date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("start_creation_date")
 	private String startCreationDate;
 
 	public String startCreationDate() { return startCreationDate; }
@@ -199,7 +192,6 @@ public class Search {
 	/**
 	* The start due date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("start_due_date")
 	private String startDueDate;
 
 	public String startDueDate() { return startDueDate; }
@@ -212,7 +204,6 @@ public class Search {
 	/**
 	* The start date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("start_invoice_date")
 	private String startInvoiceDate;
 
 	public String startInvoiceDate() { return startInvoiceDate; }
@@ -225,7 +216,6 @@ public class Search {
 	/**
 	* The start payment date for the invoice. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("start_payment_date")
 	private String startPaymentDate;
 
 	public String startPaymentDate() { return startPaymentDate; }
@@ -238,7 +228,6 @@ public class Search {
 	/**
 	* The invoice status. To search by status, specify this value as an array. For example, `"status": ["REFUNDED"]`.
 	*/
-	@SerializedName("status")
 	private String status;
 
 	public String status() { return status; }
@@ -251,7 +240,6 @@ public class Search {
 	/**
 	* Indicates whether the total count appears in the response.
 	*/
-	@SerializedName("total_count_required")
 	private Boolean totalCountRequired;
 
 	public Boolean totalCountRequired() { return totalCountRequired; }
@@ -264,7 +252,6 @@ public class Search {
 	/**
 	* Base object for all financial value related fields (balance, payment due, etc.)
 	*/
-	@SerializedName("upper_total_amount")
 	private Currency upperTotalAmount;
 
 	public Currency upperTotalAmount() { return upperTotalAmount; }
@@ -273,4 +260,135 @@ public class Search {
 	    this.upperTotalAmount = upperTotalAmount;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (archived != null) {
+            serialized.put("archived", this.archived);
+        }
+        if (email != null) {
+            serialized.put("email", this.email);
+        }
+        if (endCreationDate != null) {
+            serialized.put("end_creation_date", this.endCreationDate);
+        }
+        if (endDueDate != null) {
+            serialized.put("end_due_date", this.endDueDate);
+        }
+        if (endInvoiceDate != null) {
+            serialized.put("end_invoice_date", this.endInvoiceDate);
+        }
+        if (endPaymentDate != null) {
+            serialized.put("end_payment_date", this.endPaymentDate);
+        }
+        if (lowerTotalAmount != null) {
+            serialized.put("lower_total_amount", this.lowerTotalAmount);
+        }
+        if (number != null) {
+            serialized.put("number", this.number);
+        }
+        if (page != null) {
+            serialized.put("page", this.page);
+        }
+        if (pageSize != null) {
+            serialized.put("page_size", this.pageSize);
+        }
+        if (recipientBusinessName != null) {
+            serialized.put("recipient_business_name", this.recipientBusinessName);
+        }
+        if (recipientFirstName != null) {
+            serialized.put("recipient_first_name", this.recipientFirstName);
+        }
+        if (recipientLastName != null) {
+            serialized.put("recipient_last_name", this.recipientLastName);
+        }
+        if (startCreationDate != null) {
+            serialized.put("start_creation_date", this.startCreationDate);
+        }
+        if (startDueDate != null) {
+            serialized.put("start_due_date", this.startDueDate);
+        }
+        if (startInvoiceDate != null) {
+            serialized.put("start_invoice_date", this.startInvoiceDate);
+        }
+        if (startPaymentDate != null) {
+            serialized.put("start_payment_date", this.startPaymentDate);
+        }
+        if (status != null) {
+            serialized.put("status", this.status);
+        }
+        if (totalCountRequired != null) {
+            serialized.put("total_count_required", this.totalCountRequired);
+        }
+        if (upperTotalAmount != null) {
+            serialized.put("upper_total_amount", this.upperTotalAmount);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("archived")) {
+            this.archived = (Boolean) values.get("archived");
+        }
+        if (values.containsKey("email")) {
+            this.email = (String) values.get("email");
+        }
+        if (values.containsKey("end_creation_date")) {
+            this.endCreationDate = (String) values.get("end_creation_date");
+        }
+        if (values.containsKey("end_due_date")) {
+            this.endDueDate = (String) values.get("end_due_date");
+        }
+        if (values.containsKey("end_invoice_date")) {
+            this.endInvoiceDate = (String) values.get("end_invoice_date");
+        }
+        if (values.containsKey("end_payment_date")) {
+            this.endPaymentDate = (String) values.get("end_payment_date");
+        }
+        if (values.containsKey("lower_total_amount")) {
+            this.lowerTotalAmount = new Currency();
+            this.lowerTotalAmount.deserialize((Map<String, Object>) values.get("lower_total_amount"));
+        }
+        if (values.containsKey("number")) {
+            this.number = (String) values.get("number");
+        }
+        if (values.containsKey("page")) {
+            this.page = ((Number) values.get("page")).doubleValue();
+        }
+        if (values.containsKey("page_size")) {
+            this.pageSize = ((Number) values.get("page_size")).doubleValue();
+        }
+        if (values.containsKey("recipient_business_name")) {
+            this.recipientBusinessName = (String) values.get("recipient_business_name");
+        }
+        if (values.containsKey("recipient_first_name")) {
+            this.recipientFirstName = (String) values.get("recipient_first_name");
+        }
+        if (values.containsKey("recipient_last_name")) {
+            this.recipientLastName = (String) values.get("recipient_last_name");
+        }
+        if (values.containsKey("start_creation_date")) {
+            this.startCreationDate = (String) values.get("start_creation_date");
+        }
+        if (values.containsKey("start_due_date")) {
+            this.startDueDate = (String) values.get("start_due_date");
+        }
+        if (values.containsKey("start_invoice_date")) {
+            this.startInvoiceDate = (String) values.get("start_invoice_date");
+        }
+        if (values.containsKey("start_payment_date")) {
+            this.startPaymentDate = (String) values.get("start_payment_date");
+        }
+        if (values.containsKey("status")) {
+            this.status = (String) values.get("status");
+        }
+        if (values.containsKey("total_count_required")) {
+            this.totalCountRequired = (Boolean) values.get("total_count_required");
+        }
+        if (values.containsKey("upper_total_amount")) {
+            this.upperTotalAmount = new Currency();
+            this.upperTotalAmount.deserialize((Map<String, Object>) values.get("upper_total_amount"));
+        }
+    }
 }
+

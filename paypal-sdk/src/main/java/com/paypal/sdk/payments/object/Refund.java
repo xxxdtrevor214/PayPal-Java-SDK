@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // Refund.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * A refund transaction.
  */
-public class Refund {
+public class Refund implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Refund() {}
 
 	/**
 	* The payment amount, with break-ups.
 	*/
-	@SerializedName("amount")
 	private Amount amount;
 
 	public Amount amount() { return amount; }
@@ -30,7 +36,6 @@ public class Refund {
 	/**
 	* The ID of the sale transaction being refunded.
 	*/
-	@SerializedName("capture_id")
 	private String captureId;
 
 	public String captureId() { return captureId; }
@@ -43,7 +48,6 @@ public class Refund {
 	/**
 	* The date and time when the refund was created, in [Internet date and time format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("create_time")
 	private String createTime;
 
 	public String createTime() { return createTime; }
@@ -56,7 +60,6 @@ public class Refund {
 	/**
 	* The refund description.
 	*/
-	@SerializedName("description")
 	private String description;
 
 	public String description() { return description; }
@@ -69,7 +72,6 @@ public class Refund {
 	/**
 	* The ID of the refund transaction. Maximum length is 17 characters.
 	*/
-	@SerializedName("id")
 	private String id;
 
 	public String id() { return id; }
@@ -82,7 +84,6 @@ public class Refund {
 	/**
 	* Your own invoice or tracking ID number. Maximum length is 127 single-byte alphanumeric characters.
 	*/
-	@SerializedName("invoice_number")
 	private String invoiceNumber;
 
 	public String invoiceNumber() { return invoiceNumber; }
@@ -94,7 +95,6 @@ public class Refund {
 
 	/**
 	*/
-	@SerializedName("links")
 	private List<LinkDescriptionObject> links;
 
 	public List<LinkDescriptionObject> links() { return links; }
@@ -107,7 +107,6 @@ public class Refund {
 	/**
 	* The ID of the payment on which this transaction is based.
 	*/
-	@SerializedName("parent_payment")
 	private String parentPayment;
 
 	public String parentPayment() { return parentPayment; }
@@ -120,7 +119,6 @@ public class Refund {
 	/**
 	* The reason that the transaction is being refunded.
 	*/
-	@SerializedName("reason")
 	private String reason;
 
 	public String reason() { return reason; }
@@ -133,7 +131,6 @@ public class Refund {
 	/**
 	* The reason code for the pending refund state.
 	*/
-	@SerializedName("reason_code")
 	private String reasonCode;
 
 	public String reasonCode() { return reasonCode; }
@@ -146,7 +143,6 @@ public class Refund {
 	/**
 	* Details Indicate whether Refund amount is funded by Payee or other funding accounts
 	*/
-	@SerializedName("refund_funding_type")
 	private String refundFundingType;
 
 	public String refundFundingType() { return refundFundingType; }
@@ -159,7 +155,6 @@ public class Refund {
 	/**
 	* Paypal assigned reason codes for the refund
 	*/
-	@SerializedName("refund_reason_code")
 	private String refundReasonCode;
 
 	public String refundReasonCode() { return refundReasonCode; }
@@ -172,7 +167,6 @@ public class Refund {
 	/**
 	* The ID of the sale transaction being refunded. 
 	*/
-	@SerializedName("sale_id")
 	private String saleId;
 
 	public String saleId() { return saleId; }
@@ -185,7 +179,6 @@ public class Refund {
 	/**
 	* The state of the refund.
 	*/
-	@SerializedName("state")
 	private String state;
 
 	public String state() { return state; }
@@ -198,7 +191,6 @@ public class Refund {
 	/**
 	* The date and time when the resource was last updated, in [Internet date and time format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("update_time")
 	private String updateTime;
 
 	public String updateTime() { return updateTime; }
@@ -207,4 +199,110 @@ public class Refund {
 	    this.updateTime = updateTime;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (amount != null) {
+            serialized.put("amount", this.amount);
+        }
+        if (captureId != null) {
+            serialized.put("capture_id", this.captureId);
+        }
+        if (createTime != null) {
+            serialized.put("create_time", this.createTime);
+        }
+        if (description != null) {
+            serialized.put("description", this.description);
+        }
+        if (id != null) {
+            serialized.put("id", this.id);
+        }
+        if (invoiceNumber != null) {
+            serialized.put("invoice_number", this.invoiceNumber);
+        }
+        if (links != null) {
+            serialized.put("links", this.links);
+        }
+        if (parentPayment != null) {
+            serialized.put("parent_payment", this.parentPayment);
+        }
+        if (reason != null) {
+            serialized.put("reason", this.reason);
+        }
+        if (reasonCode != null) {
+            serialized.put("reason_code", this.reasonCode);
+        }
+        if (refundFundingType != null) {
+            serialized.put("refund_funding_type", this.refundFundingType);
+        }
+        if (refundReasonCode != null) {
+            serialized.put("refund_reason_code", this.refundReasonCode);
+        }
+        if (saleId != null) {
+            serialized.put("sale_id", this.saleId);
+        }
+        if (state != null) {
+            serialized.put("state", this.state);
+        }
+        if (updateTime != null) {
+            serialized.put("update_time", this.updateTime);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("amount")) {
+            this.amount = new Amount();
+            this.amount.deserialize((Map<String, Object>) values.get("amount"));
+        }
+        if (values.containsKey("capture_id")) {
+            this.captureId = (String) values.get("capture_id");
+        }
+        if (values.containsKey("create_time")) {
+            this.createTime = (String) values.get("create_time");
+        }
+        if (values.containsKey("description")) {
+            this.description = (String) values.get("description");
+        }
+        if (values.containsKey("id")) {
+            this.id = (String) values.get("id");
+        }
+        if (values.containsKey("invoice_number")) {
+            this.invoiceNumber = (String) values.get("invoice_number");
+        }
+        if (values.containsKey("links")) {
+            this.links = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("links");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					LinkDescriptionObject nested = new LinkDescriptionObject();
+					nested.deserialize(nestedValue);
+					this.links.add(nested);
+                }
+        }
+        if (values.containsKey("parent_payment")) {
+            this.parentPayment = (String) values.get("parent_payment");
+        }
+        if (values.containsKey("reason")) {
+            this.reason = (String) values.get("reason");
+        }
+        if (values.containsKey("reason_code")) {
+            this.reasonCode = (String) values.get("reason_code");
+        }
+        if (values.containsKey("refund_funding_type")) {
+            this.refundFundingType = (String) values.get("refund_funding_type");
+        }
+        if (values.containsKey("refund_reason_code")) {
+            this.refundReasonCode = (String) values.get("refund_reason_code");
+        }
+        if (values.containsKey("sale_id")) {
+            this.saleId = (String) values.get("sale_id");
+        }
+        if (values.containsKey("state")) {
+            this.state = (String) values.get("state");
+        }
+        if (values.containsKey("update_time")) {
+            this.updateTime = (String) values.get("update_time");
+        }
+    }
 }
+

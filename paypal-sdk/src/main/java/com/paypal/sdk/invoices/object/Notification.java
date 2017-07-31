@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // Notification.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The email or SMS notification.
  */
-public class Notification {
+public class Notification implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Notification() {}
 
 	/**
 	* An array of one or more CC: emails. If you omit this parameter from the JSON request body, a notification is sent to all CC: email addresses that are part of the invoice. Otherwise, specify this parameter to limit the email addresses to which notifications are sent.<blockquote><strong>Note:</strong> Additional email addresses are not supported.</blockquote>
 	*/
-	@SerializedName("cc_emails")
 	private List<String> ccEmails;
 
 	public List<String> ccEmails() { return ccEmails; }
@@ -30,7 +36,6 @@ public class Notification {
 	/**
 	* A note to the payer.
 	*/
-	@SerializedName("note")
 	private String note;
 
 	public String note() { return note; }
@@ -43,7 +48,6 @@ public class Notification {
 	/**
 	* Indicates whether to send a copy of the email to the merchant.
 	*/
-	@SerializedName("send_to_merchant")
 	private Boolean sendToMerchant;
 
 	public Boolean sendToMerchant() { return sendToMerchant; }
@@ -56,7 +60,6 @@ public class Notification {
 	/**
 	* The subject of the notification.
 	*/
-	@SerializedName("subject")
 	private String subject;
 
 	public String subject() { return subject; }
@@ -65,4 +68,41 @@ public class Notification {
 	    this.subject = subject;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (ccEmails != null) {
+            serialized.put("cc_emails", this.ccEmails);
+        }
+        if (note != null) {
+            serialized.put("note", this.note);
+        }
+        if (sendToMerchant != null) {
+            serialized.put("send_to_merchant", this.sendToMerchant);
+        }
+        if (subject != null) {
+            serialized.put("subject", this.subject);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("cc_emails")) {
+            this.ccEmails = new ArrayList<>();
+                List<String> nestedValues = (List<String>) values.get("cc_emails");
+                for (String nestedValue : nestedValues) {
+                    this.ccEmails.add(nestedValue);
+                }
+        }
+        if (values.containsKey("note")) {
+            this.note = (String) values.get("note");
+        }
+        if (values.containsKey("send_to_merchant")) {
+            this.sendToMerchant = (Boolean) values.get("send_to_merchant");
+        }
+        if (values.containsKey("subject")) {
+            this.subject = (String) values.get("subject");
+        }
+    }
 }
+

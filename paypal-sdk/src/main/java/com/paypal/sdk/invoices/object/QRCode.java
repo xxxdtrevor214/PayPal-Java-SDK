@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // QRCode.java
 // DO NOT EDIT
 // @type object
@@ -7,16 +7,22 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * base64 encoded image of type image/png
  */
-public class QRCode {
+public class QRCode implements Serializable, Deserializable {
+
+    // Required default constructor
+    public QRCode() {}
 
 	/**
 	*/
-	@SerializedName("image")
 	private String image;
 
 	public String image() { return image; }
@@ -25,4 +31,19 @@ public class QRCode {
 	    this.image = image;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (image != null) {
+            serialized.put("image", this.image);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("image")) {
+            this.image = (String) values.get("image");
+        }
+    }
 }
+

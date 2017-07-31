@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // Templates.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * List of merchant templates.
  */
-public class Templates {
+public class Templates implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Templates() {}
 
 	/**
 	* List of addresses in merchant profile.
 	*/
-	@SerializedName("addresses")
 	private List<Address> addresses;
 
 	public List<Address> addresses() { return addresses; }
@@ -30,7 +36,6 @@ public class Templates {
 	/**
 	* List of emails in merchant profile.
 	*/
-	@SerializedName("emails")
 	private List<String> emails;
 
 	public List<String> emails() { return emails; }
@@ -43,7 +48,6 @@ public class Templates {
 	/**
 	* The HATEOAS links that provide related actions for the templates in the response.
 	*/
-	@SerializedName("links")
 	private List<LinkDescriptionObject> links;
 
 	public List<LinkDescriptionObject> links() { return links; }
@@ -56,7 +60,6 @@ public class Templates {
 	/**
 	* List of phone numbers in merchant profile.
 	*/
-	@SerializedName("phones")
 	private List<Phone> phones;
 
 	public List<Phone> phones() { return phones; }
@@ -69,7 +72,6 @@ public class Templates {
 	/**
 	* An array of templates.
 	*/
-	@SerializedName("templates")
 	private List<Template> templates;
 
 	public List<Template> templates() { return templates; }
@@ -78,4 +80,71 @@ public class Templates {
 	    this.templates = templates;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (addresses != null) {
+            serialized.put("addresses", this.addresses);
+        }
+        if (emails != null) {
+            serialized.put("emails", this.emails);
+        }
+        if (links != null) {
+            serialized.put("links", this.links);
+        }
+        if (phones != null) {
+            serialized.put("phones", this.phones);
+        }
+        if (templates != null) {
+            serialized.put("templates", this.templates);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("addresses")) {
+            this.addresses = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("addresses");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					Address nested = new Address();
+					nested.deserialize(nestedValue);
+					this.addresses.add(nested);
+                }
+        }
+        if (values.containsKey("emails")) {
+            this.emails = new ArrayList<>();
+                List<String> nestedValues = (List<String>) values.get("emails");
+                for (String nestedValue : nestedValues) {
+                    this.emails.add(nestedValue);
+                }
+        }
+        if (values.containsKey("links")) {
+            this.links = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("links");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					LinkDescriptionObject nested = new LinkDescriptionObject();
+					nested.deserialize(nestedValue);
+					this.links.add(nested);
+                }
+        }
+        if (values.containsKey("phones")) {
+            this.phones = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("phones");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					Phone nested = new Phone();
+					nested.deserialize(nestedValue);
+					this.phones.add(nested);
+                }
+        }
+        if (values.containsKey("templates")) {
+            this.templates = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("templates");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					Template nested = new Template();
+					nested.deserialize(nestedValue);
+					this.templates.add(nested);
+                }
+        }
+    }
 }
+

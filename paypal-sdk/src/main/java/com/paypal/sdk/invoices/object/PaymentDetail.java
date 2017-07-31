@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // PaymentDetail.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Payment details.
  */
-public class PaymentDetail {
+public class PaymentDetail implements Serializable, Deserializable {
+
+    // Required default constructor
+    public PaymentDetail() {}
 
 	/**
 	* Base object for all financial value related fields (balance, payment due, etc.)
 	*/
-	@SerializedName("amount")
 	private Currency amount;
 
 	public Currency amount() { return amount; }
@@ -30,7 +36,6 @@ public class PaymentDetail {
 	/**
 	* The date when the invoice was paid. The date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("date")
 	private String date;
 
 	public String date() { return date; }
@@ -44,7 +49,6 @@ public class PaymentDetail {
 	* REQUIRED
 	* The payment mode or method. Required with the `EXTERNAL` payment type.
 	*/
-	@SerializedName("method")
 	private String method;
 
 	public String method() { return method; }
@@ -57,7 +61,6 @@ public class PaymentDetail {
 	/**
 	* Optional. A note associated with the payment.
 	*/
-	@SerializedName("note")
 	private String note;
 
 	public String note() { return note; }
@@ -70,7 +73,6 @@ public class PaymentDetail {
 	/**
 	* The ID for a PayPal payment transaction. Required with the `PAYPAL` payment type.
 	*/
-	@SerializedName("transaction_id")
 	private String transactionId;
 
 	public String transactionId() { return transactionId; }
@@ -83,7 +85,6 @@ public class PaymentDetail {
 	/**
 	* The transaction type.
 	*/
-	@SerializedName("transaction_type")
 	private String transactionType;
 
 	public String transactionType() { return transactionType; }
@@ -96,7 +97,6 @@ public class PaymentDetail {
 	/**
 	* The payment type in an invoicing flow. The [record refund](/docs/api/invoicing/#invoices_record-refund) method supports the `EXTERNAL` refund type. The `PAYPAL` refund type is supported for backward compatibility.
 	*/
-	@SerializedName("type")
 	private String type;
 
 	public String type() { return type; }
@@ -105,4 +105,56 @@ public class PaymentDetail {
 	    this.type = type;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (amount != null) {
+            serialized.put("amount", this.amount);
+        }
+        if (date != null) {
+            serialized.put("date", this.date);
+        }
+        if (method != null) {
+            serialized.put("method", this.method);
+        }
+        if (note != null) {
+            serialized.put("note", this.note);
+        }
+        if (transactionId != null) {
+            serialized.put("transaction_id", this.transactionId);
+        }
+        if (transactionType != null) {
+            serialized.put("transaction_type", this.transactionType);
+        }
+        if (type != null) {
+            serialized.put("type", this.type);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("amount")) {
+            this.amount = new Currency();
+            this.amount.deserialize((Map<String, Object>) values.get("amount"));
+        }
+        if (values.containsKey("date")) {
+            this.date = (String) values.get("date");
+        }
+        if (values.containsKey("method")) {
+            this.method = (String) values.get("method");
+        }
+        if (values.containsKey("note")) {
+            this.note = (String) values.get("note");
+        }
+        if (values.containsKey("transaction_id")) {
+            this.transactionId = (String) values.get("transaction_id");
+        }
+        if (values.containsKey("transaction_type")) {
+            this.transactionType = (String) values.get("transaction_type");
+        }
+        if (values.containsKey("type")) {
+            this.type = (String) values.get("type");
+        }
+    }
 }
+

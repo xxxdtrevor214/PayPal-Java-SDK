@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // TemplateSettings.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The template settings.
  */
-public class TemplateSettings {
+public class TemplateSettings implements Serializable, Deserializable {
+
+    // Required default constructor
+    public TemplateSettings() {}
 
 	/**
 	* The template settings metadata.
 	*/
-	@SerializedName("display_preference")
 	private TemplateSettingsMetadata displayPreference;
 
 	public TemplateSettingsMetadata displayPreference() { return displayPreference; }
@@ -30,7 +36,6 @@ public class TemplateSettings {
 	/**
 	* The field name for any field in `template_data` for which to map corresponding display preferences.
 	*/
-	@SerializedName("field_name")
 	private String fieldName;
 
 	public String fieldName() { return fieldName; }
@@ -39,4 +44,26 @@ public class TemplateSettings {
 	    this.fieldName = fieldName;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (displayPreference != null) {
+            serialized.put("display_preference", this.displayPreference);
+        }
+        if (fieldName != null) {
+            serialized.put("field_name", this.fieldName);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("display_preference")) {
+            this.displayPreference = new TemplateSettingsMetadata();
+            this.displayPreference.deserialize((Map<String, Object>) values.get("display_preference"));
+        }
+        if (values.containsKey("field_name")) {
+            this.fieldName = (String) values.get("field_name");
+        }
+    }
 }
+

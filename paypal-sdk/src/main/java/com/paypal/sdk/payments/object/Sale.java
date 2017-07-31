@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // Sale.java
 // DO NOT EDIT
 // @type object
@@ -7,18 +7,24 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * A sale transaction. Returned as a part of payment-related resources.
  */
-public class Sale {
+public class Sale implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Sale() {}
 
 	/**
 	* REQUIRED
 	* The payment amount, with break-ups.
 	*/
-	@SerializedName("amount")
 	private Amount amount;
 
 	public Amount amount() { return amount; }
@@ -31,7 +37,6 @@ public class Sale {
 	/**
 	* The ID of the billing agreement. Used as reference to execute this transaction.
 	*/
-	@SerializedName("billing_agreement_id")
 	private String billingAgreementId;
 
 	public String billingAgreementId() { return billingAgreementId; }
@@ -44,7 +49,6 @@ public class Sale {
 	/**
 	* The date and time when the eCheck transaction is expected to clear. Returned for eCheck payments. Supported only when the `payment_method` is `paypal`.
 	*/
-	@SerializedName("clearing_time")
 	private String clearingTime;
 
 	public String clearingTime() { return clearingTime; }
@@ -58,7 +62,6 @@ public class Sale {
 	* REQUIRED
 	* The date and time of the sale, in Internet date and time format as defined in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("create_time")
 	private String createTime;
 
 	public String createTime() { return createTime; }
@@ -71,7 +74,6 @@ public class Sale {
 	/**
 	* The exchange rate for this transaction. Returned only in cross-currency use cases where a merchant bills a buyer in a non-primary currency for that buyer.
 	*/
-	@SerializedName("exchange_rate")
 	private String exchangeRate;
 
 	public String exchangeRate() { return exchangeRate; }
@@ -84,7 +86,6 @@ public class Sale {
 	/**
 	* The [Fraud Management Filter (FMF)](/docs/classic/fmf/integration-guide/FMFSummary/) details.
 	*/
-	@SerializedName("fmf_details")
 	private FMFDetails fmfDetails;
 
 	public FMFDetails fmfDetails() { return fmfDetails; }
@@ -98,7 +99,6 @@ public class Sale {
 	* REQUIRED
 	* The ID of the sale transaction.
 	*/
-	@SerializedName("id")
 	private String id;
 
 	public String id() { return id; }
@@ -110,7 +110,6 @@ public class Sale {
 
 	/**
 	*/
-	@SerializedName("links")
 	private List<LinkDescriptionObject> links;
 
 	public List<LinkDescriptionObject> links() { return links; }
@@ -124,7 +123,6 @@ public class Sale {
 	* REQUIRED
 	* The ID of the payment on which this transaction is based.
 	*/
-	@SerializedName("parent_payment")
 	private String parentPayment;
 
 	public String parentPayment() { return parentPayment; }
@@ -137,7 +135,6 @@ public class Sale {
 	/**
 	* The reason that PayPal holds the recipient fund. Set only if the payment hold status is `held`.
 	*/
-	@SerializedName("payment_hold_reasons")
 	private List<String> paymentHoldReasons;
 
 	public List<String> paymentHoldReasons() { return paymentHoldReasons; }
@@ -150,7 +147,6 @@ public class Sale {
 	/**
 	* The recipient fund status. Returned only when the fund status is `held`.
 	*/
-	@SerializedName("payment_hold_status")
 	private String paymentHoldStatus;
 
 	public String paymentHoldStatus() { return paymentHoldStatus; }
@@ -163,7 +159,6 @@ public class Sale {
 	/**
 	* The transaction payment mode. Supported only when `payment_method` is `paypal`.
 	*/
-	@SerializedName("payment_mode")
 	private String paymentMode;
 
 	public String paymentMode() { return paymentMode; }
@@ -176,7 +171,6 @@ public class Sale {
 	/**
 	* A collection of payment response-related fields returned from a payment request.
 	*/
-	@SerializedName("processor_response")
 	private ProcessorResponse processorResponse;
 
 	public ProcessorResponse processorResponse() { return processorResponse; }
@@ -189,7 +183,6 @@ public class Sale {
 	/**
 	* The seller protection level in effect for the transaction. Supported only when the `payment_method` is `paypal`.
 	*/
-	@SerializedName("protection_eligibility")
 	private String protectionEligibility;
 
 	public String protectionEligibility() { return protectionEligibility; }
@@ -202,7 +195,6 @@ public class Sale {
 	/**
 	* The seller protection type in effect for the transaction. Returned only when `protection_eligibility` is `ELIGIBLE` or `PARTIALLY_ELIGIBLE`. Supported only when the `payment_method` is `paypal`.
 	*/
-	@SerializedName("protection_eligibility_type")
 	private String protectionEligibilityType;
 
 	public String protectionEligibilityType() { return protectionEligibilityType; }
@@ -215,7 +207,6 @@ public class Sale {
 	/**
 	* The ID of the transaction that corresponds to this sale transaction.
 	*/
-	@SerializedName("purchase_unit_reference_id")
 	private String purchaseUnitReferenceId;
 
 	public String purchaseUnitReferenceId() { return purchaseUnitReferenceId; }
@@ -228,7 +219,6 @@ public class Sale {
 	/**
 	* The reason code that describes why the transaction state is pending or reversed. Supported only when the `payment_method` is `paypal`.
 	*/
-	@SerializedName("reason_code")
 	private String reasonCode;
 
 	public String reasonCode() { return reasonCode; }
@@ -241,7 +231,6 @@ public class Sale {
 	/**
 	* The receipt ID, which is a payment ID number that is returned for guest users to identify the payment.
 	*/
-	@SerializedName("receipt_id")
 	private String receiptId;
 
 	public String receiptId() { return receiptId; }
@@ -254,7 +243,6 @@ public class Sale {
 	/**
 	* Base currency object for all financial value-related fields. For example, balance, payment due, and so on.
 	*/
-	@SerializedName("receivable_amount")
 	private Currency receivableAmount;
 
 	public Currency receivableAmount() { return receivableAmount; }
@@ -268,7 +256,6 @@ public class Sale {
 	* REQUIRED
 	* The sale transaction state.
 	*/
-	@SerializedName("state")
 	private String state;
 
 	public String state() { return state; }
@@ -281,7 +268,6 @@ public class Sale {
 	/**
 	* Base currency object for all financial value-related fields. For example, balance, payment due, and so on.
 	*/
-	@SerializedName("transaction_fee")
 	private Currency transactionFee;
 
 	public Currency transactionFee() { return transactionFee; }
@@ -294,7 +280,6 @@ public class Sale {
 	/**
 	* The date and time when the resource was last updated, in Internet date and time format in [RFC 3339 Section 5.6](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("update_time")
 	private String updateTime;
 
 	public String updateTime() { return updateTime; }
@@ -303,4 +288,160 @@ public class Sale {
 	    this.updateTime = updateTime;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (amount != null) {
+            serialized.put("amount", this.amount);
+        }
+        if (billingAgreementId != null) {
+            serialized.put("billing_agreement_id", this.billingAgreementId);
+        }
+        if (clearingTime != null) {
+            serialized.put("clearing_time", this.clearingTime);
+        }
+        if (createTime != null) {
+            serialized.put("create_time", this.createTime);
+        }
+        if (exchangeRate != null) {
+            serialized.put("exchange_rate", this.exchangeRate);
+        }
+        if (fmfDetails != null) {
+            serialized.put("fmf_details", this.fmfDetails);
+        }
+        if (id != null) {
+            serialized.put("id", this.id);
+        }
+        if (links != null) {
+            serialized.put("links", this.links);
+        }
+        if (parentPayment != null) {
+            serialized.put("parent_payment", this.parentPayment);
+        }
+        if (paymentHoldReasons != null) {
+            serialized.put("payment_hold_reasons", this.paymentHoldReasons);
+        }
+        if (paymentHoldStatus != null) {
+            serialized.put("payment_hold_status", this.paymentHoldStatus);
+        }
+        if (paymentMode != null) {
+            serialized.put("payment_mode", this.paymentMode);
+        }
+        if (processorResponse != null) {
+            serialized.put("processor_response", this.processorResponse);
+        }
+        if (protectionEligibility != null) {
+            serialized.put("protection_eligibility", this.protectionEligibility);
+        }
+        if (protectionEligibilityType != null) {
+            serialized.put("protection_eligibility_type", this.protectionEligibilityType);
+        }
+        if (purchaseUnitReferenceId != null) {
+            serialized.put("purchase_unit_reference_id", this.purchaseUnitReferenceId);
+        }
+        if (reasonCode != null) {
+            serialized.put("reason_code", this.reasonCode);
+        }
+        if (receiptId != null) {
+            serialized.put("receipt_id", this.receiptId);
+        }
+        if (receivableAmount != null) {
+            serialized.put("receivable_amount", this.receivableAmount);
+        }
+        if (state != null) {
+            serialized.put("state", this.state);
+        }
+        if (transactionFee != null) {
+            serialized.put("transaction_fee", this.transactionFee);
+        }
+        if (updateTime != null) {
+            serialized.put("update_time", this.updateTime);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("amount")) {
+            this.amount = new Amount();
+            this.amount.deserialize((Map<String, Object>) values.get("amount"));
+        }
+        if (values.containsKey("billing_agreement_id")) {
+            this.billingAgreementId = (String) values.get("billing_agreement_id");
+        }
+        if (values.containsKey("clearing_time")) {
+            this.clearingTime = (String) values.get("clearing_time");
+        }
+        if (values.containsKey("create_time")) {
+            this.createTime = (String) values.get("create_time");
+        }
+        if (values.containsKey("exchange_rate")) {
+            this.exchangeRate = (String) values.get("exchange_rate");
+        }
+        if (values.containsKey("fmf_details")) {
+            this.fmfDetails = new FMFDetails();
+            this.fmfDetails.deserialize((Map<String, Object>) values.get("fmf_details"));
+        }
+        if (values.containsKey("id")) {
+            this.id = (String) values.get("id");
+        }
+        if (values.containsKey("links")) {
+            this.links = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("links");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					LinkDescriptionObject nested = new LinkDescriptionObject();
+					nested.deserialize(nestedValue);
+					this.links.add(nested);
+                }
+        }
+        if (values.containsKey("parent_payment")) {
+            this.parentPayment = (String) values.get("parent_payment");
+        }
+        if (values.containsKey("payment_hold_reasons")) {
+            this.paymentHoldReasons = new ArrayList<>();
+                List<String> nestedValues = (List<String>) values.get("payment_hold_reasons");
+                for (String nestedValue : nestedValues) {
+                    this.paymentHoldReasons.add(nestedValue);
+                }
+        }
+        if (values.containsKey("payment_hold_status")) {
+            this.paymentHoldStatus = (String) values.get("payment_hold_status");
+        }
+        if (values.containsKey("payment_mode")) {
+            this.paymentMode = (String) values.get("payment_mode");
+        }
+        if (values.containsKey("processor_response")) {
+            this.processorResponse = new ProcessorResponse();
+            this.processorResponse.deserialize((Map<String, Object>) values.get("processor_response"));
+        }
+        if (values.containsKey("protection_eligibility")) {
+            this.protectionEligibility = (String) values.get("protection_eligibility");
+        }
+        if (values.containsKey("protection_eligibility_type")) {
+            this.protectionEligibilityType = (String) values.get("protection_eligibility_type");
+        }
+        if (values.containsKey("purchase_unit_reference_id")) {
+            this.purchaseUnitReferenceId = (String) values.get("purchase_unit_reference_id");
+        }
+        if (values.containsKey("reason_code")) {
+            this.reasonCode = (String) values.get("reason_code");
+        }
+        if (values.containsKey("receipt_id")) {
+            this.receiptId = (String) values.get("receipt_id");
+        }
+        if (values.containsKey("receivable_amount")) {
+            this.receivableAmount = new Currency();
+            this.receivableAmount.deserialize((Map<String, Object>) values.get("receivable_amount"));
+        }
+        if (values.containsKey("state")) {
+            this.state = (String) values.get("state");
+        }
+        if (values.containsKey("transaction_fee")) {
+            this.transactionFee = new Currency();
+            this.transactionFee.deserialize((Map<String, Object>) values.get("transaction_fee"));
+        }
+        if (values.containsKey("update_time")) {
+            this.updateTime = (String) values.get("update_time");
+        }
+    }
 }
+

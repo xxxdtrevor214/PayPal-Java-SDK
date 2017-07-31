@@ -1,10 +1,8 @@
 package com.paypal.core;
 
-import com.braintreepayments.http.Headers;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
 import com.braintreepayments.http.Injector;
-import com.google.gson.Gson;
 import com.paypal.core.object.AccessToken;
 import com.paypal.core.utils.PayPalWireMockHarness;
 import org.testng.annotations.BeforeMethod;
@@ -138,60 +136,12 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 				.withRequestBody(equalTo("grant_type=client_credentials&refresh_token=refresh-token")));
 	}
 
-	@Test
-	public void testPayPalHttpClient_execute_serializesContentWhenContentTypeSet() throws IOException {
-		stubAccessTokenRequest(simpleAccessToken());
-
-		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		request.header(Headers.CONTENT_TYPE, "application/json");
-		TestPojo body = new TestPojo("Brian Tree", 10);
-		request.body(body);
-
-		stub(request, null);
-
-		client.execute(request);
-
-		verify(postRequestedFor(urlEqualTo("/"))
-			.withRequestBody(equalTo(new Gson().toJson(body))));
-	}
-
 	@Test(expectedExceptions = {UnsupportedEncodingException.class})
 	public void testPayPalHttpClient_execute_throwsWhenContentTypeNotSet() throws IOException {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		request.body(new TestPojo("Brian Tree", 10));
-
-		client.execute(request);
-	}
-
-	@Test
-	public void testPayPalHttpClient_execute_deserializesContentWhenContentTypeSet() throws IOException {
-		stubAccessTokenRequest(simpleAccessToken());
-
-		HttpRequest<TestPojo> request = new HttpRequest<>("/", "GET", TestPojo.class);
-		HttpResponse<TestPojo> responseStub = HttpResponse.<TestPojo>builder()
-				.headers(new Headers().header("Content-Type", "application/json"))
-				.result(new TestPojo("Brian Tree", 10))
-				.build();
-
-		stub(request, responseStub);
-
-		HttpResponse<TestPojo> actualResponse = client.execute(request);
-		assertEquals(actualResponse.result().name, "Brian Tree");
-		assertEquals(actualResponse.result().age, 10);
-	}
-
-	@Test(expectedExceptions = {UnsupportedEncodingException.class})
-	public void testPayPalHttpClient_execute_throwsWhenResponseContentTypeNotSet() throws IOException {
-		stubAccessTokenRequest(simpleAccessToken());
-
-		HttpRequest<TestPojo> request = new HttpRequest<>("/", "GET", TestPojo.class);
-		HttpResponse<TestPojo> responseStub = HttpResponse.<TestPojo>builder()
-				.result(new TestPojo("Brian Tree", 10))
-				.build();
-
-		stub(request, responseStub);
+		request.requestBody(new TestPojo("Brian Tree", 10));
 
 		client.execute(request);
 	}
@@ -201,7 +151,7 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		request.body("Some plain data");
+		request.requestBody("Some plain data");
 
 		stub(request, null);
 

@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // CreditCardToken.java
 // DO NOT EDIT
 // @type object
@@ -7,18 +7,24 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * A tokenized credit card that can be used to fund a payment.
  */
-public class CreditCardToken {
+public class CreditCardToken implements Serializable, Deserializable {
+
+    // Required default constructor
+    public CreditCardToken() {}
 
 	/**
 	* REQUIRED
 	* The ID of credit card that is stored in the PayPal vault.
 	*/
-	@SerializedName("credit_card_id")
 	private String creditCardId;
 
 	public String creditCardId() { return creditCardId; }
@@ -31,7 +37,6 @@ public class CreditCardToken {
 	/**
 	* The expiration month with no leading zero. Value is from `1` to `12`.
 	*/
-	@SerializedName("expire_month")
 	private Integer expireMonth;
 
 	public Integer expireMonth() { return expireMonth; }
@@ -44,7 +49,6 @@ public class CreditCardToken {
 	/**
 	* The four-digit expiration year.
 	*/
-	@SerializedName("expire_year")
 	private Integer expireYear;
 
 	public Integer expireYear() { return expireYear; }
@@ -57,7 +61,6 @@ public class CreditCardToken {
 	/**
 	* The last four digits of the stored credit card number.
 	*/
-	@SerializedName("last4")
 	private String last4;
 
 	public String last4() { return last4; }
@@ -70,7 +73,6 @@ public class CreditCardToken {
 	/**
 	* A unique ID that you can assign and track when you store a credit card in the vault or use a vaulted credit card. This ID can help to avoid unintentional use or misuse of credit cards. This ID can be any value you would like to associate with the saved card, such as a UUID, user name, or email address. **Required when you use a vaulted credit card if a `payer_id` was originally provided when you vaulted the credit card.**
 	*/
-	@SerializedName("payer_id")
 	private String payerId;
 
 	public String payerId() { return payerId; }
@@ -83,7 +85,6 @@ public class CreditCardToken {
 	/**
 	* The credit card type. Value is `visa`, `mastercard`, `discover`, or `amex`. Values are in lowercase; do not use these values for display.
 	*/
-	@SerializedName("type")
 	private String type;
 
 	public String type() { return type; }
@@ -92,4 +93,49 @@ public class CreditCardToken {
 	    this.type = type;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (creditCardId != null) {
+            serialized.put("credit_card_id", this.creditCardId);
+        }
+        if (expireMonth != null) {
+            serialized.put("expire_month", this.expireMonth);
+        }
+        if (expireYear != null) {
+            serialized.put("expire_year", this.expireYear);
+        }
+        if (last4 != null) {
+            serialized.put("last4", this.last4);
+        }
+        if (payerId != null) {
+            serialized.put("payer_id", this.payerId);
+        }
+        if (type != null) {
+            serialized.put("type", this.type);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("credit_card_id")) {
+            this.creditCardId = (String) values.get("credit_card_id");
+        }
+        if (values.containsKey("expire_month")) {
+            this.expireMonth = ((Number) values.get("expire_month")).intValue();
+        }
+        if (values.containsKey("expire_year")) {
+            this.expireYear = ((Number) values.get("expire_year")).intValue();
+        }
+        if (values.containsKey("last4")) {
+            this.last4 = (String) values.get("last4");
+        }
+        if (values.containsKey("payer_id")) {
+            this.payerId = (String) values.get("payer_id");
+        }
+        if (values.containsKey("type")) {
+            this.type = (String) values.get("type");
+        }
+    }
 }
+

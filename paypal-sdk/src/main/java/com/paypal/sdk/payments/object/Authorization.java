@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // Authorization.java
 // DO NOT EDIT
 // @type object
@@ -7,18 +7,24 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * An authorization.
  */
-public class Authorization {
+public class Authorization implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Authorization() {}
 
 	/**
 	* REQUIRED
 	* The payment amount, with break-ups.
 	*/
-	@SerializedName("amount")
 	private Amount amount;
 
 	public Amount amount() { return amount; }
@@ -31,7 +37,6 @@ public class Authorization {
 	/**
 	* The date and time when the authorization was created, in [Internet date and time format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("create_time")
 	private String createTime;
 
 	public String createTime() { return createTime; }
@@ -44,7 +49,6 @@ public class Authorization {
 	/**
 	* The [Fraud Management Filter (FMF)](/docs/classic/fmf/integration-guide/FMFSummary/) details.
 	*/
-	@SerializedName("fmf_details")
 	private FMFDetails fmfDetails;
 
 	public FMFDetails fmfDetails() { return fmfDetails; }
@@ -57,7 +61,6 @@ public class Authorization {
 	/**
 	* The ID of the authorization.
 	*/
-	@SerializedName("id")
 	private String id;
 
 	public String id() { return id; }
@@ -70,7 +73,6 @@ public class Authorization {
 	/**
 	* The request-related [HATEOAS links](/docs/api/hateoas-links/).
 	*/
-	@SerializedName("links")
 	private List<LinkDescriptionObject> links;
 
 	public List<LinkDescriptionObject> links() { return links; }
@@ -83,7 +85,6 @@ public class Authorization {
 	/**
 	* The ID of the payment resource on which this transaction is based.
 	*/
-	@SerializedName("parent_payment")
 	private String parentPayment;
 
 	public String parentPayment() { return parentPayment; }
@@ -96,7 +97,6 @@ public class Authorization {
 	/**
 	* The payment mode of the authorization.
 	*/
-	@SerializedName("payment_mode")
 	private String paymentMode;
 
 	public String paymentMode() { return paymentMode; }
@@ -109,7 +109,6 @@ public class Authorization {
 	/**
 	* [DEPRECATED] The reason code for the pending transaction state. Obsolete. Use `reason_code` instead.
 	*/
-	@SerializedName("pending_reason")
 	private String pendingReason;
 
 	public String pendingReason() { return pendingReason; }
@@ -122,7 +121,6 @@ public class Authorization {
 	/**
 	* A collection of payment response-related fields returned from a payment request.
 	*/
-	@SerializedName("processor_response")
 	private ProcessorResponse processorResponse;
 
 	public ProcessorResponse processorResponse() { return processorResponse; }
@@ -135,7 +133,6 @@ public class Authorization {
 	/**
 	* The level of seller protection present for the transaction. Supported for the PayPal payment method only. Value is:<ul><li><code>ELIGIBLE</code>. Merchant is protected by PayPal's Seller Protection Policy for Unauthorized Payments and Item Not Received.</li><li><code>PARTIALLY_ELIGIBLE</code>. Merchant is protected by PayPal's Seller Protection Policy for Item Not Received or Unauthorized Payments. For details, see `protection_eligibility_type`.</li><li><code>INELIGIBLE</code>. Merchant is not protected under the Seller Protection Policy.</li></ul>
 	*/
-	@SerializedName("protection_eligibility")
 	private String protectionEligibility;
 
 	public String protectionEligibility() { return protectionEligibility; }
@@ -148,7 +145,6 @@ public class Authorization {
 	/**
 	* The type of seller protection present for the transaction. Returned only when the `protection_eligibility` property is `ELIGIBLE` or `PARTIALLY_ELIGIBLE`. Supported for the PayPal payment method only.<br/><br/>Returns one or both of the allowed values.<br/><br/>Value is:<ul><li><code>ITEM_NOT_RECEIVED_ELIGIBLE</code>. Sellers are protected against claims for items not received.</li><li><code>UNAUTHORIZED_PAYMENT_ELIGIBLE</code>. Sellers are protected against claims for unauthorized payments.</li></ul>
 	*/
-	@SerializedName("protection_eligibility_type")
 	private String protectionEligibilityType;
 
 	public String protectionEligibilityType() { return protectionEligibilityType; }
@@ -161,7 +157,6 @@ public class Authorization {
 	/**
 	* The reason code for the pending transaction state.
 	*/
-	@SerializedName("reason_code")
 	private String reasonCode;
 
 	public String reasonCode() { return reasonCode; }
@@ -174,7 +169,6 @@ public class Authorization {
 	/**
 	* The receipt ID, which identifies the payment. Value is 16-digit numeric payment ID number that is returned for guest users.
 	*/
-	@SerializedName("receipt_id")
 	private String receiptId;
 
 	public String receiptId() { return receiptId; }
@@ -187,7 +181,6 @@ public class Authorization {
 	/**
 	* The ID of the purchase or transaction unit that corresponds to this authorization transaction.
 	*/
-	@SerializedName("reference_id")
 	private String referenceId;
 
 	public String referenceId() { return referenceId; }
@@ -200,7 +193,6 @@ public class Authorization {
 	/**
 	* The authorization state.
 	*/
-	@SerializedName("state")
 	private String state;
 
 	public String state() { return state; }
@@ -213,7 +205,6 @@ public class Authorization {
 	/**
 	* The date and time when the authorization was last updated, in [Internet date and time format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("update_time")
 	private String updateTime;
 
 	public String updateTime() { return updateTime; }
@@ -226,7 +217,6 @@ public class Authorization {
 	/**
 	* The date and time when the authorization expires, in [Internet date and time format](http://tools.ietf.org/html/rfc3339#section-5.6).
 	*/
-	@SerializedName("valid_until")
 	private String validUntil;
 
 	public String validUntil() { return validUntil; }
@@ -235,4 +225,124 @@ public class Authorization {
 	    this.validUntil = validUntil;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (amount != null) {
+            serialized.put("amount", this.amount);
+        }
+        if (createTime != null) {
+            serialized.put("create_time", this.createTime);
+        }
+        if (fmfDetails != null) {
+            serialized.put("fmf_details", this.fmfDetails);
+        }
+        if (id != null) {
+            serialized.put("id", this.id);
+        }
+        if (links != null) {
+            serialized.put("links", this.links);
+        }
+        if (parentPayment != null) {
+            serialized.put("parent_payment", this.parentPayment);
+        }
+        if (paymentMode != null) {
+            serialized.put("payment_mode", this.paymentMode);
+        }
+        if (pendingReason != null) {
+            serialized.put("pending_reason", this.pendingReason);
+        }
+        if (processorResponse != null) {
+            serialized.put("processor_response", this.processorResponse);
+        }
+        if (protectionEligibility != null) {
+            serialized.put("protection_eligibility", this.protectionEligibility);
+        }
+        if (protectionEligibilityType != null) {
+            serialized.put("protection_eligibility_type", this.protectionEligibilityType);
+        }
+        if (reasonCode != null) {
+            serialized.put("reason_code", this.reasonCode);
+        }
+        if (receiptId != null) {
+            serialized.put("receipt_id", this.receiptId);
+        }
+        if (referenceId != null) {
+            serialized.put("reference_id", this.referenceId);
+        }
+        if (state != null) {
+            serialized.put("state", this.state);
+        }
+        if (updateTime != null) {
+            serialized.put("update_time", this.updateTime);
+        }
+        if (validUntil != null) {
+            serialized.put("valid_until", this.validUntil);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("amount")) {
+            this.amount = new Amount();
+            this.amount.deserialize((Map<String, Object>) values.get("amount"));
+        }
+        if (values.containsKey("create_time")) {
+            this.createTime = (String) values.get("create_time");
+        }
+        if (values.containsKey("fmf_details")) {
+            this.fmfDetails = new FMFDetails();
+            this.fmfDetails.deserialize((Map<String, Object>) values.get("fmf_details"));
+        }
+        if (values.containsKey("id")) {
+            this.id = (String) values.get("id");
+        }
+        if (values.containsKey("links")) {
+            this.links = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("links");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					LinkDescriptionObject nested = new LinkDescriptionObject();
+					nested.deserialize(nestedValue);
+					this.links.add(nested);
+                }
+        }
+        if (values.containsKey("parent_payment")) {
+            this.parentPayment = (String) values.get("parent_payment");
+        }
+        if (values.containsKey("payment_mode")) {
+            this.paymentMode = (String) values.get("payment_mode");
+        }
+        if (values.containsKey("pending_reason")) {
+            this.pendingReason = (String) values.get("pending_reason");
+        }
+        if (values.containsKey("processor_response")) {
+            this.processorResponse = new ProcessorResponse();
+            this.processorResponse.deserialize((Map<String, Object>) values.get("processor_response"));
+        }
+        if (values.containsKey("protection_eligibility")) {
+            this.protectionEligibility = (String) values.get("protection_eligibility");
+        }
+        if (values.containsKey("protection_eligibility_type")) {
+            this.protectionEligibilityType = (String) values.get("protection_eligibility_type");
+        }
+        if (values.containsKey("reason_code")) {
+            this.reasonCode = (String) values.get("reason_code");
+        }
+        if (values.containsKey("receipt_id")) {
+            this.receiptId = (String) values.get("receipt_id");
+        }
+        if (values.containsKey("reference_id")) {
+            this.referenceId = (String) values.get("reference_id");
+        }
+        if (values.containsKey("state")) {
+            this.state = (String) values.get("state");
+        }
+        if (values.containsKey("update_time")) {
+            this.updateTime = (String) values.get("update_time");
+        }
+        if (values.containsKey("valid_until")) {
+            this.validUntil = (String) values.get("valid_until");
+        }
+    }
 }
+

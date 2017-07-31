@@ -3,8 +3,9 @@ package com.paypal.core.utils;
 import com.braintreepayments.http.Headers;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
+import com.braintreepayments.http.exceptions.JsonSerializeException;
+import com.braintreepayments.http.serializer.Json;
 import com.braintreepayments.http.testutils.WireMockHarness;
-import com.google.gson.Gson;
 import com.paypal.core.authorization.PayPalEnvironment;
 import com.paypal.core.object.AccessToken;
 import com.paypal.core.request.AccessTokenRequest;
@@ -33,11 +34,13 @@ public class PayPalWireMockHarness extends WireMockHarness {
 		String verb = request.verb();
 		Map<String, String> headers = translateHeaders(request.headers());
 		String body = null;
-		if (request.body() != null) {
-			if (request.body() instanceof String) {
-				body = (String) request.body();
+		if (request.requestBody() != null) {
+			if (request.requestBody() instanceof String) {
+				body = (String) request.requestBody();
 			} else {
-				body = new Gson().toJson(request.body());
+				try {
+					body = new Json().serialize(request.requestBody());
+				} catch (JsonSerializeException ignored) {}
 			}
 		}
 
@@ -48,7 +51,9 @@ public class PayPalWireMockHarness extends WireMockHarness {
 			if (response.result() instanceof String) {
 				responseBody = (String) response.result();
 			} else {
-				responseBody = new Gson().toJson(response.result());
+				try {
+					responseBody = new Json().serialize(response.result());
+				} catch (JsonSerializeException ignored) {}
 			}
 			statusCode = response.statusCode();
 			responseHeaders = translateHeaders(response.headers());

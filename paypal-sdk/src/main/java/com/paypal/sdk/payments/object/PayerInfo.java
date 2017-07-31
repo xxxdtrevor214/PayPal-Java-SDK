@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // PayerInfo.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The payer information.
  */
-public class PayerInfo {
+public class PayerInfo implements Serializable, Deserializable {
+
+    // Required default constructor
+    public PayerInfo() {}
 
 	/**
 	* The billing address in a payment. Can be extended for shipping address.
 	*/
-	@SerializedName("billing_address")
 	private Address billingAddress;
 
 	public Address billingAddress() { return billingAddress; }
@@ -30,7 +36,6 @@ public class PayerInfo {
 	/**
 	* The birth date of the payer, in [Internet date format](http://tools.ietf.org/html/rfc3339#section-5.6). For example, `1990-04-12`.
 	*/
-	@SerializedName("birth_date")
 	private String birthDate;
 
 	public String birthDate() { return birthDate; }
@@ -43,7 +48,6 @@ public class PayerInfo {
 	/**
 	* The payer's [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/classic/api/country_codes/).
 	*/
-	@SerializedName("country_code")
 	private String countryCode;
 
 	public String countryCode() { return countryCode; }
@@ -56,7 +60,6 @@ public class PayerInfo {
 	/**
 	* The payer's email address. Maximum length is 127 characters.
 	*/
-	@SerializedName("email")
 	private String email;
 
 	public String email() { return email; }
@@ -69,7 +72,6 @@ public class PayerInfo {
 	/**
 	* The payer's first name.
 	*/
-	@SerializedName("first_name")
 	private String firstName;
 
 	public String firstName() { return firstName; }
@@ -82,7 +84,6 @@ public class PayerInfo {
 	/**
 	* The payer's last name.
 	*/
-	@SerializedName("last_name")
 	private String lastName;
 
 	public String lastName() { return lastName; }
@@ -95,7 +96,6 @@ public class PayerInfo {
 	/**
 	* The payer's middle name.
 	*/
-	@SerializedName("middle_name")
 	private String middleName;
 
 	public String middleName() { return middleName; }
@@ -108,7 +108,6 @@ public class PayerInfo {
 	/**
 	* The PayPal-assigned encrypted payer ID.
 	*/
-	@SerializedName("payer_id")
 	private String payerId;
 
 	public String payerId() { return payerId; }
@@ -121,7 +120,6 @@ public class PayerInfo {
 	/**
 	* The payer's phone number. Maximum length is 20 characters.
 	*/
-	@SerializedName("phone")
 	private String phone;
 
 	public String phone() { return phone; }
@@ -134,7 +132,6 @@ public class PayerInfo {
 	/**
 	* The phone type.
 	*/
-	@SerializedName("phone_type")
 	private String phoneType;
 
 	public String phoneType() { return phoneType; }
@@ -147,7 +144,6 @@ public class PayerInfo {
 	/**
 	* The payer's salutation.
 	*/
-	@SerializedName("salutation")
 	private String salutation;
 
 	public String salutation() { return salutation; }
@@ -160,7 +156,6 @@ public class PayerInfo {
 	/**
 	* The extended address, which is used as the shipping address in a payment.
 	*/
-	@SerializedName("shipping_address")
 	private ShippingAddress shippingAddress;
 
 	public ShippingAddress shippingAddress() { return shippingAddress; }
@@ -173,7 +168,6 @@ public class PayerInfo {
 	/**
 	* The payer's suffix.
 	*/
-	@SerializedName("suffix")
 	private String suffix;
 
 	public String suffix() { return suffix; }
@@ -186,7 +180,6 @@ public class PayerInfo {
 	/**
 	* The payer’s tax ID. Supported for the PayPal payment method only.
 	*/
-	@SerializedName("tax_id")
 	private String taxId;
 
 	public String taxId() { return taxId; }
@@ -199,7 +192,6 @@ public class PayerInfo {
 	/**
 	* The payer’s tax ID type. Supported for the PayPal payment method only.
 	*/
-	@SerializedName("tax_id_type")
 	private String taxIdType;
 
 	public String taxIdType() { return taxIdType; }
@@ -208,4 +200,105 @@ public class PayerInfo {
 	    this.taxIdType = taxIdType;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (billingAddress != null) {
+            serialized.put("billing_address", this.billingAddress);
+        }
+        if (birthDate != null) {
+            serialized.put("birth_date", this.birthDate);
+        }
+        if (countryCode != null) {
+            serialized.put("country_code", this.countryCode);
+        }
+        if (email != null) {
+            serialized.put("email", this.email);
+        }
+        if (firstName != null) {
+            serialized.put("first_name", this.firstName);
+        }
+        if (lastName != null) {
+            serialized.put("last_name", this.lastName);
+        }
+        if (middleName != null) {
+            serialized.put("middle_name", this.middleName);
+        }
+        if (payerId != null) {
+            serialized.put("payer_id", this.payerId);
+        }
+        if (phone != null) {
+            serialized.put("phone", this.phone);
+        }
+        if (phoneType != null) {
+            serialized.put("phone_type", this.phoneType);
+        }
+        if (salutation != null) {
+            serialized.put("salutation", this.salutation);
+        }
+        if (shippingAddress != null) {
+            serialized.put("shipping_address", this.shippingAddress);
+        }
+        if (suffix != null) {
+            serialized.put("suffix", this.suffix);
+        }
+        if (taxId != null) {
+            serialized.put("tax_id", this.taxId);
+        }
+        if (taxIdType != null) {
+            serialized.put("tax_id_type", this.taxIdType);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("billing_address")) {
+            this.billingAddress = new Address();
+            this.billingAddress.deserialize((Map<String, Object>) values.get("billing_address"));
+        }
+        if (values.containsKey("birth_date")) {
+            this.birthDate = (String) values.get("birth_date");
+        }
+        if (values.containsKey("country_code")) {
+            this.countryCode = (String) values.get("country_code");
+        }
+        if (values.containsKey("email")) {
+            this.email = (String) values.get("email");
+        }
+        if (values.containsKey("first_name")) {
+            this.firstName = (String) values.get("first_name");
+        }
+        if (values.containsKey("last_name")) {
+            this.lastName = (String) values.get("last_name");
+        }
+        if (values.containsKey("middle_name")) {
+            this.middleName = (String) values.get("middle_name");
+        }
+        if (values.containsKey("payer_id")) {
+            this.payerId = (String) values.get("payer_id");
+        }
+        if (values.containsKey("phone")) {
+            this.phone = (String) values.get("phone");
+        }
+        if (values.containsKey("phone_type")) {
+            this.phoneType = (String) values.get("phone_type");
+        }
+        if (values.containsKey("salutation")) {
+            this.salutation = (String) values.get("salutation");
+        }
+        if (values.containsKey("shipping_address")) {
+            this.shippingAddress = new ShippingAddress();
+            this.shippingAddress.deserialize((Map<String, Object>) values.get("shipping_address"));
+        }
+        if (values.containsKey("suffix")) {
+            this.suffix = (String) values.get("suffix");
+        }
+        if (values.containsKey("tax_id")) {
+            this.taxId = (String) values.get("tax_id");
+        }
+        if (values.containsKey("tax_id_type")) {
+            this.taxIdType = (String) values.get("tax_id_type");
+        }
+    }
 }
+

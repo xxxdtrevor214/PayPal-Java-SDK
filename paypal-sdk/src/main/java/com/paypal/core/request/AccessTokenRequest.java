@@ -15,11 +15,11 @@ public class AccessTokenRequest extends HttpRequest<AccessToken> {
 
 	public AccessTokenRequest(PayPalEnvironment credentials) {
 		this("/v1/oauth2/token", credentials);
-		body("grant_type=client_credentials");
+		super.requestBody("grant_type=client_credentials");
 	}
 
 	public AccessTokenRequest(PayPalEnvironment credentials, String refreshToken) {
 		this("/v1/identity/openidconnect/tokenservice", credentials);
-		body("grant_type=client_credentials&refresh_token=" + refreshToken);
+		super.requestBody("grant_type=client_credentials&refresh_token=" + refreshToken);
 	}
 }

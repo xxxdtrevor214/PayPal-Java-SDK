@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // RefundRequest.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * A refund request.
  */
-public class RefundRequest {
+public class RefundRequest implements Serializable, Deserializable {
+
+    // Required default constructor
+    public RefundRequest() {}
 
 	/**
 	* The payment amount, with break-ups.
 	*/
-	@SerializedName("amount")
 	private Amount amount;
 
 	public Amount amount() { return amount; }
@@ -30,7 +36,6 @@ public class RefundRequest {
 	/**
 	* The refund description. Maximum length is 255 single-byte alphanumeric characters.
 	*/
-	@SerializedName("description")
 	private String description;
 
 	public String description() { return description; }
@@ -43,7 +48,6 @@ public class RefundRequest {
 	/**
 	* The invoice number that is used to track this payment. Maximum length is 127 single-byte alphanumeric characters.
 	*/
-	@SerializedName("invoice_number")
 	private String invoiceNumber;
 
 	public String invoiceNumber() { return invoiceNumber; }
@@ -56,7 +60,6 @@ public class RefundRequest {
 	/**
 	* List of items.
 	*/
-	@SerializedName("items")
 	private List<Item> items;
 
 	public List<Item> items() { return items; }
@@ -69,7 +72,6 @@ public class RefundRequest {
 	/**
 	* The payer information.
 	*/
-	@SerializedName("payer_info")
 	private PayerInfo payerInfo;
 
 	public PayerInfo payerInfo() { return payerInfo; }
@@ -82,7 +84,6 @@ public class RefundRequest {
 	/**
 	* The refund reason description.
 	*/
-	@SerializedName("reason")
 	private String reason;
 
 	public String reason() { return reason; }
@@ -95,7 +96,6 @@ public class RefundRequest {
 	/**
 	* Indicates whether store credit was already given to the payer.
 	*/
-	@SerializedName("refund_advice")
 	private Boolean refundAdvice;
 
 	public Boolean refundAdvice() { return refundAdvice; }
@@ -108,7 +108,6 @@ public class RefundRequest {
 	/**
 	* The PayPal funding source type, such as balance or eCheck, to use for auto refund.
 	*/
-	@SerializedName("refund_source")
 	private String refundSource;
 
 	public String refundSource() { return refundSource; }
@@ -121,7 +120,6 @@ public class RefundRequest {
 	/**
 	* Set of optional data
 	*/
-	@SerializedName("supplementary_data")
 	private List<NameAndValuePair> supplementaryData;
 
 	public List<NameAndValuePair> supplementaryData() { return supplementaryData; }
@@ -130,4 +128,81 @@ public class RefundRequest {
 	    this.supplementaryData = supplementaryData;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (amount != null) {
+            serialized.put("amount", this.amount);
+        }
+        if (description != null) {
+            serialized.put("description", this.description);
+        }
+        if (invoiceNumber != null) {
+            serialized.put("invoice_number", this.invoiceNumber);
+        }
+        if (items != null) {
+            serialized.put("items", this.items);
+        }
+        if (payerInfo != null) {
+            serialized.put("payer_info", this.payerInfo);
+        }
+        if (reason != null) {
+            serialized.put("reason", this.reason);
+        }
+        if (refundAdvice != null) {
+            serialized.put("refund_advice", this.refundAdvice);
+        }
+        if (refundSource != null) {
+            serialized.put("refund_source", this.refundSource);
+        }
+        if (supplementaryData != null) {
+            serialized.put("supplementary_data", this.supplementaryData);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("amount")) {
+            this.amount = new Amount();
+            this.amount.deserialize((Map<String, Object>) values.get("amount"));
+        }
+        if (values.containsKey("description")) {
+            this.description = (String) values.get("description");
+        }
+        if (values.containsKey("invoice_number")) {
+            this.invoiceNumber = (String) values.get("invoice_number");
+        }
+        if (values.containsKey("items")) {
+            this.items = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("items");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					Item nested = new Item();
+					nested.deserialize(nestedValue);
+					this.items.add(nested);
+                }
+        }
+        if (values.containsKey("payer_info")) {
+            this.payerInfo = new PayerInfo();
+            this.payerInfo.deserialize((Map<String, Object>) values.get("payer_info"));
+        }
+        if (values.containsKey("reason")) {
+            this.reason = (String) values.get("reason");
+        }
+        if (values.containsKey("refund_advice")) {
+            this.refundAdvice = (Boolean) values.get("refund_advice");
+        }
+        if (values.containsKey("refund_source")) {
+            this.refundSource = (String) values.get("refund_source");
+        }
+        if (values.containsKey("supplementary_data")) {
+            this.supplementaryData = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("supplementary_data");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					NameAndValuePair nested = new NameAndValuePair();
+					nested.deserialize(nestedValue);
+					this.supplementaryData.add(nested);
+                }
+        }
+    }
 }
+

@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // Invoices.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * List of merchant invoices. Can include the total invoices count and HATEOAS links for navigation.
  */
-public class Invoices {
+public class Invoices implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Invoices() {}
 
 	/**
 	* An array of invoices as search result.
 	*/
-	@SerializedName("invoices")
 	private List<Invoice> invoices;
 
 	public List<Invoice> invoices() { return invoices; }
@@ -30,7 +36,6 @@ public class Invoices {
 	/**
 	* The HATEOAS links for `next` and `previous` navigation in the result set.
 	*/
-	@SerializedName("links")
 	private List<LinkDescriptionObject> links;
 
 	public List<LinkDescriptionObject> links() { return links; }
@@ -43,7 +48,6 @@ public class Invoices {
 	/**
 	* The total number of invoices that match the search criteria.
 	*/
-	@SerializedName("total_count")
 	private Integer totalCount;
 
 	public Integer totalCount() { return totalCount; }
@@ -52,4 +56,43 @@ public class Invoices {
 	    this.totalCount = totalCount;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (invoices != null) {
+            serialized.put("invoices", this.invoices);
+        }
+        if (links != null) {
+            serialized.put("links", this.links);
+        }
+        if (totalCount != null) {
+            serialized.put("total_count", this.totalCount);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("invoices")) {
+            this.invoices = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("invoices");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					Invoice nested = new Invoice();
+					nested.deserialize(nestedValue);
+					this.invoices.add(nested);
+                }
+        }
+        if (values.containsKey("links")) {
+            this.links = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("links");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					LinkDescriptionObject nested = new LinkDescriptionObject();
+					nested.deserialize(nestedValue);
+					this.links.add(nested);
+                }
+        }
+        if (values.containsKey("total_count")) {
+            this.totalCount = ((Number) values.get("total_count")).intValue();
+        }
+    }
 }
+

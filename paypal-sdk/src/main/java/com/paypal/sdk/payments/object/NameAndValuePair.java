@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // NameAndValuePair.java
 // DO NOT EDIT
 // @type object
@@ -7,18 +7,24 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Define a type for name-and-value pairs. Limit the use of name-and-value pairs in an API. Obtain approval by architecture.
  */
-public class NameAndValuePair {
+public class NameAndValuePair implements Serializable, Deserializable {
+
+    // Required default constructor
+    public NameAndValuePair() {}
 
 	/**
 	* REQUIRED
 	* The key for the name-and-value pair. You must correlate the value and name types.
 	*/
-	@SerializedName("name")
 	private String name;
 
 	public String name() { return name; }
@@ -32,7 +38,6 @@ public class NameAndValuePair {
 	* REQUIRED
 	* The value for the name-and-value pair.
 	*/
-	@SerializedName("value")
 	private String value;
 
 	public String value() { return value; }
@@ -41,4 +46,25 @@ public class NameAndValuePair {
 	    this.value = value;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (name != null) {
+            serialized.put("name", this.name);
+        }
+        if (value != null) {
+            serialized.put("value", this.value);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("name")) {
+            this.name = (String) values.get("name");
+        }
+        if (values.containsKey("value")) {
+            this.value = (String) values.get("value");
+        }
+    }
 }
+

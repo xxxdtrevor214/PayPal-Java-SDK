@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // ShippingAddress.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The extended address, which is used as the shipping address in a payment.
  */
-public class ShippingAddress {
+public class ShippingAddress implements Serializable, Deserializable {
+
+    // Required default constructor
+    public ShippingAddress() {}
 
 	/**
 	* The city name. Maximum length is 50 characters.
 	*/
-	@SerializedName("city")
 	private String city;
 
 	public String city() { return city; }
@@ -31,7 +37,6 @@ public class ShippingAddress {
 	* REQUIRED
 	* The [two-character country code](https://developer.paypal.com/docs/classic/api/country_codes/).
 	*/
-	@SerializedName("country_code")
 	private String countryCode;
 
 	public String countryCode() { return countryCode; }
@@ -45,7 +50,6 @@ public class ShippingAddress {
 	* REQUIRED
 	* The first line of the address. For example, number, street, and so on. Maximum length is 100 characters.
 	*/
-	@SerializedName("line1")
 	private String line1;
 
 	public String line1() { return line1; }
@@ -58,7 +62,6 @@ public class ShippingAddress {
 	/**
 	* The second line of the address. For example, suite, apartment number, and so on. Maximum length is 100 characters.
 	*/
-	@SerializedName("line2")
 	private String line2;
 
 	public String line2() { return line2; }
@@ -71,7 +74,6 @@ public class ShippingAddress {
 	/**
 	* The address normalization status. Returned only for payers from Brazil.
 	*/
-	@SerializedName("normalization_status")
 	private String normalizationStatus;
 
 	public String normalizationStatus() { return normalizationStatus; }
@@ -84,7 +86,6 @@ public class ShippingAddress {
 	/**
 	* The phone number, in [E.123 format](https://www.itu.int/rec/T-REC-E.123-200102-I/en). Maximum length is 50 characters.
 	*/
-	@SerializedName("phone")
 	private String phone;
 
 	public String phone() { return phone; }
@@ -97,7 +98,6 @@ public class ShippingAddress {
 	/**
 	* The zip code or equivalent. Typically required for countries that have them. Maximum length is 20 characters.**Required in certain countries.**
 	*/
-	@SerializedName("postal_code")
 	private String postalCode;
 
 	public String postalCode() { return postalCode; }
@@ -110,7 +110,6 @@ public class ShippingAddress {
 	/**
 	* The name of the recipient at this address.
 	*/
-	@SerializedName("recipient_name")
 	private String recipientName;
 
 	public String recipientName() { return recipientName; }
@@ -123,7 +122,6 @@ public class ShippingAddress {
 	/**
 	* The two-letter code for US states or the equivalent for other countries. Maximum length is 100 characters.
 	*/
-	@SerializedName("state")
 	private String state;
 
 	public String state() { return state; }
@@ -136,7 +134,6 @@ public class ShippingAddress {
 	/**
 	* The address status.
 	*/
-	@SerializedName("status")
 	private String status;
 
 	public String status() { return status; }
@@ -149,7 +146,6 @@ public class ShippingAddress {
 	/**
 	* The type of address. For example, `HOME_OR_WORK`, `GIFT`, and so on.
 	*/
-	@SerializedName("type")
 	private String type;
 
 	public String type() { return type; }
@@ -158,4 +154,79 @@ public class ShippingAddress {
 	    this.type = type;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (city != null) {
+            serialized.put("city", this.city);
+        }
+        if (countryCode != null) {
+            serialized.put("country_code", this.countryCode);
+        }
+        if (line1 != null) {
+            serialized.put("line1", this.line1);
+        }
+        if (line2 != null) {
+            serialized.put("line2", this.line2);
+        }
+        if (normalizationStatus != null) {
+            serialized.put("normalization_status", this.normalizationStatus);
+        }
+        if (phone != null) {
+            serialized.put("phone", this.phone);
+        }
+        if (postalCode != null) {
+            serialized.put("postal_code", this.postalCode);
+        }
+        if (recipientName != null) {
+            serialized.put("recipient_name", this.recipientName);
+        }
+        if (state != null) {
+            serialized.put("state", this.state);
+        }
+        if (status != null) {
+            serialized.put("status", this.status);
+        }
+        if (type != null) {
+            serialized.put("type", this.type);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("city")) {
+            this.city = (String) values.get("city");
+        }
+        if (values.containsKey("country_code")) {
+            this.countryCode = (String) values.get("country_code");
+        }
+        if (values.containsKey("line1")) {
+            this.line1 = (String) values.get("line1");
+        }
+        if (values.containsKey("line2")) {
+            this.line2 = (String) values.get("line2");
+        }
+        if (values.containsKey("normalization_status")) {
+            this.normalizationStatus = (String) values.get("normalization_status");
+        }
+        if (values.containsKey("phone")) {
+            this.phone = (String) values.get("phone");
+        }
+        if (values.containsKey("postal_code")) {
+            this.postalCode = (String) values.get("postal_code");
+        }
+        if (values.containsKey("recipient_name")) {
+            this.recipientName = (String) values.get("recipient_name");
+        }
+        if (values.containsKey("state")) {
+            this.state = (String) values.get("state");
+        }
+        if (values.containsKey("status")) {
+            this.status = (String) values.get("status");
+        }
+        if (values.containsKey("type")) {
+            this.type = (String) values.get("type");
+        }
+    }
 }
+

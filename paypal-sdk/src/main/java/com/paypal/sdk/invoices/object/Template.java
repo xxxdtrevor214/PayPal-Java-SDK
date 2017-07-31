@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // Template.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Invoicing template.
  */
-public class Template {
+public class Template implements Serializable, Deserializable {
+
+    // Required default constructor
+    public Template() {}
 
 	/**
 	* Indicates whether this template is a merchant-created custom template. Non-custom templates are system generated.
 	*/
-	@SerializedName("custom")
 	private Boolean custom;
 
 	public Boolean custom() { return custom; }
@@ -30,7 +36,6 @@ public class Template {
 	/**
 	* Indicates whether this template is the default merchant template. A merchant can have one default template.
 	*/
-	@SerializedName("default")
 	private Boolean _default;
 
 	public Boolean _default() { return _default; }
@@ -43,7 +48,6 @@ public class Template {
 	/**
 	* The HATEOS links that enable template actions.
 	*/
-	@SerializedName("links")
 	private List<LinkDescriptionObject> links;
 
 	public List<LinkDescriptionObject> links() { return links; }
@@ -56,7 +60,6 @@ public class Template {
 	/**
 	* The template name.
 	*/
-	@SerializedName("name")
 	private String name;
 
 	public String name() { return name; }
@@ -69,7 +72,6 @@ public class Template {
 	/**
 	* Settings for each template.
 	*/
-	@SerializedName("settings")
 	private List<TemplateSettings> settings;
 
 	public List<TemplateSettings> settings() { return settings; }
@@ -82,7 +84,6 @@ public class Template {
 	/**
 	* Template data.
 	*/
-	@SerializedName("template_data")
 	private TemplateData templateData;
 
 	public TemplateData templateData() { return templateData; }
@@ -95,7 +96,6 @@ public class Template {
 	/**
 	* The ID of the template.
 	*/
-	@SerializedName("template_id")
 	private String templateId;
 
 	public String templateId() { return templateId; }
@@ -108,7 +108,6 @@ public class Template {
 	/**
 	* The unit of measure for the template. Value is quantity, hours, or amount.
 	*/
-	@SerializedName("unit_of_measure")
 	private String unitOfMeasure;
 
 	public String unitOfMeasure() { return unitOfMeasure; }
@@ -117,4 +116,74 @@ public class Template {
 	    this.unitOfMeasure = unitOfMeasure;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (custom != null) {
+            serialized.put("custom", this.custom);
+        }
+        if (_default != null) {
+            serialized.put("default", this._default);
+        }
+        if (links != null) {
+            serialized.put("links", this.links);
+        }
+        if (name != null) {
+            serialized.put("name", this.name);
+        }
+        if (settings != null) {
+            serialized.put("settings", this.settings);
+        }
+        if (templateData != null) {
+            serialized.put("template_data", this.templateData);
+        }
+        if (templateId != null) {
+            serialized.put("template_id", this.templateId);
+        }
+        if (unitOfMeasure != null) {
+            serialized.put("unit_of_measure", this.unitOfMeasure);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("custom")) {
+            this.custom = (Boolean) values.get("custom");
+        }
+        if (values.containsKey("default")) {
+            this._default = (Boolean) values.get("default");
+        }
+        if (values.containsKey("links")) {
+            this.links = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("links");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					LinkDescriptionObject nested = new LinkDescriptionObject();
+					nested.deserialize(nestedValue);
+					this.links.add(nested);
+                }
+        }
+        if (values.containsKey("name")) {
+            this.name = (String) values.get("name");
+        }
+        if (values.containsKey("settings")) {
+            this.settings = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("settings");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					TemplateSettings nested = new TemplateSettings();
+					nested.deserialize(nestedValue);
+					this.settings.add(nested);
+                }
+        }
+        if (values.containsKey("template_data")) {
+            this.templateData = new TemplateData();
+            this.templateData.deserialize((Map<String, Object>) values.get("template_data"));
+        }
+        if (values.containsKey("template_id")) {
+            this.templateId = (String) values.get("template_id");
+        }
+        if (values.containsKey("unit_of_measure")) {
+            this.unitOfMeasure = (String) values.get("unit_of_measure");
+        }
+    }
 }
+

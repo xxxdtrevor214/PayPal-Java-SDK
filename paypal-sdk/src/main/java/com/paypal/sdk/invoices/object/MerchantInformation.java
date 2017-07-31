@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // MerchantInformation.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Merchant business information that appears on the invoice.
  */
-public class MerchantInformation {
+public class MerchantInformation implements Serializable, Deserializable {
+
+    // Required default constructor
+    public MerchantInformation() {}
 
 	/**
 	* Additional information, such as business hours.
 	*/
-	@SerializedName("additional_info")
 	private String additionalInfo;
 
 	public String additionalInfo() { return additionalInfo; }
@@ -30,7 +36,6 @@ public class MerchantInformation {
 	/**
 	* A label for the `additional_info` field.
 	*/
-	@SerializedName("additional_info_label")
 	private String additionalInfoLabel;
 
 	public String additionalInfoLabel() { return additionalInfoLabel; }
@@ -43,7 +48,6 @@ public class MerchantInformation {
 	/**
 	* Base Address object used as billing address in a payment or extended for Shipping Address.
 	*/
-	@SerializedName("address")
 	private Address address;
 
 	public Address address() { return address; }
@@ -56,7 +60,6 @@ public class MerchantInformation {
 	/**
 	* The merchant company business name.
 	*/
-	@SerializedName("business_name")
 	private String businessName;
 
 	public String businessName() { return businessName; }
@@ -70,7 +73,6 @@ public class MerchantInformation {
 	* REQUIRED
 	* The merchant email address.
 	*/
-	@SerializedName("email")
 	private String email;
 
 	public String email() { return email; }
@@ -83,7 +85,6 @@ public class MerchantInformation {
 	/**
 	* The phone number.
 	*/
-	@SerializedName("fax")
 	private Phone fax;
 
 	public Phone fax() { return fax; }
@@ -96,7 +97,6 @@ public class MerchantInformation {
 	/**
 	* The merchant first name.
 	*/
-	@SerializedName("first_name")
 	private String firstName;
 
 	public String firstName() { return firstName; }
@@ -109,7 +109,6 @@ public class MerchantInformation {
 	/**
 	* The merchant last name.
 	*/
-	@SerializedName("last_name")
 	private String lastName;
 
 	public String lastName() { return lastName; }
@@ -122,7 +121,6 @@ public class MerchantInformation {
 	/**
 	* The phone number.
 	*/
-	@SerializedName("phone")
 	private Phone phone;
 
 	public Phone phone() { return phone; }
@@ -135,7 +133,6 @@ public class MerchantInformation {
 	/**
 	* The merchant tax ID.
 	*/
-	@SerializedName("tax_id")
 	private String taxId;
 
 	public String taxId() { return taxId; }
@@ -148,7 +145,6 @@ public class MerchantInformation {
 	/**
 	* The merchant website.
 	*/
-	@SerializedName("website")
 	private String website;
 
 	public String website() { return website; }
@@ -157,4 +153,82 @@ public class MerchantInformation {
 	    this.website = website;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (additionalInfo != null) {
+            serialized.put("additional_info", this.additionalInfo);
+        }
+        if (additionalInfoLabel != null) {
+            serialized.put("additional_info_label", this.additionalInfoLabel);
+        }
+        if (address != null) {
+            serialized.put("address", this.address);
+        }
+        if (businessName != null) {
+            serialized.put("business_name", this.businessName);
+        }
+        if (email != null) {
+            serialized.put("email", this.email);
+        }
+        if (fax != null) {
+            serialized.put("fax", this.fax);
+        }
+        if (firstName != null) {
+            serialized.put("first_name", this.firstName);
+        }
+        if (lastName != null) {
+            serialized.put("last_name", this.lastName);
+        }
+        if (phone != null) {
+            serialized.put("phone", this.phone);
+        }
+        if (taxId != null) {
+            serialized.put("tax_id", this.taxId);
+        }
+        if (website != null) {
+            serialized.put("website", this.website);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("additional_info")) {
+            this.additionalInfo = (String) values.get("additional_info");
+        }
+        if (values.containsKey("additional_info_label")) {
+            this.additionalInfoLabel = (String) values.get("additional_info_label");
+        }
+        if (values.containsKey("address")) {
+            this.address = new Address();
+            this.address.deserialize((Map<String, Object>) values.get("address"));
+        }
+        if (values.containsKey("business_name")) {
+            this.businessName = (String) values.get("business_name");
+        }
+        if (values.containsKey("email")) {
+            this.email = (String) values.get("email");
+        }
+        if (values.containsKey("fax")) {
+            this.fax = new Phone();
+            this.fax.deserialize((Map<String, Object>) values.get("fax"));
+        }
+        if (values.containsKey("first_name")) {
+            this.firstName = (String) values.get("first_name");
+        }
+        if (values.containsKey("last_name")) {
+            this.lastName = (String) values.get("last_name");
+        }
+        if (values.containsKey("phone")) {
+            this.phone = new Phone();
+            this.phone.deserialize((Map<String, Object>) values.get("phone"));
+        }
+        if (values.containsKey("tax_id")) {
+            this.taxId = (String) values.get("tax_id");
+        }
+        if (values.containsKey("website")) {
+            this.website = (String) values.get("website");
+        }
+    }
 }
+

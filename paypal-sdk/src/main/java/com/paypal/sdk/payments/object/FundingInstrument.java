@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // FundingInstrument.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * A payer's funding instrument. An instance of this schema is valid if and only if it is valid against exactly one of these supported properties.
  */
-public class FundingInstrument {
+public class FundingInstrument implements Serializable, Deserializable {
+
+    // Required default constructor
+    public FundingInstrument() {}
 
 	/**
 	* [DEPRECATED] A credit card that can be used to fund a payment. Use payment card instead.
 	*/
-	@SerializedName("credit_card")
 	private CreditCard creditCard;
 
 	public CreditCard creditCard() { return creditCard; }
@@ -30,7 +36,6 @@ public class FundingInstrument {
 	/**
 	* A tokenized credit card that can be used to fund a payment.
 	*/
-	@SerializedName("credit_card_token")
 	private CreditCardToken creditCardToken;
 
 	public CreditCardToken creditCardToken() { return creditCardToken; }
@@ -39,4 +44,27 @@ public class FundingInstrument {
 	    this.creditCardToken = creditCardToken;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (creditCard != null) {
+            serialized.put("credit_card", this.creditCard);
+        }
+        if (creditCardToken != null) {
+            serialized.put("credit_card_token", this.creditCardToken);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("credit_card")) {
+            this.creditCard = new CreditCard();
+            this.creditCard.deserialize((Map<String, Object>) values.get("credit_card"));
+        }
+        if (values.containsKey("credit_card_token")) {
+            this.creditCardToken = new CreditCardToken();
+            this.creditCardToken.deserialize((Map<String, Object>) values.get("credit_card_token"));
+        }
+    }
 }
+

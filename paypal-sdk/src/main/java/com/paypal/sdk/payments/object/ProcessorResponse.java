@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // ProcessorResponse.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * A collection of payment response-related fields returned from a payment request.
  */
-public class ProcessorResponse {
+public class ProcessorResponse implements Serializable, Deserializable {
+
+    // Required default constructor
+    public ProcessorResponse() {}
 
 	/**
 	* The merchant advice on how to handle declines for recurring payments.
 	*/
-	@SerializedName("advice_code")
 	private String adviceCode;
 
 	public String adviceCode() { return adviceCode; }
@@ -30,7 +36,6 @@ public class ProcessorResponse {
 	/**
 	* The [Address Verification System (AVS)](https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/) response code.
 	*/
-	@SerializedName("avs_code")
 	private String avsCode;
 
 	public String avsCode() { return avsCode; }
@@ -43,7 +48,6 @@ public class ProcessorResponse {
 	/**
 	* The [CVV](https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/) system response code.
 	*/
-	@SerializedName("cvv_code")
 	private String cvvCode;
 
 	public String cvvCode() { return cvvCode; }
@@ -56,7 +60,6 @@ public class ProcessorResponse {
 	/**
 	* The processor-provided authorization response.
 	*/
-	@SerializedName("eci_submitted")
 	private String eciSubmitted;
 
 	public String eciSubmitted() { return eciSubmitted; }
@@ -70,7 +73,6 @@ public class ProcessorResponse {
 	* REQUIRED
 	* The PayPal normalized response code, which is generated from the processor's specific response code.
 	*/
-	@SerializedName("response_code")
 	private String responseCode;
 
 	public String responseCode() { return responseCode; }
@@ -83,7 +85,6 @@ public class ProcessorResponse {
 	/**
 	* The processor-provided Visa Payer Authentication Service status.
 	*/
-	@SerializedName("vpas")
 	private String vpas;
 
 	public String vpas() { return vpas; }
@@ -92,4 +93,49 @@ public class ProcessorResponse {
 	    this.vpas = vpas;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (adviceCode != null) {
+            serialized.put("advice_code", this.adviceCode);
+        }
+        if (avsCode != null) {
+            serialized.put("avs_code", this.avsCode);
+        }
+        if (cvvCode != null) {
+            serialized.put("cvv_code", this.cvvCode);
+        }
+        if (eciSubmitted != null) {
+            serialized.put("eci_submitted", this.eciSubmitted);
+        }
+        if (responseCode != null) {
+            serialized.put("response_code", this.responseCode);
+        }
+        if (vpas != null) {
+            serialized.put("vpas", this.vpas);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("advice_code")) {
+            this.adviceCode = (String) values.get("advice_code");
+        }
+        if (values.containsKey("avs_code")) {
+            this.avsCode = (String) values.get("avs_code");
+        }
+        if (values.containsKey("cvv_code")) {
+            this.cvvCode = (String) values.get("cvv_code");
+        }
+        if (values.containsKey("eci_submitted")) {
+            this.eciSubmitted = (String) values.get("eci_submitted");
+        }
+        if (values.containsKey("response_code")) {
+            this.responseCode = (String) values.get("response_code");
+        }
+        if (values.containsKey("vpas")) {
+            this.vpas = (String) values.get("vpas");
+        }
+    }
 }
+

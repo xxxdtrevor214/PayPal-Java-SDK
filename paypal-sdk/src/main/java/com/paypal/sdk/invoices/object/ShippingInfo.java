@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // ShippingInfo.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The shipping information for the invoice recipient.
  */
-public class ShippingInfo {
+public class ShippingInfo implements Serializable, Deserializable {
+
+    // Required default constructor
+    public ShippingInfo() {}
 
 	/**
 	* Base Address object used as billing address in a payment or extended for Shipping Address.
 	*/
-	@SerializedName("address")
 	private Address address;
 
 	public Address address() { return address; }
@@ -30,7 +36,6 @@ public class ShippingInfo {
 	/**
 	* The invoice recipient company business name.
 	*/
-	@SerializedName("business_name")
 	private String businessName;
 
 	public String businessName() { return businessName; }
@@ -43,7 +48,6 @@ public class ShippingInfo {
 	/**
 	* The invoice recipient first name.
 	*/
-	@SerializedName("first_name")
 	private String firstName;
 
 	public String firstName() { return firstName; }
@@ -56,7 +60,6 @@ public class ShippingInfo {
 	/**
 	* The invoice recipient last name.
 	*/
-	@SerializedName("last_name")
 	private String lastName;
 
 	public String lastName() { return lastName; }
@@ -65,4 +68,38 @@ public class ShippingInfo {
 	    this.lastName = lastName;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (address != null) {
+            serialized.put("address", this.address);
+        }
+        if (businessName != null) {
+            serialized.put("business_name", this.businessName);
+        }
+        if (firstName != null) {
+            serialized.put("first_name", this.firstName);
+        }
+        if (lastName != null) {
+            serialized.put("last_name", this.lastName);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("address")) {
+            this.address = new Address();
+            this.address.deserialize((Map<String, Object>) values.get("address"));
+        }
+        if (values.containsKey("business_name")) {
+            this.businessName = (String) values.get("business_name");
+        }
+        if (values.containsKey("first_name")) {
+            this.firstName = (String) values.get("first_name");
+        }
+        if (values.containsKey("last_name")) {
+            this.lastName = (String) values.get("last_name");
+        }
+    }
 }
+

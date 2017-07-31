@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // TemplateData.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * Template data.
  */
-public class TemplateData {
+public class TemplateData implements Serializable, Deserializable {
+
+    // Required default constructor
+    public TemplateData() {}
 
 	/**
 	* Indicates whether the invoice allows a partial payment. If `false`, invoice must be paid in full. If `true`, the invoice allows partial payments.
 	*/
-	@SerializedName("allow_partial_payment")
 	private Boolean allowPartialPayment;
 
 	public Boolean allowPartialPayment() { return allowPartialPayment; }
@@ -30,7 +36,6 @@ public class TemplateData {
 	/**
 	* List of files that are attached to the invoice.
 	*/
-	@SerializedName("attachments")
 	private List<FileAttachment> attachments;
 
 	public List<FileAttachment> attachments() { return attachments; }
@@ -43,7 +48,6 @@ public class TemplateData {
 	/**
 	* The required invoice recipient email address and any optional billing information. Supports one recipient only.
 	*/
-	@SerializedName("billing_info")
 	private List<BillingInfo> billingInfo;
 
 	public List<BillingInfo> billingInfo() { return billingInfo; }
@@ -56,7 +60,6 @@ public class TemplateData {
 	/**
 	* For invoices sent by email, one or more email addresses to which to send a CC: copy of the notification. Supports only email addresses under participant.
 	*/
-	@SerializedName("cc_info")
 	private List<String> ccInfo;
 
 	public List<String> ccInfo() { return ccInfo; }
@@ -69,7 +72,6 @@ public class TemplateData {
 	/**
 	* The custom amount to apply to an invoice. If you include a label, you must include a custom amount.
 	*/
-	@SerializedName("custom")
 	private CustomAmount custom;
 
 	public CustomAmount custom() { return custom; }
@@ -82,7 +84,6 @@ public class TemplateData {
 	/**
 	* The cost as a percent or an amount value. For example, to specify 10%, enter `10`. Alternatively, to specify an amount of 5, enter `5`.
 	*/
-	@SerializedName("discount")
 	private Cost discount;
 
 	public Cost discount() { return discount; }
@@ -95,7 +96,6 @@ public class TemplateData {
 	/**
 	* The list of items to include in the invoice. Each invoice can contain up to 100 items.
 	*/
-	@SerializedName("items")
 	private List<InvoiceItem> items;
 
 	public List<InvoiceItem> items() { return items; }
@@ -108,7 +108,6 @@ public class TemplateData {
 	/**
 	* The full URL of an external logo image.
 	*/
-	@SerializedName("logo_url")
 	private String logoUrl;
 
 	public String logoUrl() { return logoUrl; }
@@ -122,7 +121,6 @@ public class TemplateData {
 	* REQUIRED
 	* Merchant business information that appears on the invoice.
 	*/
-	@SerializedName("merchant_info")
 	private MerchantInformation merchantInfo;
 
 	public MerchantInformation merchantInfo() { return merchantInfo; }
@@ -135,7 +133,6 @@ public class TemplateData {
 	/**
 	* A private bookkeeping memo for the merchant.
 	*/
-	@SerializedName("merchant_memo")
 	private String merchantMemo;
 
 	public String merchantMemo() { return merchantMemo; }
@@ -148,7 +145,6 @@ public class TemplateData {
 	/**
 	* Base object for all financial value related fields (balance, payment due, etc.)
 	*/
-	@SerializedName("minimum_amount_due")
 	private Currency minimumAmountDue;
 
 	public Currency minimumAmountDue() { return minimumAmountDue; }
@@ -161,7 +157,6 @@ public class TemplateData {
 	/**
 	* A note to the payer.
 	*/
-	@SerializedName("note")
 	private String note;
 
 	public String note() { return note; }
@@ -174,7 +169,6 @@ public class TemplateData {
 	/**
 	* The payment term of the invoice. If you specify `term_type`, you cannot specify `due_date`, and vice versa.
 	*/
-	@SerializedName("payment_term")
 	private PaymentTerm paymentTerm;
 
 	public PaymentTerm paymentTerm() { return paymentTerm; }
@@ -187,7 +181,6 @@ public class TemplateData {
 	/**
 	* Reference data, such as PO number, to add to the invoice.
 	*/
-	@SerializedName("reference")
 	private String reference;
 
 	public String reference() { return reference; }
@@ -200,7 +193,6 @@ public class TemplateData {
 	/**
 	* The shipping cost, as a percentage or amount value.
 	*/
-	@SerializedName("shipping_cost")
 	private ShippingCost shippingCost;
 
 	public ShippingCost shippingCost() { return shippingCost; }
@@ -213,7 +205,6 @@ public class TemplateData {
 	/**
 	* The shipping information for the invoice recipient.
 	*/
-	@SerializedName("shipping_info")
 	private ShippingInfo shippingInfo;
 
 	public ShippingInfo shippingInfo() { return shippingInfo; }
@@ -226,7 +217,6 @@ public class TemplateData {
 	/**
 	* Indicates whether the invoice allows a partial payment. If `false`, invoice must be paid in full. If `true`, the invoice allows partial payments.
 	*/
-	@SerializedName("tax_calculated_after_discount")
 	private Boolean taxCalculatedAfterDiscount;
 
 	public Boolean taxCalculatedAfterDiscount() { return taxCalculatedAfterDiscount; }
@@ -239,7 +229,6 @@ public class TemplateData {
 	/**
 	* Indicates whether the unit price includes tax.
 	*/
-	@SerializedName("tax_inclusive")
 	private Boolean taxInclusive;
 
 	public Boolean taxInclusive() { return taxInclusive; }
@@ -252,7 +241,6 @@ public class TemplateData {
 	/**
 	* The general terms of the invoice.
 	*/
-	@SerializedName("terms")
 	private String terms;
 
 	public String terms() { return terms; }
@@ -265,7 +253,6 @@ public class TemplateData {
 	/**
 	* Base object for all financial value related fields (balance, payment due, etc.)
 	*/
-	@SerializedName("total_amount")
 	private Currency totalAmount;
 
 	public Currency totalAmount() { return totalAmount; }
@@ -274,4 +261,163 @@ public class TemplateData {
 	    this.totalAmount = totalAmount;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (allowPartialPayment != null) {
+            serialized.put("allow_partial_payment", this.allowPartialPayment);
+        }
+        if (attachments != null) {
+            serialized.put("attachments", this.attachments);
+        }
+        if (billingInfo != null) {
+            serialized.put("billing_info", this.billingInfo);
+        }
+        if (ccInfo != null) {
+            serialized.put("cc_info", this.ccInfo);
+        }
+        if (custom != null) {
+            serialized.put("custom", this.custom);
+        }
+        if (discount != null) {
+            serialized.put("discount", this.discount);
+        }
+        if (items != null) {
+            serialized.put("items", this.items);
+        }
+        if (logoUrl != null) {
+            serialized.put("logo_url", this.logoUrl);
+        }
+        if (merchantInfo != null) {
+            serialized.put("merchant_info", this.merchantInfo);
+        }
+        if (merchantMemo != null) {
+            serialized.put("merchant_memo", this.merchantMemo);
+        }
+        if (minimumAmountDue != null) {
+            serialized.put("minimum_amount_due", this.minimumAmountDue);
+        }
+        if (note != null) {
+            serialized.put("note", this.note);
+        }
+        if (paymentTerm != null) {
+            serialized.put("payment_term", this.paymentTerm);
+        }
+        if (reference != null) {
+            serialized.put("reference", this.reference);
+        }
+        if (shippingCost != null) {
+            serialized.put("shipping_cost", this.shippingCost);
+        }
+        if (shippingInfo != null) {
+            serialized.put("shipping_info", this.shippingInfo);
+        }
+        if (taxCalculatedAfterDiscount != null) {
+            serialized.put("tax_calculated_after_discount", this.taxCalculatedAfterDiscount);
+        }
+        if (taxInclusive != null) {
+            serialized.put("tax_inclusive", this.taxInclusive);
+        }
+        if (terms != null) {
+            serialized.put("terms", this.terms);
+        }
+        if (totalAmount != null) {
+            serialized.put("total_amount", this.totalAmount);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("allow_partial_payment")) {
+            this.allowPartialPayment = (Boolean) values.get("allow_partial_payment");
+        }
+        if (values.containsKey("attachments")) {
+            this.attachments = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("attachments");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					FileAttachment nested = new FileAttachment();
+					nested.deserialize(nestedValue);
+					this.attachments.add(nested);
+                }
+        }
+        if (values.containsKey("billing_info")) {
+            this.billingInfo = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("billing_info");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					BillingInfo nested = new BillingInfo();
+					nested.deserialize(nestedValue);
+					this.billingInfo.add(nested);
+                }
+        }
+        if (values.containsKey("cc_info")) {
+            this.ccInfo = new ArrayList<>();
+                List<String> nestedValues = (List<String>) values.get("cc_info");
+                for (String nestedValue : nestedValues) {
+                    this.ccInfo.add(nestedValue);
+                }
+        }
+        if (values.containsKey("custom")) {
+            this.custom = new CustomAmount();
+            this.custom.deserialize((Map<String, Object>) values.get("custom"));
+        }
+        if (values.containsKey("discount")) {
+            this.discount = new Cost();
+            this.discount.deserialize((Map<String, Object>) values.get("discount"));
+        }
+        if (values.containsKey("items")) {
+            this.items = new ArrayList<>();
+				List<Map<String, Object>> nestedValues = (List<Map<String, Object>>) values.get("items");
+				for (Map<String, Object> nestedValue : nestedValues) {
+					InvoiceItem nested = new InvoiceItem();
+					nested.deserialize(nestedValue);
+					this.items.add(nested);
+                }
+        }
+        if (values.containsKey("logo_url")) {
+            this.logoUrl = (String) values.get("logo_url");
+        }
+        if (values.containsKey("merchant_info")) {
+            this.merchantInfo = new MerchantInformation();
+            this.merchantInfo.deserialize((Map<String, Object>) values.get("merchant_info"));
+        }
+        if (values.containsKey("merchant_memo")) {
+            this.merchantMemo = (String) values.get("merchant_memo");
+        }
+        if (values.containsKey("minimum_amount_due")) {
+            this.minimumAmountDue = new Currency();
+            this.minimumAmountDue.deserialize((Map<String, Object>) values.get("minimum_amount_due"));
+        }
+        if (values.containsKey("note")) {
+            this.note = (String) values.get("note");
+        }
+        if (values.containsKey("payment_term")) {
+            this.paymentTerm = new PaymentTerm();
+            this.paymentTerm.deserialize((Map<String, Object>) values.get("payment_term"));
+        }
+        if (values.containsKey("reference")) {
+            this.reference = (String) values.get("reference");
+        }
+        if (values.containsKey("shipping_cost")) {
+            this.shippingCost = new ShippingCost();
+            this.shippingCost.deserialize((Map<String, Object>) values.get("shipping_cost"));
+        }
+        if (values.containsKey("shipping_info")) {
+            this.shippingInfo = new ShippingInfo();
+            this.shippingInfo.deserialize((Map<String, Object>) values.get("shipping_info"));
+        }
+        if (values.containsKey("tax_calculated_after_discount")) {
+            this.taxCalculatedAfterDiscount = (Boolean) values.get("tax_calculated_after_discount");
+        }
+        if (values.containsKey("tax_inclusive")) {
+            this.taxInclusive = (Boolean) values.get("tax_inclusive");
+        }
+        if (values.containsKey("terms")) {
+            this.terms = (String) values.get("terms");
+        }
+        if (values.containsKey("total_amount")) {
+            this.totalAmount = new Currency();
+            this.totalAmount.deserialize((Map<String, Object>) values.get("total_amount"));
+        }
+    }
 }
+

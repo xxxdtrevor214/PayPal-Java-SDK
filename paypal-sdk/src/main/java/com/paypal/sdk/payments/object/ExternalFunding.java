@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:51:10 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Mon, 31 Jul 2017 18:27:14 UTC by version 0.1 of Braintree SDK Generator
 // ExternalFunding.java
 // DO NOT EDIT
 // @type object
@@ -7,18 +7,24 @@
 package com.paypal.sdk.payments.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * An external funding account.
  */
-public class ExternalFunding {
+public class ExternalFunding implements Serializable, Deserializable {
+
+    // Required default constructor
+    public ExternalFunding() {}
 
 	/**
 	* REQUIRED
 	* Base currency object for all financial value-related fields. For example, balance, payment due, and so on.
 	*/
-	@SerializedName("amount")
 	private Currency amount;
 
 	public Currency amount() { return amount; }
@@ -31,7 +37,6 @@ public class ExternalFunding {
 	/**
 	* The generic ID for the external funding account.
 	*/
-	@SerializedName("code")
 	private String code;
 
 	public String code() { return code; }
@@ -44,7 +49,6 @@ public class ExternalFunding {
 	/**
 	* The description of the external funding account.
 	*/
-	@SerializedName("display_text")
 	private String displayText;
 
 	public String displayText() { return displayText; }
@@ -58,7 +62,6 @@ public class ExternalFunding {
 	* REQUIRED
 	* The encrypted PayPal account ID for the funding account.
 	*/
-	@SerializedName("funding_account_id")
 	private String fundingAccountId;
 
 	public String fundingAccountId() { return fundingAccountId; }
@@ -71,7 +74,6 @@ public class ExternalFunding {
 	/**
 	* Indicates whether the payment is to be fully funded by the external funded incentive.
 	*/
-	@SerializedName("funding_instruction")
 	private String fundingInstruction;
 
 	public String fundingInstruction() { return fundingInstruction; }
@@ -85,7 +87,6 @@ public class ExternalFunding {
 	* REQUIRED
 	* The ID for the external funding account.
 	*/
-	@SerializedName("reference_id")
 	private String referenceId;
 
 	public String referenceId() { return referenceId; }
@@ -94,4 +95,50 @@ public class ExternalFunding {
 	    this.referenceId = referenceId;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (amount != null) {
+            serialized.put("amount", this.amount);
+        }
+        if (code != null) {
+            serialized.put("code", this.code);
+        }
+        if (displayText != null) {
+            serialized.put("display_text", this.displayText);
+        }
+        if (fundingAccountId != null) {
+            serialized.put("funding_account_id", this.fundingAccountId);
+        }
+        if (fundingInstruction != null) {
+            serialized.put("funding_instruction", this.fundingInstruction);
+        }
+        if (referenceId != null) {
+            serialized.put("reference_id", this.referenceId);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("amount")) {
+            this.amount = new Currency();
+            this.amount.deserialize((Map<String, Object>) values.get("amount"));
+        }
+        if (values.containsKey("code")) {
+            this.code = (String) values.get("code");
+        }
+        if (values.containsKey("display_text")) {
+            this.displayText = (String) values.get("display_text");
+        }
+        if (values.containsKey("funding_account_id")) {
+            this.fundingAccountId = (String) values.get("funding_account_id");
+        }
+        if (values.containsKey("funding_instruction")) {
+            this.fundingInstruction = (String) values.get("funding_instruction");
+        }
+        if (values.containsKey("reference_id")) {
+            this.referenceId = (String) values.get("reference_id");
+        }
+    }
 }
+

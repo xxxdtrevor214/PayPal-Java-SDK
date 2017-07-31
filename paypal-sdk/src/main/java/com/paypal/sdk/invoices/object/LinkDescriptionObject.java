@@ -1,4 +1,4 @@
-// This class was generated on Mon, 17 Jul 2017 10:41:00 PDT by version 0.01 of Braintree SDK Generator
+// This class was generated on Sun, 30 Jul 2017 11:04:05 PDT by version 0.1 of Braintree SDK Generator
 // LinkDescriptionObject.java
 // DO NOT EDIT
 // @type object
@@ -7,17 +7,23 @@
 package com.paypal.sdk.invoices.object;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
+import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.serializer.Deserializable;
+
 /**
  * The [HATEOAS links](/docs/api/hateoas-links/) related to the request.
  */
-public class LinkDescriptionObject {
+public class LinkDescriptionObject implements Serializable, Deserializable {
+
+    // Required default constructor
+    public LinkDescriptionObject() {}
 
 	/**
 	* The media type in which to submit data in the request.
 	*/
-	@SerializedName("encType")
 	private String encType;
 
 	public String encType() { return encType; }
@@ -31,7 +37,6 @@ public class LinkDescriptionObject {
 	* REQUIRED
 	* The URL of the related HATEOAS link to use in subsequent calls.
 	*/
-	@SerializedName("href")
 	private String href;
 
 	public String href() { return href; }
@@ -44,7 +49,6 @@ public class LinkDescriptionObject {
 	/**
 	* The media type, as defined by RFC 2046, that describes the link target.
 	*/
-	@SerializedName("mediaType")
 	private String mediaType;
 
 	public String mediaType() { return mediaType; }
@@ -57,7 +61,6 @@ public class LinkDescriptionObject {
 	/**
 	* The HTTP method required for the related call.
 	*/
-	@SerializedName("method")
 	private String method;
 
 	public String method() { return method; }
@@ -71,7 +74,6 @@ public class LinkDescriptionObject {
 	* REQUIRED
 	* The relation to the target resource of the link. Should be one of the extended link relation types defined by PPaaS in https://ppaas/docs/standards/hypermedia
 	*/
-	@SerializedName("rel")
 	private String rel;
 
 	public String rel() { return rel; }
@@ -84,7 +86,6 @@ public class LinkDescriptionObject {
 	/**
 	* The link title.
 	*/
-	@SerializedName("title")
 	private String title;
 
 	public String title() { return title; }
@@ -93,4 +94,49 @@ public class LinkDescriptionObject {
 	    this.title = title;
 	    return this;
 	}
+
+    @Override
+    public void serialize(Map<String, Object> serialized) {
+        if (encType != null) {
+            serialized.put("encType", this.encType);
+        }
+        if (href != null) {
+            serialized.put("href", this.href);
+        }
+        if (mediaType != null) {
+            serialized.put("mediaType", this.mediaType);
+        }
+        if (method != null) {
+            serialized.put("method", this.method);
+        }
+        if (rel != null) {
+            serialized.put("rel", this.rel);
+        }
+        if (title != null) {
+            serialized.put("title", this.title);
+        }
+    }
+
+    @Override
+    public void deserialize(Map<String, Object> values) {
+        if (values.containsKey("encType")) {
+            this.encType = (String) values.get("encType");
+        }
+        if (values.containsKey("href")) {
+            this.href = (String) values.get("href");
+        }
+        if (values.containsKey("mediaType")) {
+            this.mediaType = (String) values.get("mediaType");
+        }
+        if (values.containsKey("method")) {
+            this.method = (String) values.get("method");
+        }
+        if (values.containsKey("rel")) {
+            this.rel = (String) values.get("rel");
+        }
+        if (values.containsKey("title")) {
+            this.title = (String) values.get("title");
+        }
+    }
 }
+
