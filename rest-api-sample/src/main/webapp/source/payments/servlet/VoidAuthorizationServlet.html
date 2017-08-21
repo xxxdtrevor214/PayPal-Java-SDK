@@ -4,14 +4,16 @@ can do a Void on a Authorization
 resource
 API used: /v1/payments/authorization/{authorization_id}/void</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">package</span> com.paypal.api.payments.servlet;
 
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.paypal.api.payments.util.SampleConstants.clientID;
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.paypal.api.payments.util.SampleConstants.clientSecret;
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.paypal.api.payments.util.SampleConstants.mode;
+
 <span class="hljs-keyword">import</span> java.io.IOException;
-<span class="hljs-keyword">import</span> java.io.InputStream;
 <span class="hljs-keyword">import</span> java.util.ArrayList;
 <span class="hljs-keyword">import</span> java.util.HashMap;
 <span class="hljs-keyword">import</span> java.util.List;
 <span class="hljs-keyword">import</span> java.util.Map;
 
-<span class="hljs-keyword">import</span> javax.servlet.ServletConfig;
 <span class="hljs-keyword">import</span> javax.servlet.ServletException;
 <span class="hljs-keyword">import</span> javax.servlet.http.HttpServlet;
 <span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;
@@ -28,11 +30,9 @@ API used: /v1/payments/authorization/{authorization_id}/void</p></div></div><div
 <span class="hljs-keyword">import</span> com.paypal.api.payments.Payer;
 <span class="hljs-keyword">import</span> com.paypal.api.payments.Payment;
 <span class="hljs-keyword">import</span> com.paypal.api.payments.Transaction;
-<span class="hljs-keyword">import</span> com.paypal.api.payments.util.GenerateAccessToken;
 <span class="hljs-keyword">import</span> com.paypal.api.payments.util.ResultPrinter;
 <span class="hljs-keyword">import</span> com.paypal.base.rest.APIContext;
 <span class="hljs-keyword">import</span> com.paypal.base.rest.PayPalRESTException;
-<span class="hljs-keyword">import</span> com.paypal.base.rest.PayPalResource;
 
 <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VoidAuthorizationServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HttpServlet</span> </span>{
 
@@ -41,18 +41,6 @@ API used: /v1/payments/authorization/{authorization_id}/void</p></div></div><div
 	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger LOGGER = Logger
 			.getLogger(VoidAuthorizationServlet.class);
 	Map&lt;String, String&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;String, String&gt;();
-	
-	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(ServletConfig servletConfig)</span> <span class="hljs-keyword">throws</span> ServletException </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="load-configuration">Load Configuration</h2>
-<p>Load SDK configuration for
-the resource. This intialization code can be
-done as Init Servlet.</p></div></div><div class="code"><div class="wrapper">		InputStream is = VoidAuthorizationServlet.class
-				.getResourceAsStream(<span class="hljs-string">"/sdk_config.properties"</span>);
-		<span class="hljs-keyword">try</span> {
-			PayPalResource.initConfig(is);
-		} <span class="hljs-keyword">catch</span> (PayPalRESTException e) {
-			LOGGER.fatal(e.getMessage());
-		}
-	}
 
 	<span class="hljs-annotation">@Override</span>
 	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span>
@@ -62,21 +50,12 @@ done as Init Servlet.</p></div></div><div class="code"><div class="wrapper">		In
 	</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="voidauthorization">VoidAuthorization</h2>
 <p>Sample showing how to void an Authorization</p></div></div><div class="code"><div class="wrapper">	<span class="hljs-annotation">@Override</span>
 	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span>
-			<span class="hljs-keyword">throws</span> ServletException, IOException </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="accesstoken">AccessToken</h3>
-<p>Retrieve the access token from
-OAuthTokenCredential by passing in
-ClientID and ClientSecret</p></div></div><div class="code"><div class="wrapper">		APIContext apiContext = <span class="hljs-keyword">null</span>;
-		String accessToken = <span class="hljs-keyword">null</span>;
-		<span class="hljs-keyword">try</span> {
-			accessToken = GenerateAccessToken.getAccessToken();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
+			<span class="hljs-keyword">throws</span> ServletException, IOException </span>{
+		<span class="hljs-keyword">try</span> {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="api-context">Api Context</h3>
 <p>Pass in a <code>ApiContext</code> object to authenticate
 the call and to send a unique request id
 (that ensures idempotency). The SDK generates
-a request id if you do not pass one explicitly.</p></div></div><div class="code"><div class="wrapper">			apiContext = <span class="hljs-keyword">new</span> APIContext(accessToken);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use this variant if you want to pass in a request id
-that is meaningful in your application, ideally
-a order id.
-String requestId = Long.toString(System.nanoTime(); APIContext
-apiContext = new APIContext(accessToken, requestId ));</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="authorization">Authorization</h3>
+a request id if you do not pass one explicitly.</p></div></div><div class="code"><div class="wrapper">			APIContext apiContext = <span class="hljs-keyword">new</span> APIContext(clientID, clientSecret, mode);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="authorization">Authorization</h3>
 <p>Retrieve a Authorization object
 by making a Payment with intent
 as &#39;authorize&#39;</p></div></div><div class="code"><div class="wrapper">			Authorization authorization = getAuthorization(apiContext);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Void an Authorization

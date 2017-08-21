@@ -48,17 +48,17 @@ public class RefundCaptureServlet extends HttpServlet {
 			// a request id if you do not pass one explicitly.
 			APIContext apiContext = new APIContext(clientID, clientSecret, mode);
 
-			// ###Authorization
-			// Retrieve a Authorization object
-			// by making a Payment with intent
-			// as 'authorize'
-			Authorization authorization = getAuthorization(apiContext);
-			
 			/// ###Capture
 			// Create a Capture object
 			// by doing a capture on
 			// Authorization object
-			Capture capture = getCapture(apiContext, authorization);
+			// and retrieve the Id
+			String captureId = "<your capture id here>";
+
+			// Retrieve the Capture object by
+			// doing a GET call to
+			// URI v1/payments/capture/{capture_id}
+			Capture capture = Capture.get(apiContext, captureId);
 			
 			/// ###Refund
 			/// Create a Refund object

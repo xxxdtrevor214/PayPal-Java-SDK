@@ -29,14 +29,6 @@
 		<servlet-name>RefundCaptureServlet</servlet-name>
 		<servlet-class>com.paypal.api.payments.servlet.RefundCaptureServlet</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>PaymentWithCreditCardServlet</servlet-name>
-		<servlet-class>com.paypal.api.payments.servlet.PaymentWithCreditCardServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PaymentWithCreditCardServlet</servlet-name>
-		<url-pattern>/paymentwithcreditcard</url-pattern>
-	</servlet-mapping>
     <servlet>
         <servlet-name>ThirdPartyPaymentWithPayPalServlet</servlet-name>
         <servlet-class>com.paypal.api.payments.servlet.ThirdPartyPaymentWithPayPalServlet</servlet-class>
@@ -110,11 +102,6 @@
 		<servlet-name>ReauthorizationServlet</servlet-name>
 		<url-pattern>/reauthorization</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>PaymentWithSavedCardServlet</servlet-name>
-		<servlet-class>com.paypal.api.payments.servlet.PaymentWithSavedCardServlet</servlet-class>
-	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>GetAuthorizationServlet</servlet-name>
 		<url-pattern>/getauthorizationservlet</url-pattern>
@@ -134,10 +121,6 @@
 	<servlet-mapping>
 		<servlet-name>RefundCaptureServlet</servlet-name>
 		<url-pattern>/refundcaptureservlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>PaymentWithSavedCardServlet</servlet-name>
-		<url-pattern>/paymentwithsavedcard</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>GetPaymentServlet</servlet-name>

@@ -209,3 +209,5 @@ gradle-app.setting
 
 # Invoice QR Sample output
 invoice.png
+rest-api-sample/out/
+rest-api-sdk/out/

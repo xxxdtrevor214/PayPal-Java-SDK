@@ -41,14 +41,14 @@ a Capture</p></div></div><div class="code"><div class="wrapper">	<span class="hl
 <p>Pass in a <code>ApiContext</code> object to authenticate
 the call and to send a unique request id
 (that ensures idempotency). The SDK generates
-a request id if you do not pass one explicitly.</p></div></div><div class="code"><div class="wrapper">			APIContext apiContext = <span class="hljs-keyword">new</span> APIContext(clientID, clientSecret, mode);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="authorization">Authorization</h3>
-<p>Retrieve a Authorization object
-by making a Payment with intent
-as &#39;authorize&#39;</p></div></div><div class="code"><div class="wrapper">			Authorization authorization = getAuthorization(apiContext);
-			
+a request id if you do not pass one explicitly.</p></div></div><div class="code"><div class="wrapper">			APIContext apiContext = <span class="hljs-keyword">new</span> APIContext(clientID, clientSecret, mode);
+
 			<span class="hljs-comment">/// ###Capture</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create a Capture object
 by doing a capture on
-Authorization object</p></div></div><div class="code"><div class="wrapper">			Capture capture = getCapture(apiContext, authorization);
+Authorization object
+and retrieve the Id</p></div></div><div class="code"><div class="wrapper">			String captureId = <span class="hljs-string">"&lt;your capture id here&gt;"</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Retrieve the Capture object by
+doing a GET call to
+URI v1/payments/capture/{capture_id}</p></div></div><div class="code"><div class="wrapper">			Capture capture = Capture.get(apiContext, captureId);
 			
 			<span class="hljs-comment">/// ###Refund</span>
 			<span class="hljs-comment">/// Create a Refund object</span>
