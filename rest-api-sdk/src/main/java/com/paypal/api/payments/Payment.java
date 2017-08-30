@@ -65,7 +65,7 @@ public class Payment extends PayPalResource {
 	private CreditFinancingOffered creditFinancingOffered;
 
 	/**
-	 * Instructions for the payer to complete this payment.
+	 * Instructions for the payer to complete this payment. Applies to the German market and partners only.
 	 */
 	private PaymentInstruction paymentInstruction;
 
@@ -105,7 +105,7 @@ public class Payment extends PayPalResource {
 	private String updateTime;
 
 	/**
-	 * 
+	 *
 	 */
 	private List<Links> links;
 
