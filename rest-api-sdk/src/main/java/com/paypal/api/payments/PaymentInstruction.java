@@ -7,10 +7,6 @@ import lombok.Getter; import lombok.Setter;
 
 import java.util.List;
 
-/**
- * @deprecated PaymentInstruction object is not available for public use.
- */
-
 @Getter @Setter
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
@@ -47,7 +43,7 @@ public class PaymentInstruction extends PayPalResource {
 	private String note;
 
 	/**
-	 * 
+	 *
 	 */
 	private List<Links> links;
 
