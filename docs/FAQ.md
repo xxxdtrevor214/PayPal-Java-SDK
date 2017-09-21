@@ -25,7 +25,7 @@ For e.g.
 > NOTE: We highly recommend using a request id as shown above when performing retries, to prevent duplicate transactions.
 > Retries are now much more simple. If your request fails for some reason and you want to try again, just resubmit the same HttpRequest object.
 
-> ```java
+```java
     PayPalEnvironment environment = new PayPalEnvironment.Sandbox(
             "YOUR_CLIENT_ID",
             "YOUR_CLIENT_SECRET");
