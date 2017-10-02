@@ -1,14 +1,16 @@
 package com.paypal.core;
 
-import com.braintreepayments.http.Headers;
 import com.braintreepayments.http.HttpClient;
 import com.braintreepayments.http.HttpRequest;
-import com.paypal.BuildConfig;
 import com.paypal.core.authorization.PayPalEnvironment;
 import com.paypal.core.object.AccessToken;
 import com.paypal.core.request.AccessTokenRequest;
 
 import java.io.IOException;
+
+import static com.braintreepayments.http.Headers.ACCEPT_ENCODING;
+import static com.braintreepayments.http.Headers.AUTHORIZATION;
+import static com.paypal.BuildConfig.VERSION;
 
 public class PayPalHttpClient extends HttpClient {
 
@@ -36,12 +38,12 @@ public class PayPalHttpClient extends HttpClient {
 	}
 
 	private void signRequest(HttpRequest request) throws IOException {
-		if (!(request instanceof AccessTokenRequest)) {
+		if (request.headers().header(AUTHORIZATION) == null && !(request instanceof AccessTokenRequest)) {
 			if (accessToken == null || accessToken.isExpired()) {
 				accessToken = fetchAccessToken(refreshToken);
 			}
 
-			request.header(Headers.AUTHORIZATION, accessToken.authorizationString());
+			request.header(AUTHORIZATION, accessToken.authorizationString());
 		}
 	}
 
@@ -57,7 +59,7 @@ public class PayPalHttpClient extends HttpClient {
 	}
 
 	private void addGzipHeader(HttpRequest request) throws IOException {
-		request.headers().headerIfNotPresent(Headers.ACCEPT_ENCODING, "gzip");
+		request.headers().headerIfNotPresent(ACCEPT_ENCODING, "gzip");
 	}
 
 	static {
@@ -91,12 +93,11 @@ public class PayPalHttpClient extends HttpClient {
 		}
 		if (System.getProperty("os.version") != null
 				&& System.getProperty("os.version").length() > 0) {
-			osVersion.append(" "
-					+ System.getProperty("os.version").replace(' ', '_'));
+			osVersion.append(" ").append(System.getProperty("os.version").replace(' ', '_'));
 		}
 
 		StringBuilder stringBuilder = new StringBuilder("PayPalSDK/"
-				+ "PayPal-Java-SDK" + " " + BuildConfig.VERSION + " ");
+				+ "PayPal-Java-SDK" + " " + VERSION + " ");
 		stringBuilder.append("(").append(javaVersion.toString());
 		if (osVersion.length() > 0) {
 			stringBuilder.append("; ").append(osVersion.toString());
