@@ -33,11 +33,6 @@ public class AuthorizationProvider {
 		authorizationCache = new MemoryCache<>();
 	}
 
-	public RefreshToken exchange(PayPalHttpClient client, String authorizationCode) throws IOException {
-		RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest(client.getPayPalEnvironment(), authorizationCode);
-		return client.execute(refreshTokenRequest).result();
-	}
-
     public AccessToken authorize(PayPalHttpClient client, String refreshToken) throws IOException {
         String mapKey = mapKey(client.getPayPalEnvironment(), refreshToken);
         AccessToken existingToken = authorizationCache.get(mapKey);

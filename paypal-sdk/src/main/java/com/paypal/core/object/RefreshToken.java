@@ -9,7 +9,7 @@ public class RefreshToken implements Serializable, Deserializable {
 
 	private String refreshToken;
 
-	public String getRefreshToken() {
+	public String refreshToken() {
 		return refreshToken;
 	}
 

@@ -68,19 +68,6 @@ public class AuthorizationProviderTest extends PayPalWireMockHarness {
 		assertEquals(async.accessToken.expiresIn(), sync.expiresIn());
 	}
 
-	@Test
-	public void exchange_exchangesAuthCodeForRefreshToken() throws IOException {
-		String authCode = "auth-code-from-lipp";
-
-		stubRefreshTokenRequest(authCode, simpleRefreshToken());
-
-		PayPalHttpClient client = new PayPalHttpClient(environment());
-		RefreshToken refreshToken = AuthorizationProvider.sharedInstance().exchange(client, authCode);
-		verify(postRequestedFor(urlEqualTo("/v1/identity/openidconnect/tokenservice")));
-
-		assertEquals(simpleRefreshToken().getRefreshToken(), refreshToken.getRefreshToken());
-	}
-
 	private class AccessTokenHolder {
 		AccessToken accessToken;
 	}

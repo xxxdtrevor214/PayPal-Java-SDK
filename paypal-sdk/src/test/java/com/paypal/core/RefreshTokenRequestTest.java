@@ -3,11 +3,13 @@ package com.paypal.core;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
 import com.paypal.core.object.RefreshToken;
+import com.paypal.core.request.RefreshTokenRequest;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 public class RefreshTokenRequestTest {
@@ -28,13 +30,16 @@ public class RefreshTokenRequestTest {
 		PayPalEnvironment environment = new PayPalEnvironment.Sandbox(clientId, clientSecret);
 		PayPalHttpClient client = new PayPalHttpClient(environment);
 
-		RefreshToken customerScopedRefreshToken = AuthorizationProvider.sharedInstance().exchange(client, authorizationCode);
-		assertNotNull(customerScopedRefreshToken);
+		RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest(environment, authorizationCode);
+		HttpResponse<RefreshToken> refreshTokenResponse = client.execute(refreshTokenRequest);
+		RefreshToken refreshToken = refreshTokenResponse.result();
+		assertNotNull(refreshToken);
 
-		PayPalHttpClient customerScopedClient = new PayPalHttpClient(environment, customerScopedRefreshToken.getRefreshToken());
+		PayPalHttpClient customerScopedClient = new PayPalHttpClient(environment, refreshToken.refreshToken());
 
 		HttpRequest<Void> someRequestOnCustomerBehalf = new HttpRequest<>("/", "POST", Void.class);
 		HttpResponse response = customerScopedClient.execute(someRequestOnCustomerBehalf);
 		assertNotNull(response);
+		assertEquals(response.statusCode(), 200);
 	}
 }
