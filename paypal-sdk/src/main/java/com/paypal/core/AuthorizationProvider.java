@@ -67,7 +67,7 @@ public class AuthorizationProvider {
 	private String mapKey(PayPalEnvironment environment, String refreshToken) {
 		String key = environment.authorizationString();
 		if (refreshToken != null) {
-			key += refreshToken;
+			key += "_" + refreshToken;
 		}
 
 		return key;
