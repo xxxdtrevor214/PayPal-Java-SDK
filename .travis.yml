@@ -1,9 +1,15 @@
 language: java
-jdk: oraclejdk8
+env:
+  - EXTRA=-Pintegration
+  - EXTRA=
+jdk:
+  - oraclejdk8
+  - oraclejdk9
+  - openjdk7
 notifications:
   recipients:
     - DL-PP-JAVA-SDK@paypal.com
   on_success: change
 sudo: true
-script: ./gradlew --stacktrace --info test -Pintegration
+script: ./gradlew --stacktrace --info test $EXTRA
 after_success: ./script/deploy_snapshot.sh
