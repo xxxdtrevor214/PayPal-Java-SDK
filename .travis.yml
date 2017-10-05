@@ -5,7 +5,6 @@ env:
 jdk:
   - oraclejdk8
   - oraclejdk9
-  - openjdk7
 notifications:
   recipients:
     - DL-PP-JAVA-SDK@paypal.com
