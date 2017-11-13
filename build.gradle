@@ -62,11 +62,10 @@ project(':rest-api-sdk') {
         compile 'org.slf4j:slf4j-api:1.7.21'
 
         // Test
-
         testCompile 'org.testng:testng:6.3.1'
-        testCompile "org.mockito:mockito-all:[1.10.0,)"
-        testCompile 'org.powermock:powermock-api-mockito:[1.6,)'
-        testCompile 'org.powermock:powermock-module-testng:[1.6,)'
+        testCompile "org.mockito:mockito-all:1.10.19"
+        testCompile 'org.powermock:powermock-api-mockito:1.7.3'
+        testCompile 'org.powermock:powermock-module-testng:1.7.3'
     }
 
     test {
