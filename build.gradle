@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+        classpath 'org.akhikhl.gretty:gretty:1.4.2'
     }
 }
 apply plugin: 'io.codearte.nexus-staging'
@@ -149,7 +150,10 @@ project(':rest-api-sdk') {
 
 // ## REST API SAMPLE PROJECT
 project(':rest-api-sample') {
-    apply plugin: 'jetty'
+    apply plugin: 'org.akhikhl.gretty'
+
+    // property name to override default Jetty port
+    final JETTY_RUN_HTTP_PORT = 'jettyRunHttpPort'
 
     dependencies {
         compile project(':rest-api-sdk')
@@ -159,4 +163,27 @@ project(':rest-api-sample') {
         compile 'org.apache.logging.log4j:log4j-core:2.1'
         compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.1'
     }
+
+    gretty.httpPort = Integer.valueOf(findPropertyOrDefault(JETTY_RUN_HTTP_PORT, project, 8080))
+}
+
+/**
+ * Try to find first significant value by {@code propertyName} in the next order:
+ * <ol>
+ *   <li>If {@code propertyName} is supplied as a gradle runtime argument (<b>-D</b> option)</li>
+ *   <li>If {@code propertyName} is set as a {@code project} property, for example in
+ *       {@code gradle.properties} file of the project or in the gradle home directory</li>
+ *   <li>otherwise fallback to {@code defaultValue}</li>
+ * </ol>
+ *
+ * @param propertyName name of the sought property
+ * @param project Gradle project in which try to find the value
+ * @param defaultValue value to use if neither runtime argument nor project property found
+ *
+ * @return String value from system, project property, or {@code defaultValue}
+ */
+static String findPropertyOrDefault(String propertyName, Project project, Object defaultValue) {
+    return System.getProperty(propertyName) ?:
+        project.findProperty(propertyName) ?:
+            defaultValue as String
 }
