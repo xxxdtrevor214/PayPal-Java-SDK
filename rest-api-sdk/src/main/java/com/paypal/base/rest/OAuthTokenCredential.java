@@ -443,7 +443,7 @@ public final class OAuthTokenCredential {
 	/*
 	 * Get HttpConfiguration object for OAuth server
 	 */
-	private HttpConfiguration getOAuthHttpConfiguration() throws MalformedURLException {
+	protected HttpConfiguration getOAuthHttpConfiguration() throws MalformedURLException {
 		HttpConfiguration httpConfiguration = new HttpConfiguration();
 		httpConfiguration
 				.setHttpMethod(Constants.HTTP_CONFIG_DEFAULT_HTTP_METHOD);
@@ -454,21 +454,23 @@ public final class OAuthTokenCredential {
 		 * endpoint to PayPal sandbox or live endpoints. Throw exception if the
 		 * above rules fail
 		 */
-		String mode = this.configurationMap.get(Constants.MODE);
+		final String mode = this.configurationMap.get(Constants.MODE);
 		// Default to Endpoint param.
 		String endPointUrl = this.configurationMap.get(Constants.OAUTH_ENDPOINT);
-		if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
-			endPointUrl = Constants.REST_SANDBOX_ENDPOINT;
-		} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
-			endPointUrl = Constants.REST_LIVE_ENDPOINT;
-		} else if (endPointUrl == null || endPointUrl.length() <= 0) {
-			// Default to Normal endpoint
-			endPointUrl = this.configurationMap.get(Constants.ENDPOINT);
-		} 
+		if (endPointUrl == null || endPointUrl.trim().isEmpty()) {
+			if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
+				endPointUrl = Constants.REST_SANDBOX_ENDPOINT;
+			} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
+				endPointUrl = Constants.REST_LIVE_ENDPOINT;
+			} else if (endPointUrl == null || endPointUrl.length() <= 0) {
+				// Default to Normal endpoint
+				endPointUrl = this.configurationMap.get(Constants.ENDPOINT);
+			}
+		}
 		// If none of the option works, throw exception.
-		if (endPointUrl == null || endPointUrl.length() <= 0) {
+		if (endPointUrl == null || endPointUrl.trim().length() <= 0) {
 			throw new MalformedURLException(
-					"service.EndPoint not set (OR) mode not configured to sandbox/live ");
+					"oauth.Endpoint, mode or service.EndPoint not set not configured to sandbox/live ");
 		}
 		
 		if (Boolean

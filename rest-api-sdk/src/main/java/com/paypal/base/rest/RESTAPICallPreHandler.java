@@ -203,14 +203,20 @@ public class RESTAPICallPreHandler implements APICallPreHandler {
 			String mode = this.configurationMap.get(Constants.MODE);
 			// Default to Endpoint param.
 			String urlString = this.configurationMap.get(Constants.ENDPOINT);
-			if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
-				urlString = Constants.REST_SANDBOX_ENDPOINT;
-			} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
-				urlString = Constants.REST_LIVE_ENDPOINT;
-			} else if (urlString == null || urlString.length() <= 0) {
+			if (urlString == null || urlString.trim().isEmpty()) {
+				if (Constants.SANDBOX.equalsIgnoreCase(mode)) {
+					urlString = Constants.REST_SANDBOX_ENDPOINT;
+				} else if (Constants.LIVE.equalsIgnoreCase(mode)) {
+					urlString = Constants.REST_LIVE_ENDPOINT;
+				}
+			}
+
+			// If none of the option works, throw exception.
+			if (urlString == null || urlString.trim().length() <= 0) {
 				throw new MalformedURLException(
 						"service.EndPoint not set (OR) mode not configured to sandbox/live ");
 			}
+
 			if (!urlString.endsWith("/")) {
 				urlString += "/";
 			}
