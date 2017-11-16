@@ -14,7 +14,7 @@ allprojects {
     apply plugin: 'java'
 
     group = 'com.paypal.sdk'
-    version = '1.13.2'
+    version = '1.14.0'
     sourceCompatibility = 1.6
     targetCompatibility = 1.6
 

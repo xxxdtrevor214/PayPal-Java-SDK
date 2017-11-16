@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v1.14.0
+----
+   * Field `birthdate` changed to `birthday` in `Userinfo` class [#312](https://github.com/paypal/PayPal-Java-SDK/pull/312).
+   * Undeprecate `PaymentInstruction` with note for German merchants only [#314](https://github.com/paypal/PayPal-Java-SDK/pull/314).
+   * Reduce IDE Warnings by cleaning up code [#292](https://github.com/paypal/PayPal-Java-SDK/pull/292).
+   * Fix proxy being ignored by `SSLUtil.donwloadCertificateFromPath` [#276](https://github.com/paypal/PayPal-Java-SDK/issues/276).
+   * Use gretty for sample [#297](https://github.com/paypal/PayPal-Java-SDK/pull/297).
+
 v1.13.1
 ----
    * Fixed PATCH requests for Google App Engine [#273](https://github.com/paypal/PayPal-Java-SDK/pull/273).
