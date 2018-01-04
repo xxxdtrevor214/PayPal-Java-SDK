@@ -27,7 +27,7 @@ public class AccessTokenRequest extends HttpRequest<AccessToken> {
 		this(credentials);
 
 		Map<String, String> body = new HashMap<String, String>() {{
-			put("grant_type", "client_credentials");
+			put("grant_type", "refresh_token");
 			put("refresh_token", refreshToken);
 		}};
 
