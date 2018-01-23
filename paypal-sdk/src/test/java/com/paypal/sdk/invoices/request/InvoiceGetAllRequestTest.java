@@ -7,17 +7,14 @@
 package com.paypal.sdk.invoices.request;
 
 import com.braintreepayments.http.HttpResponse;
-import com.braintreepayments.http.HttpClient;
-import com.paypal.sdk.invoices.object.*;
 import com.paypal.sdk.TestHarness;
-import java.util.List;
+import com.paypal.sdk.invoices.InvoiceList;
+import com.paypal.sdk.invoices.InvoiceListRequest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class InvoiceGetAllRequestTest extends TestHarness {
 
@@ -25,12 +22,12 @@ public class InvoiceGetAllRequestTest extends TestHarness {
     public void testInvoiceGetAllRequest() throws IOException {
         TestUtil.createInvoice(client());
 
-        InvoiceGetAllRequest request = new InvoiceGetAllRequest()
+        InvoiceListRequest request = new InvoiceListRequest()
                 .page(0)
                 .pageSize(1)
                 .totalCountRequired(true);
 
-        HttpResponse<Invoices> response = client().execute(request);
+        HttpResponse<InvoiceList> response = client().execute(request);
         assertEquals(response.statusCode(), 200);
         assertNotNull(response.result());
 

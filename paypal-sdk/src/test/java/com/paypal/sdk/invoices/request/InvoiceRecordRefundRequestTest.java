@@ -6,11 +6,7 @@
 
 package com.paypal.sdk.invoices.request;
 
-import com.braintreepayments.http.HttpResponse;
-import com.braintreepayments.http.HttpClient;
-import com.paypal.sdk.invoices.object.*;
 import com.paypal.sdk.TestHarness;
-import java.util.List;
 import org.testng.annotations.Test;
 
 import java.io.IOException;

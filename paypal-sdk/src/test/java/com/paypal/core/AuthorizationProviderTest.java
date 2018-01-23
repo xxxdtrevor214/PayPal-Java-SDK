@@ -1,9 +1,9 @@
 package com.paypal.core;
 
-import com.braintreepayments.http.HttpRequest;
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.paypal.core.cache.MemoryCache;
 import com.paypal.core.object.AccessToken;
-import com.paypal.core.object.RefreshToken;
 import com.paypal.core.utils.PayPalWireMockHarness;
 import org.testng.annotations.Test;
 
@@ -30,8 +30,8 @@ public class AuthorizationProviderTest extends PayPalWireMockHarness {
 
 		stubAccessTokenRequest(simpleAccessToken());
 
-		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class);
-		stub(request, null);
+		stubFor(WireMock.get(urlEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder().withStatus(200)));
 
 		PayPalHttpClient client = new PayPalHttpClient(environment());
 		AuthorizationProvider.sharedInstance().authorize(client, null);

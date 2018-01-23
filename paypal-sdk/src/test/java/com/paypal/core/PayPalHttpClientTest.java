@@ -3,6 +3,8 @@ package com.paypal.core;
 import com.braintreepayments.http.HttpRequest;
 import com.braintreepayments.http.HttpResponse;
 import com.braintreepayments.http.Injector;
+import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.paypal.core.utils.PayPalWireMockHarness;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,12 +12,9 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import static com.braintreepayments.http.Headers.ACCEPT_ENCODING;
-import static com.braintreepayments.http.Headers.AUTHORIZATION;
-import static com.braintreepayments.http.Headers.CONTENT_TYPE;
+import static com.braintreepayments.http.Headers.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
 
 public class PayPalHttpClientTest extends PayPalWireMockHarness {
 
@@ -31,11 +30,14 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 	public void testPayPalHttpClient_execute_setsCommonHeaders() throws IOException {
 		stubAccessTokenRequest(simpleAccessToken());
 
+		stubFor(WireMock.post(urlPathEqualTo("/"))
+						.withHeader(ACCEPT_ENCODING, equalTo("gzip"))
+						.willReturn(new ResponseDefinitionBuilder()
+								.withStatus(200)));
+
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		stub(request, null);
 
 		client.execute(request);
-		assertEquals(request.headers().header(ACCEPT_ENCODING), "gzip");
 	}
 
 	@Test
@@ -43,11 +45,15 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		stub(request, null);
+
+		stubFor(WireMock.post(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder()
+						.withStatus(200)));
 
 		client.execute(request);
 
-		assertNull(request.headers().header(CONTENT_TYPE));
+		verify(postRequestedFor(urlPathEqualTo("/"))
+				.withoutHeader("Content-Type"));
 	}
 
 	@Test
@@ -56,11 +62,15 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class)
 				.header(CONTENT_TYPE, "application/form-urlencoded");
-		stub(request, null);
+
+		stubFor(WireMock.post(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder()
+				.withStatus(200)));
 
 		client.execute(request);
 
-		assertEquals(request.headers().header(CONTENT_TYPE), "application/form-urlencoded");
+		verify(postRequestedFor(urlPathEqualTo("/"))
+				.withHeader(CONTENT_TYPE, equalTo("application/form-urlencoded")));
 	}
 
 	@Test
@@ -68,7 +78,9 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
-		stub(request, null);
+
+		stubFor(WireMock.post(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder().withStatus(200)));
 
 		client.execute(request);
 
@@ -80,7 +92,8 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class);
-		stub(request, null);
+		stubFor(WireMock.get(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder().withStatus(200)));
 
 		client.execute(request);
 
@@ -94,7 +107,9 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class);
 		request.header(AUTHORIZATION, "something else");
-		stub(request, null);
+
+		stubFor(WireMock.get(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder().withStatus(200)));
 
 		client.execute(request);
 
@@ -107,7 +122,8 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class);
-		stub(request, null);
+		stubFor(WireMock.get(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder().withStatus(200)));
 
 		Injector injector = (r) -> r.header("super-header-key", "super-header-value");
 
@@ -124,12 +140,14 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken(), "refresh-token");
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "GET", Void.class);
-		stub(request, null);
+		stubFor(WireMock.get(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder().withStatus(200)));
 
 		client.execute(request);
 
 		verify(postRequestedFor(urlEqualTo("/v1/oauth2/token"))
-				.withRequestBody(equalTo("grant_type=client_credentials&refresh_token=refresh-token")));
+				.withRequestBody(containing("grant_type=client_credentials"))
+				.withRequestBody(containing("refresh_token=refresh-token")));
 	}
 
 	@Test(expectedExceptions = {UnsupportedEncodingException.class})
@@ -147,9 +165,11 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<Void> request = new HttpRequest<>("/", "POST", Void.class);
+		request.header(CONTENT_TYPE, "text/plain");
 		request.requestBody("Some plain data");
 
-		stub(request, null);
+		stubFor(WireMock.post(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder().withStatus(200)));
 
 		client.execute(request);
 
@@ -162,11 +182,12 @@ public class PayPalHttpClientTest extends PayPalWireMockHarness {
 		stubAccessTokenRequest(simpleAccessToken());
 
 		HttpRequest<String> request = new HttpRequest<>("/", "GET", String.class);
-		HttpResponse<String> responseStub = HttpResponse.<String>builder()
-				.result("Some response data")
-				.build();
 
-		stub(request, responseStub);
+		stubFor(WireMock.get(urlPathEqualTo("/"))
+				.willReturn(new ResponseDefinitionBuilder()
+						.withHeader("Content-Type", "text/plain")
+						.withBody("Some response data")
+						.withStatus(200)));
 
 		HttpResponse<String> response = client.execute(request);
 		assertEquals(response.result(), "Some response data");

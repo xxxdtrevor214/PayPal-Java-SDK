@@ -12,8 +12,8 @@ public class TestHarness {
 	@BeforeMethod
 	public void setup() {
 		PayPalEnvironment environment = new PayPalEnvironment.Sandbox(
-				System.getenv("PAYPAL_CLIENT_ID"),
-				System.getenv("PAYPAL_CLIENT_SECRET"));
+				"AdV4d6nLHabWLyemrw4BKdO9LjcnioNIOgoz7vD611ObbDUL0kJQfzrdhXEBwnH8QmV-7XZjvjRWn0kg",
+				"EPKoPC_haZMTq5uM9WXuzoxUVdgzVqHyD5avCyVC1NCIUJeVaNNUZMnzduYIqrdw-carG9LBAizFGMyK");
 		client = new PayPalHttpClient(environment);
 	}
 

@@ -9,9 +9,10 @@ package com.paypal.sdk.payments.request;
 import com.braintreepayments.http.HttpResponse;
 import com.braintreepayments.http.exceptions.HttpException;
 import com.paypal.sdk.TestHarness;
-import com.paypal.sdk.payments.object.Amount;
-import com.paypal.sdk.payments.object.Authorization;
-import com.paypal.sdk.payments.object.Payment;
+import com.paypal.sdk.payments.Amount;
+import com.paypal.sdk.payments.Authorization;
+import com.paypal.sdk.payments.AuthorizationReauthorizeRequest;
+import com.paypal.sdk.payments.Payment;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class AuthorizationReauthorizeRequestTest extends TestHarness {
 						.currency("USD")));
 
 		try {
-			HttpResponse<Authorization> response = client().execute(request);
+			client().execute(request);
 		} catch (HttpException he) {
 			assertEquals(he.statusCode(), 500);
 			assertTrue(he.getMessage().contains("DCC_REAUTHORIZATION_NOT_ALLOWED"));

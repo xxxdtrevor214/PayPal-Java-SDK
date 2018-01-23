@@ -7,10 +7,11 @@
 package com.paypal.sdk.invoices.request;
 
 import com.braintreepayments.http.HttpResponse;
-import com.braintreepayments.http.HttpClient;
-import com.paypal.sdk.invoices.object.*;
 import com.paypal.sdk.TestHarness;
-import java.util.List;
+import com.paypal.sdk.invoices.Invoice;
+import com.paypal.sdk.invoices.InvoiceList;
+import com.paypal.sdk.invoices.InvoiceSearchRequest;
+import com.paypal.sdk.invoices.Search;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class InvoiceSearchRequestTest extends TestHarness {
         InvoiceSearchRequest request = new InvoiceSearchRequest()
                 .requestBody(new Search().number(createResponse.result().number()));
 
-        HttpResponse<Invoices> response = client().execute(request);
+        HttpResponse<InvoiceList> response = client().execute(request);
         assertEquals(response.statusCode(), 200);
         assertEquals(response.result().invoices().size(), 1);
         assertEquals(createResponse.result().id(), response.result().invoices().get(0).id());

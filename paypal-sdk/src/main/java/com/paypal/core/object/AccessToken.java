@@ -1,20 +1,23 @@
 package com.paypal.core.object;
 
-import com.braintreepayments.http.serializer.Deserializable;
-import com.braintreepayments.http.serializer.Serializable;
+import com.braintreepayments.http.annotations.Model;
+import com.braintreepayments.http.annotations.SerializedName;
 import com.paypal.core.Authorization;
 
 import java.util.Date;
-import java.util.Map;
 
-public class AccessToken implements Authorization, Serializable, Deserializable {
+@Model
+public class AccessToken implements Authorization {
 
 	private final transient Date createDate = new Date();
 
+	@SerializedName("access_token")
 	private String accessToken;
 
+	@SerializedName("token_type")
 	private String tokenType = "Bearer";
 
+	@SerializedName("expires_in")
     private Integer expiresIn;
 
 	public boolean isExpired() {
@@ -41,31 +44,5 @@ public class AccessToken implements Authorization, Serializable, Deserializable 
 	@Override
 	public String authorizationString() {
 		return String.format("Bearer %s", accessToken);
-	}
-
-	@Override
-	public void serialize(Map<String, Object> serialized) {
-		if (this.accessToken != null) {
-			serialized.put("access_token", accessToken);
-		}
-		if (this.tokenType != null) {
-			serialized.put("token_type", tokenType);
-		}
-		if (this.expiresIn != null) {
-			serialized.put("expires_in", expiresIn);
-		}
-	}
-
-	@Override
-	public void deserialize(Map<String, Object> fields) {
-		if (fields.containsKey("access_token")) {
-			this.accessToken = (String) fields.get("access_token");
-		}
-		if (fields.containsKey("token_type")) {
-			this.tokenType = (String) fields.get("token_type");
-		}
-		if (fields.containsKey("expires_in")) {
-			this.expiresIn = (Integer) fields.get("expires_in");
-		}
 	}
 }

@@ -7,12 +7,10 @@
 package com.paypal.sdk.invoices.request;
 
 import com.braintreepayments.http.HttpResponse;
-import com.braintreepayments.http.HttpClient;
-import com.paypal.sdk.invoices.object.*;
 import com.paypal.sdk.TestHarness;
-import java.util.List;
-
-import org.apache.tools.ant.taskdefs.condition.Http;
+import com.paypal.sdk.invoices.Invoice;
+import com.paypal.sdk.invoices.InvoiceQrCodeRequest;
+import com.paypal.sdk.invoices.QrCode;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -31,7 +29,7 @@ public class InvoiceQrCodeRequestTest extends TestHarness {
                 .width(500)
                 .action("pay");
 
-        HttpResponse<QRCode> response = client().execute(request);
+        HttpResponse<QrCode> response = client().execute(request);
         assertEquals(200, response.statusCode());
         assertNotNull(response.result().image());
     }

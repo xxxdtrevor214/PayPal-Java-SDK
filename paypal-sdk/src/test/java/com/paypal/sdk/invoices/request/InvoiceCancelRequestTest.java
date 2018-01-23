@@ -7,12 +7,9 @@
 package com.paypal.sdk.invoices.request;
 
 import com.braintreepayments.http.HttpResponse;
-import com.paypal.sdk.invoices.object.*;
 import com.paypal.sdk.TestHarness;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
+import com.paypal.sdk.invoices.CancelNotification;
+import com.paypal.sdk.invoices.InvoiceCancelRequest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;

@@ -8,7 +8,8 @@ package com.paypal.sdk.invoices.request;
 
 import com.braintreepayments.http.HttpResponse;
 import com.paypal.sdk.TestHarness;
-import com.paypal.sdk.invoices.object.Templates;
+import com.paypal.sdk.invoices.TemplateList;
+import com.paypal.sdk.invoices.TemplateListRequest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -22,10 +23,10 @@ public class TemplateGetTemplatesRequestTest extends TestHarness {
     public void testTemplateGetTemplatesRequest() throws IOException {
         TestUtil.CreateResponseAndCleanup createResponseAndCleanup = TestUtil.createTemplate(client());
 
-        TemplateGetTemplatesRequest request = new TemplateGetTemplatesRequest()
+        TemplateListRequest request = new TemplateListRequest()
                 .fields("none");
 
-        HttpResponse<Templates> response = client().execute(request);
+        HttpResponse<TemplateList> response = client().execute(request);
         assertEquals(response.statusCode(), 200);
         assertTrue(response.result().templates().size() >= 1);
     }

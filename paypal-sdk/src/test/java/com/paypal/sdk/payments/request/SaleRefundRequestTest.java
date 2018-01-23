@@ -6,12 +6,13 @@
 
 package com.paypal.sdk.payments.request;
 
-import com.braintreepayments.http.HttpResponse;
 import com.braintreepayments.http.HttpClient;
+import com.braintreepayments.http.HttpResponse;
 import com.paypal.sdk.TestHarness;
-import com.paypal.sdk.payments.object.DetailedRefund;
-import com.paypal.sdk.payments.object.Payment;
-import com.paypal.sdk.payments.object.RefundRequest;
+import com.paypal.sdk.payments.DetailedRefund;
+import com.paypal.sdk.payments.Payment;
+import com.paypal.sdk.payments.RefundRequest;
+import com.paypal.sdk.payments.SaleRefundRequest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;

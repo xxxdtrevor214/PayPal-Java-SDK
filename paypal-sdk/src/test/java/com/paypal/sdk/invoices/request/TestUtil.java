@@ -1,8 +1,8 @@
 package com.paypal.sdk.invoices.request;
 
-import com.braintreepayments.http.HttpResponse;
 import com.braintreepayments.http.HttpClient;
-import com.paypal.sdk.invoices.object.*;
+import com.braintreepayments.http.HttpResponse;
+import com.paypal.sdk.invoices.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class TestUtil {
 				.requestBody(new PaymentDetail()
 						.method("CASH")
 						.date("2017-07-11 00:01:00 PST")
-						.amount(new Currency().currency("USD").value("10"))
+						.amount(new Currency().currencyCode("USD").value("10"))
 				);
 
 	    return new ResponseAndID(client.execute(request), invoice_id);
@@ -58,7 +58,7 @@ public class TestUtil {
 		createInvoicePayment(client, responseAndID.id);
 
         InvoiceRecordRefundRequest request = new InvoiceRecordRefundRequest(responseAndID.id)
-				.requestBody(new RefundDetail().amount(new Currency().currency("USD").value("10")));
+				.requestBody(new RefundDetail().amount(new Currency().currencyCode("USD").value("10")));
 
         return new ResponseAndID(client.execute(request), responseAndID.id);
 	}
@@ -93,7 +93,7 @@ public class TestUtil {
 						.items(Arrays.asList(new InvoiceItem()
 								.name("Nutri Bullet")
 								.quantity(1.0)
-								.unitPrice(new Currency().currency("USD").value("10"))
+								.unitPrice(new Currency().currencyCode("USD").value("10"))
 						))
 						.merchantInfo(new MerchantInformation().email("team-dx-clients-facilitator@getbraintree.com"))
 						.taxCalculatedAfterDiscount(false)

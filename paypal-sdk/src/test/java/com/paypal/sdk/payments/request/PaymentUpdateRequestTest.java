@@ -8,9 +8,10 @@ package com.paypal.sdk.payments.request;
 
 import com.braintreepayments.http.HttpResponse;
 import com.paypal.sdk.TestHarness;
-import com.paypal.sdk.payments.object.Amount;
-import com.paypal.sdk.payments.object.JSONPatch;
-import com.paypal.sdk.payments.object.Payment;
+import com.paypal.sdk.payments.Amount;
+import com.paypal.sdk.payments.JsonPatch;
+import com.paypal.sdk.payments.Payment;
+import com.paypal.sdk.payments.PaymentUpdateRequest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -27,8 +28,8 @@ public class PaymentUpdateRequestTest extends TestHarness {
 
 		PaymentUpdateRequest request = new PaymentUpdateRequest(paymentHttpResponse.result().id());
 
-		List<JSONPatch> body = new ArrayList<>();
-		body.add(new JSONPatch()
+		List<JsonPatch> body = new ArrayList<>();
+		body.add(new JsonPatch()
 				.path("/transactions/0/amount")
 				.op("replace")
 				.value(new Amount()
@@ -37,7 +38,7 @@ public class PaymentUpdateRequestTest extends TestHarness {
 
 		request.requestBody(body);
 
-		HttpResponse<Void> response = client().execute(request);
+		HttpResponse<Payment> response = client().execute(request);
 		assertEquals(200, response.statusCode());
 	}
 }

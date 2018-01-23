@@ -8,8 +8,9 @@ package com.paypal.sdk.payments.request;
 
 import com.braintreepayments.http.HttpResponse;
 import com.paypal.sdk.TestHarness;
-import com.paypal.sdk.payments.object.Payment;
-import com.paypal.sdk.payments.object.Sale;
+import com.paypal.sdk.payments.Payment;
+import com.paypal.sdk.payments.Sale;
+import com.paypal.sdk.payments.SaleGetRequest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
