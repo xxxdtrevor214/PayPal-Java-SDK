@@ -22,7 +22,7 @@ public class PayPalWireMockHarness extends WireMockHarness {
 	@Override
 	public void setup() {
 		super.setup();
-		environment = new PayPalEnvironment("fake-client-id", "fake-client-secret", String.format("http://%s:%d", host(), port()));
+		environment = new PayPalEnvironment("fake-client-id", "fake-client-secret", String.format("http://%s:%d", host(), port()), "http://example.com");
 	}
 
 	protected PayPalEnvironment environment() { return environment; }
