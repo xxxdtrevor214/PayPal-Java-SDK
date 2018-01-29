@@ -1,0 +1,87 @@
+// This class was generated on Mon, 29 Jan 2018 12:12:02 PST by version 0.1.0-dev+ecea6f of Braintree SDK Generator
+// RelatedResources.java
+// @version 0.1.0-dev+ecea6f
+// @type object
+// @data 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
+// DO NOT EDIT
+package com.paypal.sdk.v1.payments;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import com.braintreepayments.http.annotations.*;
+/**
+ * The payment-related financial transactions, which include sales, authorizations, captures, and refunds. To show resource details, use the resource ID. For example, to [show details for a related authorization](/docs/api/payments/#authorization_get), use the ID returned in the `authorization` object. You can also use the [HATEOAS links](/docs/api/hateoas-links/) for a resource to complete operations for that resource. For example, a `sale` object provides a `refund` link that enables you to refund the sale.
+ */
+@Model
+public class RelatedResources {
+
+    // Required default constructor
+    public RelatedResources() {}
+
+	/**
+	* An authorization.
+	*/
+	@SerializedName("authorization")
+	private Authorization authorization;
+
+	public Authorization authorization() { return authorization; }
+	
+	public RelatedResources authorization(Authorization authorization) {
+	    this.authorization = authorization;
+	    return this;
+	}
+
+	/**
+	* A capture transaction.
+	*/
+	@SerializedName("capture")
+	private Capture capture;
+
+	public Capture capture() { return capture; }
+	
+	public RelatedResources capture(Capture capture) {
+	    this.capture = capture;
+	    return this;
+	}
+
+	/**
+	* An order transaction.
+	*/
+	@SerializedName("order")
+	private Order order;
+
+	public Order order() { return order; }
+	
+	public RelatedResources order(Order order) {
+	    this.order = order;
+	    return this;
+	}
+
+	/**
+	* A refund transaction.
+	*/
+	@SerializedName("refund")
+	private Refund refund;
+
+	public Refund refund() { return refund; }
+	
+	public RelatedResources refund(Refund refund) {
+	    this.refund = refund;
+	    return this;
+	}
+
+	/**
+	* The sale transaction details.
+	*/
+	@SerializedName("sale")
+	private Sale sale;
+
+	public Sale sale() { return sale; }
+	
+	public RelatedResources sale(Sale sale) {
+	    this.sale = sale;
+	    return this;
+	}
+}
