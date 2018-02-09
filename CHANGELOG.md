@@ -1,9 +1,9 @@
 CHANGELOG
 =========
 
-v2.0.0-beta
+v2.0.0-rc.1
 ----
-   * Refactor API around request/response model. Only the Payments API is enabled for this beta.
+   * Refactor API around request/response model.
 
 v1.13.0
 ----
