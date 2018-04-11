@@ -50,7 +50,7 @@ project(':paypal-sdk') {
     apply plugin: 'de.fuerstenau.buildconfig'
     apply plugin: 'idea'
 
-    def braintreeVersion = '1.3.0'
+    def braintreeVersion = '1.3.1'
 
     dependencies {
         compile "com.braintreepayments:braintreehttp:${braintreeVersion}"
