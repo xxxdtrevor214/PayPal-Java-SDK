@@ -1,8 +1,8 @@
-// This class was generated on Mon, 29 Jan 2018 12:12:02 PST by version 0.1.0-dev+ecea6f of Braintree SDK Generator
+// This class was generated on Mon, 09 Apr 2018 18:13:17 UTC by version 0.1.0-dev+291f3f of Braintree SDK Generator
 // Currency.java
-// @version 0.1.0-dev+ecea6f
+// @version 0.1.0-dev+291f3f
 // @type object
-// @data H4sIAAAAAAAC/6zSQYsTQRAF4Lu/ouiTLp2MiiDkJoggwm7QxUvYQ6X7TVLS091W14iD7H+XiWazaw6ysMd5U/TM+6p/ueupwq1cGFWRw+S8+8oqvE245GF+47z7hOn08B4tqFSTkt3KXe9BW26g4wFUtt8QjPqixClRL5lzEE70g9OIhSKxIVIvSLEt6UNRwk8eaoKnLSfOAZ4qTwOyURzhiXOkVqjkpfPunSpPf376pXefwfEqp8mtek4Nc/B9FEW8C9ZaKtQEza02d3WbqeTdedl7DKfS98Lz8hvbK7AIe1YOBqWPX64Wb16/ensSCSXi5nkXS2idZMNOeT6gi6II1imadcfhxTzcuhdLWvO05kSxoFEuRm2stagdUP9OC9qjSEzHf0TymNKt/y/LYXUPTI7JOQgPZczmaaxkhS4uLyjKTqwR9zOP7UERQQZO1FBZ2Yp64kYRvWREkkybI+Jj2Q7Xbv4E16qlqrDh4SKeAuzm9tlvAAAA//8=
+// @data H4sIAAAAAAAC/6SS0WsUMRDG3/0rhvhiYW+jIgj7VvDlELzDFl+OUqbJ7O1gNomTSWWR/u+Slm0tp4j4OLPzffvNb/LDXC6ZzGBcFaHoFtOZLyiMN4E+4dy+mM58pOWp+EDFCWflFM1gLieCVQsYPeCcalQYkwCCCsaCrs32pjPnIrg8/PB1Zz4T+l0MixlGDIVa41tlIf/Y2EvKJMpUzHB4jFpUOB5Pg64xrl3y9Cz1L8udpj/oJEQbN6GgUxLYXuw2796+ef+0VzO8emV9csVyVDoKNgPrWcipFSpq1+FNGy72rIc9LnsM4BMViEmh1JyTKGAIqzVT+V8usYZw1/0Vzi2G+hzK2jkl8nDCHrbRheqpgE4EJZPjkclDrPMNCaQRPB9ZC+DYsHlyPGOAQhkFNcn9G2jSw5+ITqq5DNZS7L/zV87kGfskR9squ73YXTfVy3OnfEv3Zy1n/8RLpf4O19Xdi58AAAD//w==
 // DO NOT EDIT
 package com.paypal.sdk.v1.payments;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 import com.braintreepayments.http.annotations.*;
 /**
- * The base currency object for all financial value-related fields. For example, balance, payment due, and so on.
+ * The currency and amount for a transaction.
  */
 @Model
 public class Currency {
@@ -21,22 +21,21 @@ public class Currency {
     public Currency() {}
 
 	/**
-	* REQUIRED
 	* The [three-character ISO-4217 currency code](/docs/integration/direct/rest/currency-codes/). PayPal does not support all currencies.
 	*/
 	@SerializedName("currency")
-	private String currency;
+	private String currencyCode;
 
-	public String currency() { return currency; }
+	public String currencyCode() { return currencyCode; }
 	
-	public Currency currency(String currency) {
-	    this.currency = currency;
+	public Currency currencyCode(String currencyCode) {
+	    this.currencyCode = currencyCode;
 	    return this;
 	}
 
 	/**
 	* REQUIRED
-	* The amount, up to *N* digits after the decimal separator, as defined in [ISO-4217](/docs/integration/direct/rest/currency-codes/) for the appropriate currency code.
+	* The amount. Includes the specified number of digits after decimal separator for the [ISO-4217 currency code](https://en.wikipedia.org/wiki/ISO_4217#Active_codes).
 	*/
 	@SerializedName("value")
 	private String value;
