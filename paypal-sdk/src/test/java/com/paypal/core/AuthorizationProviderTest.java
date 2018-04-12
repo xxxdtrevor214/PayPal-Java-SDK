@@ -40,7 +40,15 @@ public class AuthorizationProviderTest extends PayPalWireMockHarness {
 	}
 
 	@Test
-	public void authorize_concurrentWithSameCredentials_onlyMakesOneCall() throws IOException, InterruptedException {
+	public void authorize_concurrentWithSameCredentials_onlyMakesOneCall() throws IOException, InterruptedException, NoSuchFieldException,IllegalAccessException {
+		AccessToken override = simpleAccessToken();
+		setField("expiresIn", override, 0);
+
+		MemoryCache<AccessToken> memoryCache = new MemoryCache<>();
+		memoryCache.put(environment().authorizationString(), override);
+
+		setField("authorizationCache", AuthorizationProvider.sharedInstance(), memoryCache);
+
 		stubAccessTokenRequest(simpleAccessToken());
 
 		CountDownLatch latch = new CountDownLatch(20);
