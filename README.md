@@ -4,6 +4,10 @@ This is a preview of how PayPal SDKs will look in the next major version. We've 
 simple model objects and blueprints for HTTP calls. This repo currently only contains functionality for working with payments
 to serve as an example and early beta of the API going forward.
 
+## What's New
+
+Please see the [CHANGELOG.md](./CHANGELOG.md) for the latest changes.
+
 ### Creating a Payment
 
 ```java

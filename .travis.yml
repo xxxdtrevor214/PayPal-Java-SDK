@@ -1,6 +1,5 @@
 language: java
 env:
-  - EXTRA=-Pintegration
   - EXTRA=
 jdk:
   - oraclejdk8
@@ -10,5 +9,4 @@ notifications:
   on_success: change
 sudo: true
 script: ./gradlew --stacktrace --info test $EXTRA
-# Disable snapshot deploys
-# after_success: ./script/deploy_snapshot.sh
+after_success: ./script/deploy_snapshot.sh

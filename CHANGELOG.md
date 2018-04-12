@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-Unreleased
+v2.0.0-rc.2
 ----
    * Support for Customer Disputes in Limited Release (API subject to change).
    * Update to latest Payments code.
