@@ -7,6 +7,8 @@ import com.paypal.sdk.v1.invoices.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
+import java.util.List;
+import java.util.ArrayList;
 
 public class TestUtil {
 
@@ -22,8 +24,15 @@ public class TestUtil {
 
 	public static HttpResponse<Invoice> createInvoice(HttpClient client) throws IOException {
 	    Invoice body = new Invoice();
+        List<BillingInfo> billingInfoList = new ArrayList<BillingInfo>();
+        billingInfoList.add(new BillingInfo().email("customer@example.com"));
+        Currency totalAmount = new Currency();
+        totalAmount.currencyCode("USD").value("5.00");
+
 	    body.merchantInfo(new MerchantInformation()
-                .email("team-dx-clients-facilitator@getbraintree.com"));
+                .email("team-dx-clients-facilitator@getbraintree.com"))
+            .billingInfo(billingInfoList)
+            .totalAmount(totalAmount);
 	    InvoiceCreateRequest request = new InvoiceCreateRequest().requestBody(body);
 
 	    return client.execute(request);
