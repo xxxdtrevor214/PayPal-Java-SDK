@@ -20,6 +20,7 @@ import static org.testng.Assert.fail;
 
 public class DisputeListTest extends TestHarness {
 
+    // Requires a sandbox account with dispute access
     @Test(enabled = false)
     public void testDisputeListRequest() throws IOException {
         DisputeListRequest request = new DisputeListRequest();

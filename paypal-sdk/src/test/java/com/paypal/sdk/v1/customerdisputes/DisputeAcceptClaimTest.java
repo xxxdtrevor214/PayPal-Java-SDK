@@ -19,6 +19,7 @@ import static org.testng.Assert.fail;
 
 public class DisputeAcceptClaimTest extends TestHarness {
 
+    // Requires a dispute in the correct state
     @Test(enabled = false)
     public void testDisputeAcceptClaimRequest() throws IOException {
         DisputeAcceptClaimRequest request = new DisputeAcceptClaimRequest("PP-000-042-635-209");

@@ -21,6 +21,8 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.fail;
 
 public class DisputeAppealTest extends TestHarness {
+
+    // Requires a dispute in the correct state
     @Test(enabled = false)
     public void testDisputeAppealRequest() throws IOException {
         DisputeAppealRequest request = new DisputeAppealRequest("PP-000-042-635-183");

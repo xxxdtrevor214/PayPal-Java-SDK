@@ -18,6 +18,8 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.fail;
 
 public class DisputeRequireEvidenceTest extends TestHarness {
+
+    // Requires a dispute in the correct state
     @Test(enabled = false)
     public void testDisputeRequireEvidenceRequest() throws IOException {
         RequireEvidenceRequest body = new RequireEvidenceRequest().action("SELLER_EVIDENCE");

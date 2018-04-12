@@ -19,6 +19,7 @@ import static org.testng.Assert.fail;
 
 public class DisputeAdjudicateTest extends TestHarness {
 
+    // Requires a dispute in the correct state
     @Test(enabled = false)
     public void testDisputeAdjudicateRequest() throws IOException {
         DisputeAdjudicateRequest request = new DisputeAdjudicateRequest("PP-000-042-635-209");

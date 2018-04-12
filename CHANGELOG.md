@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Unreleased
+----
+   * Support for Customer Disputes in Limited Release (API subject to change).
+   * Update to latest Payments code.
+   * Breaking change: Change from `currency` property on `com.paypal.sdk.v1.payments.Currency` class to `currencyCode`.
+
 v2.0.0-rc.1
 ----
    * Refactor API around request/response model.

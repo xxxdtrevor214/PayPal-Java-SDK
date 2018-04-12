@@ -19,6 +19,7 @@ import static org.testng.Assert.fail;
 
 public class DisputeGetTest extends TestHarness {
 
+    // Requires a sandbox account with dispute access
     @Test(enabled =false)
     public void testDisputeGetRequest() throws IOException {
         DisputeGetRequest request = new DisputeGetRequest("PP-000-042-636-306");

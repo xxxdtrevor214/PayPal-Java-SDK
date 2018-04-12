@@ -22,6 +22,7 @@ import static org.testng.Assert.fail;
 
 public class DisputeProvideEvidenceTest extends TestHarness {
 
+    // Requires a dispute in the correct state
     @Test(enabled = false)
     public void testDisputeProvideEvidenceRequest() throws IOException {
         DisputeProvideEvidenceRequest request = new DisputeProvideEvidenceRequest("PP-000-042-636-306");
